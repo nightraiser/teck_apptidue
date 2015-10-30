@@ -1,0 +1,109 @@
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+	$('.fbsignup').click(function(){
+		var url = "<?php echo $this->url(array('module'=>'User','controller'=>'Client','action'=>'signinfromwidget'),'default',true); ?>";
+		var widgetlink = "<?php echo $this->url(); ?>";
+		$.post(url,{widgetlink:widgetlink},function(data){
+			if(data == 'auth'){
+				window.location = widgetlink;
+			}else{
+				window.open(data,'fblog', "height=300,width=500");
+			}
+		});
+	});
+	
+	$('#login').click(function(){
+		$('.errorMsg').text('');
+		$(".emailerror").text('');
+		var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+	    if(!emailReg.test($("#emailAddress").val())) {
+	    	$(".emailerror").text("<? echo $this->translate->_('Enter a valid Email Address');?> ");
+	    	$(".emailerror").css({'color':'#ED0E19'});
+	       return false;
+	    }else{
+			$('#loginForm').submit();
+		}
+	});
+	
+});
+
+</script>
+
+<div id="page-content">
+	<section class="container">
+    	<div class="block">
+        	<div class="row">
+        	<!--login Container-->
+                        <div class="login-container">
+                            <div class="col-md-6 col-md-offset-3 login-content1">
+                                <header class="login-header" style="background:black;">
+                                    <h1 class="page-title">Log In To Reserve Dine</h1>
+                                </header>
+                                <div class="wrap">
+									<div class="login-split-left ">
+										<form role="form" id="form-sign-in-account" method="post" name="loginForm" id="loginForm"	action="<?php echo $this->url(array('module'=>'User','controller'=>'Login','action'=>'signin'),'default',true); ?>">
+											
+											<div class="form-group">
+												<label for="form-sign-in-email">Email:</label>
+												 <?php echo $this->loginForm->emailAddress	->setAttrib('placeholder',$this->translate->_('Email')); ?>
+											</div><!-- /.form-group -->
+											<div class="form-group" style="margin-top:10px;">
+												<label for="form-sign-in-password">Password:</label>
+												 <?php echo $this->loginForm->password->setAttrib('placeholder',$this->translate->_('Password')); ?>
+											</div><!-- /.form-group -->
+											<div class="form-group clearfix" style="margin-top:10px;">
+												<button type="submit" class="btn pull-right btn-default" id="login">Sign In</button>
+											</div><!-- /.form-group -->
+											<!-- <a href="#">Forgot Password?</a>-->
+										</form>
+									</div>
+									<ul class="login-split-right social-options">
+										<h2>Connect with</h2>
+										<li class="facebook">
+											<button class="btn btn-default ng-isolate-scope ng-scope fbsignup" login="" service="facebook"><i class="fa fa-facebook"></i></span> <span class="text" aria-hidden="Facebook">Facebook</span></button>
+										</li>
+										<li class="google">
+											<div id="my-signin2" login="" service="google"><i class="fa fa-google-plus"></i> <span class="text" aria-hidden="Google">Google</span></div>
+										</li>
+									</ul>
+								</div>
+                            </div>
+                        </div>
+                        <!--login controller-->
+			</div>
+		</div>
+	</section>
+</div>
+<script>
+		function onLogin(googleUser) 
+		{
+		  var userprofile = googleUser.getBasicProfile();
+		  var profile = '{ "email" :"'+userprofile.getEmail()+'","full_name":"'+userprofile.getName()+'"}';
+		  var url = "<?php echo $this->url(array('module'=>'User','controller'=>'Login','action'=>'signingmail'),'default',true); ?>";
+		 $.post(url,{profile:JSON.parse(profile)},function(data)
+		 {
+		 	if(data==true)
+		 	{
+		 		window.location  = "/";
+		 	}
+		 });
+		 
+		}
+		function onFailure(error) {
+     	 console.log(error);
+    	}
+	function renderButton() {
+      gapi.signin2.render('my-signin2', {
+        'scope': 'https://www.googleapis.com/auth/plus.login',
+        'width': 200,
+        'height': 40,
+        'longtitle': false,
+        'theme': 'dark',
+        'onsuccess': onLogin,
+        'onfailure': onFailure
+      });
+  }
+	</script>
+ 

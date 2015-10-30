@@ -1,0 +1,218 @@
+<!--
+*	Name			: tagsbdm.phtml
+*	Author			: eshwar
+*	Creation Date	: 9/2/2015
+*	Path 			: application/modules/Administrator/views/scripts/restaurant/tagsbdm.phtml
+*	Description		: This class is used for populating restaurant features. 					 
+-->
+<style type="text/css">
+	.error-check
+	{
+		border: 3px solid red;
+	}
+	.result
+	{
+		color:red;
+	}
+</style>
+<script type="text/javascript" src="/theme/ui/minified/jquery.ui.widget.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.position.min.js"></script>
+<script type="text/javascript" src="/theme/ui/minified/jquery.ui.dialog.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.resizable.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.draggable.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.droppable.min.js"></script>
+<script type="text/javascript">
+var perform ;
+$(function()
+{
+	$(".addButton").click(function()
+	{
+		$(".menuDia").dialog('destroy');
+		var htmlDia = '<div class="modal-window fade_in"><div class="modal-wrapper">';
+        htmlDia += '<h2>Add Tags</h2>';
+       	htmlDia += '<div class="modal-body"><div class="modal-content">';
+       	htmlDia +='<div class="result"></div>';
+        htmlDia += '<form role="form" id="modal-form">';
+        htmlDia +='<div class="form-group">';
+        htmlDia +='<lable for="code">Tags code</label>'
+        htmlDia += '<input required type="text" placeholder="Tags Title" class="form-control" name="code" />';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group">';
+         htmlDia +='<lable for="description">Tags Description</label>'
+        htmlDia += '<input required type="text" placeholder="Tags Description" class="form-control" name="description" />';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group"><button type="submit" class="btn pull-right btn-default" id="addTagsSubmit" >Submit</button></div></form>';
+		htmlDia += '</div></div><div class="modal-close"><img src="/images/close.png"></div></div><div class="modal-background fade_in"></div></div>';
+        $('body').append(htmlDia);
+        perform="append"
+	});
+	$(".editButton").click(function()
+	{
+		var parentTr = $(this).parents('tr');
+		var tagid = $(this).attr("data-id");
+		var populateData = [];
+		$('.class',parentTr);
+		parentTr.find("td[name='tagcode'],td[name='tagdescription']").each(function()
+		{
+			populateData[$(this).attr("name")] = $(this).attr("data-value");
+		});
+		$(".menuDia").dialog('destroy');
+		var htmlDia = '<div class="modal-window fade_in"><div class="modal-wrapper">';
+        htmlDia += '<h2>Add Tags</h2>';
+       	htmlDia += '<div class="modal-body"><div class="modal-content">';
+       	htmlDia +='<div class="result"></div>';
+        htmlDia += '<form role="form" id="modal-form">';
+        htmlDia +='<div class="form-group">';
+        htmlDia +='<lable for="code">Tags code</label>'
+        htmlDia += '<input type="text" placeholder="Tags Title" class="form-control" value="'+populateData['tagcode']+'" name="code" />';
+        htmlDia +='<input required name="id" type="hidden" value="'+tagid+'" />';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group">';
+         htmlDia +='<lable for="description">Tags Description</label>'
+        htmlDia += '<input required type="text" value="'+populateData['tagdescription']+'" placeholder="Tags Description" class="form-control" name="description" />';
+        htmlDia +='</div>';
+
+        htmlDia += '<div class="form-group"><button type="submit" class="btn pull-right btn-default" id="addTagsSubmit" >Submit</button></div></form>';
+		htmlDia += '</div></div><div class="modal-close"><img src="/images/close.png"></div></div><div class="modal-background fade_in"></div></div>';
+        $('body').append(htmlDia);
+        perform="update";
+	});
+	$("#modal-form").live("submit",function()
+	{
+		var tags = $("#modal-form").serializeArray();	
+		var validate=true;
+		if(validate)
+		{
+			var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'tagsbdm'),null,true);?>";
+			$.post(url,{perform:perform,data:tags},function(data){
+				console.log(data);
+				if(isNaN(data))
+				{
+					if(perform=="append")
+					{
+						if(data=='f')
+						{
+							$(".result").html("Tags code already exits");
+							$("input[name='code']").css({"border-width":"3px","border-color":"red","border-style":"solid"});
+						}
+					}
+					if(perform=="update")
+					{
+						if(data=='f')
+						{
+							$(".result").html("Tags code already exits");
+							$("input[name='code']").css({"border-width":"3px","border-color":"red","border-style":"solid"});
+						}
+					}
+				}
+				else
+				{
+					if(parseInt(data)>0)
+					{
+						$(".result").css("color","green");
+						if(perform == "update")
+						{
+							
+								var tr = $("button[data-id='"+tags[1]['value']+"']").parent().parent();
+								for(var i in tags)
+								{
+									$(tr).find("td[name='tag"+tags[i]['name']+"']").each(function(){
+										$(this).attr("data-value",tags[i]['value'])
+										$(this).html(tags[i]['value']);
+									});
+								}
+								//to
+								$(".result").html("Updated");
+								setTimeout(function() {
+								$(".modal-close").click();
+								},1000);
+						}
+						else
+						{
+								$(".result").html("Added");
+								setTimeout(function() {
+								location.reload();
+								},1000);
+						}
+					}
+				}
+			});
+		}
+		return false;
+	});
+	$(".statusChangeButton").click(function()
+	{
+		var tagid = $(this).attr("data-id");
+		var statusvalue = $(this).attr("data-value");
+		var status;
+		if(statusvalue=="true")
+		{
+			status = false;
+		}
+		else
+		{
+			status = true;
+		}
+		var tags = [{name:'id',value:tagid},{name:'status',value:status}];
+		console.log(tags);
+		var btn = $(this);
+		var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'tagsbdm'),null,true);?>";
+		$.post(url,{perform:"update",data:tags},function(data)
+		{
+			console.log(data);
+			if(!isNaN(data))
+			{
+				btn.attr("data-value",status);
+				if(status)
+				{
+					btn.attr("class","sml-btn1 green statusChangeButton");
+					btn.html("ACTIVE");
+				}
+				else
+				{
+					btn.attr("class","sml-btn1 statusChangeButton");
+					btn.html("INACTIVE");
+				}
+			}
+		});
+	});
+});
+</script>
+<div class="page-content">
+
+<div class="container">
+<header><h1>Tag Management</h1></header>
+	<?php  $tagsData = $this->tagsData; ?>
+	<br>
+	<button class="addButton btn btn-default pull-right">Add a tags</button>
+	<table class="table">
+		<?php  foreach ($tagsData as $tags):  ?>
+			<tr>
+				<td name='tagcode' data-value="<?php echo $tags->getCode(); ?>">
+					<?php  echo $tags->getCode(); ?>
+				</td>
+				<td name='tagdescription' data-value="<?php echo $tags->getDescription();?>">
+					<?php echo $tags->getDescription(); ?>
+				</td>
+				<td>
+				<?php 
+					     if($tags->getStatus()){
+					      echo '<button class="sml-btn1 green statusChangeButton" data-id="'.$tags->getId().'" data-value="true">ACTIVE</button>';
+					     }else{
+					      echo '<button class="sml-btn1 statusChangeButton" data-id= "'.$tags->getId().'" data-value="false">INACTIVE</button>';
+					     } 
+			     ?>
+			     </td>
+				</td>
+				<td>
+				<button class="editButton btn btn-default" data-id="<?php echo $tags->getId();  ?>">Edit</button>
+				</td>
+			</tr>
+		<?php endforeach  ?>
+	</table>
+</div>
+</div>
+
+
+
+

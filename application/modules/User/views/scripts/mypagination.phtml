@@ -1,0 +1,46 @@
+
+<div class="pagination" style="width:100%">
+    <div style="float:left;width:28%">
+    </div>
+    <div style="float:right;width:70%;">
+        <!-- First page link -->
+
+        <?php if (isset($this->previous)): ?>
+              <a class="pageBtnSearch" abbr="<?php echo $this->first;?>" href="<?= $this->url(array('pageview' => $this->first)); ?>">&laquo;</a>
+        <?php else: ?>
+                <span class="disabled">&laquo;</span> 
+        <?php endif; ?>
+    
+        <!-- Previous page link -->
+    
+        <?php if (isset($this->previous)): ?>
+              <a class="pageBtnSearch" abbr="<?php echo $this->previous;?>" href="<?= $this->url(array('pageview' => $this->previous)); ?>"> &lsaquo;</a>
+        <?php else: ?>
+            <span class="disabled"> &lsaquo;</span> 
+        <?php endif; ?>
+        <!-- Numbered page links -->
+
+        <?php foreach ($this->pagesInRange as $page): ?>
+            <?php if ($page != $this->current): ?>
+                <a class="pageSearch" href="<?= $this->url(array('pageview' => $page)); ?>"><?= $page; ?></a>
+            <?php else: ?>
+                <a href="#" class="selected"><?= $page; ?></a>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <!-- Next page link -->
+
+        <?php if (isset($this->next)): ?>
+              <a class="pageBtnSearch" abbr="<?php echo $this->next;?>" href="<?= $this->url(array('pageview' => $this->next)); ?>">&rsaquo; </a>
+        <?php else: ?>
+             <span class="disabled">&rsaquo; </span> 
+        <?php endif; ?>
+        <!-- Last page link -->
+
+        <?php if (isset($this->next)): ?>
+              <a class="pageBtnSearch" abbr="<?php echo $this->last;?>" href="<?= $this->url(array('pageview' => $this->last)); ?>">&raquo;</a>
+        <?php else: ?>
+            <span class="disabled">&raquo;</span>
+        <?php endif; ?>
+        <a href="#"> Page <?= $this->current; ?> of <?= $this->last; ?></a>
+    </div>
+ </div>

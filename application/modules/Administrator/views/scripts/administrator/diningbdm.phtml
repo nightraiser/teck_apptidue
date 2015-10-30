@@ -1,0 +1,212 @@
+<!--
+*	Name			: diningbdm.phtml
+*	Author			: eshwar
+*	Creation Date	: 9/3/2015
+*	Path 			: application/modules/Administrator/views/scripts/restaurant/diningbdm.phtml
+*	Description		: This view is used to populate data of diningstyle BDM
+*					   	
+-->
+<style type="text/css">
+	.error-check
+	{
+		border: 3px solid red;
+	}
+	.result
+	{
+		color:red;
+	}
+</style>
+<script type="text/javascript" src="/theme/ui/minified/jquery.ui.widget.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.position.min.js"></script>
+<script type="text/javascript" src="/theme/ui/minified/jquery.ui.dialog.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.resizable.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.draggable.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.droppable.min.js"></script>
+<script type="text/javascript">
+var perform ;
+$(function()
+{
+	$(".addButton").click(function()
+	{
+		$(".menuDia").dialog('destroy');
+		var htmlDia = '<div class="modal-window fade_in"><div class="modal-wrapper">';
+        htmlDia += '<h2>Add Dining Style</h2>';
+       	htmlDia += '<div class="modal-body"><div class="modal-content">';
+       	htmlDia +='<div class="result"></div>';
+        htmlDia += '<form role="form" id="modal-form">';
+        htmlDia +='<div class="form-group">';
+        htmlDia +='<lable for="code">Dining code</label>'
+        htmlDia += '<input required type="text" placeholder="Dining Title" class="form-control" name="code" />';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group">';
+         htmlDia +='<lable for="description">Dining description</label>'
+        htmlDia += '<input required type="text" placeholder="Dining Description" class="form-control" name="description" />';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group"><button type="submit" class="btn pull-right btn-default" id="addDiningSubmit" >Submit</button></div></form>';
+		htmlDia += '</div></div><div class="modal-close"><img src="/images/close.png"></div></div><div class="modal-background fade_in"></div></div>';
+        $('body').append(htmlDia);
+        perform="append";
+	});
+	$(".editButton").click(function()
+	{
+		var parentTr = $(this).parents('tr');
+		var dineid = $(this).attr("data-id");
+		var populateData = [];
+		parentTr.find("td[name='dinecode'],td[name='dinedescription']").each(function()
+		{
+			populateData[$(this).attr("name")] = $(this).attr("data-value");
+		});
+		$(".menuDia").dialog('destroy');
+		var htmlDia = '<div class="modal-window fade_in"><div class="modal-wrapper">';
+        htmlDia += '<h2>Edit Diningstyle</h2>';
+       	htmlDia += '<div class="modal-body"><div class="modal-content">';
+       	htmlDia +='<div class="result"></div>';
+        htmlDia += '<form role="form" id="modal-form">';
+        htmlDia +='<div class="form-group">';
+        htmlDia +='<lable for="code">Dine code</label>'
+        htmlDia += '<input type="text" placeholder="Dine Title" class="form-control" value="'+populateData['dinecode']+'" name="code" />';
+        htmlDia +='<input name="id" type="hidden" value="'+dineid+'" />';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group">';
+        htmlDia +='<lable for="description">Dine Description</label>'
+        htmlDia += '<input type="text" value="'+populateData['dinedescription']+'" placeholder="Dine Description" class="form-control" name="description" />';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group"><button type="submit" class="btn pull-right btn-default" id="addDiningSubmit" >Submit</button></div></form>';
+		htmlDia += '</div></div><div class="modal-close"><img src="/images/close.png"></div></div><div class="modal-background fade_in"></div></div>';
+        $('body').append(htmlDia);
+        perform="update";
+	});
+	$("#modal-form").live("submit",function()
+	{
+		var dine = $("#modal-form").serializeArray();	
+		var validate=true;
+		if(validate)
+		{
+			var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'diningbdm'),null,true);?>";
+			$.post(url,{perform:perform,data:dine},function(data){
+				console.log(data);
+				if(isNaN(data))
+				{
+					if(perform=="append")
+					{
+						if(data=='f')
+						{
+							$(".result").html("Dine code already exits");
+							$("input[name='code']").css({"border-width":"3px","border-color":"red","border-style":"solid"});
+						}
+
+					}
+					if(perform=="update")
+					{
+						if(data=='f')
+						{
+							$(".result").html("Dine code already exits");
+							$("input[name='code']").css({"border-width":"3px","border-color":"red","border-style":"solid"});
+
+						}
+
+					}
+				}
+				else
+				{
+					if(parseInt(data)>0)
+					{
+						$(".result").css("color","green");
+						if(perform == "update")
+						{
+								var tr = $("button[data-id='"+dine[1]['value']+"']").parent().parent();
+								for(var i in dine)
+								{
+									$(tr).find("td[name='dine"+dine[i]['name']+"']").each(function(){
+										$(this).attr("data-value",dine[i]['value'])
+										$(this).html(dine[i]['value']);
+									});
+								}
+								$(".result").html("Updated");
+								setTimeout(function() {
+								$(".modal-close").click();
+								},1000);
+						}
+						else
+						{
+								$(".result").html("Added");
+								setTimeout(function() {
+								location.reload();
+								},1000);
+						}
+					}
+				}
+			});
+		}
+		return false;
+	});
+	$(".statusChangeButton").click(function()
+	{
+		var dineid = $(this).attr("data-id");
+		var statusvalue = $(this).attr("data-value");
+		var status;
+		if(statusvalue=="true")
+		{
+			status = false;
+		}
+		else
+		{
+			status = true;
+		}
+		var dine = [{name:'id',value:dineid},{name:'status',value:status}];
+		console.log(dine);
+		var btn = $(this);
+		var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'diningbdm'),null,true);?>";
+		$.post(url,{perform:"update",data:dine},function(data)
+		{
+			console.log(data);
+			if(!isNaN(data))
+			{
+				btn.attr("data-value",status);
+				if(status)
+				{
+					btn.attr("class","sml-btn1 green statusChangeButton");
+					btn.html("ACTIVE");
+				}
+				else
+				{
+					btn.attr("class","sml-btn1 statusChangeButton");
+					btn.html("INACTIVE");
+				}
+			}
+		});
+	});
+});
+</script>
+<div class="page-content">
+
+<div class="container">
+	<?php $diningData = $this->diningData; ?>
+	<br>
+	<button class="addButton">Add a dining style</button><br>
+	<table class="table">
+		<?php foreach ($diningData as $dine): ?>
+			<tr>			
+				<td name='dinecode' data-value="<?php echo $dine->getCode(); ?>">
+					<?php echo $dine->getCode(); ?>
+				</td>
+				<td name='dinedescription' data-value="<?php echo $dine->getDescription();?>">
+					<?php echo $dine->getDescription();?>
+				</td>
+				<td>
+				<?php 
+					     if($dine->getStatus()){
+					      echo '<button class="sml-btn1 green statusChangeButton" data-id="'.$dine->getId().'" data-value="true">ACTIVE</button>';
+					     }else{
+					      echo '<button class="sml-btn1 statusChangeButton" data-id= "'.$dine->getId().'" data-value="false">INACTIVE</button>';
+					     } 
+			     ?>
+			     </td>
+				<td>
+				<button class="editButton" data-id="<?php echo $dine->getId(); ?>">Edit</button>
+				</td>
+			</tr>
+		<?php endforeach ?>
+	</table>
+</div>
+</div>

@@ -1,0 +1,3431 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: eng\n"
+"POT-Creation-Date: 2014-03-05 17:20+0530\n"
+"PO-Revision-Date: 2014-03-05 17:24+0530\n"
+"Last-Translator: snehal <snehal@dinedesk.net>\n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop\n"
+"X-Poedit-Basepath: D:\\Unicorn\\Zend\\Apache2\\htdocs\\DineDesk\\application"
+"\\views\\scripts\\index\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: aboutus.phtml:5 aboutusza.phtml:5 careers.phtml:5 careers1.phtml:5
+#: careers2.phtml:5 contactus.phtml:17 contactusza.phtml:17 faq.phtml:5
+#: news.phtml:4 news1.phtml:5
+msgid "About Us"
+msgstr "¿Quiénes somos?"
+
+#: aboutus.phtml:6 aboutusza.phtml:6 careers.phtml:6 careers1.phtml:6
+#: careers2.phtml:6 contactus.phtml:18 contactusza.phtml:18 faq.phtml:6
+#: news1.phtml:6
+msgid "FAQs"
+msgstr "FAQs"
+
+#: aboutus.phtml:7 aboutusza.phtml:7 careers.phtml:7 careers1.phtml:7
+#: careers2.phtml:7 contactus.phtml:19 contactusza.phtml:19 faq.phtml:7
+#: news1.phtml:7
+msgid "Contact Us"
+msgstr "contáctenos"
+
+#: aboutus.phtml:8 aboutusza.phtml:8 careers.phtml:8 careers1.phtml:8
+#: careers2.phtml:8 contactus.phtml:20 contactusza.phtml:20 faq.phtml:8
+#: news1.phtml:8
+msgid "Careers"
+msgstr "Carreras"
+
+#: aboutus.phtml:9 aboutusza.phtml:9 careers.phtml:9 careers1.phtml:9
+#: careers2.phtml:9 contactus.phtml:21 contactusza.phtml:21 faq.phtml:9
+#: news.phtml:5 news1.phtml:9
+msgid "News & Press"
+msgstr "Noticias y Prensa"
+
+#: aboutus.phtml:10 aboutusza.phtml:10 careers.phtml:10 careers1.phtml:10
+#: careers2.phtml:10 contactus.phtml:22 contactusza.phtml:22 faq.phtml:10
+#: news1.phtml:10
+msgid "Privacy Policy"
+msgstr "Política de privacidad"
+
+#: aboutus.phtml:11 aboutusza.phtml:11 careers.phtml:11 careers1.phtml:11
+#: careers2.phtml:11 contactus.phtml:23 contactusza.phtml:23 faq.phtml:11
+#: news1.phtml:11
+msgid "Terms and Conditions"
+msgstr "Términos y Condiciones"
+
+#: aboutus.phtml:15 aboutusza.phtml:15
+msgid "What We're All About"
+msgstr "Lo que está sobre todos"
+
+#: aboutus.phtml:16 aboutusza.phtml:16
+msgid ""
+"DineDesk offers restaurants the first fully integrated suite of tools to "
+"manage all aspects of online marketing, reservations and guest management.  "
+"Our customers use DineDesk to assist with all their front-of-restaurant "
+"needs."
+msgstr ""
+"DineDesk ofrece restaurantes de la primera suite totalmente integrada de "
+"herramientas para gestionar todos los aspectos del marketing online, "
+"reservas y gestión de clientes. Nuestros clientes utilizan DineDesk para "
+"ayudar con todas sus necesidades de primera de-restaurante."
+
+#: aboutus.phtml:17 aboutusza.phtml:17
+msgid ""
+"We help restaurants harness the power of technology to save time and money "
+"while operating a restaurant at top efficiency.  Our social media, email and "
+"mobile marketing solutions bring new guests to a restaurant, and then bring "
+"then back to the restaurant time and again.  Our reservation tools provide "
+"restaurants with free online bookings from their website, mobile websites "
+"and even Facebook and other social media."
+msgstr ""
+"Ayudamos a los restaurantes a aprovechar el poder de la tecnología para "
+"ahorrar tiempo y dinero mientras se opera un restaurante con la máxima "
+"eficiencia. Nuestros medios de comunicación sociales, correo electrónico y "
+"soluciones de marketing móvil traer nuevos clientes a un restaurante, y "
+"luego llevar a continuación a la época restaurante y otra vez. Nuestras "
+"herramientas de reserva ofrecen restaurantes con reservas libres en línea de "
+"su página web, sitios web para móviles e incluso Facebook y otros medios "
+"sociales."
+
+#: aboutus.phtml:18 aboutusza.phtml:18
+msgid ""
+"DineDesk is a company with a global perspective.  With operations in both "
+"the US and India, we are fully committed to offering all our products to all "
+"restaurants in all countries of the world.  We work"
+msgstr ""
+"DineDesk es una empresa con una perspectiva global. Con operaciones en los "
+"EE.UU. y la India, estamos plenamente comprometidos a ofrecer a todos "
+"nuestros productos a todos los restaurantes de todos los países del mundo. "
+"trabajamos"
+
+#: aboutus.phtml:18 aboutusza.phtml:18
+msgid "directly with restaurants"
+msgstr "directamente con los restaurantes"
+
+#: aboutus.phtml:18
+msgid "or sell through "
+msgstr "o vender a través de"
+
+#: aboutus.phtml:18
+msgid "local partners"
+msgstr "socios locales"
+
+#: aboutus.phtml:19 aboutusza.phtml:19
+msgid "Our Vision"
+msgstr "nuestra Visión"
+
+#: aboutus.phtml:21 aboutusza.phtml:21
+msgid ""
+"We are committed to bringing simple but advanced technology to restaurants "
+"to handle daily management and marketing tasks.  We believe that restaurants "
+"the world over can benefit from the same types of technology that has "
+"revolutionized the hotel and airline industries."
+msgstr ""
+"Estamos comprometidos a llevar la tecnología simple pero avanzada para "
+"restaurantes para manejar las tareas diarias de gestión y comercialización. "
+"Creemos que los restaurantes de todo el mundo puedan beneficiarse de los "
+"mismos tipos de tecnología que ha revolucionado la industria hotelera y de "
+"las aerolíneas."
+
+#: aboutus.phtml:24 aboutusza.phtml:24
+msgid ""
+"Just as restaurants strive to maintain a personal relationship with their "
+"guests, we strive to maintain personal relationships with our customers, "
+"offering our technology at a price that is affordable to all restaurants."
+msgstr ""
+"Al igual que los restaurantes se esfuerzan por mantener una relación "
+"personal con sus clientes, nos esforzamos por mantener relaciones personales "
+"con nuestros clientes, ofreciendo nuestra tecnología a un precio que está al "
+"alcance de todos los restaurantes."
+
+#: aboutus.phtml:26 aboutusza.phtml:26
+msgid "Partner with Us"
+msgstr "Asociarse con nosotros"
+
+#: aboutus.phtml:32
+msgid ""
+"DineDesk is always open to partnerships with companies with common "
+"interests.  To open a discussion, email us at: "
+msgstr ""
+"DineDesk está siempre abierta a las asociaciones con empresas con intereses "
+"comunes. Para abrir una discusión, envíenos un email a:"
+
+#: aboutus.phtml:32 aboutusza.phtml:32
+msgid "sales@dinedesk.com"
+msgstr "sales@dinedesk.com"
+
+#: aboutusza.phtml:18
+msgid "or sell through"
+msgstr "o vender a través de"
+
+#: aboutusza.phtml:18
+msgid "local partners."
+msgstr "socios locales."
+
+#: aboutusza.phtml:32
+msgid ""
+"DineDesk is always open to partnerships with companies with common "
+"interests.  To open a discussion, email us at:"
+msgstr ""
+"DineDesk está siempre abierta a las asociaciones con empresas con intereses "
+"comunes. Para abrir una discusión, envíenos un email a:"
+
+#: careers.phtml:15
+msgid "WORK FOR DINEDESK"
+msgstr "TRABAJO EN SU ESCRITORIO"
+
+#: careers.phtml:16
+msgid "Are you looking for a new challenge?"
+msgstr "¿Está buscando un nuevo desafío?"
+
+#: careers.phtml:17
+msgid ""
+"DineDesk is a startup filled with enthusiastic, young and eager individuals. "
+"We believe in being quick on our feet, harbouring grand visions of our "
+"community of food lovers and working with the best and brightest that come "
+"our way."
+msgstr ""
+"DineDesk es un inicio lleno de personas entusiastas, jóvenes y ansiosos. "
+"Creemos en ser rápido en los pies, que alberga grandes visiones de nuestra "
+"comunidad de amantes de la comida y el trabajo con los mejores y más "
+"brillantes que se cruzan en nuestro camino."
+
+#: careers.phtml:18
+msgid ""
+"At DineDesk you get the best of working at a startup under the guidance of "
+"people who have worked with Fortune 500 Consulting firms. And we are proud "
+"of having them in DineDesk."
+msgstr ""
+"En DineDesk usted obtiene lo mejor de trabajar en un inicio bajo la "
+"dirección de las personas que han trabajado con empresas de Fortune 500 de "
+"Consultoría. Y estamos orgullosos de tenerlos en DineDesk."
+
+#: careers.phtml:19
+msgid ""
+"We believe in introspection and thus urge you to answer a few questions "
+"before you read our benefits."
+msgstr ""
+"Creemos en la introspección y por lo tanto le recomendamos que responder a "
+"algunas preguntas antes de leer nuestros beneficios."
+
+#: careers.phtml:21
+msgid "Is food on your mind all the time?"
+msgstr "¿Es la comida en su mente todo el tiempo?"
+
+#: careers.phtml:22
+msgid ""
+"Do you believe you can use technology to change the way information is shown?"
+msgstr ""
+"¿Cree usted que se puede utilizar la tecnología para cambiar la forma en que "
+"la información se muestra?"
+
+#: careers.phtml:23
+msgid "Does passing out at 3 am sound familiar?"
+msgstr "¿Tiene repartiendo a las 3 am suena familiar?"
+
+#: careers.phtml:24
+msgid "Do you like to work hard? And party harder?"
+msgstr "¿Le gusta trabajar duro? Y parte más difícil?"
+
+#: careers.phtml:25
+msgid ""
+"Is the idea of challenging the boss at Age of Empires 2/Counter Strike "
+"thrilling?"
+msgstr ""
+"Es la idea de desafiar al jefe en Age of Empires 2/Counter Huelga "
+"emocionante?"
+
+#: careers.phtml:27
+msgid "Life at dinedesk"
+msgstr "La vida en su escritorio"
+
+#: careers.phtml:28
+msgid ""
+"The biggest benefit of working at DineDesk? The insanely talented and "
+"passionate people you get to work with on a daily basis. People who believe "
+"in action and will stop at nothing to get something done."
+msgstr ""
+"El mayor beneficio de trabajar en DineDesk? Las personas increíblemente "
+"talentosas y apasionadas se llega a trabajar con el día a día. Las personas "
+"que creen en la acción y no se detendrán ante nada para conseguir que se "
+"haga algo."
+
+#: careers.phtml:29
+msgid "apart from that, why should you work at DineDesk?"
+msgstr "aparte de eso, ¿por qué debería trabajar en DineDesk?"
+
+#: careers.phtml:31
+msgid ""
+"Work on something really really important; something which affects the lives "
+"of millions of people"
+msgstr ""
+"Trabajar en algo muy, muy importante, algo que afecta la vida de millones de "
+"personas"
+
+#: careers.phtml:32
+msgid "Genuinely fun work culture (no BS, all straight talk) with cool folks"
+msgstr ""
+"Cultura de trabajo genuinamente divertido (no BS, toda conversación directa) "
+"con gente copada"
+
+#: careers.phtml:33
+msgid ""
+"We move fast; we don't have any annual plans - we always pack everything "
+"within the next three months"
+msgstr ""
+"Nos movemos rápido, nosotros no tenemos planes anuales - siempre nos "
+"embalamos todo dentro de los próximos tres meses"
+
+#: careers.phtml:34
+msgid ""
+"Serious real world training and mentorship while working in a very flat "
+"organizational structure"
+msgstr ""
+"Entrenamiento serio mundo real y orientación mientras se trabaja en una "
+"estructura organizativa muy plana"
+
+#: careers.phtml:35
+msgid "Push yourself harder than you have ever before"
+msgstr "No se requiere experiencia previa"
+
+#: careers.phtml:36
+msgid "In our customers' words, save lives!"
+msgstr "In our customers' words, save lives!"
+
+#: careers.phtml:40
+msgid "OPEN POSITIONS"
+msgstr "Posiciones Abiertas"
+
+#: careers.phtml:41 careers1.phtml:15
+msgid "Business Development Manager"
+msgstr "Gerente de Desarrollo de Negocios"
+
+#: careers.phtml:42 careers.phtml:52 careers1.phtml:16 careers2.phtml:16
+msgid "India | Opening date: 15 Jan, 2014"
+msgstr "India | Fecha de inauguración: 15 de enero 2014"
+
+#: careers.phtml:43 careers.phtml:53 careers1.phtml:17 careers2.phtml:17
+msgid "Requirements:"
+msgstr "Requisitos:"
+
+#: careers.phtml:45 careers.phtml:55 careers1.phtml:19 careers2.phtml:19
+msgid "Detail oriented with special attention to minute data points"
+msgstr "Detalle orientado, con especial atención a los puntos de datos minuto"
+
+#: careers.phtml:46 careers.phtml:56 careers1.phtml:20 careers2.phtml:20
+msgid ""
+"Ability to work in a highly charged environment without compromising on the "
+"set quality standards"
+msgstr ""
+"Capacidad para trabajar en un entorno altamente cargado sin comprometer los "
+"estándares de calidad establecidos"
+
+#: careers.phtml:48 careers.phtml:58
+msgid "Read More..."
+msgstr "Leer más ..."
+
+#: careers.phtml:51 careers2.phtml:15
+msgid "Marketing Analyst, Sales Executive"
+msgstr "Analista de Marketing, Sales Executive"
+
+#: careers1.phtml:21 careers2.phtml:21
+msgid ""
+"Intelligent and self-motivated individuals, willing to work hard, to achieve "
+"and exceed targets"
+msgstr ""
+"Inteligente y los individuos auto-motivados, dispuestos a trabajar duro, "
+"para alcanzar y superar los objetivos"
+
+#: careers1.phtml:22 careers2.phtml:22
+msgid "Excellent oral and written communication skills"
+msgstr "Excelentes habilidades de comunicación oral y escrita"
+
+#: careers1.phtml:23 careers2.phtml:23
+msgid "Computer skills (an absolute necessity)"
+msgstr "Conocimientos de informática (que es absolutamente necesario)"
+
+#: careers1.phtml:24 careers2.phtml:24
+msgid "No previous experience required"
+msgstr "No se requiere experiencia previa"
+
+#: careers1.phtml:27 careers2.phtml:27
+msgid "Responsibilities:"
+msgstr "Responsabilidades:"
+
+#: careers1.phtml:29 careers2.phtml:29
+msgid ""
+"Sourcing, curating and updating restaurant related data on DineDesk's website"
+msgstr ""
+"Electrónicos, el comisariado y la actualización de los datos relacionados "
+"con el restaurante en el sitio web DineDesk"
+
+#: careers1.phtml:30 careers2.phtml:30
+msgid ""
+"Quality checking the data on the website to ensure that information is "
+"accurate"
+msgstr ""
+"Calidad comprobación de los datos en el sitio web para asegurarse de que la "
+"información es exacta"
+
+#: careers1.phtml:31 careers2.phtml:31
+msgid "Generate leads for the sales team"
+msgstr "Generar oportunidades de venta para el equipo de ventas"
+
+#: careers1.phtml:32 careers2.phtml:32
+msgid "Preparing feedbacks for restaurants and restaurant staff"
+msgstr "Evaluaciones Preparación para restaurantes y personal del restaurante"
+
+#: careers1.phtml:35 careers2.phtml:35
+msgid "Note:"
+msgstr "Nota:"
+
+#: careers1.phtml:37 careers2.phtml:37
+msgid "Legal work permit to work in the selected location is required"
+msgstr ""
+"Se requiere permiso de trabajo legal para trabajar en el lugar seleccionado"
+
+#: careers1.phtml:40 careers2.phtml:40
+msgid "Apply for job"
+msgstr "Solicitar trabajo"
+
+#: careers1.phtml:40 careers2.phtml:40
+msgid "Back to job listings"
+msgstr "Volver a listados de trabajo"
+
+#: chalkboardwidget.phtml:3 cloudbasedsystem.phtml:3 features.phtml:4
+#: reservationwidget.phtml:4 twowaywaitlist.phtml:3
+msgid "System Features"
+msgstr "Características del sistema"
+
+#: chalkboardwidget.phtml:4 cloudbasedsystem.phtml:4 features.phtml:5
+#: reservationwidget.phtml:5 twowaywaitlist.phtml:4
+msgid "Cloud-Based System"
+msgstr "Sistema basado en la nube"
+
+#: chalkboardwidget.phtml:5 cloudbasedsystem.phtml:5 features.phtml:6
+#: reservationwidget.phtml:6 twowaywaitlist.phtml:5
+msgid "Reservation Widget"
+msgstr "Widget Reserva"
+
+#: chalkboardwidget.phtml:6 cloudbasedsystem.phtml:6 features.phtml:7
+#: reservationwidget.phtml:7 reservationwidget.phtml:34 twowaywaitlist.phtml:6
+msgid "Chalkboard Widget"
+msgstr "pizarra Widget"
+
+#: chalkboardwidget.phtml:7 cloudbasedsystem.phtml:7 features.phtml:8
+#: reservationwidget.phtml:8 twowaywaitlist.phtml:7
+msgid "Phone Notify"
+msgstr "Teléfono Indicarme"
+
+#: chalkboardwidget.phtml:8 cloudbasedsystem.phtml:8 features.phtml:9
+#: reservationwidget.phtml:9 twowaywaitlist.phtml:8
+msgid "2-Way Wait List"
+msgstr "2-Way Lista de Espera"
+
+#: chalkboardwidget.phtml:9 cloudbasedsystem.phtml:9 features.phtml:10
+#: reservationwidget.phtml:10 twowaywaitlist.phtml:9
+msgid "Reservation Hover"
+msgstr "Reserva Hover"
+
+#: chalkboardwidget.phtml:10 cloudbasedsystem.phtml:10 features.phtml:11
+#: reservationwidget.phtml:11 twowaywaitlist.phtml:10
+msgid "Mobile App"
+msgstr "Mobile App"
+
+#: chalkboardwidget.phtml:11 cloudbasedsystem.phtml:11 features.phtml:12
+#: reservationwidget.phtml:12 twowaywaitlist.phtml:11
+msgid "Customer Lists"
+msgstr "Listas de clientes"
+
+#: chalkboardwidget.phtml:15
+msgid "Chalkboard Widget for Restaurant Specials"
+msgstr "Pizarra Widget para restaurante Especiales"
+
+#: chalkboardwidget.phtml:18
+msgid ""
+"Use this DineDesk tool to create 'impulse buys' that appear to the customer "
+"as they make their"
+msgstr ""
+"Use esta herramienta para crear \"DineDesk compras impulsivas\" que aparecen "
+"para el cliente ya que se abren"
+
+#: chalkboardwidget.phtml:18
+msgid "online reservation"
+msgstr "reservas en línea"
+
+#: chalkboardwidget.phtml:18
+msgid ""
+". Whether selling the chef's latest cookbook or advertising the restaurant's "
+"custom homemade birthday cakes, t-shirts, hats, etc., visitors will have the "
+"option to 'shop' as they make their reservation, thus providing an "
+"additional revenue stream before the guest even walks through the door. "
+msgstr ""
+". Si la venta de la última recetario del chef o publicidad personalizada "
+"caseras tortas del restaurante cumpleaños, camisetas, sombreros, etc, los "
+"visitantes tendrán la opción de \"tienda\" ya que hacen su reserva, "
+"proporcionando así una fuente de ingresos adicional antes de que el invitado "
+"incluso camina a través de la puerta."
+
+#: chalkboardwidget.phtml:20
+msgid ""
+"The Widget feature can also be used similar to a 'Daily Specials' chalkboard "
+"- to disseminate information such as free parking, a dinner and a movie "
+"special or any other specific restaurant programs. With DineDesk, "
+"restaurants can create their own 'group deal-type' sites that are marketed "
+"directly to their customers while retaining all of the important information "
+"that corresponds with this process. "
+msgstr ""
+"La característica Widget se puede utilizar también similar a una pizarra "
+"'Daily Specials' - difundir información, como aparcamiento gratuito, una "
+"cena y una película especial o cualquier otro programa de restaurante "
+"específicas. Con DineDesk, los restaurantes pueden crear sus propios sitios "
+"de los de tipo de grupo de acuerdo 'que se comercializan directamente a sus "
+"clientes, manteniendo toda la información importante que corresponde a este "
+"proceso."
+
+#: chalkboardwidget.phtml:23
+msgid "Keeping Your Guests Informed"
+msgstr "Mantener sus huéspedes Informado"
+
+#: chalkboardwidget.phtml:26
+msgid "Advertise special offers"
+msgstr "Publicidad ofertas especiales"
+
+#: chalkboardwidget.phtml:27
+msgid "Promote retail items"
+msgstr "Promover artículos al por menor"
+
+#: chalkboardwidget.phtml:28
+msgid "Post daily specials"
+msgstr "Especiales diarios Mensaje"
+
+#: cloudbasedsystem.phtml:15
+msgid "Cloud-Based Restaurant Reservation System"
+msgstr "Sistema de Reserva restaurante basado en la nube"
+
+#: cloudbasedsystem.phtml:18
+msgid ""
+"DineDesk is a cloud-based reservation system. To a restaurateur, this "
+"translates into no expensive equipment to buy or lease and no software that "
+"needs to be continuously updated. DineDesk turns any computer, tablet or"
+msgstr ""
+"DineDesk es un sistema de reserva basado en la nube. Para el restaurador, "
+"esto se traduce en ningún equipo caro para comprar o arrendar y ningún "
+"software que necesita ser actualizado continuamente. DineDesk convierte "
+"cualquier ordenador, tableta o"
+
+#: cloudbasedsystem.phtml:18
+msgid "mobile device"
+msgstr "dispositivo móvil"
+
+#: cloudbasedsystem.phtml:18
+msgid ""
+"into a reservation system. In addition, there is never the concern about "
+"losing crucial data as all information is the restaurant�s property and "
+"saved and backed up remotely."
+msgstr ""
+"en un sistema de reservas. Además, nunca hay la preocupación por la pérdida "
+"de datos cruciales que toda la información es propiedad de el restaurante s "
+"y se guarda una copia de seguridad y de forma remota."
+
+#: cloudbasedsystem.phtml:21
+msgid "Optimizing Daily Tasks"
+msgstr "Optimización de las tareas diarias"
+
+#: cloudbasedsystem.phtml:24
+msgid ""
+"We'll store everything... you can access anything from your computer, "
+"laptop, tablet or smart phone"
+msgstr ""
+"Almacenaremos todo ... se puede acceder a cualquier cosa, desde su "
+"ordenador, portátil, tablet o teléfono inteligente"
+
+#: cloudbasedsystem.phtml:25
+msgid "No special equipment to buy or lease"
+msgstr "Equipo especial para comprar o arrendar"
+
+#: cloudbasedsystem.phtml:26
+msgid ""
+"Take, receive and manage reservations with full reporting and email marketing"
+msgstr ""
+"Tomemos, recibir y gestionar reservas facilitando información completa y "
+"marketing por correo electrónico"
+
+#: contactconfirm.phtml:237
+msgid "Market & Manage your Restaurant Easily with DineDesk"
+msgstr "Market & Administrar su restaurante fácilmente con DineDesk"
+
+#: contactconfirm.phtml:239
+msgid "With DineDesk you can"
+msgstr "Con DineDesk puedas"
+
+#: contactconfirm.phtml:241
+msgid "Get More Off Peak Reservations"
+msgstr "Obtener más Off Peak Reservas"
+
+#: contactconfirm.phtml:242 marketing.phtml:56
+msgid "DineDesk's tools make social media easy"
+msgstr "Herramientas de los medios sociales hacen DineDesk fácil"
+
+#: contactconfirm.phtml:243 guestmanagement.phtml:62
+#: guestmanagementza.phtml:62
+msgid "Eliminate the pain of managing waiting guests"
+msgstr "Eliminar el dolor de la gestión de clientes en espera"
+
+#: contactconfirm.phtml:244 marketing.phtml:72 marketingza.phtml:72
+msgid "Receive valuable feedback from your guests"
+msgstr "Recibir información valiosa de sus invitados"
+
+#: contactconfirm.phtml:245
+msgid "No setup, transaction or commission fees"
+msgstr "Sin configuración, transacciones o comisiones honorarios"
+
+#: contactconfirm.phtml:246
+msgid "Business friendly cost and payment plans"
+msgstr "Amistosas planes de costos y pago de Negocios"
+
+#: contactconfirm.phtml:248
+msgid ""
+"Our Relationship Managers are waiting to take your request. Fill in your "
+"details and we would be delighted to show you around."
+msgstr ""
+"Nuestros gerentes de relaciones están esperando para tomar su pedido. "
+"Rellene sus datos y estaremos encantados de mostrarle alrededor."
+
+#: contactconfirm.phtml:249
+msgid "You can also reach us by calling us at any of the numbers below:"
+msgstr ""
+"También puede comunicarse con nosotros llamándonos al cualquiera de los "
+"siguientes números:"
+
+#: contactconfirm.phtml:254
+msgid "Singapore:"
+msgstr "Singapore:"
+
+#: contactconfirm.phtml:254
+msgid "+65 31585034"
+msgstr "+65 31585034"
+
+#: contactconfirm.phtml:258
+msgid "Bahrain:"
+msgstr "Bahrain:"
+
+#: contactconfirm.phtml:258
+msgid "+97-316198870"
+msgstr "+97-316198870"
+
+#: contactconfirm.phtml:262
+msgid "IND:"
+msgstr "IND:"
+
+#: contactconfirm.phtml:262
+msgid "+91 809 9 80 99 27"
+msgstr "+91 809 9 80 99 27"
+
+#: contactconfirm.phtml:266
+msgid "US :"
+msgstr "EE.UU.:"
+
+#: contactconfirm.phtml:266
+msgid "+1 617 939  9665"
+msgstr "+1 617 939  9665"
+
+#: contactconfirm.phtml:270
+msgid "AUS:"
+msgstr "AUS:"
+
+#: contactconfirm.phtml:270
+msgid "+61 284 172 929"
+msgstr "+61 284 172 929"
+
+#: contactconfirm.phtml:274
+msgid "UK:"
+msgstr "UK:"
+
+#: contactconfirm.phtml:274
+msgid "+44 870 820 0304"
+msgstr "+44 870 820 0304"
+
+#: contactconfirm.phtml:285
+msgid "Confirmation Details"
+msgstr "Detalles de confirmación"
+
+#: contactconfirm.phtml:286
+msgid ""
+"This is an automated message confirming the\n"
+"\t\t\t\t\t\t\t\t\treceival of your feedback/inquiry. We thank you for taking "
+"out your valuable\n"
+"\t\t\t\t\t\t\t\t\ttime to send us your important feedback/inquiry."
+msgstr ""
+"Este es un mensaje automático confirmando la\n"
+"\t\t\t\t\t\t\t\t\treceival de tu feedback / investigación. Le damos las "
+"gracias por sacar su valiosa\n"
+"\t\t\t\t\t\t\t\t\ttime para enviarnos su información importante/"
+"investigación."
+
+#: contactconfirm.phtml:290
+msgid "You have sent DineDesk the following note:"
+msgstr "Has enviado DineDesk la siguiente nota:"
+
+#: contactconfirm.phtml:296
+msgid "We will get back to you shortly"
+msgstr "Nos pondremos en contacto con usted en breve"
+
+#: contactconfirm.phtml:297
+msgid "Regards,"
+msgstr "Saludos,"
+
+#: contactus.phtml:27 contactusza.phtml:27
+msgid "Contact DineDesk 24/7"
+msgstr "Contacto DineDesk 24/7"
+
+#: contactus.phtml:28
+msgid ""
+"We're available online 24 hours a day. Just click on the chat widget on the "
+"bottom right corner of the screen.  Don't worry: We're friendly humans, not "
+"chat robots"
+msgstr ""
+"Estamos disponibles en línea las 24 horas del día. Simplemente haga clic en "
+"el widget de chat en la esquina inferior derecha de la pantalla. No te "
+"preocupes: Somos seres humanos amistosos, no chatear robots"
+
+#: contactus.phtml:29 contactusza.phtml:29
+msgid "You can also complete the contact form, below."
+msgstr "También puede completar el formulario de contacto, a continuación."
+
+#: contactus.phtml:33 contactusza.phtml:33
+msgid "Contact Details"
+msgstr "Datos de contacto"
+
+#: contactus.phtml:35 contactusza.phtml:35
+msgid "Name*"
+msgstr "Nombre *"
+
+#: contactus.phtml:37 contactusza.phtml:37 signup.phtml:56
+msgid "City"
+msgstr "ciudad"
+
+#: contactus.phtml:39 contactusza.phtml:39
+msgid "Contact me by"
+msgstr "Ponte en contacto conmigo por"
+
+#: contactus.phtml:41 contactusza.phtml:41 signup.phtml:40
+msgid "Email"
+msgstr "Email"
+
+#: contactus.phtml:43 contactusza.phtml:43 signup.phtml:44
+msgid "Phone"
+msgstr "teléfono"
+
+#: contactus.phtml:45 contactusza.phtml:45
+msgid "Comments *"
+msgstr "Comentarios *"
+
+#: contactus.phtml:47 contactusza.phtml:47
+msgid "Enter characters as shown in box"
+msgstr "Escriba los caracteres como se muestra en la caja"
+
+#: contactus.phtml:58 contactusza.phtml:69
+msgid "We Look Forward To Hearing From You"
+msgstr "Esperamos con interés escuchar de usted"
+
+#: contactus.phtml:59 contactusza.phtml:70
+msgid ""
+"Our team will review your comments and suggestions and will get back to you "
+"shortly."
+msgstr ""
+"Nuestro equipo revisará sus comentarios y sugerencias y se pondrá en "
+"contacto con usted en breve."
+
+#: contactus.phtml:60 contactusza.phtml:71
+msgid "You can also reach us by any of the following means:"
+msgstr ""
+"También puede comunicarse con nosotros por cualquiera de los siguientes "
+"medios:"
+
+#: contactus.phtml:61 contactusza.phtml:72
+msgid "Tell us what you think of DineDesk!"
+msgstr "Díganos lo que piensa de DineDesk!"
+
+#: contactus.phtml:62 contactusza.phtml:73
+msgid "Technical Support"
+msgstr "Soporte Técnico"
+
+#: contactus.phtml:63 contactusza.phtml:74
+msgid "Strategic Partnerships"
+msgstr "Alianzas Estratégicas"
+
+#: contactus.phtml:65 contactusza.phtml:64
+msgid "Call Us:"
+msgstr "Llámanos:"
+
+#: contactusza.phtml:28
+msgid ""
+"We're available online 24 hours a day. Just click on the chat widget on the "
+"bottom right corner of the screen.  Don't worry: We're friendly humans, not "
+"chat robots."
+msgstr ""
+"Estamos disponibles en línea las 24 horas del día. Simplemente haga clic en "
+"el widget de chat en la esquina inferior derecha de la pantalla. No te "
+"preocupes: Somos seres humanos amistosos, no chatear robots."
+
+#: contactusza.phtml:58
+msgid "DineDesk Southern Africa"
+msgstr "DineDesk África Austral"
+
+#: contactusza.phtml:59
+msgid "Suite 171"
+msgstr "Suite 171"
+
+#: contactusza.phtml:60
+msgid "Private Bag X16"
+msgstr "Private Bag X16"
+
+#: contactusza.phtml:61
+msgid "Constantia"
+msgstr "Constantia"
+
+#: contactusza.phtml:62
+msgid "7848"
+msgstr "7848"
+
+#: customerfaq.phtml:16
+msgid "FrequentlyAsked Questions ->"
+msgstr "Preguntas FrequentlyAsked ->"
+
+#: customerfaq.phtml:17
+msgid "Customer"
+msgstr "cliente"
+
+#: customerfaq.phtml:21
+msgid "Q: What do I need to use DineDesk?"
+msgstr "Q: ¿Qué necesito para usar DineDesk?"
+
+#: customerfaq.phtml:23
+msgid "All you need to use DineDesk is an access to the Internet."
+msgstr "Todo lo que necesitas para usar DineDesk es un acceso a Internet."
+
+#: customerfaq.phtml:28
+msgid "Q: How much does DineDesk cost?"
+msgstr "Q: ¿Cuánto cuesta DineDesk?"
+
+#: customerfaq.phtml:30
+msgid "DineDesk is free for all restaurant customers."
+msgstr "DineDesk es gratuito para todos los clientes del restaurante."
+
+#: customerfaq.phtml:35
+msgid "Q: How do I make a reservation?"
+msgstr "Q: ¿Cómo puedo hacer una reserva?"
+
+#: customerfaq.phtml:37
+msgid ""
+"Customers can reserve a seat from the DineDesk website, a mobile \n"
+"\t\t\t\t\tphone, as a walk in or by phone."
+msgstr ""
+
+#: customerfaq.phtml:43
+msgid "Q: Why should I use DineDesk?"
+msgstr "Q: ¿Por qué debo usar DineDesk?"
+
+#: customerfaq.phtml:45
+msgid ""
+"DineDesk provides the ability to search based on your exact location, \n"
+"\t\t\t\t\tand to view restaurant availability, special daily deals or events "
+"at the \n"
+"\t\t\t\t\trestaurants you choose.  DineDesk will give you the ability to pre-"
+"purchase \n"
+"\t\t\t\t\trestaurant specials and to get invites to special events.   When "
+"you login \n"
+"\t\t\t\t\tto your DineDesk account, you will be able to view the daily deals "
+"at \n"
+"\t\t\t\t\tthe restaurants you frequently visit, as well as suggestions about "
+"new places or \n"
+"\t\t\t\t\tevents to try out."
+msgstr ""
+
+#: customerfaq.phtml:56
+msgid "Q: How will DineDesk notify me about my reservation confirmation?"
+msgstr "Q: ¿Como se DineDesk mensaje si hay la confirmación de mi reserva?"
+
+#: customerfaq.phtml:58
+msgid ""
+"DineDesk will notify customers through text message or email. Customers \n"
+"\t\t\t\t\twill be notified when a party is registered in their name, and "
+"when a \n"
+"\t\t\t\t\treservation is changed or cancelled."
+msgstr ""
+
+#: customerfaq.phtml:65
+msgid "Q: Can I reschedule a reservation?"
+msgstr "Q: ¿Puedo volver a programar una reserva?"
+
+#: customerfaq.phtml:67
+msgid "Yes, you can reschedule a reservation using the reschedule option."
+msgstr ""
+"Sí, se puede reprogramar una reserva a través de la opción de reprogramación."
+
+#: customerfaq.phtml:73
+msgid "Q: How can I track my past and future reservations?"
+msgstr "Q: ¿Cómo puedo rastrear mi pasado y reservas futuras?"
+
+#: customerfaq.phtml:75
+msgid ""
+"Login to DineDesk and view your reservation history under your \n"
+"\t\t\t\t\tpersonal profile."
+msgstr ""
+
+#: customerfaq.phtml:81
+msgid "Q: How do I have a favorite restaurant list?"
+msgstr "Q: ¿Cómo puedo tener una lista restaurante favorito?"
+
+#: customerfaq.phtml:83
+msgid ""
+"Login to DineDesk and view or add your favorite restaurants \n"
+"\t\t\t\t\tusing the favorite under your personal profile."
+msgstr ""
+
+#: customerfaq.phtml:89
+msgid "Q: Can I view my DineDesk favorites on FourSquare Twitter or Facebook?"
+msgstr "Q: ¿Puedo ver mis favoritos DineDesk en FourSquare Twitter o Facebook?"
+
+#: customerfaq.phtml:91
+msgid ""
+"Yes, we provide you with the ability to be an insider at your \n"
+"\t\t\t\t\tfavorite spots using our direct connections to FourSquare "
+"Twitter \n"
+"\t\t\t\t\tand Facebook."
+msgstr ""
+
+#: customerfaq.phtml:98
+msgid "Q: Can I use DineDesk system to update my FourSquare location?"
+msgstr "Q: ¿Puedo usar el sistema DineDesk actualizar mi ubicación FourSquare?"
+
+#: customerfaq.phtml:100
+msgid ""
+"Yes, we provide this direct access once you have arrived at \n"
+"\t\t\t\t\tthe restaurant for your reservation."
+msgstr ""
+"Sí, ofrecemos este acceso directo, una vez que haya llegado a\n"
+" \t\t\t\t\tel restaurante para su reserva."
+
+#: customerfaq.phtml:106
+msgid "Q: Does DineDesk have a mobile app?"
+msgstr "Q: ¿El DineDesk tienen una aplicación móvil?"
+
+#: customerfaq.phtml:108
+msgid "Yes, it is in progress and we hope to have it launched soon."
+msgstr "Sí, está en curso y esperamos tenerlo pronto en marcha."
+
+#: customerlist.phtml:15
+msgid "Organize Restaurant Customer Lists"
+msgstr "Organizar restaurante Listas de clientes"
+
+#: customerlist.phtml:18
+msgid ""
+"DineDesk offers restaurateurs a robust database program. Concerned about all "
+"of those records housed in the current reservation system? No need.DineDesk "
+"can seamlessly import all contact and notes from any reservation system. In "
+"addition, through DineDesk restaurateurs can easily build and bolster their "
+"guest databases and execute seamless email marketing campaigns through their "
+"partnership with Constant Contact."
+msgstr ""
+"DineDesk ofrece restauradores un programa de base de datos robusta. "
+"Preocupado por todos esos registros alojados en el sistema de reservas "
+"actual? No need.DineDesk puede importar sin problemas todos los contactos y "
+"las notas de cualquier sistema de reservas. Además, a través de los "
+"restauradores DineDesk pueden construir fácilmente y reforzar sus bases de "
+"datos de clientes y ejecutar campañas de marketing por correo electrónico "
+"sin fisuras a través de su asociación con Constant Contact."
+
+#: customerlist.phtml:21
+msgid "Letting You Manage Everything"
+msgstr "Para que pueda administrar todo"
+
+#: customerlist.phtml:24
+msgid "Run reservation reports"
+msgstr "Informes de reservas que dirigen"
+
+#: customerlist.phtml:25
+msgid "Build guest registry"
+msgstr "Construir registro de invitados"
+
+#: customerlist.phtml:26
+msgid "Export email addresses"
+msgstr "Direcciones de correo electrónico de Exportación"
+
+#: customerlist.phtml:27
+msgid "Link to Constant Contact"
+msgstr "Enlace a Constant Contact"
+
+#: custsignup.phtml:28
+msgid "Step 1:"
+msgstr "Paso 1:"
+
+#: custsignup.phtml:31
+msgid "Step 2:"
+msgstr "Paso 2:"
+
+#: custsignup.phtml:34
+msgid "Step 3:"
+msgstr "Paso 3:"
+
+#: custsignup.phtml:37
+msgid "Benefits:"
+msgstr "Beneficios:"
+
+#: custsignup.phtml:43
+msgid "Welcome,"
+msgstr "Bienvenido,"
+
+#: custsignup.phtml:44
+msgid "Customers!"
+msgstr "Clientes!"
+
+#: custsignup.phtml:46 dinedeskfeatures.phtml:17 dinedeskfeaturesza.phtml:17
+#: index.phtml:311 indexza.phtml:311
+msgid "Reservations"
+msgstr "Reservas"
+
+#: custsignup.phtml:48
+msgid "made easy for you"
+msgstr "hecho fácil para usted"
+
+#: custsignup.phtml:50
+msgid ""
+"DineDesk is an easy-to-use web and mobile based\n"
+"restaurant search and reservation booking system. Book through us and\n"
+"receive instant reservations based on your location!"
+msgstr ""
+"DineDesk es una web fácil de usar y móviles basados \n"
+" Búsqueda restaurante y el sistema de reserva de reserva. Reserve a través "
+"de nosotros y \n"
+" recibir reservas instantáneo basado en su ubicación!"
+
+#: custsignup.phtml:62
+msgid "Register with us"
+msgstr "Regístrese con nosotros"
+
+#: custsignup.phtml:63
+msgid ""
+"DineDesk is easy to use, making it effortless to\n"
+"enter your contact information and dining preferences. We will use these\n"
+"preferences to create your restaurant selections."
+msgstr ""
+"DineDesk es fácil de usar, por lo que es fácil de \n"
+"introduzca su información de contacto y sus preferencias gastronómicas. "
+"Usaremos estos \n"
+"preferencias para crear sus selecciones restaurante."
+
+#: custsignup.phtml:72
+msgid "Search for a Restaurant"
+msgstr "Busque un restaurante"
+
+#: custsignup.phtml:74
+msgid ""
+"Life just got easier ! With our easy to search\n"
+"tools you can now find the restaurant of your choice around your\n"
+"location via your computer or mobile."
+msgstr ""
+"La vida es más fácil! Con nuestro fácil de buscar \n"
+"herramientas que ahora pueden encontrar el restaurante de su elección "
+"alrededor de su \n"
+"ubicación a través de su ordenador o móvil."
+
+#: custsignup.phtml:79
+msgid ""
+"See\n"
+"how You Can Search for a restaurant"
+msgstr ""
+"Ver \n"
+"cómo se puede buscar para un restaurante"
+
+#: custsignup.phtml:83
+msgid "Make Reservation"
+msgstr "Haz reservación"
+
+#: custsignup.phtml:85
+msgid ""
+"UChoose, UPick, DineDesk! Booking a table is\n"
+"free with DineDesk. You can quickly book a table based on your choice of\n"
+"time and party size!"
+msgstr ""
+"UChoose, Upick, DineDesk! Reserva una mesa es\n"
+"libre con DineDesk. Puedes reservar rápidamente una tabla en función de su "
+"elección de\n"
+"tiempo y tamaño de las partes!"
+
+#: custsignup.phtml:91
+msgid ""
+"See\n"
+"How You Can Reserve A Table"
+msgstr ""
+"Descubre a\n"
+" ¿Cómo se puede reservar una mesa"
+
+#: custsignup.phtml:95
+msgid "Benefits of DineDesk"
+msgstr "Beneficios de DineDesk"
+
+#: custsignup.phtml:98
+msgid "One stop shopping: browse, search, reserve from single site"
+msgstr "Una parada de compras: navegar, buscar, reserva de un solo sitio"
+
+#: custsignup.phtml:99
+msgid "Real-time reservations"
+msgstr "Reservas en tiempo real"
+
+#: custsignup.phtml:100
+msgid "Free to use"
+msgstr "De uso libre"
+
+#: custsignup.phtml:101
+msgid "Fun, easy app for mobile devices"
+msgstr "Diversión aplicación, fácil para dispositivos móviles"
+
+#: custsignup.phtml:102
+msgid ""
+"Add your favorite restaurants to get notified about their specials\n"
+"\tand deals"
+msgstr ""
+
+#: custsignup.phtml:104
+msgid "Build your profile for personalized customer service"
+msgstr "Crea tu propio perfil para el servicio al cliente personalizado"
+
+#: custsignup.phtml:105
+msgid "GPS-enabled devices can search for nearby restaurants"
+msgstr "Dispositivos habilitados con GPS pueden buscar restaurantes cercanos"
+
+#: dinedeskfeatures.phtml:15 dinedeskfeaturesza.phtml:15
+#: guestmanagement.phtml:15 guestmanagementza.phtml:15 marketing.phtml:15
+#: marketingza.phtml:15 onlinereservation.phtml:15
+msgid "At a Glance"
+msgstr "De un vistazo"
+
+#: dinedeskfeatures.phtml:16 dinedeskfeaturesza.phtml:16
+#: guestmanagement.phtml:16 guestmanagementza.phtml:16 index.phtml:300
+#: indexza.phtml:300 marketing.phtml:16 marketingza.phtml:16
+#: onlinereservation.phtml:16
+msgid "Online Marketing"
+msgstr "Marketing Online"
+
+#: dinedeskfeatures.phtml:18 dinedeskfeatures.phtml:60
+#: dinedeskfeaturesza.phtml:18 dinedeskfeaturesza.phtml:60
+#: guestmanagement.phtml:18 guestmanagementza.phtml:18 marketing.phtml:18
+#: marketingza.phtml:18 onlinereservation.phtml:18
+msgid "Guest Management"
+msgstr "Guest Management"
+
+#: dinedeskfeatures.phtml:29 dinedeskfeaturesza.phtml:29
+msgid "Manage your Restaurant Easily and Efficiently with DineDesk"
+msgstr "Administrar su restaurante fácil y eficiente con DineDesk"
+
+#: dinedeskfeatures.phtml:30 dinedeskfeaturesza.phtml:30
+msgid ""
+"DineDesk offers you an integrated suite of tools to manage your social media "
+"marketing, website, mobile website, reservations, wait list and table "
+"seating."
+msgstr ""
+"DineDesk le ofrece un conjunto integrado de herramientas para gestionar su "
+"marketing en medios sociales, la web, la web móvil, reservas, lista de "
+"espera y el asiento de la tabla."
+
+#: dinedeskfeatures.phtml:31 dinedeskfeaturesza.phtml:31
+#: dinedeskpartners.phtml:23 dinedeskpartnersza.phtml:23
+#: guestmanagement.phtml:32 guestmanagementza.phtml:32 index.phtml:174
+#: indexza.phtml:174 marketing.phtml:32 marketingza.phtml:32
+#: onlinereservation.phtml:33 pricing.phtml:23
+msgid "Request a free demo today"
+msgstr "Solicite una demo gratis"
+
+#: dinedeskfeatures.phtml:43 dinedeskfeaturesza.phtml:43
+#, fuzzy
+msgid "Manage and Market your Restaurant with DineDesk"
+msgstr "Administrar su restaurante con DineDesk"
+
+#: dinedeskfeatures.phtml:50 dinedeskfeaturesza.phtml:50
+msgid "Marketing"
+msgstr "mercadeo"
+
+#: dinedeskfeatures.phtml:52 dinedeskfeaturesza.phtml:52
+msgid "Attract new diners using social media, email and a mobile website"
+msgstr ""
+"Atraer a nuevos comensales utilizando las redes sociales, correo electrónico "
+"y un sitio web para móviles"
+
+#: dinedeskfeatures.phtml:52 dinedeskfeatures.phtml:57
+#: dinedeskfeatures.phtml:62 dinedeskfeaturesza.phtml:52
+#: dinedeskfeaturesza.phtml:57 dinedeskfeaturesza.phtml:62 index.phtml:301
+#: index.phtml:312 index.phtml:330 indexza.phtml:301 indexza.phtml:312
+#: indexza.phtml:330
+msgid "view more..."
+msgstr "ver más ..."
+
+#: dinedeskfeatures.phtml:55 dinedeskfeaturesza.phtml:55
+msgid "Online Reservations"
+msgstr "Reservas en línea"
+
+#: dinedeskfeatures.phtml:57 dinedeskfeaturesza.phtml:57
+msgid "Receive free reservations from your website and Facebook"
+msgstr "Recibe reservas gratis desde su sitio web y Facebook"
+
+#: dinedeskfeatures.phtml:62 dinedeskfeaturesza.phtml:62
+msgid ""
+"Manage your table assignments, reservations and walk-ins, all in one place"
+msgstr ""
+"Administre sus asignaciones de la tabla, reservas y walk-ins, todo en un "
+"solo lugar"
+
+#: dinedeskpartners.phtml:21 dinedeskpartnersza.phtml:21
+msgid "Grow your Business by Partnering with DineDesk"
+msgstr "Haga crecer su negocio mediante la asociación con DineDesk"
+
+#: dinedeskpartners.phtml:22 dinedeskpartnersza.phtml:22
+msgid ""
+"Partner with DineDesk to offer new products and services to your restaurant "
+"clients.  New products mean a stronger relationship with your restaurants "
+"and more income for your business."
+msgstr ""
+"Asociarse con DineDesk para ofrecer nuevos productos y servicios a sus "
+"clientes de restaurantes. Nuevos productos significan una relación más "
+"fuerte con sus restaurantes y más ingresos para su negocio."
+
+#: dinedeskpartners.phtml:30 dinedeskpartnersza.phtml:30
+msgid "Earn More by Selling DineDesk Technology to Restaurants"
+msgstr "Ganar más de venta DineDesk Tecnología de Restaurantes"
+
+#: dinedeskpartners.phtml:37 dinedeskpartnersza.phtml:37
+msgid "Offer new products without large investments"
+msgstr "Ofrecer nuevos productos y sin grandes inversiones"
+
+#: dinedeskpartners.phtml:39 dinedeskpartnersza.phtml:39
+msgid ""
+"Whether you are a restaurant portal, restaurant supplier or a consultant in "
+"the field, you can profit through a partnership with DineDesk.   We supply "
+"the technology and train you how to sell it.  You do the sales and earn "
+"money each time a restaurant signs a contract."
+msgstr ""
+"Si usted es un portal de restaurante, restaurante proveedor o consultor en "
+"el campo, puede beneficiarse a través de una asociación con DineDesk. "
+"Suministramos la tecnología y enseñarle la forma de venderlo. Vosotros "
+"hacéis las ventas y ganar dinero cada vez que un restaurante de firma un "
+"contrato."
+
+#: dinedeskpartners.phtml:42 dinedeskpartnersza.phtml:42
+msgid "DineDesk provides you full support and training"
+msgstr "DineDesk que proporciona el apoyo total y la formación"
+
+#: dinedeskpartners.phtml:44 dinedeskpartnersza.phtml:44
+msgid ""
+"DineDesk will support you at each step of the way.  We train you in our "
+"technology and teach you how best to sell it to restaurants.  And we are "
+"always there to answer questions, supporting you in all your sales "
+"activities."
+msgstr ""
+"DineDesk le apoyará en cada paso del camino. Nosotros le entrenamos en "
+"nuestra tecnología y te enseñamos la mejor forma de vender a los "
+"restaurantes. Y estamos siempre allí para responder preguntas, apoyando en "
+"todas sus actividades de ventas."
+
+#: dinedeskpartners.phtml:47 dinedeskpartnersza.phtml:47
+msgid "A compelling suite of tools at an affordable price"
+msgstr "Una suite de herramientas que obliga a un precio asequible"
+
+#: dinedeskpartners.phtml:49 dinedeskpartnersza.phtml:49
+msgid ""
+"DineDesk offers a complete set of marketing, reservation and guest "
+"management tools at a reasonable price, making it easy for you to earn "
+"money.  Plus, we offer full APIs for more advanced integration into your "
+"website or other products."
+msgstr ""
+"DineDesk ofrece un conjunto completo de herramientas de gestión de "
+"marketing, de reserva y de la huésped a un precio razonable, lo que hace que "
+"sea fácil para que usted gane dinero. Además, ofrecemos API completo para "
+"más integración avanzada en su sitio web u otros productos."
+
+#: dinedeskproducts.phtml:86
+msgid "We are your technology partners!"
+msgstr "Somos sus socios de tecnología!"
+
+#: dinedeskproducts.phtml:89
+msgid "Design and hosting"
+msgstr "Diseño y hospedaje"
+
+#: dinedeskproducts.phtml:90
+msgid "Free mobile friendly website"
+msgstr "Libre sitio web amigable móvil"
+
+#: dinedeskproducts.phtml:91
+msgid "Free widgets Integration"
+msgstr "Widgets gratuitos Integración"
+
+#: dinedeskproducts.phtml:92
+msgid "End to End Technology assistance"
+msgstr "De extremo a extremo la asistencia Tecnología"
+
+#: dinedeskproducts.phtml:97
+msgid ""
+"Make your restaurant and mobile website revenue generating without any IT "
+"staff!"
+msgstr ""
+"Haga su restaurante y sitio web para móviles de generación de ingresos sin "
+"ningún personal de TI!"
+
+#: dinedeskproducts.phtml:98
+msgid ""
+"Dine Desk offers a centralized mechanism to\n"
+"\t\t\t\t\t\tcontrol your website. From Dine Desk, you can\n"
+"\t\t\t\t\t\tconfigure your reservation widget, deals and\n"
+"\t\t\t\t\t\tmenu widgets on your website. You can then\n"
+"\t\t\t\t\t\taccept reservations, orders and deals from\n"
+"\t\t\t\t\t\tmultiple sources including your Facebook and\n"
+"\t\t\t\t\t\trestaurant website. Don't have a website or\n"
+"\t\t\t\t\t\tmobile website? Do not worry. We will design\n"
+"\t\t\t\t\t\tit for you and integrate it with Dine Desk!"
+msgstr ""
+
+#: dinedeskproducts.phtml:107
+msgid "You need more technology assistance?"
+msgstr "Usted necesita más asistencia tecnológica?"
+
+#: dinedeskproducts.phtml:107
+msgid "Contact us!"
+msgstr "Póngase en contacto con nosotros!"
+
+#: dinedeskproducts.phtml:115
+msgid ""
+"Wait list and Table management helps\n"
+"\t\t\t\t\t\tyou organize and communicate with your\n"
+"\t\t\t\t\t\tpatrons when your staff is busy\n"
+"\t\t\t\t\t\tmanaging the seated guests."
+msgstr ""
+
+#: dinedeskproducts.phtml:119
+msgid ""
+"Have you ever wondered how to manage and\n"
+"\t\t\t\t\t\tkeep track of people in waiting? We got a very\n"
+"\t\t\t\t\t\teasy way to keep patrons engaged. When your\n"
+"\t\t\t\t\t\trestaurant is busy, they don't have to wait at\n"
+"\t\t\t\t\t\tthe waiting area for their turn. Dine Desk's\n"
+"\t\t\t\t\t\tWait list feature helps you communicate with\n"
+"\t\t\t\t\t\tyour guests automatically. It notifies when the\n"
+"\t\t\t\t\t\ttable is ready with an sms. That's not it! You\n"
+"\t\t\t\t\t\tcan build your floor plan to simulate your floor.\n"
+"\t\t\t\t\t\tWith Dine Desk when the patron comes in, you\n"
+"\t\t\t\t\t\tcan seat them on a table of your choice, change\n"
+"\t\t\t\t\t\tdifferent status and manage several operations\n"
+"using \t\t\t\t\teasy to use tools."
+msgstr ""
+
+#: dinedeskproducts.phtml:135
+msgid "Table Management and wait list?"
+msgstr "Gestión de la tabla y la lista de espera?"
+
+#: dinedeskproducts.phtml:138
+msgid "Easy to use tools to draw dining areas"
+msgstr "Fácil de usar herramientas para dibujar zonas de comedor"
+
+#: dinedeskproducts.phtml:139
+msgid "Customizable reservation statuses"
+msgstr "Estados reservas personalizables"
+
+#: dinedeskproducts.phtml:140
+msgid "Two way wait list - SMS/email notify"
+msgstr "Dos vías de lista de espera - SMS/email notificar"
+
+#: dinedeskproducts.phtml:141
+msgid "No Shows and Guest preferences"
+msgstr "No Shows y preferencias de los huéspedes"
+
+#: dinedeskproducts.phtml:142
+msgid "Reservation history and guest info"
+msgstr "Historia reserva de habitaciones y los huéspedes info"
+
+#: dinedeskproducts.phtml:143
+msgid "Calendar View (day/week/month)"
+msgstr "Vista de calendario (día / semana / mes)"
+
+#: dinedeskproducts.phtml:151
+#, fuzzy
+msgid "Deals and offers!"
+msgstr "Ofertas y ofertas"
+
+#: dinedeskproducts.phtml:154
+msgid "Post a deal once see everywhere"
+msgstr "Publique una oferta una vez que vea todo el mundo"
+
+#: dinedeskproducts.phtml:155
+msgid "Displays on Facebook, Website"
+msgstr "Muestra en Facebook, Website"
+
+#: dinedeskproducts.phtml:156
+msgid "Pushed to third party providers"
+msgstr "Empujado a los proveedores de terceros"
+
+#: dinedeskproducts.phtml:157
+msgid "Fill guests in non peak hours"
+msgstr "Clientes en las horas no pico Llena"
+
+#: dinedeskproducts.phtml:158
+msgid "Opt offers to be done with reservations"
+msgstr "Ofertas optan por hacer con las reservas"
+
+#: dinedeskproducts.phtml:159
+msgid "Email blast to contacts about the deal"
+msgstr "Email blast a los contactos sobre el acuerdo"
+
+#: dinedeskproducts.phtml:164
+msgid ""
+"Earn more revenue by posting deals and\n"
+"\t\t\t\t\t\toffers! Control your offers and post them\n"
+"\t\t\t\t\t\tto your website, social media pages and\n"
+"\t\t\t\t\t\tpartner websites."
+msgstr ""
+
+#: dinedeskproducts.phtml:168
+msgid ""
+"Dine Desk provides you a centralized\n"
+"\t\t\t\t\t\tmechanism to post deals and offers. When\n"
+"\t\t\t\t\t\tyou design and post a deal, it get\n"
+"\t\t\t\t\t\tautomatically shown on your restaurant\n"
+"\t\t\t\t\t\twebsite, Facebook page and your partners\n"
+"\t\t\t\t\t\twebsites."
+msgstr ""
+
+#: dinedeskproducts.phtml:174
+msgid ""
+"Not just this, notify us to do an email blast\n"
+"\t\t\t\t\t\tabout your deal and we will let all your\n"
+"\t\t\t\t\t\tcustomers know about it."
+msgstr ""
+
+#: dinedeskproducts.phtml:177
+msgid ""
+"When bookings come in, you can see the\n"
+"\t\t\t\t\t\torigin, deal and booking details from the Dine\n"
+"\t\t\t\t\t\tDesk control panel."
+msgstr ""
+
+#: dinedeskproducts.phtml:187
+msgid ""
+"Are you capitalizing on the trend! Accept\n"
+"\t\t\t\t\t\tbookings for reservations and deals from\n"
+"\t\t\t\t\t\tyour social pages."
+msgstr ""
+
+#: dinedeskproducts.phtml:190
+msgid ""
+"Our business research showed that restaurants spend lot of money and time on "
+"social media marketing. We have an ideal solution in Dine Desk. Why spend on "
+"it? Dine Desk is closely integrated with Facebook. If you are new to social "
+"media (Facebook, twitter or Google+), as a part of restaurant setup, we "
+"offer free social media pages. If you already have one, we link it. When you "
+"post a deal, Offer or update on Dine Desk it automatically is shown on "
+"Facebook. What more! You can receive reservations; food orders and deals "
+"bookings from your social media pages! It sounds exciting isn't it?"
+msgstr ""
+"Nuestra investigación de las empresas mostró que los restaurantes pasan gran "
+"cantidad de tiempo y dinero en marketing en medios sociales. Tenemos una "
+"solución ideal en Dine turística. ¿Por qué gastar en ella? Dine turística "
+"está estrechamente integrado con Facebook. Si usted es nuevo en las redes "
+"sociales (Facebook, Twitter o Google +), como parte de la configuración de "
+"restaurante, le ofrecemos gratis las páginas de medios sociales. Si ya "
+"dispone de uno, vincularlo. Al publicar una oferta, oferta o actualización "
+"sobre Dine escritorio de forma automática se muestra en Facebook. ¿Qué más? "
+"Puede recibir reservas; pedidos de comida y ofertas de reservas desde las "
+"páginas de redes sociales! Suena interesante ¿no?"
+
+#: dinedeskproducts.phtml:193
+msgid "Social media - Facebook, Twitter!"
+msgstr "Los medios sociales - Facebook, Twitter!"
+
+#: dinedeskproducts.phtml:196
+msgid "Free social media setup"
+msgstr "Configuración de medios de comunicación social libre"
+
+#: dinedeskproducts.phtml:197
+msgid "Widgets integrated with FB"
+msgstr "Reproductores integrados con FB"
+
+#: dinedeskproducts.phtml:198
+msgid "Facebook pages managed (extra cost)"
+msgstr "Páginas de Facebook se gestionan (costo adicional)"
+
+#: dinedeskproducts.phtml:199
+msgid "Auto posting by Dine Desk for deals"
+msgstr "Auto publicación por Dine Desk ofertas"
+
+#: dinedeskproducts.phtml:200
+msgid "Receive bookings from social media"
+msgstr "Recibe las reservas de los medios sociales"
+
+#: dinedeskproducts.phtml:208
+msgid "Menu setup, publish & Take orders!"
+msgstr "Configuración del menú, publicar y sacar órdenes!"
+
+#: dinedeskproducts.phtml:211
+msgid "Set menu once and show everywhere"
+msgstr "Menú de una vez y mostrar todas partes"
+
+#: dinedeskproducts.phtml:212
+msgid "Free menu setup and integration"
+msgstr "Configuración del menú libre y la integración"
+
+#: dinedeskproducts.phtml:213
+msgid "Displays on Facebook and your website"
+msgstr "Muestra en Facebook y su página web"
+
+#: dinedeskproducts.phtml:214
+msgid "Can be published to other providers"
+msgstr "Se pueden publicar en otros proveedores"
+
+#: dinedeskproducts.phtml:215
+msgid "Opt for order management/ deliveries"
+msgstr "Optar por la gestión de pedidos / entregas"
+
+#: dinedeskproducts.phtml:216
+msgid "Take orders in-house using the menu"
+msgstr "Tomar pedidos en la empresa a través del menú"
+
+#: dinedeskproducts.phtml:221
+msgid ""
+"Setup your menu once in Dine Desk,\n"
+"\t\t\t\t\t\teither just display it on your website,\n"
+"\t\t\t\t\t\tFacebook or also start taking orders!"
+msgstr ""
+
+#: dinedeskproducts.phtml:224
+msgid ""
+"Now you do not have to contact your IT\n"
+"\t\t\t\t\t\tpersonnel to change a menu item or price on\n"
+"\t\t\t\t\t\tyour website, Facebook or your third party\n"
+"\t\t\t\t\t\tpartners websites. Simply, login to Dine Desk\n"
+"\t\t\t\t\t\tand change it in a minute."
+msgstr ""
+
+#: dinedeskproducts.phtml:229
+msgid ""
+"Your website and mobile website gets updated\n"
+"\t\t\t\t\t\t\timmediately. Do you think this is just it, no! You\n"
+"\t\t\t\t\t\t\tcan also opt to receive orders for food\n"
+"\t\t\t\t\t\t\tdeliveries and your guests can order food\n"
+"\t\t\t\t\t\t\tbefore they come to your restaurant."
+msgstr ""
+
+#: dinedeskproducts.phtml:234
+msgid ""
+"All orders can be managed using Dine Desk\n"
+"\t\t\t\t\t\tcontrol panel."
+msgstr ""
+
+#: dinedeskproducts.phtml:236
+msgid ""
+"We will setup your menu for you and integrate\n"
+"\t\t\t\t\t\t\tit with Dine Desk as a part of setup process."
+msgstr ""
+
+#: dinedeskproducts.phtml:245
+msgid ""
+"Getting difficult to get data when you\n"
+"\t\t\t\t\t\tneed it the most? Seeking easy way to\n"
+"\t\t\t\t\t\tcontact!"
+msgstr ""
+
+#: dinedeskproducts.phtml:248
+msgid ""
+"Do you still use the old traditional way of\n"
+"\t\t\t\t\t\tmanaging the guest information by asking your\n"
+"\t\t\t\t\t\tpatrons to fill in a feedback form that you\n"
+"\t\t\t\t\t\tlater stack up? You know how difficult it\n"
+"\t\t\t\t\t\tbecomes to store the information and retrieve\n"
+"\t\t\t\t\t\ton time. Dine Desk provides a very easy and\n"
+"\t\t\t\t\t\tconvenient way to manage your contacts. Your\n"
+"\t\t\t\t\t\tpatron's details are automatically added when a\n"
+"\t\t\t\t\t\treservation is made. Not just that, when you\n"
+"\t\t\t\t\t\tare making reservation, their information\n"
+"\t\t\t\t\t\tshows up along with the personal preferences\n"
+"\t\t\t\t\t\tand contact information."
+msgstr ""
+
+#: dinedeskproducts.phtml:262
+msgid "Guest information just a click away"
+msgstr "Información del huésped a sólo un clic de distancia"
+
+#: dinedeskproducts.phtml:265 dinedeskproducts.phtml:280
+msgid "Patrons information auto added to list"
+msgstr "Información Patronos auto añade a la lista"
+
+#: dinedeskproducts.phtml:266
+msgid "See guest preferences & history"
+msgstr "Ver las preferencias y la historia de los huéspedes"
+
+#: dinedeskproducts.phtml:267
+msgid "Auto-wish/ notify deals for occasions"
+msgstr "Auto-wish/notify ofertas para las ocasiones"
+
+#: dinedeskproducts.phtml:268
+msgid "Captures and manage no shows"
+msgstr "Captura y gestión no se presenta"
+
+#: dinedeskproducts.phtml:269
+msgid "Feedback and reviews captured"
+msgstr "Comentarios y opiniones capturados"
+
+#: dinedeskproducts.phtml:277
+msgid "eMail Marketing? Mail Blast!"
+msgstr "marketing por correo electrónico? Targeta de correo!"
+
+#: dinedeskproducts.phtml:281
+msgid "Free email campaigns up to 2000 guests"
+msgstr "Campañas de correo electrónico gratis de hasta 2.000 invitados"
+
+#: dinedeskproducts.phtml:282
+msgid "Send attractive templates and deals"
+msgstr "Enviar plantillas atractivas y ofertas"
+
+#: dinedeskproducts.phtml:283
+msgid "Integrated with DD control panel"
+msgstr "Integrado con el panel de control DD"
+
+#: dinedeskproducts.phtml:288
+msgid ""
+"Email marketing helps you keep customers\n"
+"\t\t\t\t\t\tand prospects coming back."
+msgstr ""
+
+#: dinedeskproducts.phtml:290
+msgid ""
+"DineDesk provides its customers free email\n"
+"\t\t\t\t\t\tmarketing for up to 2000 guests per month."
+msgstr ""
+
+#: dinedeskproducts.phtml:292
+msgid ""
+"You can now use attractive, professionallooking\n"
+"\t\t\t\t\t\temail communications to stay in\n"
+"\t\t\t\t\t\tregular touch with your guests and build\n"
+"\t\t\t\t\t\tstrong customer relationships. It's easy and\n"
+"\t\t\t\t\t\tfast, just let us know what you want to send\n"
+"\t\t\t\t\t\tand we send it."
+msgstr ""
+
+#: dinedeskproducts.phtml:298
+msgid ""
+"Statistics will be provided to you about each\n"
+"\t\t\t\t\t\tcampaign, as to how many have seen the your\n"
+"\t\t\t\t\t\temail."
+msgstr ""
+
+#: dinedeskproducts.phtml:308
+msgid ""
+"Capabilities for reporting and analytics\n"
+"\t\t\t\t\t\tprovide a basis on which to establish,\n"
+"\t\t\t\t\t\tmeasure and analyze key performance\n"
+"\t\t\t\t\t\tmetrics to drive processes!"
+msgstr ""
+
+#: dinedeskproducts.phtml:312
+msgid ""
+"Dine Desk provides you extensive reporting and\n"
+"\t\t\t\t\t\tanalytics with a few clicks. You can view several\n"
+"\t\t\t\t\t\treports like reservations on any specific day,\n"
+"\t\t\t\t\t\torigin of bookings, peak times, average\n"
+"\t\t\t\t\t\treservations."
+msgstr ""
+
+#: dinedeskproducts.phtml:317
+msgid ""
+"More to add is a free custom report on monthly\n"
+"\t\t\t\t\t\tbasis, which provides you detailed information\n"
+"\t\t\t\t\t\tincluding how restaurant fared in the current\n"
+"\t\t\t\t\t\tmonth and comparisons with earlier months."
+msgstr ""
+
+#: dinedeskproducts.phtml:321
+msgid ""
+"View origin of business (walk-ins, phone\n"
+"\t\t\t\t\t\tbookings, Facebook, website or third party)"
+msgstr ""
+"Ver el origen de los negocios (walk-ins, teléfono\n"
+"\t\t\t\t\t\tbookings, Facebook, sitio web o de terceros)"
+
+#: dinedeskproducts.phtml:325
+msgid "Reporting and Analytics!"
+msgstr "Informes y análisis!"
+
+#: dinedeskproducts.phtml:328
+msgid "Extensive report generation"
+msgstr "Generación de informes Amplio"
+
+#: dinedeskproducts.phtml:329
+msgid "Customized free report sent monthly"
+msgstr "Customized informe libre envía mensualmente"
+
+#: dinedeskproducts.phtml:330
+msgid "Reservation reports day/week/ Month"
+msgstr "Reserva reporta día / semana / mes"
+
+#: dinedeskproducts.phtml:331
+msgid "Where, when and how bookings done"
+msgstr "¿Dónde, cuándo y cómo las reservas hechas"
+
+#: dinedeskproducts.phtml:339
+msgid "Integration with your POS or ERP?"
+msgstr "Integración con su punto de venta o ERP?"
+
+#: dinedeskproducts.phtml:342
+msgid "Integrate seamlessly with any system"
+msgstr "Integre a la perfección con cualquier sistema"
+
+#: dinedeskproducts.phtml:343
+msgid "Reservations will be linked with your POS"
+msgstr "Las reservas se pueden vincular con su punto de venta"
+
+#: dinedeskproducts.phtml:344
+msgid "Integrated to your CRM or other tools"
+msgstr "Integrado a su CRM u otras herramientas"
+
+#: dinedeskproducts.phtml:345
+#, fuzzy
+msgid "Centralized control with DineDesk"
+msgstr "Administrar su restaurante con DineDesk"
+
+#: dinedeskproducts.phtml:350
+msgid ""
+"Worried about different systems to use?\n"
+"\t\t\t\t\t\tWhy partner with many different providers\n"
+"\t\t\t\t\t\tfor different purposes?"
+msgstr ""
+
+#: dinedeskproducts.phtml:353
+msgid ""
+"Dine Desk easily integrates and collaborates\n"
+"\t\t\t\t\t\twith any system that you have. We have open\n"
+"\t\t\t\t\t\tAPI's, which let Dine Desk easily communicate\n"
+"\t\t\t\t\t\twith your POS / ERP and let your usual\n"
+"\t\t\t\t\t\tprocess run the way they have been."
+msgstr ""
+
+#: dinedeskproducts.phtml:358
+msgid ""
+"Just contact your service provider and tell\n"
+"\t\t\t\t\t\tthem you want to integrate with us. We will\n"
+"\t\t\t\t\t\tprovide you a solution for free."
+msgstr ""
+
+#: dinedeskproducts.phtml:361
+msgid ""
+"Dine Desk can also integrate with your\n"
+"\t\t\t\t\t\t\tinternal processes and offer custom solutions\n"
+"\t\t\t\t\t\t\tfor your hospitality needs!"
+msgstr ""
+
+#: dinedeskproducts.phtml:371
+msgid ""
+"No special hardware or software needed.\n"
+"\t\t\t\t\t\tYou can start using Dine Desk right this\n"
+"\t\t\t\t\t\tminute using any internet-enabled device."
+msgstr ""
+
+#: dinedeskproducts.phtml:374
+msgid ""
+"You can access Dine Desk via any Internet\n"
+"\t\t\t\t\t\tenabled device. Be it a smart phone, a tablet,\n"
+"\t\t\t\t\t\ta pc, laptop or a touch screen, you are all set\n"
+"\t\t\t\t\t\tto go. Dine Desk doesn't require any specific\n"
+"\t\t\t\t\t\thardware or software to be purchased or\n"
+"\t\t\t\t\t\tlicensed."
+msgstr ""
+
+#: dinedeskproducts.phtml:380
+msgid ""
+"Our widgets are customized to be mobile\n"
+"\t\t\t\t\t\tfriendly; your mobile websites can add these\n"
+"\t\t\t\t\t\twidgets and start accepting reservations."
+msgstr ""
+
+#: dinedeskproducts.phtml:383
+msgid ""
+"Customers can login via any Internet enabled\n"
+"\t\t\t\t\t\tdevice to view their reservations and mark\n"
+"\t\t\t\t\t\tyour restaurants as favorite. Your deals are\n"
+"\t\t\t\t\t\tnotified to those customers."
+msgstr ""
+
+#: dinedeskproducts.phtml:389
+msgid "How to Access DineDesk!"
+msgstr "Cómo acceder DineDesk!"
+
+#: dinedeskproducts.phtml:392
+msgid "Tablet and mobile friendly applications"
+msgstr "Tablet y aplicaciones móviles amigables"
+
+#: dinedeskproducts.phtml:393
+msgid "Access using any smart phone or tablet"
+msgstr "Acceso a través de cualquier teléfono inteligente o tableta"
+
+#: dinedeskproducts.phtml:394
+msgid "Mobile friendly widgets"
+msgstr "Widgets móviles amigables"
+
+#: dinedeskproducts.phtml:395
+msgid "Native apps coming shortly"
+msgstr "Aplicaciones nativas próximamente"
+
+#: faq.phtml:15
+msgid "Frequently Asked Questions"
+msgstr "Preguntas más frecuentes"
+
+#: faq.phtml:17
+msgid "'Is DineDesk multi-terminal software?'"
+msgstr "'Is Your Desk software multi-terminal?"
+
+#: faq.phtml:18
+msgid ""
+"DineDesk is multi-terminal software and its architecture supports both multi-"
+"site and multi-restaurant, so bookings can be taken for several restaurants "
+"across different sites on multiple terminals."
+msgstr ""
+"DineDesk es un software multi-terminal y su arquitectura es compatible con "
+"multi-sitio y multi-restaurante, así que las reservas se pueden tomar "
+"durante varios restaurantes a través de diferentes sitios en múltiples "
+"terminales."
+
+#: faq.phtml:19
+msgid "'Can you take web bookings?'"
+msgstr "'¿Se puede tomar reservas web?"
+
+#: faq.phtml:20
+msgid ""
+"As part of the DineDesk package we include an online booking widget which "
+"can  be integrated into your website, with your branding. It will allow you "
+"to take bookings online 24\a. You can configure your widget themes ,when you "
+"want to take bookings online, which tables can be booked online and a whole "
+"lot more."
+msgstr ""
+"Como parte del paquete DineDesk incluimos un widget de reserva en línea, que "
+"puede ser integrado en su sitio web, con su imagen de marca. Esto le "
+"permitira tomar las reservas en línea 24\a. Puede configurar los temas de "
+"widget, cuando se quiere tomar reservas en línea, que las tablas se pueden "
+"reservar en línea y mucho mas."
+
+#: faq.phtml:21
+msgid "'Is there any commission for web bookings?'"
+msgstr "'¿Hay alguna comisión por las reservas web?"
+
+#: faq.phtml:22
+msgid ""
+"Web bookings are FREE from DineDesk. We don't take any commission for web "
+"based bookings.....and why should we, they're your bookings!"
+msgstr ""
+"Reservas Web estén libres de DineDesk. No tomamos ninguna comisión por las "
+"reservas basadas en web ..... y ¿por qué debemos, son tus reservas!"
+
+#: faq.phtml:23
+msgid "'Does DineDesk work on an IPAD?'"
+msgstr "'¿Funciona DineDesk en un iPad?"
+
+#: faq.phtml:24
+msgid ""
+"DineDesk is IPAD compatible and will run on an IPAD or alternate Tablet "
+"using a remote companion or equivalent."
+msgstr ""
+"DineDesk es compatible IPAD y se ejecutará en un iPad o Tablet alternativo "
+"usando un compañero a distancia o equivalente."
+
+#: faq.phtml:25
+msgid "'Can you send email\text confirmations?'"
+msgstr ""
+
+#: faq.phtml:26
+msgid ""
+"DineDesk fully supports sending email and text confirmations to customer. "
+"You can specify an unlimited number of confirmation templates which can be "
+"automatically sent based on the date the booking is made. For example a "
+"Christmas reservation confirmation will be very different than a mid-summers "
+"reservation confirmation. DineDesk will automatically send the correct "
+"template based on the booking date."
+msgstr ""
+"DineDesk totalmente compatible con el envío de correo electrónico y de texto "
+"confirmaciones al cliente. Puede especificar un número ilimitado de "
+"plantillas de confirmación que se pueden enviar automáticamente a partir de "
+"la fecha de la reserva se hace. Por ejemplo, una confirmación de la reserva "
+"de la Navidad va a ser muy diferente de una confirmación de reserva a "
+"mediados de verano. DineDesk enviará automáticamente la plantilla correcta "
+"en función de la fecha de reserva."
+
+#: faq.phtml:27
+msgid "'Are there any hidden costs?'"
+msgstr "'¿Hay costos ocultos?"
+
+#: faq.phtml:28
+msgid ""
+"We get A LOT of people contacting us asking this question because many of "
+"our competitors claim a free or low monthly charge for their software only "
+"for the customer to be hit with huge unexpected monthly bills for commission "
+"based services they were completely unaware of. This is NOT the case at "
+"DineDesk, you know exactly what your costs will be from the outset and there "
+"are NO hidden costs or charges."
+msgstr ""
+"Tenemos una gran cantidad de personas en contacto con nosotros haciendo esta "
+"pregunta porque muchos de nuestros competidores aseguran un cargo mensual "
+"gratuito o bajo para su software único para el cliente para ser golpeado con "
+"enormes facturas mensuales inesperados para los servicios de la Comisión "
+"basados ​​eran completamente conscientes de. Este no es el caso en DineDesk, "
+"usted sabe exactamente lo que sus costos serán desde el principio y no hay "
+"costos ni cargos ocultos."
+
+#: faq.phtml:29
+msgid "'Can you interface with Point Of Sale (POS)?'"
+msgstr "'¿Se puede interconectar con Punto de Venta (POS)?"
+
+#: faq.phtml:30
+msgid ""
+"DineDesk has a generic interface which enables POS companies to interface "
+"with us. We have already had success with the following POS companies: Point "
+"One, Paragon Systems, Haven Systems, IControl"
+msgstr ""
+"DineDesk tiene una interfaz genérica que permite a las empresas de punto de "
+"venta para interactuar con nosotros. Ya hemos tenido éxito con las "
+"siguientes empresas POS: Punto Uno, Sistemas Paragon, asilo Systems, iControl"
+
+#: faq.phtml:30
+msgid ""
+"Tissl. Don't worry if you don't see the POS company you currently use in "
+"this list. We are always willing to initiate conversations with new POS "
+"companies to establish new interfaces."
+msgstr ""
+"Tissl. No te preocupes si no ves la empresa POS se utiliza actualmente en la "
+"lista. Estamos siempre dispuestos a iniciar conversaciones con nuevas "
+"empresas POS para establecer nuevas interfaces."
+
+#: faq.phtml:31
+msgid "'Does it work on touch screens?'"
+msgstr "'¿Funciona en las pantallas táctiles?"
+
+#: faq.phtml:32
+msgid "Yes, DineDesk has been designed to be touch-screen friendly."
+msgstr "Sí, DineDesk ha sido diseñado para ser de pantalla táctil fácil."
+
+#: faq.phtml:33
+msgid "'Can you design"
+msgstr "'¿Puedes diseñar"
+
+#: faq.phtml:33
+msgid "configure you own table plans?'"
+msgstr "configurar usted es dueño de planes de la tabla?"
+
+#: faq.phtml:34
+msgid ""
+"The 'Floor Plan' tools are the most advanced, easy to use and visually "
+"appealing of any our competitors. Simply by dragging"
+msgstr ""
+"Herramientas El 'Plan de piso' son los más avanzados, fáciles de usar y "
+"visualmente atractivos de cualquier competencia. Simplemente arrastrando"
+
+#: faq.phtml:34
+msgid ""
+"dropping you can simulate your restaurants layout perfectly including the "
+"separators in a matter of minutes."
+msgstr ""
+"dejando caer que puede simular sus restaurantes layout perfectamente "
+"incluidos los separadores en cuestión de minutos."
+
+#: faq.phtml:35
+msgid "'We've been using a paper diary, is DineDesk easy use?'"
+msgstr "\"Hemos estado utilizando un diario de papel, es DineDesk uso fácil? '"
+
+#: faq.phtml:36
+msgid ""
+"Over the last few years we have developed the most friendly and easy to use "
+"interface which our customers pick up very quickly. Whether computer "
+"literate or not you'll have no issues switching to DineDesk and the support "
+"team are on-hand to make this transition as smooth as can be."
+msgstr ""
+"En los últimos años hemos desarrollado la interfaz más amigable y fácil de "
+"usar que nuestros clientes captan muy rápidamente. Ya sea con conocimientos "
+"de informática o no tendrás ningún problema de conexión a DineDesk y el "
+"equipo de soporte está a su disposición para hacer esta transición tan suave "
+"como puede ser."
+
+#: faq.phtml:37
+msgid "'We're using another booking system can we easily switch?'"
+msgstr ""
+"\"Estamos utilizando otro sistema de reservas podemos cambiar fácilmente?"
+
+#: faq.phtml:38
+msgid ""
+"This is not an uncommon question and the answer is YES! We will work with "
+"you closely to ensure the transition is seamless."
+msgstr ""
+"Esta no es una pregunta poco común y la respuesta es ¡SÍ! Vamos a trabajar "
+"con usted de cerca para asegurarse de que la transición sea sin problemas."
+
+#: faq.phtml:39
+msgid ""
+"'I already have a database of customer profiles can these be imported into "
+"DineDesk?'"
+msgstr ""
+"'Ya tengo una base de datos de perfiles de los clientes pueden éstos ser "
+"importados en DineDesk?"
+
+#: faq.phtml:40
+msgid ""
+"In most cases there will be no issue for us to import your existing data "
+"into DineDesk. Depending on the complexity and the work involved there may "
+"be a small supplementary charge for this service."
+msgstr ""
+"En la mayoría de los casos no habrá ningún problema para nosotros para "
+"importar sus datos existentes en DineDesk. Dependiendo de la complejidad y "
+"el trabajo que puede haber un pequeño cargo adicional por este servicio."
+
+#: faq.phtml:41
+msgid "'Do we own the customer profile data created when using DineDesk?'"
+msgstr ""
+"'¿Tenemos propietarios de los datos del perfil de cliente se crean al "
+"utilizar DineDesk?"
+
+#: faq.phtml:42
+msgid ""
+"Absolutely!! It's your data! We even give you easy export tools so you can "
+"take a copy of this data whenever you like."
+msgstr ""
+"¡Por supuesto!! Se trata de sus datos! Incluso le damos las herramientas "
+"fáciles de exportación para que pueda tomar una copia de estos datos siempre "
+"que lo desee."
+
+#: features.phtml:16
+msgid "Online Reservation Tool Features"
+msgstr "Herramienta de línea de la reservación Características"
+
+#: features.phtml:19
+msgid "Affordability"
+msgstr "Asequibilidad"
+
+#: features.phtml:22
+msgid "$30/month"
+msgstr "$ 30 al mes"
+
+#: features.phtml:22
+msgid "flat fee"
+msgstr "tarifa plana"
+
+#: features.phtml:23
+msgid "No per-reservation fee"
+msgstr "Sin tarifa por reserva"
+
+#: features.phtml:24
+msgid "No long-term contract"
+msgstr "Sin contrato de larga duración"
+
+#: features.phtml:25
+msgid "No equipment to buy"
+msgstr "Sin necesidad de comprar equipo"
+
+#: features.phtml:29
+msgid "Ease-of-Use"
+msgstr "Facilidad de Uso"
+
+#: features.phtml:32
+msgid "Cloud-based system"
+msgstr "Sistema basado en la nube"
+
+#: features.phtml:32
+msgid "lets you access from anywhere"
+msgstr "Le permite acceder desde cualquier lugar"
+
+#: features.phtml:33
+msgid "No software to download"
+msgstr "No hay software para descargar"
+
+#: features.phtml:34
+msgid "Add the online"
+msgstr "Agregue la línea"
+
+#: features.phtml:34
+msgid "reservation widget"
+msgstr "widget de reserva"
+
+#: features.phtml:34
+msgid "to your restaurant's website and Facebook"
+msgstr "a la página web de su restaurante y Facebook"
+
+#: features.phtml:35
+msgid "24/7"
+msgstr "24/7"
+
+#: features.phtml:35
+msgid "technical support"
+msgstr "apoyo técnico"
+
+#: features.phtml:36
+msgid "Floor plan interface"
+msgstr "Interfaz esquema de piso"
+
+#: features.phtml:37
+msgid "Manage table inventory with"
+msgstr "Administrar el inventario mesa con"
+
+#: features.phtml:37
+msgid "reservation hover"
+msgstr "libración reserva"
+
+#: features.phtml:38
+msgid "Add/block slots on the fly"
+msgstr "Ranuras Añadir / bloque sobre la marcha"
+
+#: features.phtml:39
+msgid "Phone notify"
+msgstr "Teléfono notificar"
+
+#: features.phtml:39
+msgid "turns online reservations to a phone call"
+msgstr "Resulta reservas en línea para una llamada telefónica"
+
+#: features.phtml:40
+msgid "Text/email notification"
+msgstr "Notificación de texto / correo electrónico"
+
+#: features.phtml:44
+#, fuzzy
+msgid "Unique Features"
+msgstr "Dinedesk Características"
+
+#: features.phtml:47
+msgid "Promote special offers using the"
+msgstr "Promover ofertas especiales mediante el"
+
+#: features.phtml:47
+msgid "chalkboard widget"
+msgstr "widget de pizarra"
+
+#: features.phtml:48
+msgid "iPad wait list kiosk"
+msgstr "iPad lista de espera kiosco"
+
+#: features.phtml:49
+msgid "Mobile app"
+msgstr "Mobile app"
+
+#: features.phtml:49
+msgid "for managers"
+msgstr "para los gerentes"
+
+#: features.phtml:50
+msgid "Link to"
+msgstr "Enlace a"
+
+#: features.phtml:50
+msgid "customer lists"
+msgstr "listas de clientes"
+
+#: features.phtml:50
+msgid "in Constant Contact"
+msgstr "en Constant Contact"
+
+#: guestmanagement.phtml:17 guestmanagementza.phtml:17 marketing.phtml:17
+#: marketingza.phtml:17
+#, fuzzy
+msgid "Online Reservation"
+msgstr "Reservas"
+
+#: guestmanagement.phtml:30 guestmanagementza.phtml:30
+msgid "Complete dining room management at your fingertips"
+msgstr "Gestión completa de comedor a su alcance"
+
+#: guestmanagement.phtml:31 guestmanagementza.phtml:31
+msgid ""
+"Manage telephone and online reservations -- as well as walk-ins -- from your "
+"PC, laptop or tablet.  Inform guests of free tables via SMS while tracking "
+"preferences of your repeat guests with a detailed database of their likes "
+"and dislikes. Manage table occupancy to generate more covers and more "
+"revenue for your restaurant."
+msgstr ""
+"Administrar el teléfono y reservas en línea -, así como a pie-ins - desde su "
+"PC, ordenador portátil o tablet. Informar a los clientes de las mesas libres "
+"a través de SMS, mientras que el seguimiento de las preferencias de sus "
+"clientes repiten con una base de datos detallada de sus gustos y disgustos. "
+"Gestione la ocupación mesa para generar más portadas y más ingresos para su "
+"restaurante."
+
+#: guestmanagement.phtml:39 guestmanagementza.phtml:39
+msgid "Manage your Restaurant Dining Room Professionally"
+msgstr "Administrar su restaurante Dining Room profesionalmente"
+
+#: guestmanagement.phtml:46 guestmanagementza.phtml:46
+msgid "Visual representation of your dining rooms"
+msgstr "Representación visual de sus comedores"
+
+#: guestmanagement.phtml:48 guestmanagementza.phtml:48
+msgid ""
+"See the status of tables on your computer or tablet to maximize use. Pre-"
+"assign reservations to tables and manage multiple seatings."
+msgstr ""
+"Ver el estado de las mesas en su computadora o tableta para maximizar su "
+"uso. Pre-asignar las reservas a las tablas y gestionar varios asientos."
+
+#: guestmanagement.phtml:51 guestmanagementza.phtml:51
+msgid "Track status of each party from reservation to payment"
+msgstr "Seguimiento del estado de cada partido desde la reserva hasta el pago"
+
+#: guestmanagement.phtml:53 guestmanagementza.phtml:53
+msgid ""
+"Plan your table allocation by tracking seating with customizable status "
+"codes. Accurately predict when a table will come free for the next seating."
+msgstr ""
+"Planifique su asignación de mesa mediante el seguimiento de estar con los "
+"códigos de estado personalizables. Predecir con exactitud cuando una tabla "
+"vendrá libre para la próxima estar."
+
+#: guestmanagement.phtml:56 guestmanagementza.phtml:56
+msgid "Personal management of each guest in the restaurant"
+msgstr "Gestión de personal de cada invitado en el restaurante"
+
+#: guestmanagement.phtml:58 guestmanagementza.phtml:58
+msgid ""
+"Access to a guest's reservation history and preferences allows your staff to "
+"treat each guest as a VIP."
+msgstr ""
+"El acceso a la historia y las preferencias de la reserva de un cliente "
+"permite a su personal para tratar a cada huésped como un VIP."
+
+#: guestmanagement.phtml:64 guestmanagementza.phtml:64
+msgid ""
+"Make wait lists easier by predicting wait times accurately and notifying "
+"guests that their table is ready by SMS.  No need for pagers or buzzers. "
+msgstr ""
+"Haga una lista de espera de más fácil predecir con exactitud los tiempos de "
+"espera y notificar los huéspedes que su mesa está lista por SMS. No hay "
+"necesidad de buscapersonas o zumbadores."
+
+#: guestmanagement.phtml:67 guestmanagementza.phtml:67
+msgid "Reservation lists help you plan service"
+msgstr "Listas de reserva le ayudan a planificar el servicio"
+
+#: guestmanagement.phtml:69 guestmanagementza.phtml:69
+msgid ""
+"Simple reservation lists, in the format of a traditional reservation diary, "
+"help you plan ahead to optimize use of staff and dining room."
+msgstr ""
+"Listas de reserva sencillo, en el formato de un diario tradicional reserva, "
+"le ayudan a planificar el futuro para optimizar el uso del personal y de "
+"comedor."
+
+#: guestmanagement.phtml:72 guestmanagementza.phtml:72
+msgid "Analyze and benchmark your restaurant's performance"
+msgstr "Analizar y comparar el rendimiento de su restaurante"
+
+#: guestmanagement.phtml:74 guestmanagementza.phtml:74
+msgid ""
+"Benefit from extensive reports and analysis of your restaurant's "
+"operations.  Information on reservations, table availability, popularity of "
+"specials and more is just a click away."
+msgstr ""
+"Beneficiarse de los informes y de análisis detallados de las operaciones de "
+"su restaurante. La información sobre reservas, disponibilidad de mesa, la "
+"popularidad de las ofertas especiales y más con sólo un clic de distancia."
+
+#: index.phtml:160 indexza.phtml:160
+msgid "Receive New Reservations"
+msgstr "Recibe nuevos Reservas"
+
+#: index.phtml:167 indexza.phtml:167
+msgid "from Facebook, Smart Phones and the Web"
+msgstr "de Facebook, los teléfonos inteligentes y la Web"
+
+#: index.phtml:174 indexza.phtml:174
+msgid "Bookings from your Facebook page"
+msgstr "Las reservas de su página de Facebook"
+
+#: index.phtml:174
+msgid " Free Reservations from your Website"
+msgstr "Reservas gratuitas en su sitio web"
+
+#: index.phtml:174 indexza.phtml:174
+msgid "Reservations from Mobile Phones and Tablets"
+msgstr "Reservas desde teléfonos móviles y tabletas"
+
+#: index.phtml:174 indexza.phtml:174
+msgid "Automated Guest communication"
+msgstr "Comunicación automatizada Invitado"
+
+#: index.phtml:174 indexza.phtml:174
+msgid "Control Easily when Reservations Are Accepted"
+msgstr "Controle fácilmente cuando se aceptan reservas"
+
+#: index.phtml:194 indexza.phtml:194
+msgid "Use Online Marketing"
+msgstr "Utilice Marketing Online"
+
+#: index.phtml:201 indexza.phtml:201
+msgid "To Seat More Guests in your Restaurant"
+msgstr "Para acomodar a más huéspedes en su restaurante"
+
+#: index.phtml:207 indexza.phtml:207
+msgid "Post Deals and Menus on Facebook"
+msgstr "Ofertas de correos y Menús en Facebook"
+
+#: index.phtml:207 indexza.phtml:207
+msgid "Launch a Customized Mobile Website"
+msgstr "Poner en marcha una página web personalizada Mobile"
+
+#: index.phtml:207 indexza.phtml:207
+msgid "Benefit from Easy Email Marketing"
+msgstr "Beneficiarse de marketing por correo electrónico fácil"
+
+#: index.phtml:207 indexza.phtml:207
+msgid "Use new Social Media Publishing Platform"
+msgstr "Utilice los nuevos medios sociales Plataforma Publishing"
+
+#: index.phtml:207 indexza.phtml:207
+msgid "Develop a Detailed Database of Guests"
+msgstr "Desarrollar una base de datos detallada de los huéspedes"
+
+#: index.phtml:207 indexza.phtml:207 indexza.phtml:242
+msgid "Request a Free Demo"
+msgstr "Solicite una demo gratis"
+
+#: index.phtml:229
+msgid "Manage your Dining Room "
+msgstr "Administre su Comedor"
+
+#: index.phtml:236 indexza.phtml:236
+msgid "with Ease and Efficiency"
+msgstr "con facilidad y eficiencia"
+
+#: index.phtml:242
+msgid " Manage Reservations and Walk-ins"
+msgstr "Administrar reservaciones y walk-ins"
+
+#: index.phtml:242 indexza.phtml:242
+msgid "Use Visual Table Management System"
+msgstr "Utilice Sistema de Gestión de la tabla de Visual"
+
+#: index.phtml:242 indexza.phtml:242
+msgid "Improve Customer Service with Informed Staff"
+msgstr "Mejorar el servicio al cliente con personal informado"
+
+#: index.phtml:242 indexza.phtml:242
+msgid "Manage Wait-Listed Guests via SMS"
+msgstr "Administrar Lista de Espera huéspedes a través de SMS"
+
+#: index.phtml:242 indexza.phtml:242
+msgid "View Detailed Guest Histories in CRM"
+msgstr "Ver detalladas historias de Huéspedes en CRM"
+
+#: index.phtml:242
+msgid " Request a Free Demo"
+msgstr "Solicite una demo gratis"
+
+#: index.phtml:261 indexza.phtml:261
+msgid "We bring Faster Operations"
+msgstr "Traemos operaciones más rápidas"
+
+#: index.phtml:268 indexza.phtml:268
+msgid "& Better Service"
+msgstr "Y mejor servicio"
+
+#: index.phtml:286
+msgid "Manage your Restaurant with DineDesk "
+msgstr "Administrar su restaurante con DineDesk"
+
+#: index.phtml:287 indexza.phtml:287
+msgid "Online Marketing, Reservations and Dining Room Management"
+msgstr "Marketing Online, Reservas y Comedor Gestión"
+
+#: index.phtml:288
+msgid ""
+"Use DineDesk to manage all your front-of-restaurant operations, from "
+"marketing and online reservations to waitlist management and seating in your "
+"dining room.  Our integrated suite of restaurant management tools helps you "
+"reach new guests using social media and mobile technology, while enabling "
+"them to make free reservations at your restaurant."
+msgstr ""
+"Utilice DineDesk para gestionar todas tus front-de-restaurante de las "
+"operaciones, de marketing y reservas en línea a lista de espera de gestión y "
+"de estar en su comedor. Nuestra suite integrada de herramientas de gestión "
+"de restaurante ayuda a llegar a nuevos clientes utilizando los medios "
+"sociales y la tecnología móvil, mientras que lo que les permite hacer "
+"reservaciones gratuitas en su restaurante"
+
+#: index.phtml:301 indexza.phtml:301
+msgid ""
+"DineDesk's marketing tools put you in direct contact with your guests.  Post "
+"your menus and specials on Facebook, while engaging guests via Twitter and "
+"other social media channels.  You can also contact guests by email and SMS, "
+"or reach out with a new mobile website designed to run on smart phones and "
+"tablets, complete with an online reservation system."
+msgstr ""
+"Herramientas de marketing de DineDesk te ponen en contacto directo con sus "
+"clientes. Publique sus menús y promociones especiales en Facebook, mientras "
+"que la participación invitados a través de Twitter y otros canales de medios "
+"sociales. También puede ponerse en contacto con los clientes por correo "
+"electrónico y SMS, o llegar con un nuevo sitio web para móviles diseñado "
+"para ejecutarse en los teléfonos inteligentes y las tabletas, con un sistema "
+"de reservas en línea"
+
+#: index.phtml:312 indexza.phtml:312
+msgid ""
+"Receive online reservations from all your online marketing channels, and "
+"never pay a transaction fee or commission. Your DineDesk booking engine can "
+"be placed on your website, on a new mobile website or directly on Facebook "
+"to convert 'Likes' into paying guests.  And management is easy: We send you "
+"an email or SMS with each new reservation and you can easily close out hours "
+"or days when you don't want reservations."
+msgstr ""
+"Recibe reservas on-line de todos los canales de marketing en línea, y nunca "
+"pagar una comisión de transacción o comisión. Su motor de reservas DineDesk "
+"se puede colocar en su sitio web, en un nuevo sitio web para móviles o "
+"directamente en Facebook para convertir \"Me gusta\" en pago de los "
+"clientes. Y la gestión es fácil: Le enviamos un correo electrónico o SMS con "
+"cada nueva reserva y se puede cerrar fácilmente horas o días en que usted no "
+"quiere reservas."
+
+#: index.phtml:329 indexza.phtml:329
+msgid "Dining Room Management"
+msgstr "Gestión de Comedor"
+
+#: index.phtml:330 indexza.phtml:330
+msgid ""
+"Manage your entire dining room with DineDesk's advanced tools.  A visual "
+"representation of each of your tables enables your staff to manage online "
+"and telephone reservations and generally optimize the use of all tables in "
+"the dining room. Use the Wait List to manage those waiting for tables, "
+"offering them realistic wait times and notifying them of available tables by "
+"SMS.  And detailed guest histories are always available to your staff to aid "
+"in customer service."
+msgstr ""
+"Gestione toda su comedor con herramientas avanzadas de DineDesk. Una "
+"representación visual de cada una de las tablas permite a su personal para "
+"gestionar reservas en línea y por teléfono y en general optimizar el uso de "
+"todas las mesas en el comedor. Utilice la lista de espera para gestionar los "
+"que están esperando para mesas, ofreciéndoles los tiempos de espera "
+"realistas y se les notifica de mesas disponibles por SMS. Y las historias "
+"detalladas de los huéspedes están siempre disponibles para su personal para "
+"ayudar en el servicio al cliente"
+
+#: index.phtml:337 indexza.phtml:337
+msgid "Dinedesk Features"
+msgstr "Dinedesk Características"
+
+#: index.phtml:340 indexza.phtml:340
+msgid "Technology Partners"
+msgstr "Socios tecnológicos"
+
+#: index.phtml:341 indexza.phtml:341
+msgid ""
+"Use DineDesk's advanced technology to facilitate marketing, receive online "
+"reservations from your website and manage seating in your dining room."
+msgstr ""
+"Utilice la tecnología avanzada de DineDesk para facilitar la "
+"comercialización, recibir reservas en línea de su sitio web y gestionar los "
+"asientos en su comedor"
+
+#: index.phtml:345 indexza.phtml:345
+msgid "Guest management"
+msgstr "Gestión Invitado"
+
+#: index.phtml:346 indexza.phtml:346
+msgid ""
+"Manage wait-listed guests and notify them of free tables via SMS. Store "
+"guest information and manage table seatings to optimize the number of guests "
+"you serve each day."
+msgstr ""
+"Administrar clientes en lista de espera y notificarles de mesas libres a "
+"través de SMS.Almacenar información de los clientes y gestionar los asientos "
+"de mesa para optimizar el número de invitados que usted sirve cada día"
+
+#: index.phtml:350 indexza.phtml:350
+msgid "Deals and offers"
+msgstr "Ofertas y ofertas"
+
+#: index.phtml:351 indexza.phtml:351
+msgid ""
+"Attract new guests to your restaurant with online specials that you publish "
+"on your website, Facebook, and Twitter.  Quickly create an event in Facebook "
+"or send invitations by email."
+msgstr ""
+"Atraer nuevos clientes a su restaurante con especialidades en línea que "
+"publica en su página web, Facebook y Twitter. Crear rápidamente un evento en "
+"Facebook o enviar invitaciones por correo electrónico."
+
+#: index.phtml:355 indexza.phtml:355
+msgid "Social Media"
+msgstr "Social Media"
+
+#: index.phtml:356
+msgid ""
+"DineDesk's social media publishing platform enables you to manage your "
+"Facebook page and other social media channels, accepting reservations and "
+"posting new menus and deals. "
+msgstr ""
+"Plataforma de publicación de los medios de comunicación social de DineDesk "
+"le permite administrar su página de Facebook y otros canales de medios "
+"sociales, la aceptación de las reservas y la publicación de nuevos menús y "
+"ofertas."
+
+#: index.phtml:360 indexza.phtml:360
+msgid "Restaurant Menus"
+msgstr "Restaurante Menús"
+
+#: index.phtml:361 indexza.phtml:361
+msgid ""
+"DineDesk helps you put your menu online and share it with guests via "
+"Facebook, your classic website and on a new mobile website for smart phones "
+"and tablets."
+msgstr ""
+"DineDesk le ayuda a poner el menú en línea y compartirlo con los clientes a "
+"través de Facebook, su sitio web clásico y en un nuevo sitio web para "
+"móviles para teléfonos inteligentes y tabletas."
+
+#: index.phtml:365 indexza.phtml:365
+msgid "Email marketing"
+msgstr "El email marketing"
+
+#: index.phtml:366 indexza.phtml:366
+msgid ""
+"Reach out to your past guests and invite them back to your restaurant with a "
+"DineDesk email and SMS marketing campaign."
+msgstr ""
+"Llegar a sus huéspedes anteriores e invitarlos de nuevo a su restaurante con "
+"un email DineDesk y campaña de marketing SMS."
+
+#: indexza.phtml:174
+#, fuzzy
+msgid "Free Reservations from your Website"
+msgstr "Reservas gratuitas en su sitio web"
+
+#: indexza.phtml:229
+#, fuzzy
+msgid "Manage your Dining Room"
+msgstr "Administre su Comedor"
+
+#: indexza.phtml:242
+#, fuzzy
+msgid "Manage Reservations and Walk-ins"
+msgstr "Administrar reservaciones y walk-ins"
+
+#: indexza.phtml:286
+#, fuzzy
+msgid "Manage your Restaurant with DineDesk"
+msgstr "Administrar su restaurante con DineDesk"
+
+#: indexza.phtml:288
+#, fuzzy
+msgid ""
+"Use DineDesk to manage all your front-of-restaurant operations, from "
+"marketing and online reservations to waitlist management and seating in your "
+"dining room.  Our integrated suite of restaurant management tools helps you "
+"reach new guests using social media and mobile technology, while enabling "
+"them to make free reservations at your restaurant. "
+msgstr ""
+"Utilice DineDesk para gestionar todas tus front-de-restaurante de las "
+"operaciones, de marketing y reservas en línea a lista de espera de gestión y "
+"de estar en su comedor. Nuestra suite integrada de herramientas de gestión "
+"de restaurante ayuda a llegar a nuevos clientes utilizando los medios "
+"sociales y la tecnología móvil, mientras que lo que les permite hacer "
+"reservaciones gratuitas en su restaurante"
+
+#: indexza.phtml:356
+#, fuzzy
+msgid ""
+"DineDesk's social media publishing platform enables you to manage your "
+"Facebook page and other social media channels, accepting reservations and "
+"posting new menus and deals."
+msgstr ""
+"Plataforma de publicación de los medios de comunicación social de DineDesk "
+"le permite administrar su página de Facebook y otros canales de medios "
+"sociales, la aceptación de las reservas y la publicación de nuevos menús y "
+"ofertas."
+
+#: marketing.phtml:30 marketingza.phtml:30
+msgid "Attract New Guests while Bringing Past Customers Back for More"
+msgstr ""
+"Atraer a nuevos invitados, mientras que traer a los clientes anteriores Back "
+"for More"
+
+#: marketing.phtml:31 marketingza.phtml:31
+msgid ""
+"Restaurants can't compete today without using all online marketing channels, "
+"from email and SMS to mobile websites and Facebook.  Stay in touch with your "
+"market with DineDesk's Social Media publishing platform."
+msgstr ""
+"Los restaurantes no pueden competir hoy en día sin el uso de todos los "
+"canales de marketing en línea, desde el correo electrónico y SMS a los "
+"sitios web móviles y Facebook. Mantente en contacto con su mercado con la "
+"plataforma de publicación de DineDesk Social Media."
+
+#: marketing.phtml:39 marketingza.phtml:39
+msgid "Increase your Bookings with Online Marketing and Social Media"
+msgstr "Aumente sus reservas con Marketing Online y Social Media"
+
+#: marketing.phtml:46 marketingza.phtml:46
+msgid "Reach your customers in their email Inboxes"
+msgstr "Llegar a sus clientes en sus bandejas de entrada de correo electrónico"
+
+#: marketing.phtml:48 marketingza.phtml:48
+msgid ""
+"Your customers check their inbox all day, every day. You're sure to reach "
+"them with email and SMS."
+msgstr ""
+"Sus clientes revisar su bandeja de entrada todo el día, todos los días. "
+"Usted está seguro de llegar a ellos con el correo electrónico y SMS."
+
+#: marketing.phtml:51 marketingza.phtml:51
+msgid "Deals and specials attract new guests to your restaurant"
+msgstr ""
+"Ofertas y promociones especiales atraen a nuevos clientes a su restaurante"
+
+#: marketing.phtml:53 marketingza.phtml:53
+msgid ""
+"Enter your special offers in DineDesk for immediate publication on your "
+"website, mobile website, Facebook and other social media channels."
+msgstr ""
+"Introduce las ofertas especiales en DineDesk para su publicación inmediata "
+"en su página web, sitio web para móviles, Facebook y otros canales de medios "
+"sociales."
+
+#: marketing.phtml:58 marketingza.phtml:58
+msgid ""
+"Publish and manage all social media posts, deals and events from a central "
+"control panel."
+msgstr ""
+"Publicar y administrar todos los mensajes de los medios sociales, ofertas y "
+"eventos de un panel de control central."
+
+#: marketing.phtml:62 marketingza.phtml:62
+msgid "Share your restaurant menu online"
+msgstr "Comparte tu menú de restaurante en línea"
+
+#: marketing.phtml:64 marketingza.phtml:64
+msgid ""
+"Design your menu online and distribute it with one click on your website, "
+"Facebook and other social media channels."
+msgstr ""
+"El diseño de su menú en línea y distribuirlo con un solo clic en su página "
+"web, Facebook y otros canales de medios sociales."
+
+#: marketing.phtml:67 marketingza.phtml:67
+msgid "DineDesk brings your website to smart phones and tablets"
+msgstr "DineDesk trae su sitio web para teléfonos inteligentes y tabletas"
+
+#: marketing.phtml:69 marketingza.phtml:69
+msgid ""
+"Reach your guests with mobile friendly websites, designed specifically for "
+"use on smart phones and tablets."
+msgstr ""
+"Llegar a sus invitados con los sitios web móviles amigables, diseñados "
+"específicamente para su uso en teléfonos inteligentes y tabletas."
+
+#: marketing.phtml:74 marketingza.phtml:74
+msgid ""
+"Immediate feedback from your guests, using DineDesk's tools, helps you "
+"improve customer service."
+msgstr ""
+"La retroalimentación inmediata de sus invitados, el uso de herramientas de "
+"DineDesk, le ayuda a mejorar el servicio al cliente."
+
+#: marketingza.phtml:56
+msgid "DineDesk's tools make social media easy "
+msgstr "DineDesk's tools make social media easy "
+
+#: news.phtml:3
+msgid "Company"
+msgstr "empresa"
+
+#: news.phtml:6
+#, fuzzy
+msgid "Restaurant Partners"
+msgstr "Restaurante Menús"
+
+#: news.phtml:10
+msgid "DineDesk Launches at New England Food Show"
+msgstr "DineDesk lanza en New England Food Show"
+
+#: news.phtml:12
+msgid ""
+"New, premium online restaurant reservation & table management system "
+"developed by a restaurant owner for restaurant owners"
+msgstr ""
+"Nuevo sistema de gestión de reservas de restaurantes, la prima en línea y "
+"mesa desarrollado por el propietario de un restaurante para los dueños de "
+"restaurantes"
+
+#: news.phtml:14
+#, fuzzy
+msgid ""
+"a premium online restaurant reservation and table management system, today "
+"announces its official launch at the New England Food Show. Co-founded by "
+"veteran Boston restaurateur Jeffrey Gates and engineer & sales executive Van "
+"Garrett, the new system is designed to offer restaurant owners already using "
+"an online reservation system with a more cost-effective and robust option "
+"than what is currently available on the market as well as provide restaurant "
+"owners who were previously priced out of using an online booking system with "
+"an option they can finally afford."
+msgstr ""
+"un sistema de reservas de restaurante y gestión de tablas en línea de alta "
+"calidad, ha anunciado hoy su lanzamiento oficial en el New England Food "
+"Show. Co-fundada por el veterano restaurador Boston Bob Lawson y el "
+"ingeniero y ejecutivo de ventas Ven Thangaraj, el nuevo sistema está "
+"diseñado para ofrecer a los propietarios de restaurantes que ya utilizan un "
+"sistema de reservas en línea con una opción más rentable y robusta que lo "
+"que está actualmente disponible en el mercado como así como proporcionar a "
+"los propietarios de restaurantes que estaban a un precio previamente salir "
+"de utilizar un sistema de reservas online con una opción que finalmente "
+"puede permitirse."
+
+#: news.phtml:16
+msgid ""
+"Gates decided to tap into his engineering background to develop an online "
+"system after becoming increasingly frustrated with the constant cost "
+"increases from the online reservation system he had been using at his six "
+"restaurants. In addition, that system had blocked restaurants from using the "
+"Internet and prevented them from accessing the system remotely ' from places "
+"or on mobile devices other than the costly equipment they required "
+"restaurants lease from them in order to use their system. The straw that "
+"broke the camel's back was the response that Gates received from his sales "
+"representative as he tried to work with them to make their product more user-"
+"friendly for a restaurateur running on tight margins. 'If you don't like our "
+"system, try something else' was his rep's response ' and so he did!"
+msgstr ""
+"Gates, decidió explotar su experiencia en ingeniería para desarrollar un "
+"sistema en línea después de convertirse en cada vez más frustrado con los "
+"constantes aumentos de los costos del sistema de reservas en línea que había "
+"estado utilizando en sus seis restaurantes. Además, ese sistema había "
+"bloqueado los restaurantes que utilicen Internet y les impidió el acceso al "
+"sistema de forma remota \"de lugares o en los dispositivos móviles que no "
+"sean el equipo costoso que requiere restaurantes arrendamiento de los mismos "
+"con el fin de utilizar su sistema. La gota que colmó el vaso fue la "
+"respuesta que Gates recibió de su representante de ventas, mientras trataba "
+"de trabajar con ellos para hacer su producto más fácil de usar para un "
+"restaurador que se ejecuta en los márgenes estrechos. 'Si no te gusta "
+"nuestro sistema, intentar otra cosa \"fue la respuesta de su representante"
+"\", y así lo hizo!"
+
+#: news.phtml:18
+msgid ""
+"After spending the last ten months in beta, we are thrilled to officially "
+"launch DineDesk,' stated Jeff Gates, cofounder, DineDesk and partner & "
+"owner, The Aquitaine Group, a collection of six Bostonrestaurants. 'With "
+"DineDesk, we developed an affordable, comprehensive online reservation "
+"system and guest management tool that truly works for and will benefit all "
+"levels of restaurant owners ' from single operators to large, multi-unit "
+"groups."
+msgstr ""
+
+#: news.phtml:20
+msgid ""
+"In less than one year, DineDesk is used by 130+ restaurants throughout "
+"Boston and greaterMassachusetts, Providence, Philadelphia and Atlanta. For "
+"its clients, DineDesk is reserving 3,000 seats and growing per day and since "
+"its inception has reserved seats for 350,000 guests."
+msgstr ""
+"En menos de un año, DineDesk es utilizado por 130 + restaurantes a través de "
+"Boston y Providence, greaterMassachusetts, Filadelfia y Atlanta. Para sus "
+"clientes, DineDesk está reservando 3.000 asientos y creciente por día y "
+"desde su creación se ha reservado asientos para 350.000 personas."
+
+#: news.phtml:22
+msgid "DineDesk's key differentiators are:"
+msgstr "Diferenciadores clave de DineDesk son:"
+
+#: news.phtml:25
+msgid "Flat monthly fee of $30 with no additional per reservation costs;"
+msgstr "Cuota fija mensual de $ 30 sin costos adicionales por reserva;"
+
+#: news.phtml:26
+msgid ""
+"Integrated reservations capability ' reservations can be taken and managed "
+"over the phone and through the restaurant's website and Facebook page;"
+msgstr ""
+"Reservas reservas de capacidad integrada 'se pueden tomar y se gestionan por "
+"teléfono ya través de la página web del restaurante y la página de Facebook;"
+
+#: news.phtml:27
+msgid ""
+"Cloud-based reservation system that can be used from any Internet active "
+"device ' computer, tablet or smart phone ' and DOES NOT require additional "
+"leased or purchased equipment;"
+msgstr ""
+"Sistema de reserva basado en la nube que se puede utilizar desde cualquier "
+"dispositivo a Internet activa 'ordenador, tableta o teléfono inteligente' y "
+"no requiere de equipo arrendado o adquirido adicional;"
+
+#: news.phtml:28
+msgid ""
+"Open API environment allowing for future aggregation and marketing "
+"partnerships;"
+msgstr ""
+"Ambiente API abierta que permite futuras de agregación y comercialización "
+"asociaciones;"
+
+#: news.phtml:29
+msgid ""
+"Custom widgets and widget marketing tool allowing restaurants to promote "
+"specials & programs via a chalkboard displayed on the reservation page;"
+msgstr ""
+"Widgets personalizados y herramienta de marketing que permite widget de "
+"restaurantes de promoción especiales y programas a través de una pizarra que "
+"aparece en la página de reserva;"
+
+#: news.phtml:30
+msgid ""
+"Phone notify feature allows restaurateurs the ability to offer the modern "
+"convenience of online bookings while continuing to run their restaurant as "
+"they prefer (pen & paper or entry into another system);"
+msgstr ""
+"Teléfono función de notificación permite a los restauradores la capacidad de "
+"ofrecer la comodidad moderna de reservas en línea sin dejar de ejecutar su "
+"restaurante, ya que prefieren (pluma y papel o entrada en otro sistema);"
+
+#: news.phtml:31
+msgid ""
+"Ability to build, maintain and own guest database & execute seamless email "
+"marketing campaigns through a partnership with Constant Contact;"
+msgstr ""
+"Capacidad de construir, mantener y propia base de datos de huéspedes y "
+"ejecutar campañas de marketing por correo electrónico sin fisuras a través "
+"de una asociación con Constant Contact;"
+
+#: news.phtml:32
+msgid ""
+"DineDesk two-way wait list system ' an alternative to expensive existing "
+"buzzer systems, an integrated two-way system for deployment where guests' "
+"smart phones are turned into wait list pagers providing restaurant hosts "
+"direct two-way communication through SMS Text regarding wait list status and "
+"other updates;"
+msgstr ""
+"DineDesk de dos vías sistema de lista de espera \"una alternativa a los "
+"costosos sistemas de timbre ya existentes, un sistema de dos vías integradas "
+"para el despliegue, donde los huéspedes teléfonos inteligentes se convierten "
+"en lista de espera pagers proporcionando restaurante anfitriones directa "
+"comunicación bidireccional a través de SMS de texto sobre el estado de la "
+"lista de espera y otras actualizaciones;"
+
+#: news.phtml:33
+msgid ""
+"High-powered table management including guest history, on the fly schedule "
+"and inventory changes, walk-in integration, table holding, and much more;"
+msgstr ""
+"Gestión de la tabla de alta potencia, incluyendo la historia de invitados, "
+"en el horario de vuelo y cambios en el inventario, a pie-en la integración, "
+"mesa de celebración, y mucho más;"
+
+#: news.phtml:34
+msgid "24-hour tech support."
+msgstr "Soporte técnico las 24 horas."
+
+#: news.phtml:37
+msgid ""
+"DineDesk is a management tool built with the restaurateur in mind,' said Van "
+"Garrett, co-founder & CEO, DineDesk. 'The goal of the system is to allow "
+"restaurant operators to do what they do best ' serve guests & provide "
+"stellar hospitality ' with an easy-to-use and accessible control system "
+"managing reservations and guest flow."
+msgstr ""
+
+#: news.phtml:39
+msgid "ABOUT DineDesk: "
+msgstr "ACERCA DineDesk:"
+
+#: news.phtml:41
+msgid ""
+"DineDesk is a premium online restaurant reservation and table management "
+"system. It was developed by a restaurant owner for restaurant owners to "
+"provide an affordable and robust solution to fulfill their online "
+"reservation and guest management needs."
+msgstr ""
+"DineDesk es un sistema de gestión de restaurantes y reservas de mesa en "
+"línea premium. Fue desarrollado por el dueño de un restaurante de los dueños "
+"de restaurantes para ofrecer una solución asequible y robusta para "
+"satisfacer sus necesidades de gestión de reservas en línea y de la huésped."
+
+#: news1.phtml:15
+msgid "Press Release"
+msgstr "Comunicado de Prensa"
+
+#: news1.phtml:16
+msgid "DineDesk launches online marketing & operations platform"
+msgstr "DineDesk lanza marketing y operaciones de la plataforma en línea"
+
+#: news1.phtml:17
+msgid ""
+"DineDesk generates more business by automating Reservations, Order "
+"Management, Email marketing, Customer Communication & Deals."
+msgstr ""
+"DineDesk genera más negocio mediante la automatización de reservas, gestión "
+"de pedidos, email marketing, comunicación y ofertas al cliente."
+
+#: news1.phtml:19
+msgid ""
+"The restaurant industry is often faced with many challenges since 'dining' "
+"is a business of extremes. The volumes are stressful during peak times and "
+"yet restaurants want to 'drive in' patrons during non-peak hours. As a "
+"result the staff is always on edge struggling to give the best dining "
+"experience to their guests. And the struggle continues for the management "
+"who is always on lookout for new marketing avenues."
+msgstr ""
+"The restaurant industry is often faced with many challenges since 'dining' "
+"is a business of extremes. The volumes are stressful during peak times and "
+"yet restaurants want to 'drive in' patrons during non-peak hours. As a "
+"result the staff is always on edge struggling to give the best dining "
+"experience to their guests. And the struggle continues for the management "
+"who is always on lookout for new marketing avenues."
+
+#: news1.phtml:20
+msgid ""
+"Restaurants spend a lot of money and time to develop a web presence and then "
+"market through websites, social media, SMS or emails to generate more "
+"business as well as to create an online identity. The non-availability of "
+"technical or sales specialists make it difficult for them to update and "
+"share information as and when they need to. We at"
+msgstr ""
+"Restaurantes gastan un montón de dinero y tiempo para desarrollar una "
+"presencia en la web y luego comercializar a través de sitios web, redes "
+"sociales, SMS o correos electrónicos para generar más negocios, así como "
+"para crear una identidad en línea. La no disponibilidad de especialistas "
+"técnicos o de ventas hacen que sea difícil para ellos para actualizar y "
+"compartir información cuando se necesitan. Nosotros, en"
+
+#: news1.phtml:20
+msgid ""
+"understand this having spent long hours in research and communication. "
+"Considering the rich expertise in restaurant sector, we have launched a BEST-"
+"IN-CLASS solution that will move restaurants to the next level at an "
+"accelerated pace. "
+msgstr ""
+"entender esto de haber pasado largas horas en la investigación y la "
+"comunicación. Teniendo en cuenta la experiencia rica en sector de la "
+"restauración, se ha puesto en marcha una solución MEJOR EN SU CLASE que "
+"moverá restaurantes a un nivel superior a un ritmo acelerado."
+
+#: news1.phtml:21
+msgid ""
+"Our vision is to work with our restaurant owners, who are our key customers "
+"and become their affordable technology partner in this ever-changing "
+"technology enabled world. We focus on providing them with world class, "
+"dependable software applications and related services to increase "
+"productivity, revenue and market Image. We work to provide a better dining "
+"experience for their patrons."
+msgstr ""
+"Nuestra visión es trabajar con nuestros dueños de restaurantes, que son "
+"nuestros principales clientes y convertirse en su socio tecnológico "
+"asequible en este mundo de la tecnología habilitada en constante cambio. Nos "
+"centramos en proporcionarles clase mundial, las aplicaciones de software "
+"confiables y los servicios relacionados para aumentar la productividad, los "
+"ingresos y el mercado de Imagen. Trabajamos para ofrecer una mejor "
+"experiencia de comedor para sus clientes."
+
+#: news1.phtml:22
+msgid ""
+"is on its way to becoming the next big thing across, South East Asia, Middle "
+"East and Europe "
+msgstr ""
+"está en camino de convertirse en la próxima gran cosa en todo, el sudeste de "
+"Asia, Oriente Medio y Europa"
+
+#: news1.phtml:22
+msgid ""
+"India. The market response looks overwhelming with a growing number of quick "
+"adaptors already signing on globally. Our application is presently serving "
+"nearly 500 restaurants globally and is seating nearly 15000 customers each "
+"day."
+msgstr ""
+"La India. La respuesta del mercado parece abrumadora, con un número "
+"creciente de adaptadores rápidos ya la firma en todo el mundo. Nuestra "
+"aplicación está actualmente sirviendo cerca de 500 restaurantes en todo el "
+"mundo y es asiento de casi 15.000 clientes cada día."
+
+#: news1.phtml:23
+msgid ""
+"is the first of its kind solution where a restaurant business can directly "
+"control their assets, accept bookings and promote activity using social "
+"media channels, partners, their own websites, mobile website etc."
+msgstr ""
+"is the first of its kind solution where a restaurant business can directly "
+"control their assets, accept bookings and promote activity using social "
+"media channels, partners, their own websites, mobile website etc."
+
+#: news1.phtml:23
+msgid ""
+"offers a centralized mechanism to control restaurants assets. From DineDesk, "
+"restaurants can configure reservation widgets, deals and menu widgets on "
+"their web, mobile and social assets. When they post a deal, coupon, an "
+"update or even change menu offering using the DineDesk control panel, it is "
+"automatically shown on social media pages (Facebook, Twitter, Google), "
+"restaurant websites, mobile websites and other partner websites. They can "
+"then start to accept bookings from multiple sources and use our table "
+"management and operation management tools to manage the business more "
+"efficiently. "
+msgstr ""
+"ofrece un mecanismo centralizado para controlar Restaurantes activos. Desde "
+"DineDesk, los restaurantes pueden configurar los widgets reservas, ofertas y "
+"widgets del menú en su web, móvil y de los activos sociales. Cuando se "
+"publica un acuerdo, cupón, una actualización o incluso cambiar el menú que "
+"ofrece el uso del panel de control DineDesk, se muestra automáticamente en "
+"las páginas de medios sociales (Facebook, Twitter, Google), los sitios web "
+"de restaurantes, sitios web móviles y otros sitios web asociados. A "
+"continuación, puede empezar a aceptar reservas a partir de múltiples fuentes "
+"y el uso de nuestras herramientas de gestión de mesa y de gestión de "
+"operaciones para manejar el negocio de manera más eficiente."
+
+#: news1.phtml:24
+msgid ""
+"If restaurants don't have a website or mobile website. We design it for free "
+"and integrate it with DineDesk! We are also closely integrated with social "
+"media services like Facebook. If the restaurant is new to social media "
+"(Facebook, Twitter or Google+), as a part of restaurant setup, we offer free "
+"social media setup and training to capitalize on the wave. If restaurants "
+"already have one, we make it revenue generating by setting up our "
+"reservation, deals and menu widgets, which help in converting the social "
+"media users into potential patrons. "
+msgstr ""
+"Si los restaurantes no tienen un sitio web o sitio web para móviles. "
+"Diseñamos de forma gratuita y la integramos con DineDesk! También estamos "
+"estrechamente integrados con los servicios de medios sociales como Facebook. "
+"Si el restaurante es nuevo en las redes sociales (Facebook, Twitter o Google "
+"+), como parte de la configuración del restaurante, le ofrecemos libre "
+"configuración medios de comunicación social y la formación para aprovechar "
+"la ola. Si los restaurantes disponen de una, podemos hacer que la generación "
+"de ingresos mediante la creación de nuestra reserva, ofertas y los widgets "
+"del menú, que ayudan en la conversión de los usuarios de los medios sociales "
+"en los clientes potenciales."
+
+#: news1.phtml:25
+msgid ""
+"provides a very flexible and easy to use solution for your restaurants with "
+"features like:"
+msgstr ""
+"proporciona una solución muy flexible y fácil de usar para sus restaurantes "
+"con características como:"
+
+#: news1.phtml:25
+#, fuzzy
+msgid "Table Management"
+msgstr "Gestión Invitado"
+
+#: news1.phtml:25
+msgid "(Accept bookings from mobile, restaurant website, Facebook, Phone)"
+msgstr ""
+"(Acepta reservas de móvil, página web del restaurante, Facebook, Teléfono)"
+
+#: news1.phtml:25
+#, fuzzy
+msgid "Deal management"
+msgstr "Gestión Invitado"
+
+#: news1.phtml:25
+msgid "for improved publication and marketing of deals"
+msgstr "para mejorar la publicación y comercialización de ofertas"
+
+#: news1.phtml:25
+#, fuzzy
+msgid "Guest Data"
+msgstr "Gestión Invitado"
+
+#: news1.phtml:25
+msgid ", feedback and history"
+msgstr ", La retroalimentación y la historia"
+
+#: news1.phtml:25
+#, fuzzy
+msgid "Customer Communication"
+msgstr "Comunicación automatizada Invitado"
+
+#: news1.phtml:25
+msgid "to enhance customer satisfaction and loyalty, Contd... "
+msgstr "para mejorar la satisfacción del cliente y la lealtad, Cont ..."
+
+#: news1.phtml:25
+msgid "Reporting and analytics"
+msgstr "Presentación de informes y análisis"
+
+#: news1.phtml:25
+msgid "to support management in taking informed decisions"
+msgstr "para apoyar la gestión en la toma de decisiones informadas"
+
+#: news1.phtml:25
+msgid "Mobile / iPad enabled applications"
+msgstr "Aplicaciones habilitadas Móvil / iPad"
+
+#: news1.phtml:25
+msgid "for increased productivity and better accessibility"
+msgstr "para una mayor productividad y una mejor accesibilidad"
+
+#: news1.phtml:25
+#, fuzzy
+msgid "Menu/Order Management"
+msgstr "Gestión Invitado"
+
+#: news1.phtml:25
+msgid ""
+", in house, take away, home delivery and pre ordering, Wait list for a "
+"better dining experience"
+msgstr ""
+", En la casa, para llevar, entrega a domicilio y pedidos pre, Lista de "
+"espera para una mejor experiencia de comedor"
+
+#: news1.phtml:25
+msgid "Marketing tools like Social media"
+msgstr "Las herramientas de marketing como los medios sociales"
+
+#: news1.phtml:25
+msgid ", email marketing and third party integrations"
+msgstr ", Marketing por correo electrónico e integraciones de terceros"
+
+#: news1.phtml:25
+msgid "Widgets"
+msgstr "Reproductores"
+
+#: news1.phtml:25
+msgid "seamlessly integrate with any third party providers"
+msgstr "integrar a la perfección con cualquier proveedor de terceros"
+
+#: news1.phtml:25
+msgid "Centralized control"
+msgstr "El control centralizado"
+
+#: news1.phtml:25
+msgid "over information across chain."
+msgstr "sobre la información a través de la cadena."
+
+#: news1.phtml:25
+msgid "Easy to use"
+msgstr "Fácil de utilizar"
+
+#: news1.phtml:25
+msgid ""
+"and setup, no special hardware required. Can be accessed from laptops, "
+"desktops, tablets, mobile phones and any internet connected devices."
+msgstr ""
+"y puesta en marcha, sin necesidad de hardware especial necesario. Se puede "
+"acceder desde las computadoras portátiles, computadoras de escritorio, "
+"tabletas, teléfonos móviles y cualquier dispositivo conectado a Internet."
+
+#: news1.phtml:25
+msgid "Native windows"
+msgstr "ventanas nativas"
+
+#: news1.phtml:25
+msgid ""
+"installation for restaurants with connectivity issues. What more! "
+"Restaurants can receive reservations; food orders and deals bookings from "
+"various sources including social media pages!"
+msgstr ""
+"instalación para restaurantes con problemas de conectividad. ¿Qué más? Los "
+"restaurantes pueden recibir reservas; pedidos de comida y ofertas de "
+"reservas de varias fuentes, incluyendo páginas de medios sociales!"
+
+#: news1.phtml:25
+msgid ""
+"to see our widgets in action. Please view their reservation, deals and menu "
+"widgets on the FB page. Once you go through the rest of the email we would "
+"be delighted to hear back from you."
+msgstr ""
+"para ver nuestros widgets en acción. Por favor, consulte su reserva, ofertas "
+"y los widgets del menú en la página de FB. Una vez que usted pasa por el "
+"resto de la dirección de correo electrónico que estaríamos encantados de "
+"volver a escuchar de usted."
+
+#: news1.phtml:25
+msgid "You could also follow us online using any of the following links"
+msgstr ""
+"También nos puede seguir en línea usando alguno de los siguientes enlaces"
+
+#: onlinereservation.phtml:31
+msgid ""
+"Receive Free Reservations from your Website, Mobile Website and Facebook"
+msgstr "Recibe las reservaciones libres de su Sitio Web, Mobile Web y Facebook"
+
+#: onlinereservation.phtml:32
+msgid ""
+"-You never pay transactions fees or commissions for reservations made on "
+"your website, on your mobile site for smart phones and tablets, or on "
+"Facebook."
+msgstr ""
+"-Usted no pagará honorarios o comisiones de transacción para las reservas "
+"realizadas en su sitio web, en su sitio web móvil para teléfonos "
+"inteligentes y tabletas, o en Facebook."
+
+#: onlinereservation.phtml:40
+msgid "Free Reservations with DineDesk's Booking Engine"
+msgstr "Reservas Gratis con de DineDesk Booking Engine"
+
+#: onlinereservation.phtml:47
+msgid "Receive Online Reservations "
+msgstr "Recibe Reservas Online"
+
+#: onlinereservation.phtml:49
+msgid ""
+"Your guests can book 24 hours a day, 7 days a week with DineDesk's booking "
+"engine.  Reservations are confirmed successfully, even when your restaurant "
+"is closed."
+msgstr ""
+"Sus huéspedes pueden reservar las 24 horas del día, 7 días a la semana, con "
+"motor de reservas de DineDesk. Las reservas se confirman con éxito, incluso "
+"cuando el restaurante está cerrado."
+
+#: onlinereservation.phtml:52
+msgid "Easily Control Under- and Over-bookings"
+msgstr "Fácilmente control Sub-y el exceso de reservas"
+
+#: onlinereservation.phtml:54
+msgid ""
+"Open or close days or times when you are willing to receive reservations. "
+"Receive notification of bookings by email or SMS."
+msgstr ""
+"Días u horas de apertura o cierre cuando usted está dispuesto a recibir "
+"reservas. Recibir notificación de las reservas por correo electrónico o SMS."
+
+#: onlinereservation.phtml:57
+#, fuzzy
+msgid "No setup, transaction or commission fees "
+msgstr "Sin configuración, transacciones o comisiones honorarios"
+
+#: onlinereservation.phtml:59
+msgid ""
+"The Booking Engine is part of DineDesk's suite of restaurant management "
+"tools.  There are no additional fees for the use of our booking engine."
+msgstr ""
+"El motor de reservas es parte de la suite de herramientas de gestión de "
+"restaurante de DineDesk. No hay cargos adicionales para el uso de nuestro "
+"sistema de reservas."
+
+#: pricing.phtml:21
+msgid ""
+"DineDesk's Restaurant Management Tools Are a SMART and Affordable Investment"
+msgstr ""
+"Restaurante Herramientas de gestión de DineDesk constituyen una inversión "
+"rentable y asequible"
+
+#: pricing.phtml:22
+msgid ""
+"By integrating many management and marketing tools into one package, "
+"DineDesk brings you technology that is both easy to use and affordable.  "
+"With DineDesk there are no setup or training fees. There are no transaction "
+"fees and no commissions to pay."
+msgstr ""
+"Mediante la integración de muchas herramientas de gestión y comercialización "
+"en un solo paquete, DineDesk le trae tecnología que es a la vez fácil de "
+"usar y asequible. Con DineDesk hay ninguna configuración o cuotas de "
+"formación. No hay cargos de transacción y no hay que pagar comisiones."
+
+#: pricing.phtml:30
+#, fuzzy
+msgid "The Right Management and Marketing Choice for your Restaurant"
+msgstr "Administrar su restaurante con DineDesk"
+
+#: pricing.phtml:37
+msgid "No hidden costs. Just one flat fee per month"
+msgstr "No hay costos ocultos. Sólo una tarifa fija por mes"
+
+#: pricing.phtml:39
+msgid ""
+"For only $50 per month, you save considerable staff time on social media "
+"marketing, reservations and business management. With DineDesk, you will "
+"manage your restaurant more effectively than ever before."
+msgstr ""
+"Por sólo $ 50 al mes, usted ahorra considerable tiempo del personal en "
+"marketing en medios sociales, reservas y gestión empresarial. Con DineDesk, "
+"que se encargará de su restaurante con más eficacia que nunca."
+
+#: pricing.phtml:42
+msgid "No training costs or support fees. No surprises "
+msgstr "No hay costes de formación o cuotas de apoyo. No hay sorpresas"
+
+#: pricing.phtml:44
+msgid ""
+"Our easy-to-use interface is quickly understood by staff at all levels in "
+"your organization. Plus, our customer support team is always available to "
+"help at no extra cost. "
+msgstr ""
+"Nuestra interfaz fácil de usar, se entiende rápidamente por el personal en "
+"todos los niveles de la organización. Además, nuestro equipo de atención al "
+"cliente está siempre disponible para ayudar, sin costo adicional."
+
+#: pricing.phtml:47
+msgid "Free installation with no hidden costs "
+msgstr "Instalación gratuita, sin costes ocultos"
+
+#: pricing.phtml:49
+msgid ""
+"With DineDesk there are no additional or hidden costs. You will like our "
+"open and honest pricing while we benefit from many loyal customers all over "
+"the world."
+msgstr ""
+"Con DineDesk no hay costes adicionales u ocultos. Te va a gustar nuestros "
+"precios abierto y honesto mientras nos beneficiamos de muchos clientes "
+"fieles en todo el mundo."
+
+#: reservationwidget.phtml:18
+msgid "Restaurant Reservation Widget"
+msgstr "Reserva restaurante Widget"
+
+#: reservationwidget.phtml:21
+msgid ""
+"DineDesk is NOT a reservation aggregator. Rather, it's simply a tool to help "
+"a restaurateur run their restaurant - as any good reservation system should "
+"be. The only way guests can make a reservation is through a restaurant's "
+"individual website or Facebook page and when that reservation is made, that"
+msgstr ""
+"DineDesk NO es un agregador de reserva. Más bien, es simplemente una "
+"herramienta para ayudar a un restaurador ejecutar su restaurante - como "
+"cualquier sistema de reservas debe ser buena. La única manera podrá hacer "
+"una reserva es a través de página web individual de un restaurante o página "
+"de Facebook y cuando se hace esta reserva, que"
+
+#: reservationwidget.phtml:21
+msgid "guest's information"
+msgstr "la información de los clientes"
+
+#: reservationwidget.phtml:21
+msgid ""
+"stays with the restaurateur. No longer will a reservation aggregator take a "
+"guest's information and market competitor's restaurants to them moments "
+"after making a reservation. In addition, DineDesk keeps guests at the "
+"restaurant site where they would like to dine rather than redirecting them "
+"to a competitor's site when a reservation slot isn't available - as is the "
+"practice with other online reservation systems."
+msgstr ""
+"se queda con el restaurador. Ya no será un agregador de reserva tomar la "
+"información de un cliente y los restaurantes de la competencia de mercado "
+"para ellos momentos después de hacer la reserva. Además, mantiene DineDesk "
+"huéspedes en el restaurante del hotel donde les gustaría comer en lugar de "
+"su reorientación al sitio de un competidor cuando una ranura reserva no está "
+"disponible - como es la práctica con otros sistemas de reserva en línea."
+
+#: reservationwidget.phtml:28
+msgid "Making It Easy"
+msgstr "Lo que es fácil"
+
+#: reservationwidget.phtml:31
+msgid "Take reservations on website or Facebook"
+msgstr "Tome reservas en la página web o Facebook"
+
+#: reservationwidget.phtml:32
+msgid "Simple, user-friendly plug-in"
+msgstr "Simple, fácil de usar plug-in"
+
+#: reservationwidget.phtml:33
+msgid "Customize to your restaurant's theme"
+msgstr "Personalizar con el tema de su restaurante"
+
+#: reservationwidget.phtml:34
+msgid "Use the"
+msgstr "Utilice el"
+
+#: reservationwidget.phtml:34
+msgid "to post daily specials or other promotions"
+msgstr "para publicar ofertas diarias u otras promociones"
+
+#: signup.phtml:20
+#, fuzzy
+msgid "Restaurant Registration"
+msgstr "Restaurante Menús"
+
+#: signup.phtml:22
+msgid ""
+"Youre on your way to taking online reservations! Please fill out the form "
+"below with your restaurants information. Once submitted, our staff will "
+"quickly authorize your submission with a call to your restaurant's "
+"publicized business phone number. All authorizations will be made during "
+"posted business hours."
+msgstr ""
+"Youre en su manera de tomar las reservas en línea! Por favor complete el "
+"siguiente formulario con sus datos restaurantes. Una vez presentadas, "
+"nuestro personal le autorice rápidamente su presentación con una llamada al "
+"número de teléfono de la empresa publicitada de su restaurante. Todas las "
+"autorizaciones se harán en horario de oficina enviados."
+
+#: signup.phtml:28
+msgid "First Name"
+msgstr "Nombre"
+
+#: signup.phtml:32
+msgid "Last Name"
+msgstr "apellido"
+
+#: signup.phtml:36
+#, fuzzy
+msgid "Restaurant/Group"
+msgstr "Restaurante Menús"
+
+#: signup.phtml:48
+msgid "Country"
+msgstr "país"
+
+#: signup.phtml:52
+msgid "State"
+msgstr "estado"
+
+#: signup.phtml:60
+msgid "Website"
+msgstr "sitio web"
+
+#: signup.phtml:64
+msgid "Create Password"
+msgstr "Crear contraseña"
+
+#: signup.phtml:68
+msgid "Comments"
+msgstr "Comentarios"
+
+#: signup.phtml:72
+msgid "How did you hear about us?"
+msgstr "¿Cómo se enteró de nosotros?"
+
+#: testimonial.phtml:29
+msgid "What Restaurant Owners Say About"
+msgstr "Lo que los dueños de restaurantes dicen de"
+
+#: twowaywaitlist.phtml:15
+msgid "2-Way Wait List System"
+msgstr "Sistema de lista de espera de 2 vías"
+
+#: twowaywaitlist.phtml:18
+msgid ""
+"Get rid of the bulky, germ-ridden, vibrating plastic squares restaurant "
+"customers currently carry around to be notified when their table is ready. "
+"DineDesk can turn a customers smart phone into a wireless kiosk, receiving a "
+"text when their table is ready. Commonplace language allows the guest and "
+"host to communicate quickly & easily using the codes:"
+msgstr ""
+"Deshágase de la voluminosa, germen-montado, vibrante plástico cuadrados "
+"clientes del restaurante en la actualidad llevar a todas partes para ser "
+"notificado cuando su mesa está lista. DineDesk pueden convertir un teléfono "
+"inteligente a los clientes en un quiosco inalámbrico, recibiendo un texto "
+"cuando su mesa está lista. Lenguaje común permite que el huésped y el "
+"anfitrión para comunicarse rápida y fácilmente con los códigos:"
+
+#: twowaywaitlist.phtml:25
+msgid "Putting You in Control"
+msgstr "Poner usted tenga el control"
+
+#: twowaywaitlist.phtml:28
+msgid "No need for paging systems or buzzers"
+msgstr "No hay necesidad de sistemas de localización o zumbadores"
+
+#: twowaywaitlist.phtml:29
+msgid "Send a text or email when a guests table is ready"
+msgstr ""
+"Envía un SMS o correo electrónico cuando una tabla huéspedes está listo"
+
+#: twowaywaitlist.phtml:30
+msgid ""
+"Guests can respond by returning, cancelling or changing reservation from "
+"their phones"
+msgstr ""
+"Los huéspedes pueden responder mediante la devolución, cancelación o cambio "
+"de reserva de sus teléfonos"
+
+#: twowaywaitlist.phtml:31
+msgid "Capture the guests name and cell phone number for future marketing"
+msgstr ""
+"Capture el nombre de los invitados y el número de teléfono celular para la "
+"futura comercialización"

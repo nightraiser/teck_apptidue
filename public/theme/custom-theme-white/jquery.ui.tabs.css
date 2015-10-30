@@ -1,0 +1,79 @@
+/*
+ * jQuery UI Tabs @VERSION
+ *
+ * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Tabs#theming
+ */
+.ui-tabs { position: relative; padding: .2em; zoom: 1; } /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+.ui-tabs .ui-tabs-nav { margin: 0; padding: .2em .2em 0; border-radius: 6px 6px 0 0;	-moz-border-radius: 6px 6px 0 0;	-webkit-border-radius: 6px 6px 0 0;	-khtml-border-radius: 6px 6px 0 0;overflow:hidden;}
+.ui-tabs .ui-tabs-nav li { list-style: none; float: left; position: relative; top: 1px; border-bottom: 0 !important; padding: 0; white-space: nowrap; }
+.ui-tabs .ui-tabs-nav li a { float: left;
+	  position: relative;
+	  background: #ddd;
+	  background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ddd));
+	  background-image: -webkit-linear-gradient(top, #fff, #ddd);
+	  background-image: -moz-linear-gradient(top, #fff, #ddd);
+	  background-image: -ms-linear-gradient(top, #fff, #ddd);
+	  background-image: -o-linear-gradient(top, #fff, #ddd);
+	  background-image: linear-gradient(to bottom, #fff, #ddd);  
+	  padding: .7em 3.5em;
+	  float: left;
+	  text-decoration: none;
+	  color: #444;
+	  text-align:center !important;
+	  text-shadow: 0 1px 0 rgba(255,255,255,.8);
+	  -webkit-border-radius: 5px 0 0 0;
+	  -moz-border-radius: 5px 0 0 0;
+	  border-radius: 5px 0 0 0;
+	  -moz-box-shadow: 0 2px 2px rgba(0,0,0,.4);
+	  -webkit-box-shadow: 0 2px 2px rgba(0,0,0,.4);
+	  box-shadow: 0 2px 2px rgba(0,0,0,.4);
+      text-decoration: none; 
+	  min-width:70px;
+	  }
+.ui-tabs  .ui-tabs-nav li a :hover,
+.ui-tabs  .ui-tabs-nav li a :hover::after,
+.ui-tabs  .ui-tabs-nav li a :focus,
+.ui-tabs  .ui-tabs-nav li a :focus::after{
+}
+.ui-tabs  .ui-tabs-nav li a::after{
+  content:'';
+  position:absolute;
+  z-index: 1;
+  top: 0;
+  right: -.5em;  
+  bottom: 0;
+  width: 1em;
+  background: #ddd;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ddd));
+  background-image: -webkit-linear-gradient(top, #fff, #ddd);
+  background-image: -moz-linear-gradient(top, #fff, #ddd);
+  background-image: -ms-linear-gradient(top, #fff, #ddd);
+  background-image: -o-linear-gradient(top, #fff, #ddd);
+  background-image: linear-gradient(to bottom, #fff, #ddd);  
+  -moz-box-shadow: 2px 2px 2px rgba(0,0,0,.4);
+  -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,.4);
+  box-shadow: 2px 2px 2px rgba(0,0,0,.4);
+  -webkit-transform: skew(10deg);
+  -moz-transform: skew(10deg);
+  -ms-transform: skew(10deg);
+  -o-transform: skew(10deg);
+  transform: skew(10deg);
+  -webkit-border-radius: 0 5px 0 0;
+  -moz-border-radius: 0 5px 0 0;
+  border-radius: 0 5px 0 0;  
+}
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected { margin-bottom: 0; padding-bottom: 0px; }
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a{  background: #fff;
+  z-index: 1;}
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a::after{
+  background: #fff;
+  z-index: 1;
+}
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a { cursor: text; }
+.ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
+.ui-tabs .ui-tabs-panel { display: block; border-width: 0; padding: 1em 1.4em; background: none;background: #fff;}
+.ui-tabs .ui-tabs-hide { display: none !important; }

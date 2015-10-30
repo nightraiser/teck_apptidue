@@ -1,0 +1,406 @@
+<style type="text/css">
+.location1{
+		padding:16px !important;
+		border-radius:6px 0 0 6px !important;
+		background:#fff url(/images/location.png) no-repeat 10px 12px !important;
+		padding-left: 30px !important;
+		}
+	.dropdown-toggle{
+		padding:16px;
+		background:#fff url(/images/search1.png) no-repeat 4px 14px !important;
+		padding-left: 30px !important;
+		}
+	.search1{	
+		border-radius:0 6px 6px 0;
+		padding:16px;
+	}
+	#searchLocation
+	{
+	border-radius: 5px 0px 0 5px;
+	  margin-right: 0px;
+	  padding-right: 0px;
+	  background: #fff url(/images/location.png) no-repeat 4px 12px !important;
+	  padding-left: 25px;
+	}
+	#main-search .active
+	{
+		background:#ac181d;
+	}
+	
+</style>
+<script type="text/javascript" src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+var searchLocations = Array();
+function setLocations()
+{
+	if((localStorage['searchLocationsDB']!=null)&&(localStorage['searchLocationsDB']!=""))
+	{
+		searchLocations  = JSON.parse(localStorage['searchLocationsDB']);
+		$.typeahead({
+            input: "#searchLocation",
+            minLength: false,
+            maxItem: 5,
+            maxItemPerGroup: 12,
+            order: "asc",
+            hint: true,
+            //cache: true,
+            searchOnFocus: true,
+            group: ["division", "{{group}}"],
+            display: ["name", "city"],
+            correlativeTemplate: true,
+            template: '<span>' +
+            '<span class="name">{{name}}</span>'+
+            '</span>',
+            source: {
+             Results: {
+                    data: searchLocations
+                }
+            },
+            debug: false
+        });
+	}
+	 else
+	 {
+	 	var suggestionUrl  = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'searchsugesstions'),'default',true); ?>";
+        $.post(suggestionUrl,function(data)
+        {
+        	data = JSON.parse(data);
+        	searchLocations = data['locations'];
+     		localStorage['searchLocationsDB'] = JSON.stringify(data['locations']);
+        	$.typeahead({
+            input: "#searchLocation",
+            minLength: false,
+            maxItem: 5,
+            maxItemPerGroup: 12,
+            order: "asc",
+            hint: true,
+            //cache: true,
+            searchOnFocus: true,
+            group: ["division", "{{group}}"],
+            display: ["name", "city"],
+            correlativeTemplate: true,
+            template: '<span>' +
+            '<span class="name">{{name}}</span>'+
+            '</span>',
+            source: {
+             Results: {
+                    data: searchLocations
+                }
+            },
+            debug: false
+        });
+        });
+	 }
+}
+function storeSearch(key,gpid,criteria)
+{
+		var arr = {"key":key,"gpid":gpid,"criteria":criteria};
+		localStorage['userSearch'] = JSON.stringify(arr);
+}
+function setSearch()
+{
+	if((localStorage['userSearch']!=null))
+	{
+		var data = JSON.parse(localStorage['userSearch']);
+		$('#searchLocation').val(data['key']);
+		$("#searchCriteria").val(data['criteria']);
+	}
+}
+	$(document).ready(function(){
+		setSearch();
+		$('.primarySearch').click(function(){
+			var location;
+			for(var i in searchLocations)
+			{
+				if(searchLocations[i]['name'] == $('#searchLocation').val())
+				{
+					location = searchLocations[i]['value'];
+				}
+			}
+			var url = "/hyderabad";
+			if($('#searchLocation').val()){
+				var type = $(".main-searchDiv").filter(".active").attr("data-value");
+			if(type.length!==0)
+			{
+				url += '/'+type+"-"+$('#searchLocation').val().split(',')[0].toLowerCase().replace(" ","_")+"-restaurant";
+			}
+			else
+			{
+				url += '/'+$('#searchLocation').val().split(',')[0].toLowerCase().replace(" ","_")+"-restaurant";
+			}
+
+			}else{
+				url += '';
+			}
+			if($('#searchCriteria').val()){
+				url += '/'+$('#searchCriteria').val().replace("/","_");
+			}else{
+				url += '';
+			}
+			storeSearch($('#searchLocation').val(),location,$('#searchCriteria').val());
+			window.location = url;
+		});
+	});
+</script>
+
+		<!--Hero Image-->
+		<section class="hero-image search-filter-middle height-500">
+			<div class="inner">
+				<div class="container">
+					<h1>Discover, Meet & Dine</h1>
+					<p style="color:#fff;" class="ttl2"> Click Below to Explore Your Dining Experience</p>
+					<div class="search-bar horizontal dnone">
+						<form class="main-search border-less-inputs background-dark narrow" role="form" method="post" action="?">
+							<div class="input-row">
+								<div class="form-group">
+									<div class="typeahead-container">
+												<div class="typeahead-field">
+													<span class="typeahead-query location">
+														<input id="searchLocation" name="searchLocation" type="search"  autocomplete="off" class="dropdown-toggle form-control"  placeholder="Search for location">
+													</span>
+												</div>
+											</div>	
+								</div>
+								<!-- /.form-group -->
+								<div class="form-group" style="line-height:33px;">
+									<div class="typeahead-container">
+												<div class="typeahead-field">
+													<span class="typeahead-query location">
+														<input id="searchCriteria" name="searchCriteria" type="search"  autocomplete="off" class="dropdown-toggle form-control"  placeholder="Search for restaurant, cuisine or a dish">
+													</span>
+												</div>
+											</div>	
+								</div>
+								<!-- /.form-group -->
+								<div class="form-group">
+									<a class="btn btn-default search1 primarySearch"><i class="fa fa-search"></i> SEARCH</a>
+								</div>
+								<!-- /.form-group -->
+							</div>
+						</form>
+						<!-- /.main-search -->
+					</div>
+					<!-- /.search-bar -->
+				</div>						
+				<div class="row" id="main-search">
+					<div class="col-md-2 col-sm-12 main-searchDiv" data-value="">
+						<img src="/images/icons/search-icons/reservation.png" />
+						<h3>Go Out for a meal</h3>
+					</div>
+					<div class="col-md-2 col-sm-12 main-searchDiv" data-value="Buffet">
+						<img src="/images/icons/search-icons/buffet.png" />
+						<h3>Buffet</h3>
+					</div>
+					<div class="col-md-2 col-sm-12 main-searchDiv" data-value="LuxuryDinner">
+						<img src="/images/icons/search-icons/luxury-dinner.png" />
+						<h3>Luxury Dinner</h3>
+					</div>
+					<div class="col-md-2 col-sm-12 main-searchDiv" data-value="">
+						<img src="/images/icons/search-icons/home-delivery.png" />
+						<h3>Home Delivery</h3>
+					</div>
+					<div class="col-md-2 col-sm-12 main-searchDiv" data-value="">
+						<img src="/images/icons/search-icons/locations.png" />
+						<h3>Deals & Offers</h3>
+					</div>
+					<div class="col-md-2 col-sm-12" data-value="">
+          				  <a href="http://www.tdine.com/" target="_blank">
+           				 <img src="/images/icons/search-icons/dine-express.png">
+           				 <h3>Dine Express</h3>
+          				 </a>
+         			 </div>
+				</div>
+			</div>
+			<div class="background">
+				<img src="/images/restaurant-bg.jpg" alt="">
+			</div>
+		</section>
+		
+		 <!--Why Us-->
+	
+		<!--end Why Us-->
+		<section class="block" id="counter">
+			 <div class="container">
+				<div class="row">
+					<div class="col-md-4 col-sm-4">
+						<h1>TOTAL RESTAURANTS LISTINGS</h1>
+						<h2 class="count">903411</h2>
+					</div>
+					<div class="col-md-4 col-sm-4">
+						<h1>NEW LISTINGS ADDED</h1>
+						<h2 class="count">7017</h2>
+					</div>
+					<div class="col-md-4 col-sm-4">
+						<h1>HAPPY CUSTOMERS</h1>
+						<h2 class="count"><?php echo $this->userCount; ?></h2>
+					</div>
+				</div>
+			 </div>
+		</section>
+		<section class="block background-color-white" id="testimonials">
+			<div class="container">
+				 <header style="text-align:center;"><h1 class="title1">What Drives Us</h1></header>
+				<div id="ca-container" class="ca-container">
+					<div class="ca-wrapper">
+						<div class="ca-item ca-item-1">
+							<div class="ca-item-main">
+								Once we switched from our previous well-known reservation system, the savings were astronomical. 						
+							</div>	
+							<div class="horizontal-line"></div>	
+							<div class="user-description">
+								<div class="pull-left sanjib user-image"><img src="/images/user_2.png" title="Online Restaurant Reservations" alt="Online Restaurant Reservations"></div>
+								<div class="pull-left user-detail">
+									<div class="user-name">
+										Jessi								</div>
+									<div class="user-add">
+										<a class="tweet-link" target="_blank" rel="nofollow" href="#" title="test">
+										<i class="icon-twitter"></i>
+										</a>
+										<a target="_blank" rel="nofollow" href="#" title="Happy user of rdine.com">@jessi</a>
+									</div>
+								</div>
+							</div>						
+						</div>
+						<div class="ca-item ca-item-1">
+							<div class="ca-item-main">
+								 It is easy to use, affordable and the ongoing support has been great. ReserveDine comes highly recommended by us.						
+							</div>	
+							<div class="horizontal-line"></div>	
+							<div class="user-description">
+								<div class="pull-left sanjib user-image"><img src="/images/user_2.png" title="Table Reservation System" alt="Table Reservation System"></div>
+								<div class="pull-left user-detail">
+									<div class="user-name">
+										Alton								</div>
+									<div class="user-add">
+										<a class="tweet-link" target="_blank" rel="nofollow" href="#" title="test">
+										<i class="icon-twitter"></i>
+										</a>
+										<a target="_blank" rel="nofollow" href="#" title="Happy user of rdine.com">@alton</a>
+									</div>
+								</div>
+							</div>							
+						</div>
+						<div class="ca-item ca-item-1">
+							<div class="ca-item-main">
+								The set up, training, flexibility and customization are easy, and the savings are a big plus!!					
+							</div>	
+							<div class="horizontal-line"></div>	
+							<div class="user-description">
+								<div class="pull-left sanjib user-image"><img src="/images/user_2.png" title="Online Restaurant Management System" alt="Online Restaurant Management System"></div>
+								<div class="pull-left user-detail">
+									<div class="user-name">
+										Kevin								</div>
+									<div class="user-add">
+										<a class="tweet-link" target="_blank" rel="nofollow" href="#" title="test">
+										<i class="icon-twitter"></i>
+										</a>
+										<a target="_blank" rel="nofollow" href="#" title="Happy user of rdine.com">@Kevin</a>
+									</div>
+								</div>
+							</div>							
+						</div>
+					</div>
+				</div>
+				<!--/.testimonials-->
+			</div>
+			<!--/.container-->
+			<div class="container">
+				<div id="kiwi-slider1" class="kiwi-slider">
+					<div class="kiwi-inner">
+					  <div class="kiwi-items">
+						  <div class="kiwi-item">
+							  <ul class="">
+								  <li>
+									  <a>
+										 <b>ReserveDine NAMED 'HOT100 TECHNOLOGY COMPANY OF 2014'</b>
+									  </a>
+								  </li>
+							  </ul>
+						  </div>
+						  <div class="kiwi-item">
+							  <ul>
+								  <li>
+									  <a>
+										 <b>'We are proud to win this honoured title of Hot100,' said Clyde Vassou, Marketing Manager of ReserveDine.</b>
+									  </a>
+								  </li>
+							  </ul>
+						  </div>
+						  <div class="kiwi-item">
+							  <ul>
+								   <li>
+									  <a>
+										 <b>ReserveDine launches online marketing & operations platform</b>
+									  </a>
+								  </li>
+							  </ul>
+						  </div>
+						  <div class="kiwi-item">
+							  <ul>
+								   <li>
+									  <a>
+										 <b>Centre of Recognition & Excellence (CORE) honors ReserveDine as innovative technology company</b>
+									  </a>
+								  </li>
+							  </ul>
+						  </div>
+					  </div>
+				  </div>
+				  <div class="kiwi-indicators">
+					  <div class="kiwi-control">
+						  <span class="navcaret"></span>
+						  <a href="#" target="_blank"><img src="/images/wallstreet.png" /></a>
+						  <a href="#" target="_blank"><img src="/images/the-telegraph.png" /></a>
+						  <a href="#" target="_blank"><img src="/images/moneycoltrol_logo.png" /></a>
+						  <a href="#" target="_blank"><img src="/images/tech_story.png" /></a>
+					  </div>
+				  </div>
+			  </div>
+			</div>
+			<!--/.container-->
+		</section>
+		<!--end Partners-->
+<script type="text/javascript">
+$(function()
+{
+	setLocations();
+	$(".main-searchDiv").click(function()
+	{
+		$(".main-searchDiv").filter(".active").removeClass("active");
+		$(this).addClass("active");
+	});
+	  searchCriteria['cusines'] = [
+	  {"value":"American ",name:"American "},{"value":"Asian ",name:"Asian "},{"value":"Bar/Club/Lounge",name:"Bar/Club/Lounge"},{"value":"BBQ ",name:"BBQ "},{"value":"Brazilian ",name:"Brazilian "},{"value":"Breakfast ",name:"Breakfast "},{"value":"Cajun/Creole ",name:"Cajun/Creole "},{"value":"Canadian ",name:"Canadian "},{"value":"Caribbean ",name:"Caribbean "},{"value":"Chinese ",name:"Chinese "},{"value":"Coffee/Desserts",name:"Coffee/Desserts"},{"value":"Continental ",name:"Continental "},{"value":"Deli ",name:"Deli "},{"value":"Eclectic ",name:"Eclectic "},{"value":"Ethiopian ",name:"Ethiopian "},{"value":"European ",name:"European "},{"value":"Fondue ",name:"Fondue "},{"value":"French ",name:"French "},{"value":"German ",name:"German "},{"value":"Greek ",name:"Greek "},{"value":"Indian ",name:"Indian "},{"value":"International ",name:"International "},{"value":"Italian ",name:"Italian "},{"value":"Japanese ",name:"Japanese "},{"value":"Kosher ",name:"Kosher "},{"value":"Latin ",name:"Latin "},{"value":"Mediterranean ",name:"Mediterranean "},{"value":"Mexican ",name:"Mexican "},{"value":"Middle Eastern ",name:"Middle Eastern "},{"value":"Pizza ",name:"Pizza "},{"value":"Polish ",name:"Polish "},{"value":"Pub Fare ",name:"Pub Fare "},{"value":"Seafood ",name:"Seafood "},{"value":"Southwestern ",name:"Southwestern "},{"value":"Spanish ",name:"Spanish "},{"value":"Steak ",name:"Steak "},{"value":"Sushi ",name:"Sushi "},{"value":"Tapas ",name:"Tapas "},{"value":"Test Cusine",name:"Test Cusine"},{"value":"Test Cusine",name:"Test Cusine"},{"value":"Thai ",name:"Thai "},{"value":"Vegetarian ",name:"Vegetarian "},{"value":"Vietnamese",name:"Vietnamese"}];
+	  	searchCriteria['diningStyle'] = [{value:"Casual Elegant",name:"Casual Elegant"},{value:"Fine Dining",name:"Fine Dining"},{value:"Coffeehouse",name:"Coffeehouse"},{value:"Pizzeria",name:"Pizzeria"},{value:"Steakhouses",name:"Steakhouses"},{value:"Seafood Restaurants",name:"Seafood Restaurants"},{value:"Casual Dining",name:"Casual Dining"},{value:"Luxury Dinner",name:"Luxury Dinner"},];
+     
+         $.typeahead({
+            input: "#searchCriteria",
+            minLength: false,
+            maxItem: 6,
+            maxItemPerGroup: 3,
+            minItemPerGroup:2,
+            order: "asc",
+            hint: true,
+            //cache: true,
+            searchOnFocus: false,
+            group: ["division", "{{group}}"],
+            display: ["name", "city"],
+            correlativeTemplate: true,
+            template: '<span>' +
+            '<span class="name">{{name}}</span>'+
+            '</span>',
+            source: {
+            	Types:
+             {
+             	data:searchCriteria['diningStyle']
+             },
+             Cusines: {
+                    data: searchCriteria['cusines']
+                }
+            },
+            debug: true
+        });
+
+});
+	
+</script>

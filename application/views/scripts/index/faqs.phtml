@@ -1,0 +1,123 @@
+
+
+<section id="image">
+	<div class="container">
+		<div class="col-md-8 col-md-offset-2">
+			<div class="text-banner">
+				<div class="description tc" style="height:230px;">
+					<h2 style="color:#fff">Frequently asked Questions</h2>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--/.container-->
+	<div class="background">
+		<img src="images/faq-banner.jpg" alt="">
+	</div>
+	<!--/.bakcground-->
+</section>
+<section class="tabs_wrap">				
+	<div class="container">
+	  <div class="row">
+		<div class="col-xs-12">						  
+			  <a href="<?php echo $this->url(array('module' =>'default','controller'=>'index','action'=>'faqs'),'faqs',true); ?>" class="sel tabs">FAQS</a>
+			  <a href="<?php echo $this->url(array('module' =>'default','controller'=>'index','action'=>'privacy'),'privacy',true); ?>" class="tabs">Privacy Policy</a>
+			  <a href="<?php echo $this->url(array('module' =>'default','controller'=>'index','action'=>'terms'),'termsofservice',true); ?>" class="tabs">TERMS & CONDITIONS</a>							
+		</div>
+	  </div>
+	</div>
+</section>
+<section class="about">
+	<div class="container">
+		<div class="row">
+			<div class="block">
+				<br />
+					<section class="faq-form">
+						<figure class="clearfix">
+							<i class="fa fa-question"></i>
+							<div class="wrapper">
+								<div class="pull-left">
+									<strong>Didn't find an answer?</strong>
+									<h3>Ask Your Question</h3>
+								</div>
+								<a href="#form-faq" class="btn btn-default pull-right" data-toggle="collapse" aria-expanded="false" aria-controls="form-faq">Ask Question</a>
+							</div>
+						</figure>
+						<div class="collapse" id="form-faq">
+							<div class="">
+								<form role="form" action="?" method="post">
+									<div class="form-group">
+										<label for="faq-form-email">Email</label>
+										<input type="email" class="form-control" id="faq-form-email" required="">
+									</div>
+									<!-- /.form-group -->
+									<div class="form-group">
+										<label for="faq-form-question">Question</label>
+										<textarea class="form-control" id="faq-form-question" name="faq-form-question" rows="3" required=""></textarea>
+									</div>
+									<!-- /.form-group -->
+									<div class="form-group">
+										<button type="submit" class="btn btn-default">Submit Question</button>
+									</div>
+									<!-- /.form-group -->
+								</form>
+								<!-- /form-->
+							</div>
+							<!-- /.content-->
+						</div>
+						<!-- /#form-faq-->
+					</section>
+					<article class="faq-single">
+						<i class="fa fa-question-circle"></i>
+						<div class="wrapper">
+							<h4>'Is ReserveDine multi-terminal software?'
+							</h4>
+							<div class="answer">
+								<p>
+									ReserveDine is multi-terminal software and its architecture supports both multi-site and multi-restaurant, so bookings can be taken for several restaurants across different sites on multiple terminals.
+								</p>
+							</div>
+						</div>
+					</article>
+					<article class="faq-single">
+						<i class="fa fa-question-circle"></i>
+						<div class="wrapper">
+							<h4>'Can you take web bookings?'
+							</h4>
+							<div class="answer">
+								<p>
+									As part of the ReserveDine package we include an online booking widget which can be integrated into your website, with your branding. It will allow you to take bookings online 24. You can configure your widget themes ,when you want to take bookings online, which tables can be booked online and a whole lot more.
+								</p>
+							</div>
+						</div>
+					</article>
+					<article class="faq-single">
+						<i class="fa fa-question-circle"></i>
+						<div class="wrapper">
+							<h4>'Is there any commission for web bookings?'
+							</h4>
+							<div class="answer">
+								<p>
+									Web bookings are FREE from ReserveDine. We don't take any commission for web based bookings.....and why should we, they're your bookings!
+								</p>
+							</div>
+						</div>
+					</article>
+					<article class="faq-single">
+						<i class="fa fa-question-circle"></i>
+						<div class="wrapper">
+							<h4>'Does ReserveDine work on an IPAD?'
+							</h4>
+							<div class="answer">
+								<p>
+									ReserveDine is IPAD compatible and will run on an IPAD or alternate Tablet using a remote companion or equivalent.
+								</p>
+							</div>
+						</div>
+					</article>
+				<div class="clear gap"></div>
+			</div>
+		</div>
+	</div>
+</section>

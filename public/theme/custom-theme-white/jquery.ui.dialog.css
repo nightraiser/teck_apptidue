@@ -1,0 +1,47 @@
+/*
+ * jQuery UI Dialog @VERSION
+ *
+ * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Dialog#theming
+ */
+.ui-dialog {border-radius:6px !important; -moz-border-radius:6px !important; -webkit-border-radius:6px !important; -khtml-border-radius:6px !important; position: absolute; padding: 0px; width: 300px; background:#fff !important; overflow: hidden; border:0px solid rgba(0, 0, 0, .3) !important; background:#fff !important;
+	box-shadow: 0 3px 16px rgba(0, 0, 0, .6);
+    -moz-box-shadow: 0 3px 16px rgba(0, 0, 0, .6);
+    -webkit-box-shadow: 0 3px 16px rgba(0, 0, 0, .6);}
+.ui-dialog .ui-dialog-titlebar { 
+	padding: 1.2em;
+	position: relative;
+	background: #F5F5F1 !important;
+	border: 0px solid #E5E5E5 !important;
+	color: #2d2d2d !important;
+	border-radius: 3px 3px 0 0 !important;
+	-moz-border-radius: 3px 3px 0 0 !important;
+	-webkit-border-radius: 3px 3px 0 0 !important;
+	-khtml-border-radius: 3px 3px 0 0 !important;
+	text-transform: uppercase;
+	border-bottom: 1px solid #e4e4e4;
+}
+.ui-dialog .ui-dialog-title { float: left; margin: .1em 16px .2em 0; } 
+.ui-dialog .ui-dialog-titlebar-close { position: absolute; right: .3em; top: 50%; width: 19px; margin: -10px 0 0 0; padding: 1px; height: 18px; }
+.ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px; }
+.ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus { padding: 0; }
+.ui-dialog .ui-dialog-content { position: relative; border: 0; padding: 1em; background: none; overflow: auto; zoom: 1; }
+.ui-dialog .ui-dialog-buttonpane {border-top:0px solid #B1B1B1 !important; text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em; background:#fff !important;}
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset { float:right; }
+.ui-dialog .ui-dialog-buttonpane button { margin: .5em .4em .5em 0; cursor: pointer; }
+.ui-dialog .ui-resizable-se { width: 14px; height: 14px; right: 3px; bottom: 3px; }
+.ui-draggable .ui-dialog-titlebar { cursor: move; }
+.ui-icon-closethick {
+  background-image: url(/images/close-1.png) !important;
+  border: 0px solid #FFF;
+  border-radius: 4px;
+  
+}
+.ui-icon-closethick:hover {
+  background-image: url(/images/close-1.png) !important;
+  border: 1px solid #FFF;
+  border-radius: 4px;
+}

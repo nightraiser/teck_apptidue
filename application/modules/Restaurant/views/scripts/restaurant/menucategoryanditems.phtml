@@ -1,0 +1,1438 @@
+<script type="text/javascript" src="/theme/ui/minified/jquery.ui.widget.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.position.min.js"></script>
+<script type="text/javascript" src="/theme/ui/minified/jquery.ui.dialog.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.resizable.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.draggable.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.droppable.min.js"></script>
+
+<script type="text/javascript">
+$(window).scroll(function(){
+    $(".addanothercategory").css("top",Math.max(0,230-$(this).scrollTop()));
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#loading").hide();
+	$(".menu_themes").click(function () {
+			$("#tabs-1").addClass('dnone');
+			$("#tabs-3").addClass('dnone');
+			$("#tabs-2").removeClass('dnone');
+			$(this).addClass('dnone');
+			$(".widget_int").removeClass('dnone');
+			$(".your_menu").removeClass('dnone');
+			$(".title_text").text('Menu Themes');
+		});
+		$(".widget_int").click(function () {
+			$("#tabs-1").addClass('dnone');
+			$("#tabs-2").addClass('dnone');
+			$("#tabs-3").removeClass('dnone');
+			$(this).addClass('dnone');
+			$(".menu_themes").removeClass('dnone');
+			$(".your_menu").removeClass('dnone');
+			$(".title_text").text('Widget Integrations');
+		});
+		$(".your_menu").click(function () {
+			$("#tabs-3").addClass('dnone');
+			$("#tabs-2").addClass('dnone');
+			$("#tabs-1").removeClass('dnone');
+			$(this).addClass('dnone');
+			$(".menu_themes").removeClass('dnone');
+			$(".widget_int").removeClass('dnone');
+			$(".title_text").text('Restaurant Menu');
+		});
+	subtabIndex = 1;
+	<?php if(isset($this->menuid)){ ?>
+		<?php $i = 1; 
+			foreach($this->result as $menu){ 
+				if($menu['menuid'] == $this->menuid){
+					break;
+				}
+				$i++;
+			}
+		?>
+		subtabIndex = "<?= $i ?>";
+//		$(".subtabs").tabs({selected : subtabIndex-1}); 
+	<?php }else{ ?>
+		subtabIndex = 1;
+//		$(".subtabs").tabs({selected : subtabIndex-1});
+	<?php } ?>
+	var restid = "";
+	restid = "<?php if(isset($this->restaurantid)){ echo $this->restaurantid;} ?>";
+	if(restid){
+		menuhtml = '<iframe scrolling="no" frameborder="0" src="http://www.dinedesk.com/menu/'+restid+'" allowtransparency="true" style="overflow:hidden; width:800px; height:615px;" name="myframe" id="myframe"></iframe>';
+		mobilehtml = '<iframe scrolling="no" frameborder="0" src="http://www.dinedesk.com/Phone/Restaurant/restaurantmenumobile/restaurantid/'+restid+'" allowtransparency="true" style="overflow:hidden; width:100%; height:100%;" name="myframe" id="myframe"></iframe>';
+		$(".menuUrl").html(menuhtml);
+		$(".menuMobileUrl").html(mobilehtml);
+	}
+	var menuView = '';
+	<?php $resSet = $this->result;
+		foreach($resSet as $menu){ ?>
+			menuView = "<?php echo $menu['menuview'] ?>";
+	<?php } ?>
+	if(menuView == 'normal'){
+		$('#normalType').attr('checked', 'checked');
+	}else{
+		$('#swipeType').attr('checked', 'checked');
+	}	
+	
+	$('.addMenuHeader').live('click',function(){
+		$(".menuDia").dialog('destroy');
+		var htmlDia = '<div class="modal-window fade_in"><div class="modal-wrapper">';
+        htmlDia += '<h2>Add Menu</h2>';
+       	htmlDia += '<div class="modal-body"><div class="modal-content">';
+        htmlDia += '<table class="table2"><tr><td>Menu Title</td><td>:</td>';
+        htmlDia += '<td><input type="text" placeholder="Menu Title" class="menuTitle" name="menuTitle" /></td></tr>';
+        htmlDia += '<tr><td>Menu Description</td><td>:</td>';
+        htmlDia += '<td><textarea rows="5" cols="25" name="menuDesc" style="width: 250px;" placeholder="Menu Description" class="menuDesc " maxlength="200"></textarea></td></tr>';
+        htmlDia += '<tr><td><a class="sml-btn1 pull-right" id="addMenuSubmit" >Submit</a></td></tr></table>';
+		htmlDia += '</div></div><div class="modal-close"><img src="/images/close.png"></div></div><div class="modal-background fade_in"></div></div>';
+        $('body').append(htmlDia);
+	});
+	$('#addMenuSubmit').live('click',function(){
+		$('.menuDesc').removeClass('inputError');
+		$('.menuTitle').removeClass('inputError');	
+		if($('.menuTitle').val() != '' && $('.menuDesc').val() != ''){
+			var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'addmenuheader'),'default',true); ?>";
+			url+= '/restaurantid/'+restid;
+		    $.post(url,{'menutitle':$('.menuTitle').val(),'menudesc':$('.menuDesc').val()},function(data){
+			    if(data != 'f'){
+				    var locationurl = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'menucategoryanditems','restaurantid'=>$this->restaurantid),'default',true); ?>"; 
+				    locationurl += '/menuid/'+data
+					window.location = locationurl;
+				}
+			},'json');
+		}else{
+			if($('.menuTitle').val() == ''){
+				if(!$('.menuTitle').hasClass('inputError')){
+					$('.menuTitle').addClass('inputError');
+				}
+			}
+			if($('.menuDesc').val() == ''){
+				if(!$('.menuDesc').hasClass('inputError')){
+					$('.menuDesc').addClass('inputError');
+				}
+			}
+		}	
+	});
+	
+	$('.editMenuDetails').live('click',function(){
+		var menuid = $(this).attr('menuid');
+		var dataurl = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'getmenuheader'),null,true);?>";
+		$.post(dataurl,{'menuid':menuid}, function(data){
+			if(data != 'f'){
+				$('.menuDesc').val(data['menudesc']);
+				$('.menuTitle').val(data['menutitle']);
+				$(".menuDia").dialog('destroy');
+				$(".menuDia").dialog({
+					autoOpen : true,
+					height : 298,
+					width : 430,
+					modal : true,
+					buttons : {
+						'Update Menu' : function() {
+							$('.menuDesc').removeClass('inputError');
+							$('.menuTitle').removeClass('inputError');	
+							if($('.menuTitle').val() != '' && $('.menuDesc').val() != ''){
+								var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'addmenuheader'),'default',true); ?>";
+								url+= '/restaurantid/'+restid;
+							    $.post(url,{'menuid':menuid,'menutitle':$('.menuTitle').val(),'menudesc':$('.menuDesc').val()},function(data){
+								    if(data != 'f'){
+									    var locationurl = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'menucategoryanditems','restaurantid'=>$this->restaurantid),'default',true); ?>"; 
+									    locationurl += '/menuid/'+data
+										window.location = locationurl;
+									}
+								},'json');
+							}else{
+								if($('.menuTitle').val() == ''){
+									if(!$('.menuTitle').hasClass('inputError')){
+										$('.menuTitle').addClass('inputError');
+									}
+								}
+								if($('.menuDesc').val() == ''){
+									if(!$('.menuDesc').hasClass('inputError')){
+										$('.menuDesc').addClass('inputError');
+									}
+								}
+							}							
+						}
+					}
+				});
+			}
+		},'json');
+	});
+	$('.menuTitle').live("focusin",function(e){
+		if($('.menuTitle').hasClass('inputError')){
+			$('.menuTitle').removeClass('inputError');
+		}
+	});
+	$('.menuDesc').live("focusin",function(e){
+		if($('.menuDesc').hasClass('inputError')){
+			$('.menuDesc').removeClass('inputError');
+		}
+	});
+	menuCategoryCount = 0;
+	$('.addCategory').click(function() {
+		$('.addCategory').css({'display':'none'});
+		data = "";
+		$('#mainData').html('');
+			data += '<form action="" method="post" class="categoryForm"><div class="tbldiv">';
+			data += '<table cellpadding="0" cellspacing="0" border="0" width="100%" class="price_table" id="myContainer">';
+			data += '<tr>';
+			data += '<td><input name="categoryname" type="text" class="category" placeholder="<?php ////echo $this->translate->_("Category");?>" /></td><td><input name="categorydesc" type="text" class="categorydesc" placeholder="Description" /></td>';
+			data += '<td><div class="addItem"><img src="/images/menu/add_item.png" /></div></td>';
+			data += '<td><div style="display:none; background:red; width:80px; cursor:pointer;position:absolute; bottom:-39px; right:-11px; border-radius:0 0 4px 4px;" class="button saveMenuCategory" id="top">'+"<?php ////echo $this->translate->_("Save");?>"+'</div></td>';
+			data += '</tr></table>';
+			data += '</div></form>';
+		$('#mainData').append(data);
+	});
+	$('.category').live("focusin",function(e){
+		if($('.category').hasClass('inputError')){
+			$('.category').removeClass('inputError');
+		}
+	});
+	itemcount = 0;
+	$('.addItem').live('click',function(){
+		if($('.category').val() == ""){
+			$('.category').addClass('inputError');
+		}else if($('.category').val() == ""){
+			$('.category').addClass('inputError');
+		}else{
+			itemcount = itemcount+1;
+			$('.saveMenuCategory').css({'display':'block'});
+			itemdata = "";
+			itemdata += '<tr><td colspan="4" align="center">';
+			itemdata += '<table cellpadding="0" cellspacing="0" border="0" width="98%" class="innertable">';
+			itemdata += '<tr><td><input name="itemname" class="itemname" type="text" placeholder="<?php ////echo $this->translate->_("Item");?>" /></td><td><input type="text" name="itemdesc" class="itemdesc" placeholder="Description" /></td><td><input name="itemprice" class="itemprice" type="text" placeholder="Price" style="width:60px; margin-right:10px" /></td><td><input type="radio" name="type'+itemcount+'" value="1" /> Veg &nbsp;&nbsp; <input type="radio" name="type'+itemcount+'" value="2" /> Non Veg<br /></td>';
+			itemdata += '<td><span class="itemclose" style="color: #000000;cursor: pointer;font-weight: bold;padding: 5px;">X</span></td></tr>';
+			itemdata += '</table></td></tr>';
+			$(this).parents('#myContainer').append(itemdata);
+		}			
+	});
+	var status = "";
+	function validateItems()
+	{
+		status = "";
+		$('.itemname').each(function(){
+			if($(this).val() == ""){
+				$(this).addClass('inputError');
+				status = false;
+			}else{
+				if($(this).hasClass('inputError')){
+					$(this).removeClass('inputError');
+				}
+				if(status == "" || status == true){
+					status = true;
+				}
+			}
+		});
+		$('.itemprice').each(function(){
+			if($(this).val() == ""){
+				$(this).addClass('inputError');
+				status = false;
+			}else{
+				if($(this).hasClass('inputError')){
+					$(this).removeClass('inputError');
+				}
+				if(status == "" || status == true){
+					status = true;
+				}
+			}
+		});
+		return status;
+	}
+
+	$('#menuTabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+		var subtabIndex = $(this).attr('href');
+		$('.categoryForm').html('');
+		var menuid = $(subtabIndex).attr('menuid');
+		var menuurl = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'getmenuheader'),null,true);?>";
+		$.post(menuurl,{'menuid':menuid}, function(menudata){
+			if(menudata != 'f'){
+				var menuStatus = menudata['menustatus'];
+				var dataurl = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'getmenucategorysandmenuitemsbymenuid'),null,true);?>";
+				$.post(dataurl,{'menuid':menuid}, function(maindata){
+					if(maindata != 'f'){
+						$(subtabIndex).html('');				
+						var data = "";
+						data += '<div>';
+						data += '<div class="ui-dialog-buttonset">';
+						data += '<button class="sml-btn1 editMenuDetails" menuid="'+menuid+'">Edit Menu</button>&nbsp;&nbsp;&nbsp;';
+						if(menuStatus){
+							data += '<button class="sml-btn1 menuStatusInA" menuid="'+menuid+'">In Activate</button>&nbsp;&nbsp;';
+							data += '<span style="font-weight:bold;">Current Status :<span class="currentStatus" style="font-size:12px;font-weight:bold; color:#7AA318 !important;">Active</span></span>';
+						}else{
+							data += '<button class="sml-btn1 green menuStatusAc" menuid="'+menuid+'">In Activate</button>&nbsp;&nbsp;';
+							data += '<span style="font-weight:bold;">Current Status<span class="currentStatus" style="font-size:12px;font-weight:bold; color:red;">In Active</span></span>';
+						}
+						data += '</div>';
+						data += '</div>';
+						for(var item in maindata){
+							var dataObj = maindata[item];
+							data += '<div class="main_div">';
+							data += '<div class="tbldiv">';
+							data +=	'<div class="categorydiv">';
+							data += '<span class="ctname" categoryid="'+dataObj['categoryid']+'">'+dataObj['categoryname']+'</span>';
+							data += '<div class="editcategoryDiv dNone">';
+							data += '<input class="editcategory  editStyle" type="text" placeholder="Category" name="edicategoryname" />';
+							data += '<input class="editcategoryid" style="display:none;" value="'+dataObj['categoryid']+'" >';
+							data += '</div>';
+							data += '<span class="ctdesc" categoryid="'+dataObj['categoryid']+'">'+dataObj['categorydesc']+'</span>';
+							data += '<div class="editcategorydescDiv dNone">';
+							data += '<input class="editcategorydesc editStyle" type="text" placeholder="Description" name="editcategorydesc" />';
+							data += '<input class="editcategoryid" style="display:none;" value="'+dataObj['categoryid']+'" >';
+							data += '</div>';	
+							data += '<span class="ctId" style="display:none;">'+dataObj['categoryid']+'</span>';		
+							data +=	'</div><div class="itemsdiv"><table  class="table2 itemstable" width="100%">';
+							var ItemArr = dataObj['itemsArr'];
+							var itemsCount = ItemArr.length;
+							var currency ='';
+							if(itemsCount > 0){
+								for(var subitems in ItemArr){
+									var menuItemsObj = ItemArr[subitems];
+									currency =  dataObj['currency'];
+									data +=	'<tr class="eachitemtr" itemid="'+menuItemsObj['itemid']+'" categoryid="'+dataObj['categoryid']+'" currency="'+currency+'">';
+									data +=	'<td>';
+									data +=	'<table width="100%">';
+									data +=	'<tr class="itemTr">';
+									if(menuItemsObj['itemtype'] == "Vegetarian")
+									{
+										data +=	'<td width="20px" class="edititemImg editClick"><img width="17" height="17" src="/images/icons/search-criteria/veg1.jpg" /></td>';
+									}else if(menuItemsObj['itemtype'] == "Non Vegetarian"){
+										data +=	'<td width="20px" class="edititemImg editClick"><img src="/images/icons/search-criteria/non-veg.jpg" /></td>';
+									}else{
+										data +=	'<td width="20px" class="edititemImg"></td>';
+									}
+									data +=	'<td width="180px" class="edititemName editClick">'+menuItemsObj['itemname']+' </td>';
+									data +=	'<td width="350px" class="edititemDesc editClick">'+menuItemsObj['itemdesc']+' </td>';
+									data +=	'<td width="70px" title="'+dataObj['currencytitle']+'" class="edititemPrice editClick">'+dataObj['currency']+' '+menuItemsObj['itemprice']+ '</td>';
+									if(menuItemsObj['itemtype'] != null){
+										data +=	'<td width="120px" class="edititemType editClick">'+menuItemsObj['itemtype']+'</td>';
+									}else{
+										data +=	'<td width="120px" class="edititemType editClick"></td>';
+									}
+									data +=	'<td width="160px">';
+									data += '<button class="btn framed icon addtrItem" >Add Item<i class="fa fa-plus"></i></button>&nbsp;&nbsp;';
+									data += '<button class="btn framed icon deleteitem" >Delete Item<i class="fa fa-minus"></i></button>';
+									data +=	'</td>'; 
+									data +=	'</tr>';
+									data +=	'<tr class="edititemTr dNone">';
+									data +=	'<td width="20px" class="edititemImg"></td>';
+									data +=	'<td width="180px"><input type="text" class="edititemname inpitemname" name="edititemname"></td>';
+									data +=	'<td width="350px"><input type="text" class="edititemdesc inpitemdesc" name="edititemdesc"></td>';
+									data +=	'<td width="70px"><input type="text" style="width:60px;" class="edititemprice inpitemprice" name="edititemprice"></td>';
+									data +=	'<td width="120px"><input type="radio" class="edittypeveg" name="edittype1" value="1" >Veg &nbsp; ';
+									data +=	'<input type="radio" class="edittypenonveg" name="edittype1" value="2">Non Veg </td>';
+									data +=	'<td class="editcategorydescsubDiv" width="120px">';
+									data +=	'<input type="submit" value="Save" class="primary updateitem" /> &nbsp;&nbsp;';
+									data +=	'<input type="submit" value="Delete" class="primary deleteitem" /> &nbsp;&nbsp;';
+									data +=	'<span style="color: #000000;cursor: pointer;font-weight: bold;padding: 5px;" class="edititemclose">X</span>';
+									data +=	'<input type="hidden" value="'+menuItemsObj['itemid']+'" class="edititemid" name="edititemid">';
+									data +=	'</td>';
+									data +=	'</tr>';
+									data +=	'</table></td></tr>';
+								}
+							}else{
+								data +=	'<tr class="addnewItem" categoryid="'+dataObj['categoryid']+'" currency="'+currency+'">';
+								data +=	'<td>';
+								data +=	'<button class="btn framed icon addNewItem" >Add Item<i class="fa fa-plus"></i></button>';
+								data +=	'</td>';
+								data +=	'</tr>';
+							}
+							data += '</table>';
+							data += '</div></div>';
+							data += '<div style="position:absolute; right:25px;top:24px;">';
+							if(dataObj['categorystatus']){
+								data += '<button class="sml-btn1 green changeStatusInA" id="'+dataObj['categoryid']+'">In Activate</button>';
+							}else{
+								data += '<button class="sml-btn1 green changeStatusAc" id="'+dataObj['categoryid']+'"">Activate</button>';
+							}
+							data += '</div><div class="clear"></div>';
+							data += '</div>';	
+							data += '<div class="gap clear"></div><div class="gap clear"></div>';
+						}
+						data +=	'<div style="cursor:pointer;position:fixed; top:230px; left:45%;" class="addanothercategory" id="top"><img height="40px" src="/images/menu/add_another_category.png" /></div>';
+						$(subtabIndex).append(data);
+						$("#loading").hide();
+					}else{
+						$(subtabIndex).html('');
+						var data = '';
+						data += '<form action="" method="post" class="categoryForm"><div class="tbldiv">';
+						data += '<table cellpadding="0" cellspacing="0" border="0" width="100%" class="price_table" id="myContainer">';
+						data += '<tr>';
+						data += '<td><input name="categoryname" type="text" class="category" placeholder="Category" /></td><td><input name="categorydesc" type="text" class="categorydesc" placeholder="Description" /></td>';
+						data += '<td><div class="addItem"><img src="/images/menu/add_item.png" /></div></td>';
+						data += '<td><div style="display:none; background:red; width:80px; cursor:pointer;position:absolute; bottom:-39px; right:-11px; border-radius:0 0 4px 4px;" class="button saveMenuCategory" id="top">Save</div></td>';
+						data += '</tr></table>';
+						data += '</div></form>';
+						$(subtabIndex).append(data);
+						$("#loading").hide();
+					}
+				},'json');
+			}
+		},'json');
+		
+	});
+	
+	$('.saveMenuCategory').live('click',function(){
+		var myVar=validateItems();
+		var maintable = $(this).parents('table');
+		if(myVar){
+			$("#loading").show();
+			var itemnameArr = [];
+			var itemdescArr = [];
+			var itempriceArr = [];
+			var typeArr = [];
+			$('.itemname').each(function(){
+				itemnameArr.push($(this).val());
+			});
+			$('.itemdesc').each(function(){
+				itemdescArr.push($(this).val());
+			});
+			$('.itemprice').each(function(){
+				itempriceArr.push($(this).val());
+			});
+			$("input:radio",maintable).each(function(){
+				if($(this).is(':checked')) {
+					typeArr.push($(this).val());
+				}
+			});
+			var menuid = $('#subtabs-'+subtabIndex).attr('menuid');
+			var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'addmenucategoryandmenuitems'),null,true);?>";
+			$.post(url,{'restaurantid':<?php echo $this->restaurantid; ?>,'menuid':menuid,'category':$('.category').val(),'categorydesc':$('.categorydesc').val(),'itemname':itemnameArr,'itemdesc':itemdescArr,'itemprice':itempriceArr,'type':typeArr}, function(data){
+				if(data != 'f'){
+					var menuurl = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'getmenuheader'),null,true);?>";
+					$.post(menuurl,{'menuid':menuid}, function(menudata){
+						if(menudata != 'f'){
+							var menuStatus = menudata['menustatus'];
+							var dataurl = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'getmenucategorysandmenuitemsbymenuid'),null,true);?>";
+							$.post(dataurl,{'menuid':menuid}, function(maindata){
+								$('#subtabs-'+subtabIndex).html('');
+								var data = "";
+								data += '<div>';
+								data += '<div class="ui-dialog-buttonset">';
+								data += '<button class="sml-btn1 editMenuDetails" menuid="'+menuid+'">Edit Menu</button>&nbsp;&nbsp;&nbsp;';
+								if(menuStatus){
+									data += '<button class="sml-btn1 menuStatusInA" menuid="'+menuid+'">In Activate</button>&nbsp;&nbsp;';
+									data += '<span style="font-weight:bold;">'+"<?php ////echo $this->translate->_("Current Status :");?>"+' <span class="currentStatus" style="font-size:12px;font-weight:bold; color:#7AA318 !important;">'+"<?php ////echo $this->translate->_("Active");?>"+'</span></span>';
+								}else{
+									data += '<button class="sml-btn1 menuStatusAc" menuid="'+menuid+'">Activate</button>&nbsp;&nbsp;';
+									data += '<span style="font-weight:bold;">'+"<?php ////echo $this->translate->_("Current Status :");?>"+' <span class="currentStatus" style="font-size:12px;font-weight:bold; color:red;">'+"<?php ////echo $this->translate->_("In Active");?>"+'</span></span>';
+								}
+								data += '</div>';
+								data += '</div>';
+								for(var item in maindata){
+									var dataObj = maindata[item];
+									data += '<div class="main_div">';
+									data += '<div class="tbldiv">';
+									data +=	'<div class="categorydiv">';
+									data += '<span class="ctname" categoryid="'+dataObj['categoryid']+'">'+dataObj['categoryname']+'</span>';
+									data += '<div class="editcategoryDiv dNone">';
+									data += '<input class="editcategory  editStyle" type="text" placeholder="Category" name="edicategoryname" />';
+									data += '<input class="editcategoryid" style="display:none;" value="'+dataObj['categoryid']+'" >';
+									data += '</div>';
+									data += '<span class="ctdesc" categoryid="'+dataObj['categoryid']+'">'+dataObj['categorydesc']+'</span>';
+									data += '<div class="editcategorydescDiv dNone">';
+									data += '<input class="editcategorydesc editStyle" type="text" placeholder="Description" name="editcategorydesc" />';
+									data += '<input class="editcategoryid" style="display:none;" value="'+dataObj['categoryid']+'" >';
+									data += '</div>';	
+									data += '<span class="ctId" style="display:none;">'+dataObj['categoryid']+'</span>';		
+									data +=	'</div><div class="itemsdiv"><table  class="table2 itemstable" width="100%">';
+									var ItemArr = dataObj['itemsArr'];
+									var itemsCount = ItemArr.length;
+									var currency ='';
+									if(itemsCount > 0){
+										for(var subitems in ItemArr){
+											var menuItemsObj = ItemArr[subitems];
+											currency =  dataObj['currency'];
+											data +=	'<tr class="eachitemtr" itemid="'+menuItemsObj['itemid']+'" categoryid="'+dataObj['categoryid']+'" currency="'+currency+'">';
+											data +=	'<td>';
+											data +=	'<table width="100%">';
+											data +=	'<tr class="itemTr">';
+											if(menuItemsObj['itemtype'] == "Vegetarian")
+											{
+												data +=	'<td width="20px" class="edititemImg editClick"><img width="17" height="17" src="/images/icons/search-criteria/veg1.jpg" /></td>';
+											}else if(menuItemsObj['itemtype'] == "Non Vegetarian"){
+												data +=	'<td width="20px" class="edititemImg editClick"><img src="/images/icons/search-criteria/non-veg.jpg" /></td>';
+											}else{
+												data +=	'<td width="20px" class="edititemImg"></td>';
+											}
+											data +=	'<td width="180px" class="edititemName editClick">'+menuItemsObj['itemname']+' </td>';
+											data +=	'<td width="350px" class="edititemDesc editClick">'+menuItemsObj['itemdesc']+' </td>';
+											data +=	'<td width="70px" title="'+dataObj['currencytitle']+'" class="edititemPrice editClick">'+dataObj['currency']+' '+menuItemsObj['itemprice']+ '</td>';
+											if(menuItemsObj['itemtype'] != null){
+												data +=	'<td width="120px" class="edititemType editClick">'+menuItemsObj['itemtype']+'</td>';
+											}else{
+												data +=	'<td width="120px" class="edititemType editClick"></td>';
+											}
+											data +=	'<td width="160px">';
+//											data +=	'<input type="submit" value="Add Item" class="primary addtrItem" /> &nbsp;&nbsp;';
+//											data +=	'<input type="submit" value="Delete" class="primary deleteitem" /> &nbsp;&nbsp;';
+											data += '<button class="btn framed icon addtrItem" >Add Item<i class="fa fa-plus"></i></button>&nbsp;&nbsp;';
+											data += '<button class="btn framed icon deleteitem" >Delete Item<i class="fa fa-minus"></i></button>';
+											data +=	'</td>'; 
+											data +=	'</tr>';
+											data +=	'<tr class="edititemTr dNone">';
+											data +=	'<td width="20px" class="edititemImg"></td>';
+											data +=	'<td width="180px"><input type="text" class="edititemname inpitemname" name="edititemname"></td>';
+											data +=	'<td width="350px"><input type="text" class="edititemdesc inpitemdesc" name="edititemdesc"></td>';
+											data +=	'<td width="70px"><input type="text" style="width:60px;" class="edititemprice inpitemprice" name="edititemprice"></td>';
+											data +=	'<td width="120px"><input type="radio" class="edittypeveg" name="edittype1" value="1" >Veg &nbsp; ';
+											data +=	'<input type="radio" class="edittypenonveg" name="edittype1" value="2">Non Veg </td>';
+											data +=	'<td class="editcategorydescsubDiv" width="120px">';
+											data +=	'<input type="submit" value="Save" class="primary updateitem" /> &nbsp;&nbsp;';
+											data +=	'<input type="submit" value="Delete" class="primary deleteitem" /> &nbsp;&nbsp;';
+											data +=	'<span style="color: #000000;cursor: pointer;font-weight: bold;padding: 5px;" class="edititemclose">X</span>';
+											data +=	'<input type="hidden" value="'+menuItemsObj['itemid']+'" class="edititemid" name="edititemid">';
+											data +=	'</td>';
+											data +=	'</tr>';
+											data +=	'</table></td></tr>';
+										}
+									}else{
+										data +=	'<tr class="addnewItem" categoryid="'+dataObj['categoryid']+'" currency="'+currency+'">';
+										data +=	'<td>';
+										data +=	'<button class="btn framed icon addNewItem" >Add Item<i class="fa fa-plus"></i></button>';
+										data +=	'</td>';
+										data +=	'</tr>';
+									}
+									data += '</table>';
+									data += '</div></div>';
+									data += '<div style="position:absolute; right:25px;top:24px;">';
+									if(dataObj['categorystatus']){
+										data += '<button class="sml-btn1 green changeStatusInA" id="'+dataObj['categoryid']+'"">In Activate</button>';
+									}else{
+										data += '<button class="sml-btn1 green changeStatusAc" id="'+dataObj['categoryid']+'"">Activate</button>';
+									}
+									data += '</div><div class="clear"></div>';
+									data += '</div>';	
+									data += '<div class="gap clear"></div><div class="gap clear"></div>';
+								}
+								data +=	'<div style="cursor:pointer;position:fixed; top:230px; left:45%;" class="addanothercategory" id="top"><button class="btn btn-default pull-right" >Add Category</button></div>';
+								$('#subtabs-'+subtabIndex).append(data);
+								$("#loading").hide();
+							},'json');
+						}
+					},'json');
+				}else{
+					$("#loading").hide();
+				}
+			});
+		}
+	});
+	$('.addanothercategory').live('click',function(){
+		$('.addanothercategory').css({'display':'none'});
+		data = "";
+		data += '<form action="" method="post" class="categoryForm"><div class="tbldiv">';
+		data += '<table cellpadding="0" cellspacing="0" border="0" width="100%" class="price_table" id="myContainer">';
+		data += '<tr>';
+		data += '<td><input name="categoryname" type="text" class="category" placeholder="<?php ////echo $this->translate->_("Category");?>" /></td><td><input name="categorydesc" type="text" class="categorydesc" placeholder="Description" /></td>';
+		data += '<td><button class="btn framed icon addItem" >Add Item<i class="fa fa-plus"></i></button></td>';
+		data += '<td><div style="display:none; background:red; width:80px; cursor:pointer;position:absolute; bottom:-39px; right:-11px; border-radius:0 0 4px 4px;" class="button saveMenuCategory" id="top">'+"<?php //echo $this->translate->_("Save");?>"+'</div></td>';
+		data += '</tr></table>';
+		data += '</div></form>';
+		$('#subtabs-'+subtabIndex).append(data);
+	});
+	$('.ctname').live('click',function(){
+		$('.categorydiv .ctname').removeClass('dNone');
+		$('.categorydiv .ctdesc').removeClass('dNone');
+		$('.categorydiv .editcategoryDiv').addClass('dNone');
+		$('.categorydiv .editcategorydescDiv').addClass('dNone');
+		$('.categorydiv .editcategoryDiv .editcategorysubDiv').html('');
+		$('.categorydiv .editcategorydescDiv .editcategorydescsubDiv').html('');
+		$('.itemTr').removeClass('dNone');
+		$('.edititemTr').addClass('dNone');
+		$('.addItemtr').remove();
+		$(this).addClass('dNone');
+		var nextDiv = $(this).next('.editcategoryDiv');
+		$('.editcategory',nextDiv).val($(this).text());
+		$(this).next('.editcategoryDiv').removeClass('dNone');
+		var td = '';
+		td += '<div class="editcategorysubDiv">';
+		td += '<input type="submit" value="Save" class="primary cfmcategory" />';
+		td += '<span class="catclose" style="color: #000000;cursor: pointer;font-weight: bold;padding: 5px;">X</span>';
+		td += '</div>';
+		nextDiv.append(td);
+	});
+	$('.ctdesc').live('click',function(){
+		$('.categorydiv .ctname').removeClass('dNone');
+		$('.categorydiv .ctdesc').removeClass('dNone');
+		$('.categorydiv .editcategoryDiv').addClass('dNone');
+		$('.categorydiv .editcategorydescDiv').addClass('dNone');
+		$('.categorydiv .editcategoryDiv .editcategorysubDiv').html('');
+		$('.categorydiv .editcategorydescDiv .editcategorydescsubDiv').html('');
+		$('.itemTr').removeClass('dNone');
+		$('.edititemTr').addClass('dNone');
+		$('.addItemtr').remove();
+		$(this).addClass('dNone');
+		var nextDiv = $(this).next('.editcategorydescDiv');
+		$('.editcategorydesc',nextDiv).val($(this).text());
+		$(this).next('.editcategorydescDiv').removeClass('dNone');
+		var td = '';
+		td +='<div class="editcategorydescsubDiv">';
+		td += '<input type="submit" value="Save" class="primary cfmcategorydesc" />';
+		td += '<span class="catclose" style="color: #000000;cursor: pointer;font-weight: bold;padding: 5px;">X</span>';
+		td += '</div>';
+		nextDiv.append(td);
+	});
+	$('.catclose').live('click',function(){
+		$('.categorydiv .ctname').removeClass('dNone');
+		$('.categorydiv .ctdesc').removeClass('dNone');
+		$('.categorydiv .editcategoryDiv').addClass('dNone');
+		$('.categorydiv .editcategorydescDiv').addClass('dNone');
+		$('.categorydiv .editcategoryDiv .editcategorysubDiv').html('');
+		$('.categorydiv .editcategorydescDiv .editcategorydescsubDiv').html('');
+	});
+	$('.cfmcategory').live('click',function(){
+		var subdiv = $(this).parents('.editcategoryDiv');
+		var maindiv = $(this).parents('.categorydiv');
+		var categoryid = $('.editcategoryid',subdiv).val();
+		var category = $('.editcategory',subdiv).val();
+		var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'updatecategory'),'default',true); ?>";
+		if(categoryid){
+			$.post(url,{'categoryid':categoryid,'category':category}, function(itemdata){
+				if(itemdata != 'f'){
+					$('.ctname',maindiv).text(category);
+					$('.categorydiv .ctname').removeClass('dNone');
+					$('.categorydiv .ctdesc').removeClass('dNone');
+					$('.categorydiv .editcategoryDiv').addClass('dNone');
+					$('.categorydiv .editcategorydescDiv').addClass('dNone');
+					$('.categorydiv .editcategoryDiv .editcategorysubDiv').html('');
+					$('.categorydiv .editcategorydescDiv .editcategorydescsubDiv').html('');
+				}
+			},'json');
+		}
+	});	
+	$('.cfmcategorydesc').live('click',function(){
+		var subdiv = $(this).parents('.editcategorydescDiv');
+		var maindiv = $(this).parents('.categorydiv');
+		var categoryid = $('.editcategoryid',subdiv).val();
+		var categorydesc = $('.editcategorydesc',subdiv).val();
+		var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'updatecategory'),'default',true); ?>";
+		$.post(url,{'categoryid':categoryid,'categorydesc':categorydesc}, function(itemdata){
+			if(itemdata != 'f'){
+				$('.ctdesc',maindiv).text(categorydesc);
+				$('.categorydiv .ctname').removeClass('dNone');
+				$('.categorydiv .ctdesc').removeClass('dNone');
+				$('.categorydiv .editcategoryDiv').addClass('dNone');
+				$('.categorydiv .editcategorydescDiv').addClass('dNone');
+				$('.categorydiv .editcategoryDiv .editcategorysubDiv').html('');
+				$('.categorydiv .editcategorydescDiv .editcategorydescsubDiv').html('');
+			}
+		},'json');
+	});	
+	var i = 0;
+	currency = '';
+	$('.editClick').live('click',function(){
+		$('.categorydiv .ctname').removeClass('dNone');
+		$('.categorydiv .ctdesc').removeClass('dNone');
+		$('.categorydiv .editcategoryDiv').addClass('dNone');
+		$('.categorydiv .editcategorydescDiv').addClass('dNone');
+		$('.itemTr').removeClass('dNone');
+		$('.edititemTr').addClass('dNone');
+		$('.addItemtr').remove();
+		var partr = $(this).parents('tr.itemTr');
+		var edititemTr = partr.next('.edititemTr');
+
+		$('.edititemname').val($('.edititemName',partr).text());
+		$('.edititemdesc').val($('.edititemDesc',partr).text());
+		var price = $('.edititemPrice',partr).text().split(' ');
+		currency = price[0]; 		
+		$('.edititemprice').val(price[1]);
+		
+		if($('.edititemType',partr).text() == 'Vegetarian'){
+			$('.edittypeveg',edititemTr).attr("checked","checked");
+		}else if($('.edititemType',partr).text() == 'Non Vegetarian'){
+			$('.edittypenonveg',edititemTr).attr('checked',true);
+		}
+		
+		partr.next('.edititemTr').removeClass('dNone');
+		partr.addClass('dNone');
+	});
+	$('.addtrItem').live('click',function(){
+		$('.categorydiv .ctname').removeClass('dNone');
+		$('.categorydiv .ctdesc').removeClass('dNone');
+		$('.categorydiv .editcategoryDiv').addClass('dNone');
+		$('.categorydiv .editcategorydescDiv').addClass('dNone');
+		$('.itemTr').removeClass('dNone');
+		$('.edititemTr').addClass('dNone');
+		$('.addItemtr').remove();
+		var partr = $(this).parents('tr.eachitemtr');
+		var categoryid = partr.attr('categoryid');
+		currency = partr.attr('currency');
+		var trdata = '<tr class="addItemtr"><td><table class="table2" width="100%"><tr>';
+		trdata += '<td width="20px" class="edititemImg"></td>';
+		trdata += '<td width="180px"><input type="text" class="additemname inpitemname" name="additemname" placeholder="item name"></td>';
+		trdata += '<td width="350px"><input type="text" class="additemdesc inpitemdesc" name="additemdesc" placeholder="item description"></td>';
+		trdata += '<td width="70px"><input type="text" style="width:60px;" class="additemprice inpitemprice" name="additemprice" placeholder="price"></td>';
+		trdata += '<td width="120px"><input type="radio" class="addtypeveg" name="addtype1" value="1" >Veg &nbsp; ';
+		trdata += '<input type="radio" class="addtypenonveg" name="addtype1" value="2">Non Veg';
+		trdata += '<input type="hidden" class="addCurrency" name="addCurrency" value="'+currency+'">';
+		trdata += '<input type="hidden" class="categoryid" name="categoryid" value="'+categoryid+'">';
+		trdata += '</td>';
+		trdata += '<td width="120px"><input  value="ADD" class="primary additem" />';
+		trdata += '<span style="color: #000000;cursor: pointer;font-weight: bold;padding: 5px;" id="519" class="additemclose">X</span></td>';
+		trdata += '</tr></table></td></tr>';
+		partr.after(trdata);
+	});
+	$('.addNewItem').live('click',function(){
+		$('.categorydiv .ctname').removeClass('dNone');
+		$('.categorydiv .ctdesc').removeClass('dNone');
+		$('.categorydiv .editcategoryDiv').addClass('dNone');
+		$('.categorydiv .editcategorydescDiv').addClass('dNone');
+		$('.itemTr').removeClass('dNone');
+		$('.edititemTr').addClass('dNone');	
+		$('.addItemtr').remove();
+		var partr = $(this).parents('tr.addnewItem');
+		var categoryid = partr.attr('categoryid');
+		currency = partr.attr('currency');
+		var trdata = '<tr class="addItemtr"><td><table class="table2" width="100%"><tr>';
+		trdata += '<td width="20px" class="edititemImg"></td>';
+		trdata += '<td width="180px"><input type="text" class="additemname inpitemname" name="additemname" placeholder="item name"></td>';
+		trdata += '<td width="350px"><input type="text" class="additemdesc inpitemdesc" name="additemdesc" placeholder="item description"></td>';
+		trdata += '<td width="70px"><input type="text" style="width:60px;" class="additemprice inpitemprice" name="additemprice" placeholder="price"></td>';
+		trdata += '<td width="120px"><input type="radio" class="addtypeveg" name="addtype1" value="1" >Veg &nbsp; ';
+		trdata += '<input type="radio" class="addtypenonveg" name="addtype1" value="2">Non Veg';
+		trdata += '<input type="hidden" class="addCurrency" name="addCurrency" value="'+currency+'">';
+		trdata += '<input type="hidden" class="categoryid" name="categoryid" value="'+categoryid+'">';
+		trdata += '</td>';
+		trdata += '<td width="120px"><input  value="ADD" class="primary additem" />';
+		trdata += '<span style="color: #000000;cursor: pointer;font-weight: bold;padding: 5px;" id="519" class="addnewitemclose">X</span></td>';
+		trdata += '</tr></table></td></tr>';
+		partr.after(trdata);
+		partr.remove();
+	});
+	$('.addnewitemclose').live('click',function(){
+		var partr = $(this).parents('tr.addItemtr');
+		var currency = $('.addCurrency').val();
+		var categoryid = $('.categoryid').val();
+		var trdata = '<tr currency="'+currency+'" categoryid="'+categoryid+'" class="addnewItem">';
+		trdata += '<td>';
+		trdata += '<button class="btn framed icon addNewItem" >Add Item<i class="fa fa-plus"></i></button>';
+		trdata += '</td>';
+		trdata += '</tr>';
+		partr.after(trdata);
+		partr.remove();		
+	});
+	$('.deleteitem').live('click',function(){
+		$('.categorydiv .ctname').removeClass('dNone');
+		$('.categorydiv .ctdesc').removeClass('dNone');
+		$('.categorydiv .editcategoryDiv').addClass('dNone');
+		$('.categorydiv .editcategorydescDiv').addClass('dNone');
+		$('.itemTr').removeClass('dNone');
+		$('.edititemTr').addClass('dNone');
+		$('.addItemtr').remove();
+		var maindiv = $(this).parents('tr').parents('tr');
+		var itemid = $('.edititemid',maindiv).val();
+		var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'changemenuitemstatus'),null,true);?>";
+		$.post(url,{'itemid':itemid,'status':'INA'}, function(data){
+			if(data == 't'){
+				maindiv.remove();
+			}
+		},'json');
+	});
+	$('.edititemclose').live('click',function(){
+		$('.itemTr').removeClass('dNone');
+		$('.edititemTr').addClass('dNone');
+	});
+	$('.updateitem').live('click',function(){
+		var pardiv = $(this).parents('div.itemsdiv');
+		var maindiv = $(this).parents('tr');
+		var itemid = $('.edititemid',maindiv).val();
+		var itemname = $('.edititemname',maindiv).val();
+		var itemdesc = $('.edititemdesc',maindiv).val();
+		var itemprice = $('.edititemprice',maindiv).val();
+		var itemtype = '';
+		$("input:radio",maindiv).each(function(){
+			if($(this).is(':checked')) {
+				itemtype = $(this).val();
+			}
+		});
+		$('.itemTr').removeClass('dNone');
+		$('.edititemTr').addClass('dNone');
+		var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'updateitem'),'default',true); ?>";
+		$.post(url,{'itemid':itemid,'itemname':itemname,'itemdesc':itemdesc,'itemprice':itemprice,'itemtype':itemtype}, function(itemdata){
+			if(itemdata != 'f'){
+				$('.edititemName',maindiv).text(itemname);
+				$('.edititemDesc',maindiv).text(itemdesc);
+				$('.edititemPrice',maindiv).text(currency+' '+itemprice);
+				if(itemtype == 1){
+					$('.edititemType',maindiv).text('Vegetarian');
+					$('.edititemImg',maindiv).html('<img width="17" height="17" src="/images/icons/search-criteria/veg1.jpg">');
+				}else if(itemtype == 2){
+					$('.edititemType',maindiv).text('Non Vegetarian');
+					$('.edititemImg',maindiv).html('<img width="17" height="17" src="/images/icons/search-criteria/non-veg.jpg">');
+				}
+				$('.itemTr').removeClass('dNone');
+				$('.edititemTr').addClass('dNone');
+				$(".itemstable .eachitemtr",pardiv).each(function(){
+					var row_index = $(this).index();
+					var itemid = $(this).attr('itemid');
+				});
+			}
+		},'json');
+	});
+	$('.itemadd').live('click',function(){
+		$(this).addClass('dNone');
+		$('.additemname').val('');
+		$('.additemdesc').val('');
+		$('.additemprice').val('');
+		$(this).next('.addItemTr').removeClass('dNone');
+	});
+	$('.additem').live('click',function(){
+		var maindiv = $(this).parents('div.itemsdiv');
+		var partr = $(this).parents('tr.addItemtr');
+		var currency = $('.addCurrency').val();
+		var itemname = $('.additemname',maindiv).val();
+		var itemdesc = $('.additemdesc',maindiv).val();
+		var itemprice= $('.additemprice',maindiv).val();
+		var itemtype = '';
+		if(!itemname){
+			$('.additemname',maindiv).addClass('inputError');
+			return false;
+		}
+		if(!itemprice){
+			$('.additemprice',maindiv).addClass('inputError');
+			return false;
+		}
+		$("input:radio",maindiv).each(function(){
+			if($(this).is(':checked')) {
+				itemtype = $(this).val();
+			}
+		});
+		
+		var categoryid = $('.categoryid',maindiv).val();
+		var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'additembycategoryid'),'default',true); ?>";
+		$.post(url,{'categoryid':categoryid,'itemname':itemname,'itemdesc':itemdesc,'itemprice':itemprice,'itemtype':itemtype}, function(itemdata){
+			if(itemdata != 'f'){
+				var datatr= '';
+				datatr += '<tr class="eachitemtr" currency="'+currency+'" categoryid="'+categoryid+'" itemid="'+itemdata+'">';
+				datatr += '<td><table width="100%"><tr class="itemTr">';
+				if(itemtype == 1){
+					datatr += '<td class="edititemImg editClick" width="20px">';
+					datatr += '<img src="/images/icons/search-criteria/veg1.jpg">';
+					datatr += '</td>';
+				}else if(itemtype == 2){
+					datatr += '<td class="edititemImg editClick" width="20px">';
+					datatr += '<img src="/images/icons/search-criteria/non-veg.jpg">';
+					datatr += '</td>';
+				}else{
+					datatr += '<td class="edititemImg editClick" width="20px"></td>';
+				}
+				datatr += '<td width="180px" class="edititemName editClick">'+itemname+'</td>';
+				datatr += '<td width="350px" class="edititemDesc editClick">'+itemdesc+'</td>';
+				datatr += '<td width="70px" class="edititemPrice editClick">'+currency+' '+itemprice+'</td>';
+				if(itemtype == 1){
+					datatr += '<td width="120px" class="edititemType editClick">Vegetarian</td>';
+				}else if(itemtype == 2){
+					datatr += '<td width="120px" class="edititemType editClick">Non Vegetarian</td>';
+				}else{
+					datatr += '<td class="edititemType editClick" width="120px"></td>';
+				}
+				datatr += '<td width="160px">';
+				//datatr += '<input type="submit" class="primary addtrItem" value="Add Item"> &nbsp;&nbsp;';
+				//datatr += '<input type="submit" class="primary deleteitem" value="Delete"> &nbsp;&nbsp;';
+				datatr += '<button class="btn framed icon addtrItem" >Add Item<i class="fa fa-plus"></i></button>&nbsp;&nbsp;';
+				datatr += '<button class="btn framed icon deleteitem" >Delete Item<i class="fa fa-minus"></i></button>';
+				datatr += '</td>';
+				datatr += '</tr>';
+				datatr += '<tr class="edititemTr dNone">';
+				datatr += '<td width="20px" class="edititemImg"></td>';
+				datatr += '<td width="180px"><input type="text" name="edititemname" class="edititemname inpitemname"></td>';
+				datatr += '<td width="350px"><input type="text" name="edititemdesc" class="edititemdesc inpitemdesc"></td>';
+				datatr += '<td width="70px"><input type="text" name="edititemprice" class="edititemprice inpitemprice" style="width:60px;"></td>';
+				datatr += '<td width="120px"><input type="radio" value="1" name="edittype1" class="edittypeveg">Veg &nbsp; ';
+				datatr += '<input type="radio" value="2" name="edittype1" class="edittypenonveg">Non Veg</td>';
+				datatr += '<td width="120px" class="editcategorydescsubDiv">';
+				datatr += '<input type="submit" class="primary updateitem" value="Save"> &nbsp;&nbsp;';
+				datatr += '<input type="submit" class="primary deleteitem" value="Delete"> &nbsp;&nbsp;';
+				datatr += '<span class="edititemclose" style="color: #000000;cursor: pointer;font-weight: bold;padding: 5px;">X</span>';
+				datatr += '<input type="hidden" name="edititemid" class="edititemid" value="'+itemdata+'"></td>';
+				datatr += '</tr>';
+				datatr += '</table></td></tr>'; 
+				partr.after(datatr);
+				partr.remove();
+				var itemIdArr = [];
+				var rowIndexArr = [];
+				$(".itemstable .eachitemtr",maindiv).each(function(){
+					var row_index = $(this).index();
+					var itemid = $(this).attr('itemid');
+					itemIdArr.push(itemid);
+					rowIndexArr.push(row_index);
+				});
+				var inurl = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'updateitemsequence'),'default',true); ?>";
+				$.post(inurl,{'itemidarr':itemIdArr,'rowindexarr':rowIndexArr}, function(indata){
+					if(indata != 'f'){
+					}
+				},'json');
+			}
+		},'json');
+	});
+	$('.additemclose').live('click',function(){
+		var partr = $(this).parents('tr.addItemtr');
+		partr.remove();
+	});
+	$('.itemclose').live('click',function(){
+		$(this).parents('tr').remove();
+	});
+	$('.changeStatusAc').live('click',function(){
+		var par = $(this)
+		var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'changemenucategorystatus'),null,true);?>";
+		$.post(url,{'categoryid':$(this).attr('id'),'status':'ACT'}, function(data){
+			if(data != 'f'){
+				par.addClass('changeStatusInA');
+				par.attr('value','In Activate');
+				par.removeClass('changeStatusAc');
+			}
+		},'json');
+	});
+	$('.changeStatusInA').live('click',function(){
+		var par = $(this);  
+		var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'changemenucategorystatus'),null,true);?>";
+		$.post(url,{'categoryid':$(this).attr('id'),'status':'INA'}, function(data){
+			if(data != 'f'){
+				par.addClass('changeStatusAc');
+				par.attr('value','Activate');
+				par.removeClass('changeStatusInA');
+			}
+		},'json');
+	});
+	$('.menuStatusAc').live('click',function(){
+		var menuid = $(this).attr('menuid');
+		var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'changemenustatus'),null,true);?>";
+		$.post(url,{'menuid':menuid,'status':'ACT'}, function(data){
+			if(data != 'f'){
+				$('.menuStatusAc').addClass('menuStatusInA');
+				$('.currentStatus').text("<?php //echo $this->translate->_("Activate");?>");
+				$('.currentStatus').attr('style','font-size:12px;font-weight:bold; color:#7AA318 !important;');
+				$('.menuStatusAc .ui-button-text').text("<?php //echo $this->translate->_("In Activate");?>");
+				$('.menuStatusAc').removeClass('menuStatusAc');
+			}
+		},'json');
+	});
+	$('.menuStatusInA').live('click',function(){
+		var menuid = $(this).attr('menuid');
+		var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'changemenustatus'),null,true);?>";
+		$.post(url,{'menuid':menuid,'status':'INA'}, function(data){
+			if(data != 'f'){
+				$('.menuStatusInA').addClass('menuStatusAc');
+				$('.currentStatus').text("<?php //echo $this->translate->_("In Activate");?>");
+				$('.currentStatus').attr('style','font-size:12px;font-weight:bold; color:red;');
+				$('.menuStatusInA .ui-button-text').text("<?php //echo $this->translate->_("Activate");?>");
+				$('.menuStatusInA').removeClass('menuStatusInA');
+			}
+		},'json');
+	});
+	$('.submitBtn').live('click',function(){
+		url = $("#colorform").attr('action');
+		var dat = $('#colorform').serializeArray();
+		$.post(url,dat,function(data){
+			if(data =='t'){
+				var url2 = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'getrestaurantcustomizemenu'),'default',true); ?>";
+				url2+= '/restaurantid/'+restid;
+			    $.post(url2,function(data2){
+				    if(data2 == 'f'){
+				    	//$('.menuPreview').html('');
+					}else{
+						$("#titlecolor").val(data2['rmc_header_colors'].substring(1)).attr('style','background-color:'+data2['rmc_header_colors'].substring(1));
+			    		$("#categorycolor").val(data2['rmc_category_colors'].substring(1)).attr('style','background-color:'+data2['rmc_category_colors'].substring(1));
+			    		$("#itemnamecolor").val(data2['rmc_itemname_colors'].substring(1)).attr('style','background-color:'+data2['rmc_itemname_colors'].substring(1));
+			    		$("#itemdesccolor").val(data2['rmc_itemdesc_colors'].substring(1)).attr('style','background-color:'+data2['rmc_itemdesc_colors'].substring(1));
+			    		$("#bgcolor").val(data2['rmc_bg_color'].substring(1)).attr('style','background-color:'+data2['rmc_bg_color'].substring(1));
+			    		$('.menuPreview').html('');
+						data = '<iframe src="http://www.dinedesk.com/menu/'+<?php echo $this->restaurantid;?>+'" scrolling="no" frameborder="0" style="overflow:hidden; width:670px; height:600px;" allowTransparency="true"></iframe>';
+						$('.menuPreview').html(data);
+					}
+				},'json');
+			}
+		});
+	});
+	/*
+	$(".exportpdfDia").dialog( {
+		autoOpen : false,
+		height : 200,
+		width : 315,
+		modal : true
+	});*/
+	$('.menupdf').live('click',function(){
+		$(".exportpdfDia").dialog('open');
+	});
+});
+</script>
+<script>
+$(function(){
+	//Get our elements for faster access and set overlay width
+	var div = $('div.sc_menu'),
+		ul = $('ul.sc_menu'),
+		ulPadding = 0;
+
+	//Get menu width
+	var divWidth = div.width();
+
+	//Remove scrollbars	
+	div.css({overflow: 'hidden'});
+	
+	//Find last image container
+	var lastLi = ul.find('li:last-child');
+	
+	//When user move mouse over menu
+	div.mousemove(function(e){
+		//As images are loaded ul width increases,
+		//so we recalculate it each time
+		var ulWidth = lastLi[0].offsetLeft + lastLi.outerWidth() + ulPadding;	
+		var left = (e.pageX - div.offset().left) * (ulWidth-divWidth) / divWidth;
+		div.scrollLeft(left);
+	});
+});
+</script>
+<style>
+.inputError {
+	background: none repeat scroll 0 0 #FAB1B9;
+}
+
+.tbldiv {
+	background: none repeat scroll 0 0 #F3F3F3;
+	border: 1px solid #C7C7C7;
+	padding: 10px;
+}
+
+.price_table {
+	position: relative;
+	margin: 0;
+	padding: 0px;
+}
+
+.price_table td {
+	padding: 4px 0;
+	font-size: 12px;
+	vertical-align: top;
+	min-width: 170px;
+	color: #000;
+}
+
+.price_tableedit {
+	position: relative;
+	margin: 0;
+	padding: 0px;
+}
+
+.price_tableedit td {
+	padding: 4px 0;
+	font-size: 12px;
+	vertical-align: top;
+	color: #000;
+}
+
+.button {
+	color: #fff;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, .2);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255,
+		.3) ), to(rgba(255, 255, 255, 0) ) ),
+		url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAABkCAMAAAD0WI85AAADAFBMV…6ZSA4WijEhOLKEwBER+dPUK/hI/p/kVrA+eSV/QsCCz07/F6W5tIcqVQ/EAAAAAElFTkSuQmCC)
+		;
+	background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, .3),
+		rgba(255, 255, 255, 0) ),
+		url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAABkCAMAAAD0WI85AAADAFBMV…6ZSA4WijEhOLKEwBER+dPUK/hI/p/kVrA+eSV/QsCCz07/F6W5tIcqVQ/EAAAAAElFTkSuQmCC)
+		;
+	background-image: -moz-linear-gradient(top, rgba(255, 255, 255, .3),
+		rgba(255, 255, 255, 0) ),
+		url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAABkCAMAAAD0WI85AAADAFBMV…6ZSA4WijEhOLKEwBER+dPUK/hI/p/kVrA+eSV/QsCCz07/F6W5tIcqVQ/EAAAAAElFTkSuQmCC)
+		;
+	background-image: -ms-linear-gradient(top, rgba(255, 255, 255, .3),
+		rgba(255, 255, 255, 0) ),
+		url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAABkCAMAAAD0WI85AAADAFBMV…6ZSA4WijEhOLKEwBER+dPUK/hI/p/kVrA+eSV/QsCCz07/F6W5tIcqVQ/EAAAAAElFTkSuQmCC)
+		;
+	background-image: -o-linear-gradient(top, rgba(255, 255, 255, .3),
+		rgba(255, 255, 255, 0) ),
+		url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAABkCAMAAAD0WI85AAADAFBMV…6ZSA4WijEhOLKEwBER+dPUK/hI/p/kVrA+eSV/QsCCz07/F6W5tIcqVQ/EAAAAAElFTkSuQmCC)
+		;
+	background-image: linear-gradient(top, rgba(255, 255, 255, .3),
+		rgba(255, 255, 255, 0) ),
+		url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAABkCAMAAAD0WI85AAADAFBMV…6ZSA4WijEhOLKEwBER+dPUK/hI/p/kVrA+eSV/QsCCz07/F6W5tIcqVQ/EAAAAAElFTkSuQmCC)
+		;
+	padding: 4px;
+	width: 80px;
+	border: 1px solid red;
+	cursor: pointer;
+	line-height: 18px;
+}
+
+.innertable {
+	background: none repeat scroll 0 0 #F3F3F3;
+	border: 1px solid #C7C7C7;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1) inset, 0 0 0 1px
+		rgba(255, 255, 255, 0.7) inset, 0 1px 0 rgba(255, 255, 255, 0.9);
+	-webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1) inset, 0 0 0 1px
+		rgba(255, 255, 255, 0.7) inset, 0 1px 0 rgba(255, 255, 255, 0.9);
+	-moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1) inset, 0 0 0 1px
+		rgba(255, 255, 255, 0.7) inset, 0 1px 0 rgba(255, 255, 255, 0.9);
+	-khtml-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1) inset, 0 0 0 1px
+		rgba(255, 255, 255, 0.7) inset, 0 1px 0 rgba(255, 255, 255, 0.9);
+	padding: 6px;
+}
+
+.innertable td {
+	padding: 10px;
+}
+
+.categorydiv {
+	border-bottom: 1px solid #999;
+	padding: 6px;
+}
+
+.ctname {
+	font-size: 16px;
+	font-weight: bold;
+	color: #9cad0f;
+	width: 100%;
+	display: block;
+	padding: 4px;
+}
+
+.ctdesc {
+	color: #666;
+	margin: 0 12px 12px 6px;
+	font-size: 12px;
+	line-height: 150%;
+	font-style: italic;
+	width: 100%;
+	display: block;
+	padding: 4px;
+}
+
+.itemsdiv {
+	padding: 12px;
+	dispaly: table-cell;
+}
+
+.itemsdiv td {
+	vertical-align: top;
+}
+
+.main_div {
+	background: #fff;
+	padding: 10px;
+	border-bottom: 1px solid #E8E8E8;
+	clear: both;
+	position: relative;
+}
+
+.clear {
+	clear: both;
+}
+
+.gap {
+	clear: both;
+	height: 10px;
+	float: none;
+	width: auto !important;
+}
+
+#cardContent {
+	margin-left: 0;
+}
+
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+	float: none !important;
+	text-align: center;
+}
+
+#loading {
+	position: fixed;
+	margin: 0 auto;
+	text-align: center;
+	padding: 7px 0 0 0;
+	font: bold 11px Arial, Helvetica, sans-serif;
+	z-index: 1001;
+	opacity: 0.5;
+	filter: alpha(opacity = 50);
+	display: none;
+}
+.editStyle{
+	border-radius: 3px;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 6px;
+    min-height: 40px;
+    padding: 6px;
+    width: 65%;
+}
+.inpitemname{
+	border-radius: 3px;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 6px;
+    min-height: 40px;
+    padding: 6px;
+    width: 100%;
+}
+.dNone{
+	display:none;
+}
+.inpitemdesc{
+	border-radius: 3px;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 6px;
+    min-height: 40px;
+    padding: 6px;
+    width: 100%;
+}
+.inpitemprice{
+	border-radius: 3px;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 6px;
+    min-height: 40px;
+    padding: 6px;
+    width: 100%;
+}
+
+.editClick{
+	cursor : pointer;
+}
+div.sc_menu {
+    height: auto;
+    overflow: auto;
+    position: relative;
+    width: 1136px;
+    bottom: 39px;
+}
+ul.sc_menu {
+    display: block;
+    height: auto;
+    list-style: none outside none;
+    margin: 0;
+    padding: 15px 0 0 15px;
+    width: 1500px;
+}
+.sc_menu li {
+    display: block;
+    float: left;
+    padding: 0 4px;
+}
+.sc_menu a {
+    display: block;
+    text-decoration: none;
+}
+.sc_menu a:hover span {
+    display: block;
+}
+.mobilepreview {
+	background: url(/images/mobilepreview.png) no-repeat;
+	width: 329px;
+	height: 673px;
+	display: block;
+}
+.table td{
+	padding:0 10px;
+	}
+.table td a{
+	color:#24A828;
+	font-weight:bold;
+	}
+.sml-btn1{
+	width: 120px;
+}
+</style>
+<div class="mainInner1 col22">
+<div id="loading" class="ui-widget-overlay"><span
+	style="z-index: 1005; position: relative; top: 200px; padding: 20px; opacity: 1; display: inline-block;">
+<img src="/images/loading.gif" alt="loading.." height="80" /><br />
+<br />
+</span></div>
+<div class="nav1">
+<div class="navTop" data-corner="top 5px" style="height: 16px;">
+	<span class="fl title_text"><?php //echo $this->translate->_("Restaurant Menu");?></span>
+	<div class="fr">
+		<table class="table">
+			<tr>
+				<td class="your_menu dnone"><a href="#" ><?php //echo $this->translate->_("Your Menu");?></a></td>
+				<td class="menu_themes"><a href="#"><?php //echo $this->translate->_("Menu Themes");?></a></td>
+				<td class="widget_int"><a href="#"><?php //echo $this->translate->_("Widget Integrations");?></a></td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="navcont">
+<div class="" style="padding:0; border:0;">
+
+<div id="tabs-1">
+				<div id="mainData">
+					<?php $resSet = $this->result;?>
+					<?php if(count($resSet) <= 0){?>
+						<h1 style="color:#000;">There are no menu for your restaurant. Please configure your menu  <a class="a2 addMenuHeader">Click here</a></h1>
+					<?php }else{?>
+						<div class="subtabs">
+							<div class="btn-group grid-controls ">
+								<ul class="nav nav-tabs" id="menuTabs" role="tablist">
+								<?php $i = 1; 
+									foreach($resSet as $menu){
+										if($i == 1){
+											echo '<li role="presentation" class="active"><a href="#subtabs-'.$i.'" aria-controls="subtabs-'.$i.'" role="tab" data-toggle="tab">'.$menu['menutitle'].'</a></li>';
+										}else{
+											echo '<li role="presentation" class=""><a href="#subtabs-'.$i.'" aria-controls="subtabs-'.$i.'" role="tab" data-toggle="tab">'.$menu['menutitle'].'</a></li>';
+										}
+										$i++;
+									}
+								?>
+								</ul>
+							</div>
+							<a class="btn1 addMenuHeader"><img title="Add Menu" height="20" class="" src="/images/plus_icon.png" style="cursor:pointer;">&nbsp;&nbsp;Add Menu</a>
+							<div class="tab-content">
+								<?php $i = 1; 
+									foreach($resSet as $menu){
+										if($i == 1){
+											echo '<div role="tabpanel" class="tab-pane active" id="subtabs-'.$i.'" menuid="'.$menu['menuid'].'">';
+										}else{
+											echo '<div role="tabpanel" class="tab-pane" id="subtabs-'.$i.'" menuid="'.$menu['menuid'].'">';
+										}
+										if(count($menu['categorys']) > 0){?>
+										<div>
+											<div class="ui-dialog-buttonset">
+												<button class="sml-btn1 editMenuDetails" menuid="<?= $menu['menuid']?>">Edit Menu</button>&nbsp;&nbsp;&nbsp;
+												<?php if($menu['menustatus']){?>
+													<button class="sml-btn1 menuStatusInA" menuid="<?= $menu['menuid']?>">In Activate</button>&nbsp;&nbsp;
+													<span style="font-weight:bold;"><?php //echo $this->translate->_("Current Status :");?> <span class="currentStatus" style="font-size:12px;font-weight:bold; color:#7AA318 !important;"><?php //echo $this->translate->_("Active");?></span></span>
+												<?php }else{?>
+													 <button class="sml-btn1 menuStatusAc" menuid="<?= $menu['menuid']?>">Activate</button>&nbsp;&nbsp;
+													<span style="font-weight:bold;"><?php //echo $this->translate->_("Current Status :");?> <span class="currentStatus" style="font-size:12px;font-weight:bold; color:red;"><?php //echo $this->translate->_("In Active");?></span></span>
+												<?php }?>
+											</div>	
+										</div>
+										<?php foreach($menu['categorys'] as $result){?>
+											<div class="main_div">
+												<div class="tbldiv">
+													<div class="categorydiv">
+														<span class="ctname" categoryid="<?php echo $result['categoryid'];?>"><?php echo $result['categoryname'];?></span>
+														<div class="editcategoryDiv dNone">
+															<input class="editcategory  editStyle" type="text" placeholder="Category" name="edicategoryname" />
+															<input class="editcategoryid" style="display:none;" value="<?php echo $result['categoryid'];?>" >
+														</div>
+														<span class="ctdesc" categoryid="<?php echo $result['categoryid'];?>"><?php echo $result['categorydesc'];?></span>
+														<div class="editcategorydescDiv dNone">
+															<input class="editcategorydesc editStyle" type="text" placeholder="Description" name="editcategorydesc" />
+															<input class="editcategoryid" style="display:none;" value="<?php echo $result['categoryid'];?>" >
+														</div>
+														<span class="ctId" style="display:none;"><?php echo $result['categoryid'];?></span>														
+													</div>
+													<div class="itemsdiv">
+														<table  class="table2 itemstable" width="100%">
+														<?php if(count($result['itemsArr']) > 0){?>
+														<?php foreach($result['itemsArr'] as $menuitem){?>
+															<?php $currency = $result['currency'];?>
+															<tr class="eachitemtr" itemid="<?php echo $menuitem['itemid'];?>" categoryid="<?php echo $result['categoryid'];?>" currency="<?php echo $result['currency']; ?>">
+																<td>
+																	<table width="100%">
+																		<tr class="itemTr">
+																			<?php if($menuitem['itemtype'] == 'Vegetarian'){?>
+																			<td width="20px" class="edititemImg editClick"><img width="17" height="17" src="/images/icons/search-criteria/veg1.jpg" /></td>
+																			<?php }else if($menuitem['itemtype'] == 'Non Vegetarian'){?>
+																			<td width="20px" class="edititemImg editClick"><img src="/images/icons/search-criteria/non-veg.jpg" /></td>
+																			<?php }else{?>
+																			<td width="20px" contenteditable="false"></td>
+																			<?php }?>
+																			<td width="180px" class="edititemName editClick"><?php echo $menuitem['itemname'];?></td>
+																			<td width="350px" class="edititemDesc editClick"><?php echo $menuitem['itemdesc'];?></td>
+																			<td width="70px" title="<?php echo $result['currencytitle']; ?>" class="edititemPrice editClick"><?php echo $result['currency']; ?> <?php echo $menuitem['itemprice'];?></td>
+																			<td width="120px" class="edititemType editClick" contenteditable="false"><?php echo $menuitem['itemtype'];?></td>
+																			<td width="160px">
+	<!--																			<input type="submit" value="Add Item" class="primary addtrItem" /> &nbsp;&nbsp;-->
+	<!--																			<input type="submit" value="Delete" class="primary deleteitem" /> &nbsp;&nbsp;-->
+																				<button class="btn framed icon addtrItem" >Add Item<i class="fa fa-plus"></i></button>&nbsp;&nbsp;
+																				<button class="btn framed icon deleteitem" >Delete Item<i class="fa fa-minus"></i></button>
+																			</td>	
+																		</tr>
+																		<tr class="edititemTr dNone">
+																			<td width="20px" class="edititemImg"></td>
+																			<td width="180px"><input type="text" class="edititemname inpitemname" name="edititemname"></td>
+																			<td width="350px"><input type="text" class="edititemdesc inpitemdesc" name="edititemdesc"></td>
+																			<td width="70px"><input type="text" style="width:60px;" class="edititemprice inpitemprice" name="edititemprice"></td>
+																			<td width="120px">
+																				<input type="radio" class="edittypeveg" name="edittype1" value="1" >Veg &nbsp; 
+																				<input type="radio" class="edittypenonveg" name="edittype1" value="2">Non Veg
+																			</td>
+																			<td class="editcategorydescsubDiv" width="120px">
+																				<input type="submit" value="Save" class="primary updateitem" /> &nbsp;&nbsp;
+																				<input type="submit" value="Delete" class="primary deleteitem" /> &nbsp;&nbsp;
+																				<span style="color: #000000;cursor: pointer;font-weight: bold;padding: 5px;" class="edititemclose">X</span>
+																				<input type="hidden" value="<?php echo $menuitem['itemid'];?>" class="edititemid" name="edititemid">
+																			</td>
+																		</tr>
+																	</table>
+																</td>
+															</tr>
+														<?php }?>
+														<?php }else{?>
+																<tr class="addnewItem" categoryid="<?php echo $result['categoryid'];?>" currency="<?php echo $result['currency']; ?>">
+																	<td>
+																		<button class="btn framed icon addNewItem" >Add Item<i class="fa fa-plus"></i></button>
+																	</td>
+																</tr>
+														<?php }?>
+														</table>
+													</div>
+												</div>
+												<div style="position:absolute; right:25px;top:24px;">
+													<?php if($result['categorystatus']){?>
+														<input type="submit" class="primary cfmcategory changeStatusInA" id="<?php  echo $result['categoryid'];?>" value="In Activate">
+													<?php }else{?>
+														<input type="submit" class="primary cfmcategory changeStatusAc" id="<?php  echo $result['categoryid'];?>" value="Activate">
+													<?php }?>
+												</div>
+												<div class="clear"></div>
+											</div>
+											<div class="gap clear"></div><div class="gap clear"></div>
+										<?php }?>
+									<?php }else{?>
+										<form action="" method="post" class="categoryForm">
+											<div class="tbldiv">
+												<table cellpadding="0" cellspacing="0" border="0" width="100%" class="price_table" id="myContainer">
+												<tr>
+													<td><input name="categoryname" type="text" class="category" placeholder="<?php //echo $this->translate->_("Category");?>" /></td><td><input name="categorydesc" type="text" class="categorydesc" placeholder="Description" /></td>
+													<td><button class="btn framed icon addItem" >Add Item<i class="fa fa-plus"></i></button></td>
+													<td><div style="display:none; background:red; width:80px; cursor:pointer;position:absolute; bottom:-39px; right:-11px; border-radius:0 0 4px 4px;" class="button saveMenuCategory" id="top">Save</div></td>
+												</tr>
+												</table>
+											</div>
+										</form>
+									<?php }?>
+									<?php if(count($menu['categorys']) > 0){?>
+										<div style="cursor:pointer;position:fixed; top:230px; left:45%;" class="addanothercategory" id="top"><button class="btn btn-default pull-right" >Add Category</button></div>
+									<?php }?>	
+								<?php echo '</div>';		
+									$i++;
+								}?>
+							</div>
+						</div>
+					<?php }?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- <div class="menuDia" title="Menu Header">
+		<table class="table2">
+			<tr>
+			<td><?php //echo $this->translate->_("Menu Title");?></td>
+				<td>:</td>
+			<td><input type="text" placeholder="<?php //echo $this->translate->_("Menu Title");?>" class="menuTitle"
+					name="menuTitle" /></td>
+			</tr>
+			<tr>
+			<td><?php //echo $this->translate->_("Menu Description");?></td>
+				<td>:</td>
+			<td><textarea rows="5" cols="25" name="menuDesc" style="width: 250px;" placeholder="<?php //echo $this->translate->_("Menu Description");?>" class="menuDesc " maxlength="200"></textarea></td>
+			</tr>
+		</table>
+	</div> -->
+</div>
+<div class="exportpdfDia" title="Select Menu">
+<?php   
+	$resSet = $this->result;
+	echo '<div>';
+	foreach ($resSet as $menu){
+	$url = $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'menuexportpdf','restaurantid'=>$this->restaurantid,'menuid'=>$menu['menuid']),null,true);
+	echo '<a href='.$url.'><span class="ctname">'.$menu['menutitle'].'</span></a>';
+	} 
+	echo '</div>'; 
+?> 
+</div>

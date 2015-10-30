@@ -1,0 +1,803 @@
+<link rel="stylesheet" href="/css/dropzone.css" type="text/css">
+<link rel="stylesheet" href="/css/bootstrap-timepicker.css" type="text/css">
+<script type="text/javascript" src="/js/dropzone.min.js"></script>
+<script type="text/javascript" src="/js/icheck.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap-timepicker.js"></script>
+
+
+<script type="text/javascript">
+var filesData =new Array();
+var resultList = new Array();
+var formValues;
+var mainLatLng = new google.maps.LatLng(17.4027421, 78.45245909999994);
+var timeArray = Array();
+$(function(){
+//	$("input[type='checkbox']").checkboxradio('refresh');
+	$("#file_button").change(function(event){
+		var filesList= event.target.files;
+		populate(filesList);
+	});
+	$(".locationSel").change(function(){
+		if($(this).attr("name")=="rescountry_id"){
+			getTimezones($(this));
+		}
+		getPlaces($(this));
+	});
+	$("form").submit(function(){
+			if($("#resname").val().length==0)
+			{
+				alert("Restaurant Name cannot be empty");
+				return false;
+			}	
+			if(!isEmail($("#resemail").val())){
+				alert("Invalid email");
+				return false;
+			}
+			if(isNaN($("#rescapacity").val()))
+			{
+				alert("Capacity should be number");
+				return false;
+			}
+			if(isNaN($("#reszipcode").val()))
+			{
+				alert("Zip should be number");
+				return false;
+			}
+		
+	/* Getting working times*/
+			timeArray = [];	
+			timeArray = [];	
+		$('[class^=repeatManualSel-]').each(function(){
+			if($(this).is(':checked')){
+				var day = $(this).attr("value");
+				$('.ResMealTable tr').each(function(){
+					if($('.mealtype',thisTr).val() && $('.mealstart',thisTr).val() && $('.mealend',thisTr).val()){
+						var arr = {};
+						var thisTr = $(this);
+						arr.rwt_sch_type = $('.mealtype',thisTr).val();
+						arr.rwt_start_time = $('.mealstart',thisTr).val();
+						arr.rwt_end_time = $('.mealend',thisTr).val();
+						arr.rwt_week_day = day;
+						timeArray.push(arr);
+					}				
+				});
+			}			
+		});
+			
+			$("#file_button").val("");
+			formValues =  new FormData($("form")[1]);
+			for (var i = 0, len = filesData.length; i < len; i++){
+			  formValues.append((i), filesData[i]['file']);
+			}
+			var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'firmregistration'),null,true);?>";
+			$.ajax({
+					url: url, 
+					type: "POST", 
+					data:formValues, 
+					contentType: false,  
+					cache: false,          
+					processData:false,     
+					success: function(data){
+						if(!isNaN(data)){
+							var times = timeArray;
+							var postUrl = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'restaurantworkingtime'),null,true);?>";
+							$.post(postUrl,{rid:data,timeArray:timeArray},function(output)
+							{
+								if(!isNaN(output))
+								{
+									var goTO =  "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'menucategoryanditems'),null,true);?>";
+									goTO+="/restaurantid/"+data.replace(/\s/g,"");
+									window.location.href=goTO;
+								}
+								
+							});
+							
+						}
+						else{
+							alert(data);
+						}
+					}
+			});
+					return false;	
+		});
+	/* Brigns out the location lat lon along with place id on focus out from address input*/
+	$("#resaddress").focusout(function(){
+		if($("#resaddress").val().length > 0)
+		{
+			var str = "https://maps.googleapis.com/maps/api/geocode/json?address="+encodeURI($("#resaddress").val())+"";
+			$.ajax({url: str, success: function(result)
+			{
+		 	mainLatLng = new google.maps.LatLng( result['results'][0]['geometry']['location']['lat'],result['results'][0]['geometry']['location']['lng']);
+		 	$("#place_id").val(result['results'][0]['place_id']);
+		 	initialize();
+		  }});
+		}
+	});
+	/*$("textarea[name='resreservation_provider']").attr("readonly",true);
+	$("input[name='resprivate_party_contact']").attr("readonly",true);
+	$( "input[name='resreservation_system']" ).click(function(){
+			$("textarea[name='resreservation_provider']").attr("readonly",!$(this).is(":checked"));	
+	});
+	$( "input[name='resparty_allowed']" ).click(function(){
+			$("input[name='resprivate_party_contact']").attr("readonly",!$(this).is(":checked"));	
+	});*/
+
+	
+	//$(".timepicker").timepicker();
+	$(".addTime").click(function()
+	{
+		
+		return false;		
+	});
+
+	$('.AddResMealType').click(function(){
+		var prevtrCount = $(".ResMealTablePrev tbody tr").size();
+		var trCount = $(".ResMealTable tbody tr").size();
+		if(trCount < 4){
+			var data = "";
+			var body = $('.ResMealTable');
+			var select = '<div class="row"><div class="col-md-3 col-sm-3"><div class="form-group"><select name="mealtype" class="form-control required mealtype">';
+			select += '<option value="">Select Meal</option>';
+			select += '<option value="Breakfast">Breakfast</option>';
+			select += '<option value="Brunch">Brunch</option>';
+			select += '<option value="Lunch">Lunch</option>';
+			select += '<option value="Dinner">Dinner</option>';
+			select += '</select></div></div>';
+			data += '<tr>';
+			data += '<td>'+select;
+			data += '<div class="col-md-3 col-sm-3"><div class="input-group bootstrap-timepicker timepicker"><input type="text" class="form-control timepicker1 mealstart input-small" /><span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span></div></div>';
+			data += '<div class="col-md-3 col-sm-3"><div class="input-group bootstrap-timepicker timepicker"><input type="text" class="timepicker2 mealend form input-small" /><span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span></div></div><div class="col-md-3 col-sm-3"><div class="form-group"><a class="mealadd a2">'+"<?php echo $this->translate->_("ADD");?>"+'</a>';
+			data += '&nbsp;&nbsp;&nbsp;<a class="mealcancel a2">'+"<?php echo $this->translate->_("Cancel");?>"+'</a></div></div></td>';
+			data += '</tr>';
+			body.append(data);
+			$('.timepicker1').timepicker({
+				minuteStep: 15,
+                showInputs: false,
+                disableFocus: true
+			});
+			$('.timepicker2').timepicker({
+				minuteStep: 15,
+                showInputs: false,
+                disableFocus: true
+			});
+			if(prevtrCount + trCount == 4){
+				$('.tr').hide();
+			}
+		}else{
+			$('.tr').hide();
+		}
+		return false;
+	});
+ 	
+	$('.mealcancel').live('click',function(){
+		$('.updatemeal').remove();
+		var tr = $(this).parents('tr');
+		tr.remove();
+		var prevtrCount = $(".ResMealTablePrev tbody tr").size();
+		var trCount = $(".ResMealTable tbody tr").size();
+		if(prevtrCount + trCount < 5){
+			$('.tr').show();
+		}
+	});
+
+	$('.mealadd').live('click',function(){
+		var mealstatus = true;
+		var tr = $(this).parents('tr');
+		var parentDiv = $(this).parents('div.active');
+		var prevtrCount = $(".ResMealTablePrev tbody tr").size();
+		var trCount = $(".ResMealTable tbody tr").size();
+		if($('.mealstart',tr).val() && $('.mealend',tr).val() && $('#mealtype',tr).val()){
+			if(Date.parse('01/01/2011 '+$('.mealstart',tr).val()) < Date.parse('01/01/2011 '+$('.mealend',tr).val())){
+				var mealstart = new Date("1/1/2007 " +$('.mealstart',tr).val().toLowerCase());
+				var mealend = new Date("1/1/2007 " +$('.mealend',tr).val().toLowerCase());
+				
+				$('tr[id^=meal_]').each(function(){
+					var Tr = $(this);
+					var startold = new Date("1/1/2007 " +$(Tr).find("td").eq(1).text().toLowerCase());
+					var endold  =  new Date("1/1/2007 " +$(Tr).find("td").eq(2).text().toLowerCase());
+					var activation = $('td',Tr).eq(3).find('.mealstatuschg').text();
+					if(activation == ' In Activate'){
+						if(!((((mealstart < startold) && (mealstart < endold)) && ((mealend < startold) && (mealend < endold))) || (((mealstart > startold) && (mealstart > endold)) && ((mealend > startold) && (mealend > endold))))){
+							mealname =  $(Tr).find("td").eq(0).text();
+							mealstatus = false;
+						}
+					}
+					
+				
+				});
+				alert(mealstatus);
+				if(mealstatus){
+					
+					var tableData = "";
+					var body = $('.ResMealTable')
+					if(prevtrCount + trCount < 4){
+						tableData += '<div class="tr" style="padding:2px; position:relative; top:5px;" ><a class="a2 add AddResMealType">'+"<?php echo $this->translate->_("Add Dining Type");?>"+'</a></div>';
+					}
+					tableData += '<div class="gap"></div>';
+					tableData += '<table class="ResMealTablePrev grid" width="100%">';
+					tableData += '<tr>';
+					tableData += '<th>'+"<?php echo $this->translate->_("Meal");?>"+'</th>';
+					tableData += '<th>'+"<?php echo $this->translate->_("Start Time");?>"+'</th>';
+					tableData += '<th>'+"<?php echo $this->translate->_("End Time");?>"+'</th>';
+					tableData += '<th>'+"<?php echo $this->translate->_("Operations");?>"+'</th>';
+					tableData += '</tr>'
+					for(var item in data){
+						var dataObj = data[item];
+						if(item != 'count'){
+							tableData += '<tr id="meal_'+dataObj['id']+'" abbr="'+dataObj['status']+'" >';
+							tableData += '<td>'+dataObj['desc']+'</td>';
+							tableData += '<td>'+dataObj['starttime']+'</td>';
+							tableData += '<td>'+dataObj['endtime']+'</td>';
+							if(dataObj['status']){
+								tableData += '<td><a class="mealedit a2"><img width="15" src="/images/icons/edit.png"> '+"<?php echo $this->translate->_("Edit");?>"+'</a>';
+								tableData += '<br/><a class="mealstatuschg a2"><img width="15" src="/images/icons/cancel.png"> '+"In Activate"+'</a></td>';
+							}else{
+								tableData += '<td><a class="mealedit a2"><img width="15" src="/images/icons/edit.png">'+"<?php echo $this->translate->_("Edit");?>"+' </a>';
+								tableData += '<br/><a class="mealstatuschg a2"><img width="15" src="/images/icons/tick.png"> '+"Activate"+'</a></td>';
+							}
+							tableData += '</tr>';
+						}								
+					}
+					tableData += '</table>';
+					tableData += '<form action="" method="post" id="updateResMealType">';
+					tableData += '<table class="ResMealTable" width="100%">';
+					tableData += '</table></form>';
+					body.html('');
+					body.append(tableData);
+								
+							
+				}else{
+					alert("The meal range already exists in" +mealname);
+				}
+			}else{
+				alert("Start Time should be less than End Time");
+			}
+		}else{
+			if(!$('.mealstart',tr).hasClass('mealerror') && !$('.mealstart',tr).val()){
+				$('.mealstart',tr).addClass('mealerror');
+			}else if($('.mealstart',tr).val()){
+				$('.mealstart',tr).removeClass('mealerror');
+			}
+			if(!$('.mealend',tr).hasClass('mealerror') && !$('.mealend',tr).val()){
+				$('.mealend',tr).addClass('mealerror');
+			}else if($('.mealend',tr).val()){
+				$('.mealend',tr).removeClass('mealerror');
+			}
+			if(!$('#mealtype',tr).hasClass('mealerror') && !$('#mealtype',tr).val()){
+				$('#mealtype',tr).addClass('mealerror');
+			}else if($('#mealtype',tr).val()){
+				$('#mealtype',tr).removeClass('mealerror');
+			}
+		}
+	});
+
+	$(".add-author").click(function()
+	{
+		var table = $(this).parents("table");
+		var tr = $(this).parents("tr");
+		table.append("<tr>"+tr.html()+"</tr>");
+		return false;
+	});
+});
+function isURL(str) {
+  /*var pattern = new RegExp('^(https?:\/\/)?'+ // protocol
+    '((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|'+ // domain name
+    '((\d{1,3}\.){3}\d{1,3}))'+ // OR ip (v4) address
+    '(\:\d+)?(\/[-a-z\d%_.~+]*)*'+ // port and path
+    '(\?[;&a-z\d%_.~+=-]*)?'+ // query string
+    '(\#[-a-z\d_]*)?$','i'); // fragment locater
+  if(!pattern.test(str)) {
+    return false;
+  } else {
+    return true;
+  }*/
+  return true;
+}
+function isEmail(email){
+	var reg = /\S+@\S+\.\S+/;
+    return reg.test(email);
+}
+function initialize(){
+	 try{
+		 	mapOptions =  {
+		     zoom: 15,
+		    center: mainLatLng,
+		    mapTypeId: google.maps.MapTypeId.TERRAIN
+		 };
+	    //Initialize map
+	    map = new google.maps.Map(document.getElementById('map-simple'),
+	      mapOptions);
+	     map.setOptions({draggableCursor:'crosshair'});
+	   	geocode = new google.maps.Geocoder();
+		var bounds = new google.maps.LatLngBounds();
+		bounds.extend(map.getCenter());
+		$("#latlon").val(mainLatLng);
+		var marker = new google.maps.Marker({
+		      position: mainLatLng,
+		      map: map,
+		      draggable:true
+		  });
+		google.maps.event.addListener(marker,'dragend',plotLatLon);
+		bounds.extend(marker);
+		 }
+		 catch(err)
+		 {
+		 	$("#loading").hide();
+		 }
+	}
+google.maps.event.addDomListener(window, 'load', initialize);
+function plotLatLon (event) {
+	var lat = event.latLng.lat(); 
+          var lng = event.latLng.lng(); 
+          $("#latlon").val(event.latLng);
+}
+function populate(filesList){
+	for(var i in filesList){
+		var obj = {index:i,file:filesList[i]};
+		var byteSize = ((filesList[i]['size']/1024)/1024);
+		var size = Math.round(byteSize * 100) / 100;
+		filesData.push(obj);
+		$("#selected_images").append("<div class='img-container' id='img"+i+"'> <img class='imgEle' src="+URL.createObjectURL(filesList[i])+"> "+size+" MB <button onclick='rm(this)' target="+i+"><i class='fa fa-remove'></i></button></div>");
+	}
+	$(".img-container").slideDown(500);
+}
+function rm(btn){
+	for(var i =0;i<filesData.length;i++){
+		if(filesData[i]['index']==$(btn).attr("target"))
+		{
+			filesData.splice(i,1);	
+		}
+	}
+	$("#img"+$(btn).attr("target")).remove();
+}
+function getPlaces (ele) 
+{
+	var action = $(ele).attr("name");
+	var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'locationchangeajax'),null,true);?>"; 
+	$.post(url,{action:action,id:$(ele).val()},
+			function(data)
+			{
+					var output = "";
+					if(data.length > 0)
+					{
+						try
+						{
+							var data = JSON.parse(data);
+							for(var i in data)
+							{
+								output +="<option value="+data[i]['value']+">"+data[i]['key']+"</option>";
+							}
+						}
+						catch(err)
+						{
+							$("#loading").hide();
+						}
+					}
+					else
+					{
+						output ='<option value="">No Suggestions</option>';
+					}
+					switch(action)
+						{
+							case "rescountry_id":
+							$("#rescity_id").html(output);
+							$("#rescity_id").selectpicker('refresh');
+							break;
+							case "rescity_id":
+							$("#reslocation_id").html(output);
+							$("#reslocation_id").selectpicker('refresh');
+							break;
+						}
+				});
+}
+/**
+Function for fecthing time zones on country change
+**/
+function getTimezones (ele) {
+	var action = 'CountryTimezone';
+	var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'locationchangeajax'),null,true);?>"; 
+	$.post(url,{action:action,id:$(ele).val()},
+			function(data){	
+				var output = "";
+				var data = JSON.parse(data);
+				for(var i in data){
+					output +="<option value="+data[i]['value']+">"+data[i]['key']+"</option>";
+				}
+				
+				$("#restimezone").html(output);	
+				$("#restimezone").selectpicker('refresh');	
+			});
+}
+</script>
+<style type="text/css">
+	.img-container
+	{
+		float: left;
+		border:1px solid #bdc3c7;
+		width:80px;
+		height:80px;
+		cursor: pointer;
+		text-align: center;
+		color: black;
+		margin-right: 2px;
+	}
+	.img-container:hover
+	{
+		background: #ecf0f1;
+		border-color: black;
+	}
+	.img-container:hover > button
+	{
+		
+	}
+	.img-container img
+	{
+		width: 100%;
+		height: 63px;
+	}
+	.img-container button
+	{
+		float: right;
+		background: transparent;
+		font-weight: bold;
+		border:none;
+	}
+	#map-simple
+	{
+		height:360px;
+		width:100%;
+		cursor: crosshair;
+		border-radius: 10px;
+	}	
+	.mealerror{
+		border:1px solid red;
+	}
+.list-unstyled{padding-left:20px}
+section header h2{margin-bottom:0}
+</style>
+<?php $form = $this->detailsForm;
+foreach ($form->getElements() as  $ele) {	
+	$ele->removeDecorator('DtDdWrapper')
+        ->removeDecorator('HtmlTag')
+        ->removeDecorator('Label');
+}
+?>
+ <div >
+            <!--Page Content-->
+            <div id="page-content">
+							
+				<form id="contact-form" role="form" method="post" action="?" novalidate>
+                <section class="container">
+                <div class="row">
+				      <div class="container">
+				       <div class="process">
+				        <div class="process-row">
+				         <div class="process-step">
+				          <button type="button" class="btn selected btn-circle"><i class="fa fa-user fa-2x"></i></button>
+				          <h2 class="green1"><strong>1. Add Restaurant</strong></h2>
+				         </div>
+				         <div class="process-step">
+				          <button type="button" class="btn  btn-circle"><i class="fa fa-list fa-2x"></i></button>
+				          <h2>2. Add Menu</h2>
+				         </div>
+				         <div class="process-step">
+        				  <button type="button" class="btn  btn-circle" ><i class="fa fa-check fa-2x"></i></button>
+         					 <h2>3. Manage</h2>
+         				</div> 
+				        </div>
+				       </div>
+				      </div>
+			  </div>
+                    <div class="row">
+                        <!--Company Detail Content-->
+                        <div class="col-md-12"> 
+                            <!--Contact Form-->
+                            <section class="block1">
+                                <header><h2>Restaurant Information</h2></header>
+									<hr/>
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="form-group">
+                                                <label for="contact-form-name">Restaurant Name *</label>
+                                                <?php echo $form->resname ;?>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="contact-form-name">Dining Style *</label>
+                                                <?php echo $form->resdining_style; ?>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="contact-form-name">Select Cusine *</label>
+                                              <?php echo $form->restype_id; ?>
+                                            </div>
+                                              <div class="form-group">
+                                                <label for="contact-form-name">Restaurant Capacity *</label>
+                                              <?php echo $form->rescapacity; ?>
+                                            </div>
+                                            <!-- /.form-group -->
+                                        	 <div class="form-group">
+                                                <label for="contact-form-name">Known for*</label>
+                                              	<?php echo $form->res_specialities; ?>
+                                            </div>
+                                         	 <div class="form-group">
+                                                <label for="contact-form-name">Cost For 2 *</label>
+                                              	<?php echo $form->resprice; ?>
+                                            </div>
+                                         </div>
+                                        
+                                        <!--/.col-md-6-->
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="form-group">
+                                                <label for="contact-form-email">Email *</label>
+                                               <?php echo $form->resemail; ?>
+                                            </div>	
+                                            <div class="form-group">
+                                                <label for="contact-form-email">Phone *</label>
+                                                <?php echo $form->resphone; ?>
+                                            </div>											
+											<div class="form-group">
+												<label for="contact-form-message">Restaurant Description *</label>
+												<?php echo $form->resdescription; ?>
+											</div>
+                                            <!-- /.form-group -->
+                                        </div>
+                                        <!--/.col-md-6-->
+                                    </div>
+                                <!--/#contact-form-->
+                            </section>
+							<div class="gap"></div>
+							<div class="gap"></div>
+							<div class="gap"></div>
+                             <section  class="block1">                                					
+								<div class="row">
+									<div class="col-md-6 col-sm-6">
+										<header><h2>Locality</h2></header>	
+									<hr/>	
+										<div class="row">
+											<div class="col-md-6 col-sm-6">
+												<div class="form-group">
+													<label for="contact-form-name">Country *</label>
+													<?php echo $form->rescountry_id; ?>
+												</div>
+												<div class="form-group">
+													<label for="contact-form-name">Locality *</label>
+													<?php echo $form->reslocation_id; ?>
+												</div>
+												<div class="form-group">
+													<label for="contact-form-name">Time Zone *</label>
+													<?php echo $form->restimezone; ?>
+												</div>
+											</div>	
+											<div class="col-md-6 col-sm-6">
+												<div class="form-group">
+													<label for="contact-form-name">City *</label>
+													<?php echo $form->rescity_id; ?>
+												</div>
+												<div class="form-group">
+													<label for="contact-form-name">ZIP *</label>
+													 <?php echo $form->reszipcode; ?>
+												</div>
+											</div>											
+										</div>
+										<div class="row">
+											<div class="col-md-12 col-sm-12">
+												<div class="form-group">
+													<label for="contact-form-message">Address *</label>
+													<?php echo $form->resaddress; echo $form->reslocation; echo $form->resgoogle_place_id; ?>
+												</div>
+											</div>
+										</div>
+										
+									</div>
+									<div class="col-md-6 col-sm-6">
+										<header><h2>In Maps</h2></header>	
+									<hr/>
+										<div class="col-md-12 col-sm-12" id="map-simple" ></div>
+									</div>
+								</div>
+							</section>
+							<div class="gap"></div>
+							<div class="gap"></div>
+							<div class="gap"></div>
+                             <section  class="block1">   
+								<header><h2>Features</h2></header>	
+									<hr/>
+								<div class="row">
+									<div class="col-md-2 col-sm-2">
+										<header><h4>Seating Type</h4></header>	
+										 <ul class="list-unstyled checkboxes">
+											<li><div class="checkbox"><label><?php echo $form->resoutdoor_seating; ?>Out Door Seating</label></div></li>
+											<li><div class="checkbox"><label><?php echo $form->resair_conditioned; ?>Air condition</label></div></li>
+											<li><div class="checkbox"><label><?php echo $form->resdelivery; ?>Delivery</label></div></li>
+											<li><div class="checkbox"><label><?php echo $form->resdine_in; ?>Dine in</label></div></li>
+											<li><div class="checkbox"><label><?php echo $form->resalcohol; ?>Alcohol</label></div></li>
+										</ul>										
+									</div>
+									<div class="col-md-2 col-sm-2">
+										<header><h4>Accepts</h4></header>	
+										 <ul class="list-unstyled checkboxes">
+											<li><div class="checkbox"><label><?php echo $form->res_cash; ?>Cash Payment</label></div></li>
+											<li><div class="checkbox"><label><?php echo $form->res_credit_card; ?>Credit Card Payment</label></div></li>
+											<li><div class="checkbox"><label><?php echo $form->res_gift_vouchers; ?>Gift Vouchers</label></div></li>
+											<li><div class="checkbox"><label><?php echo $form->res_master_card; ?>Master card</label></div></li>
+											<li><div class="checkbox"><label><?php echo $form->res_visa_card; ?>Visa card Payment</label></div></li>
+										</ul>										
+									</div>
+									<div class="col-md-2 col-sm-2">
+										<header><h4>Dining Type</h4></header>	
+										 <ul class="list-unstyled checkboxes">
+											<li><div class="checkbox"><label><?php echo $form->resbreakfast; ?>Breakfast</label></div></li>
+											<li><div class="checkbox"><label><?php echo $form->reslunch; ?>Lunch</label></div></li>
+											<li><div class="checkbox"><label><?php echo $form->resdinner; ?>Dinner</label></div></li>
+										</ul>										
+									</div>
+									<div class="col-md-2 col-sm-2">
+										<header><h4>Entertainment</h4></header>	
+										 <ul class="list-unstyled checkboxes">
+											<li><div class="checkbox"><label></label><?php echo $form->restelevision; ?>Television</div></li>
+											<li><div class="checkbox"><label></label><?php echo $form->res_sports_telecast; ?>Sports Telecast</div></li>
+											<li><div class="checkbox"><label></label><?php echo $form->reslive_music; ?>Live Music</div></li>
+											<li><div class="checkbox"><label></label><?php echo $form->reswifi; ?>Wifi</div></li>
+										</ul>										
+									</div>
+									<div class="col-md-2 col-sm-2">
+										<header><h4>Parking</h4></header>	
+										 <ul class="list-unstyled checkboxes">
+										
+										<li><div class="checkbox"><label><?php echo $form->resparking_public; ?>Public Parking</label></div></li>
+										<li><div class="checkbox"><label><?php echo $form->resparking_prepaid; ?>Prepaid Parking</label></div></li>
+										<li><div class="checkbox"><label><?php echo $form->resparking_valet; ?>Valet Parking</label></div></li>
+										</ul>										
+									</div>
+									<div class="col-md-2 col-sm-2">
+										<header><h4>Convenience</h4></header>	
+										 <ul class="list-unstyled checkboxes">
+										<li><div class="checkbox"><label><?php echo $form->reskids_section; ?>Kids section</label></div></li>
+										<li><div class="checkbox"><label><?php echo $form->reswheel_chair; ?>Wheel Chair Availablity</label></div></li>
+										
+										</ul>										
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-md-2 col-sm-2">
+										<header><h4>Special</h4></header>	
+										 <ul class="list-unstyled checkboxes">
+											<li><div class="checkbox"><label><?php echo $form->resromantic_setup; ?>Romantic Setup</label></div></li>
+										<li><div class="checkbox"><label><?php echo $form->res_special_ocassion_dining; ?>Spcial Ocassion Dining</label></div></li>
+										</ul>										
+									</div>
+									<div class="col-md-2 col-sm-2">
+										<header><h4>Food Type</h4></header>	
+										<ul class="list-unstyled checkboxes">
+											<li><div class="checkbox"><label><?php echo $form->resnon_veg; ?>Non veg</label></div></li>
+										</ul>							
+									</div>
+									<div class="col-md-2 col-sm-2">
+										<header><h4>Buffet</h4></header>	
+										<ul class="list-unstyled checkboxes">
+											<li><div class="checkbox"><label><?php echo $form->resbreakfast_buffet; ?>Breakfast</label></div></li>
+											<li><div class="checkbox"><label><?php echo $form->reslunch_buffet; ?>Lunch Buffet</label></div></li>
+											<li><div class="checkbox"><label><?php echo $form->resdinner_buffet; ?>Dinner Buffet</label></div></li>
+										</ul>							
+									</div>
+								</div>
+							</section>
+							<div class="gap"></div>
+							<div class="gap"></div>
+							<div class="gap"></div>
+                             <section  class="block1">   
+                             	<button class="btn btn-default pull-right AddResMealType">Add Dining Type</button>
+								<header><h2>Opening Hours</h2></header>	
+									<hr/>
+								<div class="row">
+									<div class="col-md-12 col-sm-12">										
+										<div class="clear"></div>
+										<div class="content tab-content">
+										<?php 
+											$dayArr = array('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday');?>
+											
+											<div id="Monday" class="tab-pane fade in active">
+												
+												<table class="authors-list table ResMealTable">
+													
+												</table>
+											</div>	
+											<table class="table" style="width:50%">
+												<tr>
+												<td>
+													<input type="checkbox" class="repeatManualSel-sun" name="repeatManualSel-sun" value="Sunday"/> Sun
+												</td>
+												<td>
+													<input type="checkbox" class="repeatManualSel-mon" name="repeatManualSel-mon" value="Monday"/> Mon
+												</td>
+												<td>
+													<input type="checkbox" class="repeatManualSel-tue" name="repeatManualSel-tue" value="Tuesday"/> Tue
+												</td>
+												<td>
+													<input type="checkbox" class="repeatManualSel-wed" name="repeatManualSel-wed" value="Wednesday"/> Wed
+												</td>
+												<td>
+													<input type="checkbox" class="repeatManualSel-thu" name="repeatManualSel-thu" value="Thursday"/> Thu
+												</td>
+												<td>
+													<input type="checkbox" class="repeatManualSel-fri" name="repeatManualSel-fri" value="Friday"/> Fri
+												</td>
+												<td>
+													<input type="checkbox" class="repeatManualSel-sat" name="repeatManualSel-sat" value="Saturday"/> Sat
+												</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</div>
+							</section>
+							<div class="gap"></div>
+							<div class="gap"></div>
+							<div class="gap"></div>
+							<section  class="block1">
+								<header><h2>Upload Images</h2></header>
+									<hr/>
+								<div class="row">
+									<div class="col-md-12 col-sm-12">
+										<div class="form-group">
+										<label>Choose images</label>
+										<?php echo $form->res_image_button; ?>
+										</div>
+									</div>
+									<div class="col-md-12 col-sm-12" id="selected_images">
+									</div>
+								</div>
+							</section>
+							<div class="gap"></div>
+							<div class="gap"></div>
+							<div class="gap"></div>
+                             <section  class="block1">   
+								<header><h2>Socials</h2></header>	
+									<hr/>
+								<div class="row">
+									<div class="col-md-12 col-sm-12">
+										<div class="form-group">
+											<label for="contact-form-email">Facebook </label>
+											<?php echo $form->res_social_media_fb_url; ?>
+										</div>	
+										<div class="form-group">
+											<label for="contact-form-email">Twitter </label>
+											<?php echo $form->res_social_media_twitter_url; ?>
+										</div>	
+										<div class="form-group">
+											<label for="contact-form-email">Instagram </label>
+											<?php echo $form->res_social_media_instagram_url; ?>
+										</div>									
+									</div>
+								</div>
+							</section>  
+							<div class="gap"></div>
+							<div class="gap"></div>
+							<div class="gap"></div>
+                             <section  class="block1">   
+								<header><h2>Tags</h2></header>	
+									<hr/>
+								<div class="row">
+									<div class="col-md-12 col-sm-12">
+										<div class="form-group">
+											<?php echo $form->restags; ?>
+										</div>											
+										<div class="form-group">
+											<button type="submit" class="btn btn-default" id="submit">Submit </button>
+										</div>										
+									</div>
+								</div>
+							</section>  
+							
+							<div class="gap"></div>
+							<div class="gap"></div>
+							<div class="gap"></div>
+                        </div>
+                        <!-- /.col-md-8-->
+                    </div><!-- /.row-->
+                </section>
+				 </form>
+                <!-- /.container-->
+            </div>
+            <!-- end Page Content-->
+        </div>

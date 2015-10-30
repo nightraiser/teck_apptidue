@@ -1,0 +1,300 @@
+<?php $resbooking = $this->resbooking; 
+//print_r($resbooking);die();
+?>
+<script type="text/javascript" src="/js/jquery.validate.pack.js"></script>
+<?php 
+ function shorten_string($string, $wordsreturned)
+ {
+	$retval = $string;
+	$array = explode(" ", $string);		
+	if (count($array)<=$wordsreturned){
+		return $retval;
+	}else{
+		array_splice($array, $wordsreturned);
+		$retval = implode(" ", $array)." ..";
+		return $retval;
+	}		
+ }
+?>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('select').selectpicker('render');
+		
+		$('.statusbtn').live('click',function(){
+	
+			var bookingid = $(this).attr("data-id");
+			var bookedstatus = $(this).attr("status");
+			var btntxt = $(this).html();
+			
+			console.log("clicked");
+			var nowCliked = $(this);
+			var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'changestatus'),null,true);?>";
+	    	$.post(url,{bookingid:bookingid,status:bookedstatus},function(data)
+				{ 
+					
+					
+					if(data==1)
+					{
+						if(btntxt == "Approved") 
+						{
+							$(nowCliked).html('Not Approved');
+						}
+						else
+						{
+							$(nowCliked).html('Approved');
+						}
+		
+					}
+	
+	
+			});
+		});	
+		$('.reservOperations').live('click',function(e){
+			$('.restaurantDiv').addClass('dNone');
+			$('.customerDiv').addClass('dNone');
+			var checkClass = '';
+			if(checkClass){
+				checkClass = false;
+				requestNewData();
+			}else{
+				if($('.operationsDiv').hasClass('dNone')){
+					$('.operationsDiv').removeClass('dNone');
+				}
+				var pTr = $(this).parents('tr');
+				var bookid = $('.bokid',pTr).text();
+				var resid = $('.bokid',pTr).attr('resid');
+				$('.operationsDiv').attr('residAttr',resid);
+				$('.operationsDiv').attr('bookidAttr',bookid);
+				$('.operationsDiv').css( {
+					"position":"absolute", 
+					"top":e.pageY - 100, 
+					"right" :"38px",
+				});
+			}
+		});
+
+		$('.canceloperationsDiv').live('click',function(){
+			$('.operationsDiv').addClass("dNone");
+		});
+				
+		$('.operations').live('click',function(){
+			var operation = $(this).text();
+			var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'updatebookingoperations'),null,true); ?>";
+			//clearTimeout(timeIntervals);
+			$.post(url,{bookid:$('.operationsDiv').attr('bookidAttr'),resid:$('.operationsDiv').attr('residAttr'),operation:operation},function(data){
+				if(data){
+					$('.operationsDiv').addClass("dNone");
+					//requestNewData();
+				}
+			},'json');
+		});
+			
+	});
+</script>
+<style type="text/css">
+.popDiv{
+    cursor: pointer;
+    outline: medium none !important;
+    text-decoration: none;
+  background:#fff;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  box-shadow:0 3px 16px rgba(0, 0, 0, .6);
+  -moz-box-shadow:0 3px 16px rgba(0, 0, 0, .6);
+  -webkit-box-shadow:0 3px 16px rgba(0, 0, 0, .6);
+  -khtml-box-shadow:0 3px 16px rgba(0, 0, 0, .6);
+  padding: 20px;
+  position: absolute;
+  right: 550px;               
+  width: 645px;
+  z-index:1001;
+}
+
+.popDiv table {
+  background: none repeat scroll 0 0 #FFFFFF;
+}
+.popDiv table td{
+  border: 1px solid #ccc;
+  padding:8px;
+  color:#000;
+}
+.popDiv table th{
+  text-align:left !important;
+  font-weight:bold;
+}
+.popDiv td {
+  font-size: 12px;
+  padding: 5px;
+}
+
+</style>
+
+<section class="sub-header">
+	<div class="search-bar horizontal collapse" id="redefine-search-form">
+		<div class="content">
+		    <div class="container">
+		        <form role="form" method="post" action="<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'showresbooking'),null,true); ?>" id="searchForm">
+				    <div class="input-row">
+		                <div class="form-group">
+		                    <?php echo $this->filterForm->bokid;?>
+		                </div><!-- /.form-group -->
+		                <div class="form-group">
+		                    <?php echo $this->filterForm->bokemail;?>
+		                </div>
+		                <!-- /.form-group -->
+		                <div class="form-group">
+		                    <?php echo $this->filterForm->bokfirst_name;?>
+		                </div>
+		                <div class="form-group">
+		                    <?php echo $this->filterForm->boklast_name;?>
+		                </div><!-- /.form-group -->
+					</div> 
+					
+					<div class="input-row">
+		                <div class="form-group">
+		                    <?php echo $this->filterForm->bokphone;?>
+		                </div>
+		                
+		                <div class="form-group">
+		                    <?php echo $this->filterForm->bokresv_confirm_status;?>
+		                </div>
+		                <div class="form-group">
+		                    <?php echo $this->filterForm->resname;?>
+		                </div>
+		                <div class="form-group">
+		                    <?php echo $this->filterForm->bokbooking_phrase;?>
+		                </div>
+		                
+		                <div class="form-group">
+		                    <button type="submit" class="btn btn-default submitBtn">Search</button>
+		                    
+		                </div>
+		                <!-- /.form-group -->
+		            </div>
+		        </form>
+		        <!-- /.main-search -->
+		    </div>
+		    <!-- /.container -->
+		</div>
+	</div>
+    <!-- /.search-bar -->
+    <div class="breadcrumb-wrapper">
+    	<div class="container">
+        	<div class="redefine-search">
+            	<a href="#redefine-search-form" class="inner" data-toggle="collapse" aria-expanded="false" aria-controls="redefine-search-form">
+                	<span class="icon"></span>
+                    <span>Redefine Search</span>
+				</a>
+			</div>
+            <ol class="breadcrumb">
+            	<li><a href="#"><i class="fa fa-home"></i></a></li>
+                <li><a href="#">Page</a></li>
+                <li class="active">Detail</li>
+			</ol>
+            <!-- /.breadcrumb-->
+		</div>
+        <!-- /.container-->
+	</div>
+    <!-- /.breadcrumb-wrapper-->
+</section>
+            
+
+<div id="page-content">
+	<section class="container">	
+		<div class="block">
+			<div class="row">
+				<div class="col-md-6 col-sm-6">
+					<header>
+						<h1 class="page-title"><i class="fa fa-users margin-right"></i>		Reservations</h1>
+					</header>
+				</div>
+				<div class="col-md-6 col-sm-6">	
+					<!--<div class="pull-right margin-top-15">
+						<a class="" href="<?php// echo $this->url(array('module'=>'User','controller'=>'Client','action'=>'managerregistration'),null,true); ?>"><i class="fa fa-plus"></i>&nbsp;&nbsp;<?php // echo $this->translate->_("Add RestaurantOwner"); ?></a>
+					</div>-->
+				</div>
+			</div>		
+			<div class="navCont">
+			<?php //print_r($this->resbooking); die();?>
+			<?php if($this->resbooking && count($this->resbooking) > 0){
+				echo '<table class="table" style="margin: 0px;" width="100%">
+					 	<tr>				
+							<th width="5%">'.$this->translate->_("Id").'</th>				
+							<th width="20%">'.$this->translate->_("Restaurant Name").'</th>
+							<th width="15%">'.$this->translate->_("Name").'</th>
+							<th width="15%">'.$this->translate->_("Email").'</th>
+							<th width="10%">'.$this->translate->_("Origin").'</th>
+							<th width="10%">'.$this->translate->_("Status").'</th>
+							<th width="10%">'.$this->translate->_("Operations").'</th>
+						</tr>';
+						foreach($this->resbooking as $result){
+			      	echo '<tr>';
+			      	echo '<td class="bokid" resid="'.$result['bokfk_restaurant'].'" style="color:red">'.$result['bokid'].'</td>';	      		
+			      	echo '<td><a class="a1 owner">'.$result['resname'].'</a></td>';
+			      	echo '<td class="">'.$result['name'].'</td>';
+					echo '<td>'.$result['email'].'<br/>'.$result['phone'].'</td>';
+					$phrase = $result['booking_phrase'];
+					if (isset($phrase)) {
+    					echo '<td class="">DINEDESK</td>';
+						}
+						else
+						{
+						echo '<td class="">ReserveDine</td>';	
+						}
+					if($result['bokresv_confirm_status'])
+					{
+						echo '<td><button class="statusbtn" status="'.$result['bokresv_confirm_status'].'"data-id="'.$result['bokid'].'">Approved</button></td>';
+					}
+					else
+					{
+						echo '<td><button class="statusbtn" status="'.$result['bokresv_confirm_status'].'"data-id="'.$result['bokid'].'">Not Approved</button></td>';
+					}
+					echo '<td class="reservOperations">'.$result['operations'].'</td>';	
+					echo '</tr>';
+					}
+				echo '</table>';
+				echo '<div id="op" class="popDiv operationsDiv dNone" style="width:300px;"  residAttr="" bookidAttr="" >';
+								echo  '<img src="/images/icons/close_red.png" style="position: absolute; top: -6px; right: -6px;width:20px;" class="canceloperationsDiv">';
+								echo  '<table width="100%" class="table2 grid" >';
+								echo  '<tr>';
+								echo  '<td class="operations">Notified</td>';
+								echo  '<td class="operations">Phone Not Receiving</td>';
+								echo  '<td class="operations">Wrong Number</td>';
+								echo  '</tr>';
+								echo  '</table></div>';		
+			
+			}else{
+				echo '<span class="red"><b>'.$this->translate->_("No records found.").'</b></span>';
+			}
+			?>
+			</div>
+		</div>
+	</section>	
+</div>
+<div id="descDia" title="<?php echo $this->translate->_("Description"); ?>" >
+	<table class="table2">
+		<tr>
+			<!--<td style="color: #F26823 " valign="top">Description</td>-->
+			<!--td valign="top">:</td>-->
+			<td style="color: #653614"><span id="descid"></span></td>
+		</tr>
+	</table>
+</div>
+<div id="restsourceDia" title="<?php echo $this->translate->_("Restaurant Owner Details"); ?>"  >
+	<form method="post" action="<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'updatesrcoffirm'),null,true); ?>" id="restsourceForm">
+		<table class="table2" id="restowner"  width="100%">
+		
+		</table>
+	</form>
+</div>
+
+<div id="restownerinfoDia" title="<?php echo $this->translate->_("Restaurant Owner Details"); ?>" >
+	<form method="post" action="<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'updatesrcoffirm'),null,true); ?>" id="restinfoForm">
+		<table class="table2" id="restownerinfo">
+		
+		</table>
+	</form>
+</div>

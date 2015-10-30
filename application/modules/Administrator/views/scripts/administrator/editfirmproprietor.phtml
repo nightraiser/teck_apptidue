@@ -1,0 +1,862 @@
+<script type="text/javascript" src="/js/jquery.validate.pack.js"></script>
+<?php 
+ function shorten_string($string, $wordsreturned)
+ {
+	$retval = $string;
+	$array = explode(" ", $string);		
+	if (count($array)<=$wordsreturned){
+		return $retval;
+	}else{
+		array_splice($array, $wordsreturned);
+		$retval = implode(" ", $array)." ..";
+		return $retval;
+	}		
+ }
+?>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('select').selectpicker('render');
+		var myMenu = $('.myProfileLink');
+		$('.banner').append(myMenu);
+		profileFlag = true;
+		myMenu.show();
+		$(".myProfileLink1").click(function(){
+			if(profileFlag){
+				$('.myProfileLink').animate({'right':'325px'},300);
+				profileFlag = false;	
+			}else{
+				$('.myProfileLink').animate({'right':'0px'},300);
+				profileFlag = true;
+			}
+		});
+		
+		var addCheck = 0;
+		var statusalert = '';
+		 
+		$('.pagSearch').each(function(){
+			$(this).css({'color' : '#CC9900' });
+		});
+		$('.pagBtnSearch').each(function(){	
+			$(this).css({'color' : '#CC9900' });
+		});
+		$('.pagSearch').click(function(){		
+			$("#page").val($(this).text());
+			$('#searchForm').submit();
+			return false;
+		});	
+       	$('.pagBtnSearch').click(function(){			
+			$("#page").val($(this).attr('abbr'));
+			$('#searchForm').submit();
+			return false;
+		});
+		
+       	$('.desc').click(function(){
+			var pTr = $(this).parents('tr');
+			userid =$('.userid',pTr).text();
+			var url = "<?php echo $this->url(array('module'=>'User','controller'=>'Client','action'=>'retrievemanagerinfobyid'),null,true);?>";
+			$.post(url,{ id: userid },function(data){
+				if(data != 'f'){
+					$('#descid').text(data['desc']);	
+				}
+				$('#descDia').dialog('open');
+			},'json');
+		});
+//        	$('#descDia').dialog({
+//     		autoOpen : false,
+//     		height: 'auto',
+//     		width : 500,
+//     		modal : true			
+//     	});
+       	var emailpTr = '';
+		$('.edit').live('click',function(){
+			$("#emailAddress").parent().find('.errors').remove();
+			emailpTr = $(this).parents('tr');
+			email =$('.email',emailpTr).text();
+			userid =$('.userid',emailpTr).text();
+// 			$('#emailAddress').val(email);
+// 			$('#id').val(userid);
+			emailEdit(email,userid);
+		});
+		var sourcepTr = '';
+		$('.editsource').live('click',function(){
+			sourcepTr = $(this).parents('tr');
+			userid =$('.userid',sourcepTr).text();
+			$('#userid').val(userid);
+			
+			sourceList(userid);
+// 			$('#restsourceDia').dialog('open');
+					   
+			});
+		$('.ownerinfo').live('click',function(){
+			var pTr = $(this).parents('tr');
+			userid =$('.userid',pTr).text();
+			$('#userid').val(userid);
+			
+			restownerInfo(userid);
+// 			$('#restownerinfoDia').dialog('open');
+					   
+			});
+
+		$('.ownerStatus').live('click',function(){
+			var pTr = $(this).parents('tr');
+			var obj = $(this);
+			var url = $(this).attr('posturl');
+			var status = $(this).attr('statuscode');
+			$.post(url,{status:status},function(data){
+				if(data === false){
+					$('#loading').hide();
+					alert("Internal Error");
+				}else{
+					if(status == 'INA'){
+						$(obj).attr('statuscode','ACT');
+						$(obj).html('<i class="fa fa-check"></i>'+'<? echo $this->translate('Activate')?>' );
+						$('.statusdesc',pTr).text('<? echo $this->translate->_('In-Active') ?>');
+					}else{
+						$(obj).attr('statuscode','INA');
+						$(obj).html('<i class="fa fa-times"></i>'+'<? echo $this->translate('DeActivate')?>');
+						$('.statusdesc',pTr).text('<? echo $this->translate->_('Active') ?>');
+					}
+					$('.ownermessage').text(data);										
+				}
+				$('#loading').hide();
+			},'json');
+		});
+		$('.editpass').live('click',function(){
+			$("#password").parent().find('.errors').remove();
+			$("#password_confirm").parent().find('.errors').remove();
+			var pTr = $(this).parents('tr');
+			userid =$('.userid',pTr).text();
+// 			$('#userid').val(userid);
+			passwordEdit(userid);
+		});
+
+		$('#editPassSubmit').live('click',function(data){
+			if($('#restownpasswordForm').validate().form()){
+				$('.errors').remove();
+				doValidation();
+			}	
+		});
+		function emailUniqueChek()
+		{
+			var url = "<?php echo $this->url(array('module'=>'User','controller'=>'Client','action'=>'searchforemailexist'),null,true);?>";
+			$.post(url,{ email: $.trim($('#emailAddress').val()) },function(data){
+				if(data == 't'){
+					$("#emailAddress").parent().find('.errors').remove();
+					var error = '<ul id="errors-emailAddress" class="errors"><li>'+"<?php echo $this->translate->_("Email Address is not available");?>"+' </li></ul>';
+					$("#emailAddress").parent().append(error);
+				}else if(data == 'f'){
+					$('#loading').show();
+//					$('#restownForm').submit()
+					var url = $('#restownForm').attr('action');
+					var data = $('#restownForm').serializeArray();
+					$.post(url,data,function(resp){
+						if(resp === true){
+							$('.email',emailpTr).text($("#emailAddress").val());
+							$(".modal-close").click();
+						}else{
+							alert("Request Error");
+						}
+						$('#loading').hide();
+				    },"json");
+				}
+			});
+		}
+		
+		function doValidation()
+		{	
+			var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'postajaxforpasswordcheck'),null,true);?>";
+			var data = {};
+		    $("input").each(function()
+		    {
+			    data[$(this).attr('name')] = $(this).val();
+		    });
+		    $.post(url,data,function(resp){
+			    if(resp == 't'){
+			    	$('#loading').show();
+//			    	$('#restownpasswordForm').submit()
+			    	var url = $('#restownpasswordForm').attr('action');
+			    	var data = $('#restownpasswordForm').serializeArray();
+			    	$.post(url,data,function(resp){
+						if(resp === true){
+							$(".modal-close").click();
+						}else{
+							alert("Request Error");
+						}
+						$('#loading').hide();
+				    },"json");
+			    	
+				}else{
+					for(var item in resp){
+						var respObj = resp[item];
+						for(var temp in respObj){
+							$("#"+item).parent().find('.errors').remove();
+					        $("#"+item).parent().append(getErrorHtml(respObj[temp], item));
+						}
+					}
+				}
+		    },"json");
+		}
+
+		function getErrorHtml(formErrors , id)
+		{
+		    var errormsg = '<ul id="errors-'+id+'" class="errors">';
+		    errormsg += '<li>' + formErrors+ '</li>';
+		    errormsg += '</ul>';
+		    return errormsg;
+		}
+
+		function restownerInfo(userid)
+		{
+			   	
+			var tableObj1 = $('#restownerinfo');
+			 tableObj1.html('');
+			 
+			var tablehtml1 = '<div class="modal-window fade_in"><div class="modal-wrapper"><h2><?php echo $this->translate->_("Restaurant Owner Details"); ?></h2>';
+			tablehtml1 += '<div class="modal-body"><div class="modal-content"><form method="post" action="<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'updatesrcoffirm'),null,true); ?>" id="restinfoForm">';
+			tablehtml1 += '<table class="table" id="restownerinfo">';
+			var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'retrievefirmproprietorinfo'),'default',true); ?>";
+			 $.post(url,{userid : userid}, function(data){
+		   		if(data){
+					for(var item in data){
+						if(item=='resowner'){
+							var dataObj = data['resowner'];
+							
+							for(var dat in dataObj){
+								if(dat != 'id' && dat != 'description'){
+									if(dat != 'NewState' && dat != 'NewRegion' && dat != 'NewCity' && dat!='cantfind' && dat!='stateid' && dat!='regionid' && dat!='cityid'){
+										if(dataObj[dat] != null){
+								 			tablehtml1 += '<tr><td>'+dat+'</td><td>:</td><td>'+dataObj[dat]+'</td></tr>';
+									 	}else{
+									 		tablehtml1 += '<tr><td>'+dat+'</td><td>:</td><td></td></tr>';
+									 	}
+									 }
+								 }
+							 }							 						
+						 }	
+						 var check=data['id'];
+						 if(item=='sourcelist'){
+							 if(check!=null){
+							 	var dataObj4 = data[item];
+								for(var text in dataObj4)
+								{
+									var source = dataObj4[text];
+									if(check==source.key){
+									  	tablehtml1 += '<tr><td>'+"<?php echo $this->translate->_("How did you hear about us"); ?>"+'</td><td>:</td><td>'+source.value+'</td></tr><tr><td>'+"<?php echo $this->translate->_("Would u like to provide more information");?> "+'</td><td>:</td><td>'+data['description']+'</td></tr>';
+									  	break;
+									}
+								}
+							 }else{
+								 tablehtml1 += '<tr><td>'+'<?php echo $this->translate->_("How did you hear about us");?>'+'</td><td>:</td><td>'+''+'</td></tr><tr><td>'+'<?php echo $this->translate->_("Would u like to provide more information");?>'+'</td><td>:</td><td>'+''+'</td></tr>';
+							 }
+							 tablehtml1 += '</table></form></div></div><div class="modal-close"><img src="/images/close.png"></div></div><div class="modal-background fade_in"></div></div>';
+							 $('body').append(tablehtml1);	
+					 	}								
+				 	}
+			 	}
+				   			
+		   },"json");
+		}
+
+// 		$('#stateDia').dialog({
+// 			autoOpen: false,
+// 			height: 258,
+// 			width: 543,
+// 			modal: true
+// 		});
+
+		
+		$('.addstate').live('click',function(){
+			$('#stateDia').dialog({title:"<?php echo $this->translate->_("Add State"); ?>"});
+			$("#stateDia").dialog('open');
+		});
+
+		var errorObj;
+		
+
+		
+// 		$('#regionDia').dialog({
+// 			autoOpen: false,
+// 			height: 258,
+// 			width: 543,
+// 			modal: true
+// 		});
+
+		
+		$('.addregion').live('click',function(){
+		
+			if(statusalert == 'state'){
+			$('#regionDia').dialog({title:"<?php echo $this->translate->_("Add State"); ?>"});
+			$("#regionDia").dialog('open');
+			}else{
+				alert("<?php echo $this->translate->_('Please Add Country'); ?>");
+			}
+		});
+
+	
+		
+// 		$('#cityDia').dialog({
+// 			autoOpen: false,
+// 			height: 258,
+// 			width: 543,
+// 			modal: true
+// 		});
+
+		
+		$('.addcity').live('click',function(){
+		
+			if(statusalert == 'region'){
+			$('#cityDia').dialog({title:"<?php echo $this->translate->_("Add City"); ?>"});
+			$("#cityDia").dialog('open');
+			}else{
+				alert("<?php echo $this->translate->_('Please Add State'); ?>");
+			}
+		});
+
+		
+		
+		function sourceList(userid)
+		{
+			//$('#sourcedescription').val();
+			var temp=userid;
+			
+		   	
+			var tableObj = $('#restowner');
+			 tableObj.html('');
+		   	var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'retrievefirmproprietorinfo'),'default',true); ?>";
+			 $.post(url,{userid : userid},
+					   function(data){
+				   		if(data){
+//				   		$("option",sourceTag).remove();
+						for(var item in data) 
+						{
+											
+						 if(item=='resowner')
+						 {
+							 var dataObj = data['resowner'];
+							 var tablehtml = '<div class="modal-window fade_in"><div class="modal-wrapper">';
+							 tablehtml += '<h2>Edit Restaurant Owner Email Address</h2>';
+							 tablehtml += '<div class="modal-body"><div class="modal-content">';
+							 tablehtml += '<form method="post" action="<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'updatesrcoffirm'),null,true); ?>" id="restsourceForm"><table>'
+							 for(var dat in dataObj){
+								 if(dat != 'id' && dat != 'description'){
+									 if(dat != 'NewState' && dat != 'NewRegion' && dat != 'NewCity' && dat!='cantfind' && dat!='stateid' && dat!='regionid' && dat!='cityid'){
+										 	addCheck = dataObj['cantfind'];
+										 	if(addCheck == 3){
+										 		dataObj['State'] = '';
+										 		dataObj['Region'] = '';
+										 		dataObj['City'] = '';
+										 	}else if(addCheck == 2){
+										 		dataObj['Region'] = '';
+										 		dataObj['City'] = '';
+										 	}else if(addCheck == 1){
+										 		dataObj['City'] = '';
+										 	}
+										 	if(dataObj[dat] != null){
+										 		tablehtml += '<tr><td width="260px">'+dat+'</td><td>:</td><td><span style="width: 352px;" class=hideme'+dat+dataObj[dat]+' > '+dataObj[dat];
+										 	}else{
+										 		tablehtml += '<tr><td width="260px">'+dat+'</td><td>:</td><td><span style="width: 352px;" class=hideme'+dat+dataObj[dat]+' > ';
+										 	}
+										 	if(dat == 'State'){
+											 	if(addCheck == 3){
+										 		$("#statedescription").val(dataObj['NewState']);
+										 		$("#userid").val(userid);
+										 		tablehtml += '&nbsp;&nbsp;&nbsp;'+'<?php echo $this->translate->_(" New Country");?>'+' &nbsp;&nbsp;&nbsp;  : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+dataObj['NewState']+'&nbsp;&nbsp;<a style="margin-right:10px;" class="addstate fr a2 add">'+'<?php echo $this->translate->_("Add Country"); ?>'+'</a>';
+											 	}else{
+											 		statusalert = 'state';
+											 		$('#stateid').val(dataObj['stateid']);
+											 	}
+										 	}
+										 	
+										 	if(dat == 'Region'){
+											 	if(addCheck == 3 || addCheck == 2){
+										 		$("#regiondescription").val(dataObj['NewRegion']);
+										 		$("#userid").val(userid);
+										 		tablehtml += '&nbsp;&nbsp;&nbsp;'+' <?php echo $this->translate->_("New State");?>'+' &nbsp; : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+dataObj['NewRegion']+'&nbsp;&nbsp;<span style="align:right" ><a class="addregion fr a2 add">'+'<?php echo $this->translate->_("Add State"); ?>'+'</a>';
+											 	}else{
+											 		statusalert = 'region';
+											 		$('#regionid').val(dataObj['regionid']);
+											 	}
+										 	}
+
+										 	if(dat == 'City'){
+											 	if(addCheck == 3 || addCheck == 2 || addCheck == 1){
+										 		$("#citydescription").val(dataObj['NewCity']);
+										 		$("#userid").val(userid);
+										 		tablehtml += '&nbsp;&nbsp;&nbsp; '+' <?php echo $this->translate->_("New City"); ?>'+'&nbsp;&nbsp;&nbsp;&nbsp;  : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+dataObj['NewCity']+'<a class="addcity fr a2 add" style="margin-right:18px;">'+'<?php echo $this->translate->_("Add City"); ?>'+'</a>';
+											 	}else{
+											 		statusalert = 'city';
+											 		
+											 	}
+										 	}
+										 	
+										 	tablehtml += '</span></td></tr>';
+										}
+//								 	tablehtml += '<tr><td>'+dat+'</td><td>:</td><td>'+dataObj[dat]+'</td></tr>';
+								 }
+							 }
+							 tablehtml += '<tr><td>'+'<?php echo $this->translate->_("How did you hear about us");?>'+'<span class="star"> * </span></td><td>:</td><td><SELECT  NAME="source_list" id="source_list" class="required"><Option value="" >'+'<?php echo $this->translate->_("Select Source");?> '+'</option></SELECT></td></tr><tr><td>'+'<?php echo $this->translate->_("Would u like to provide more information");?>'+'</td><td>:</td><td><TEXTAREA ROWS=5 COLS=25 id="sourcedescription" name="sourcedescription"></TEXTAREA></td></tr><tr class="dNone"><input type="hidden" id="id" name="id" /></tr><tr class="dNone"><input type="hidden" value="'+userid+'" id="userid" name="userid" /></tr><tr class="dNone"><input type="hidden" value="'+userid+'" id="uid" name="uid" /></tr><tr class="dNone"><input type="hidden" id="statuschg" name="statuschg" value="ACT"/></tr><tr class="dNone"><input type="hidden" id="appstatus" name="appstatus" value="approved"/></tr>';
+							 tablehtml += '<tr><td colspan="4"><div  align="center"><input type="hidden" id="useridval" name="useridval" value="'+userid+'"/>';
+							 tablehtml += '<div class="form-group"><a class="sml-btn1 pull-right" id="approveOwner" >Submit</a></div>';
+							 tablehtml += '</div></td></tr>';
+							 tablehtml += '</table></form></div></div></div><div class="modal-close"><img src="/images/close.png"></div></div><div class="modal-background fade_in"></div></div>';
+							 $('body').append(tablehtml);
+
+							 if(statusalert == 'city'){
+								 $('#approveOwner').removeClass('dNone');
+							 }
+							 						
+						 }	
+						 
+						 if(item=='sourcelist')
+							{
+							 	var sourceTag = $("#source_list");
+							   	sourceTag.append($("<option value='' class='loadingOpt'>Loading...</option>"));
+								$("option",sourceTag).remove();
+								var dataObj4 = data[item];
+								for(var text in dataObj4)
+								{
+									 var source = dataObj4[text];
+									 var optionTag = $("<option></option>");
+									 optionTag.val(source.key);
+									 optionTag.text(source.value);
+									 sourceTag.append(optionTag);
+								 }
+									
+							 }else
+							 {
+								$('#source_list').val(data['id']);
+								var temp1=data['description'];
+								$('#sourcedescription').val(temp1);
+								$('#uid').val(userid);
+								// alert($('#uid').val());
+											
+							  }									
+						 }
+				   		}
+				   			$('#userid').val(temp);
+						 	$('#uid').val(temp);
+
+					   },"json");
+//			 var sourceTag = $("#source_list");
+			 $('#userid').val(temp);
+			 $('#uid').val(userid);
+			 //alert($('#uid').val());
+			}
+
+		function emailEdit(email,userid){
+			var htmlDia = '<div class="modal-window fade_in"><div class="modal-wrapper">';
+	        htmlDia += '<h2>Edit Restaurant Owner Email Address</h2>';
+	       	htmlDia += '<div class="modal-body"><div class="modal-content">';
+	       	htmlDia += '<form data-toggle="validator" role="form" method="post" action="<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'updatefirminfo'),null,true); ?>" id="restownForm">';
+	       	htmlDia += '<div class="form-group"><label><?php echo $this->translate->_("Email");?><span class="star"> * </label>';
+	       	htmlDia += '<input type="text" maxlength=40 name="emailAddress" id="emailAddress" class="email required" value="'+email+'"></div><input type="hidden"  value="'+userid+'" id="id" name="id" />';
+	       	htmlDia += '<div class="form-group"><a class="sml-btn1 pull-right" id="editEmailSubmit" >Submit</a></div></form>';
+			htmlDia += '</div></div><div class="modal-close"><img src="/images/close.png"></div></div><div class="modal-background fade_in"></div></div>';
+	        $('body').append(htmlDia);
+		}
+
+		function passwordEdit( userid){
+			var htmlDia = '<div class="modal-window fade_in"><div class="modal-wrapper">';
+			htmlDia += '<h2><?php echo $this->translate->_("Edit Restaurant Owner Password"); ?></h2>';
+			htmlDia += '<div class="modal-body"><div class="modal-content">';
+			htmlDia += '<form data-toggle="validator" role="form" method="post" action="<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'updatefirminfo'),null,true); ?>" id="restownpasswordForm">';
+			htmlDia += '<div class="form-group"><label><?php echo $this->translate->_("Password");?><span class="star"> * </label><input type="password" name="password" id="password" value="" class="inp1" maxlength="20" /></div>';
+			htmlDia += '<div class="form-group"><label><?php echo $this->translate->_("Confirm Password");?><span class="star"> * </label><input type="password" name="password_confirm" id="password_confirm" value="" class="inp1" maxlength="20" /></div>';
+			htmlDia += '<input type="hidden" name="userid" value="'+userid+'" id="userid" /><div class="form-group"><a class="sml-btn1 pull-right" id="editPassSubmit" >Submit</a></div>';
+			htmlDia += '</form></div></div><div class="modal-close"><img src="/images/close.png"></div></div><div class="modal-background fade_in"></div></div>';
+			$('body').append(htmlDia);
+		}
+        $('#editEmailSubmit').live('click',function(){
+			if($('#restownForm').validate().form()){
+				$('.errors').remove();
+				emailUniqueChek();
+			}else{
+				$('label.error').text('');
+				$('label.error').removeClass('error');
+			}		
+		});
+		
+// 		$("#restsourceDia").dialog({
+// 			autoOpen: false,
+// 			resizable: true,
+// 			height : 610,
+// 			width : 'auto',
+// 			modal: true
+
+// 		});
+
+		$('#approveOwner').live('click',function(){
+			if($('#restsourceForm').validate().form()){
+// 				$("#restsourceDia").dialog('close');
+				$(".modal-close").click();
+				$('#loading').show();
+				$('.errors').remove();
+				var obj = $(sourcepTr).html();
+				var url = $('#restsourceForm').attr('action');
+		    	var data = $('#restsourceForm');
+// 		    	alert($('#statuschg').attr('value'));
+// 		    	return false;
+		    	$.post(url,{userid:$('#userid').val(),uid:$('#userid').val(),status:$('#statuschg').attr('value'),appstatus:$('#appstatus').val(),source_list:$('#source_list').val()},function(resp){
+					if(resp === false){
+						$('#loading').hide();
+						alert("Request Error");
+					}else{
+						$('.ownermessage').text(resp);
+						var url = "<? echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'editproprietorstatus'),'default',true); ?>";
+						url += '/userid/'+ $('#userid').val();
+						var html = $('.restaurantStatusTd',sourcepTr).html('');
+						html =  '<a class="editpass a1"><i class="fa fa-edit"></i>'+"<? echo $this->translate->_('Edit') ?>"+'</a>&nbsp;&nbsp;';
+						html += '<a class="a1 ownerStatus" posturl="'+url+'" statuscode="INA" ><i class="fa fa-times"></i>'+"<? echo $this->translate->_('DeActivate') ?>"+'</a><br>';
+						html += '<a class="ownerinfo a1"><i class="fa fa-info-circle"></i>'+"<? echo $this->translate->_('Info') ?>"+'</a>&nbsp;&nbsp;';
+						html += '<a class="dashbrd a1"><img src="/images/icons/dd_icon.png" height="16px"  />'+"<? echo $this->translate->_('Dashboard') ?>"+'</a>';
+						$('.restaurantStatusTd',sourcepTr).append(html);
+						$('.statusdesc',sourcepTr).text('<? echo $this->translate->_('Activate') ?>');
+					}
+					$('#loading').hide();
+				},"json");
+			}
+		});
+
+		$('#closeOwnerDia').live('click',function(){
+			$("#restsourceDia").dialog('close');
+			return false;
+		});
+		
+// 		$("#restownerinfoDia").dialog({
+// 			autoOpen: false,
+// 			resizable: true,
+// 			height : 480,
+// 			width : 430,
+// 			modal: true
+// 		});				
+		$('.owner').click(function(){
+			var pTr = $(this).parents('tr');
+			userid =$('.userid',pTr).text();
+			var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'retrievefirmdatabyproprietoridpost'),null,true);?>";
+			 $.post(url,{ id:$('.userid',pTr).text() }, function(data){
+				 if(data != ""){
+					var restDiv = $("#restDiv");
+				   	restDiv.html("");
+					for(var item in data) {
+						var rest = data[item];
+						var resDivBlk = $('<div class="resBlock2 fl w100"></div>'); 
+						resDivBlk.attr({'id':'resBlkId_'+rest.resid});
+						resDivBlk.append('<img src="'+rest.resimage+'" class="fl" style="margin-right:10px;width:100px;height:100px;"/>'); 
+						resDivBlk.append('<a class="a2" >'+rest.resname+'</a>');
+						resDivBlk.append('<div>'+rest.resaddress+'</div>'); 
+						restDiv.append(resDivBlk);
+					}
+				    $("#getRestaurantDia").dialog('open');
+				 }else{
+					alert("<?php echo $this->translate->_('There are no restaurants for this restaurantowner.'); ?>");
+				 }
+			 },'json');
+		});
+
+		$('.resBlock2').live('mouseover',function(){$(this).css({'background':'#EDE9C7'})});
+		$('.resBlock2').live('mouseout',function(){$(this).css({'background':'#EDE9D8'})});
+		$('.resBlock2').live('click',function(){
+			var resid = $(this).attr('id').split('_');
+			var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'firminfo'),null,true);?>";
+				url += '/restaurantid/'+resid[1];
+			window.location = url;
+		});
+		
+// 		$("#getRestaurantDia").dialog({
+// 			autoOpen: false,
+// 			height: 400,
+// 			width: 350,
+// 			modal: true
+// 		});
+
+		
+
+		$("#state").change(function(){		
+			if(parseInt($(this).val()) != 0 && $(this).val() != "" ){
+			 	var regionTag = $("#region");
+			   	$("option",regionTag).remove();
+			   	regionTag.append($("<option value='' class='loadingOpt'>Loading...</option>"));
+			   	var url = "<?php echo $this->url(array('module'=>'FirmManagement','controller'=>'Firm','action'=>'pickstatesbycountryid'),'default',true); ?>";
+				 $.post(url, {stateid : $(this).val()},
+						   function(data){
+					   		if(data){
+					   		$("option",regionTag).remove();
+							 for(var item in data) {
+								 var region = data[item];
+								 var optionTag = $("<option></option>");
+								 optionTag.val(region.key);
+								 optionTag.text(region.value);
+								 regionTag.append(optionTag);									
+							 }
+					   		}
+
+						   },"json");
+				 var cityTag = $("#city");
+				 $("option",cityTag).remove();
+			}else{
+				var regionTag = $("#region");
+			   	$("option",regionTag).remove();
+			    var cityTag = $("#city");
+				 $("option",cityTag).remove();
+			}
+		});
+		$("#region").change(function(){		
+			if(parseInt($(this).val()) != 0 && $(this).val() != "" ){
+			 	var cityTag = $("#city");
+			   	$("option",cityTag).remove();
+			   	cityTag.append($("<option value='' class='loadingOpt'>"+"<?php echo $this->translate->_("Loading...");?>"+"</option>"));
+			   	var url = "<?php echo $this->url(array('module'=>'FirmManagement','controller'=>'Firm','action'=>'pickcitybystateid'),'default',true); ?>";
+				 $.post(url, {regionid : $(this).val()},
+						   function(data){
+					   		if(data){
+					   		$("option",cityTag).remove();
+							 for(var item in data) {
+								 var city = data[item];
+								 var optionTag = $("<option></option>");
+								 optionTag.val(city.key);
+								 optionTag.text(city.value);
+								 cityTag.append(optionTag);									
+							 }
+					   		}
+
+						   },"json");
+			}else{
+				var cityTag = $("#city");
+			   	$("option",cityTag).remove();
+			}
+		});
+		var uid = "";
+		$('.dashbrd').live('click',function(){
+			var pTr = $(this).parents('tr');
+			uid =$('.userid',pTr).text();
+			var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'retrievefirmdatabyproprietoridpost'),null,true);?>";
+			 $.post(url,{ id:uid }, function(data){
+				 if(data != ""){
+					var restDiv = $("#restDiv");
+				   	restDiv.html("");
+					for(var item in data) {
+						var rest = data[item];
+						var resDivBlk = $('<div class="resBlck fl w100"></div>'); 
+						resDivBlk.attr({'id':'resBlkId_'+rest.resid});
+						resDivBlk.append('<img src="'+rest.resimage+'" class="fl" style="margin-right:10px;width:100px;height:100px;"/>'); 
+						resDivBlk.append('<a class="a2" >'+rest.resname+'</a>');
+						resDivBlk.append('<div>'+rest.resaddress+'</div>'); 
+						restDiv.append(resDivBlk);
+					}
+				    $("#getRestaurantDia").dialog('open');
+				 }else{
+					 var url = "<?php echo $this->url(array('module'=>'User','controller'=>'Client','action'=>'acctandfirmdetailsofmanager'),null,true);?>";
+						 url += '/userid/'+uid;
+					 window.location = url;
+				 }
+			 },'json');
+		});
+
+		$('.resBlck').live('mouseover',function(){$(this).css({'background':'#EDE9C7'})});
+		$('.resBlck').live('mouseout',function(){$(this).css({'background':'#EDE9D8'})});
+		$('.resBlck').live('click',function(){
+			var resid = $(this).attr('id').split('_');			
+			var url = "<?php echo $this->url(array('module'=>'User','controller'=>'Client','action'=>'acctandfirmdetailsofmanager'),'default',true);?>";
+				url += '/resid/'+resid[1];
+				url += '/userid/'+uid;
+				url += '/selTab/'+0;
+			window.location = url;
+		});
+		
+		$('#emailAddress').live("keyup focusout",function(){
+			$('label.error').text('');
+			$('label.error').removeClass('error');
+		});
+		
+			
+	});
+</script>
+<style type="text/css">
+
+
+</style>
+
+<section class="sub-header">
+	<div class="search-bar horizontal collapse" id="redefine-search-form">
+		<div class="content">
+		    <div class="container">
+		        <form role="form" method="post" action="<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'editfirmproprietor'),null,true); ?>" id="searchForm">
+				    <div class="input-row">
+		                <div class="form-group">
+		                    <?php echo $this->serform->userId;?>
+		                </div><!-- /.form-group -->
+		                <div class="form-group">
+		                    <?php echo $this->serform->email;?>
+		                </div>
+		                <!-- /.form-group -->
+		                <div class="form-group">
+		                    <?php echo $this->serform->firstname;?>
+		                </div>
+		                <div class="form-group">
+		                    <?php echo $this->serform->lastname;?>
+		                </div><!-- /.form-group -->
+					</div> 
+					
+					<div class="input-row">
+		                <div class="form-group">
+		                    <?php echo $this->serform->state;?>
+		                </div>
+		                <!-- /.form-group -->
+		                <div class="form-group">
+		                    <?php echo $this->serform->resname;?>
+		                </div>
+		                <div class="form-group">
+		                    <?php echo $this->serform->status;?>
+		                </div>
+		                <!-- /.form-group -->
+		                <div class="form-group">
+		                    <button type="submit" class="btn btn-default submitBtn">Search</button>
+		                    
+		                </div>
+		                <!-- /.form-group -->
+		            </div>
+		        </form>
+		        <!-- /.main-search -->
+		    </div>
+		    <!-- /.container -->
+		</div>
+	</div>
+    <!-- /.search-bar -->
+    <div class="breadcrumb-wrapper">
+    	<div class="container">
+        	<div class="redefine-search">
+            	<a href="#redefine-search-form" class="inner" data-toggle="collapse" aria-expanded="false" aria-controls="redefine-search-form">
+                	<span class="icon"></span>
+                    <span>Redefine Search</span>
+				</a>
+			</div>
+            <ol class="breadcrumb">
+            	<li><a href="#"><i class="fa fa-home"></i></a></li>
+                <li><a href="#">Page</a></li>
+                <li class="active">Detail</li>
+			</ol>
+            <!-- /.breadcrumb-->
+		</div>
+        <!-- /.container-->
+	</div>
+    <!-- /.breadcrumb-wrapper-->
+</section>
+            
+
+<div id="page-content">
+
+	<section class="container">	
+		<div class="block">
+			<div class="row">
+				<div class="col-md-6 col-sm-6">
+					<header>
+						<h1 class="page-title"><i class="fa fa-users margin-right"></i>		Restaurant Owners</h1>
+					</header>
+				</div>
+				<div class="col-md-6 col-sm-6">	
+					<div class="pull-right margin-top-15">
+						<a class="" href="<?php echo $this->url(array('module'=>'User','controller'=>'Client','action'=>'managerregistration'),null,true); ?>"><i class="fa fa-plus"></i>&nbsp;&nbsp;<?php echo $this->translate->_("Add RestaurantOwner"); ?></a>
+					</div>
+				</div>
+			</div>		
+			<div class="navCont">
+			<?php if($this->result && count($this->result) > 0){
+				echo '<table class="table2 grid" style="margin: 0px;" width="100%">
+					 	<tr>				
+							<th width="5%">'.$this->translate->_("Id").'</th>				
+							<th width="15%">'.$this->translate->_("Name").'</th>
+							<th width="20%">'.$this->translate->_("Restaurant Name").'</th>
+							<th width="15%">'.$this->translate->_("Email").'</th>								
+							<th width="10%">'.$this->translate->_("App Status").'</th>
+							<th width="15%">'.$this->translate->_("Action").'</th>
+						</tr>';
+			      foreach($this->result as $result){
+			      	echo '<tr>';
+			      	if($result->rso_companyid != 1){
+			      		echo '<td class="userid" style="color:red">'.$result->usrid.'</td>';	      		
+			      	}else{
+			      		echo '<td class="userid">'.$result->usrid.'</td>';
+			      	}
+					echo '<td><a class="a1 owner">'.$result->rsofirst_name.' '.$result->rsolast_name.'</a></td>';
+					if($result->usripaddress){
+						echo '<td>'.$result->rsorestaurant_name.'<br/>'.$result->usripaddress.'</td>';
+					}else{
+						echo '<td>'.$result->rsorestaurant_name.'</td>';
+					}
+					echo '<td width="15%"><a class="email edit a1">'.$result->usremail.'<a></td>';
+			//		echo '<td>'.$result->usrpassword.'</td>';
+					//echo '<td>'.$result->state.'</td>';
+					
+					//echo '<td>'.$result->usrregistered_date.'</td>';
+					/*$array = explode(" ", trim($result->rsodescription));	
+					if(count($array) > 1){
+						echo '<td>'.shorten_string($result->rsodescription,1).'<a class="a1 desc">More</a></td>';		
+					} else{
+						echo '<td>'.$result->rsodescription.'</td>';
+					}*/
+					
+					echo '<td class="statusdesc" >'.$result->statusdesc.'</td>';
+					
+					$appUrl   = $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'editproprietorstatus','userid'=>$result->usrid,'appstatus'=>'approved'),'default',true);
+					$actUrl   = $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'editproprietorstatus','userid'=>$result->usrid),'default',true);
+					$inactUrl = $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'editproprietorstatus','userid'=>$result->usrid),'default',true);
+// 					$dashboardUrl = $this->url(array('module'=>'User','controller'=>'Client','action'=>'acctandfirmdetailsofmanager','userid'=>$result->usrid),null,true);
+					
+					if($result->statuscode == 'NAP'){
+						echo '<td class="restaurantStatusTd" ><a class="editsource a1"><i class="fa fa-user-plus"></i>'.$this->translate->_("Approve").'</a>';
+					}else  if($result->statuscode == 'ACT'){
+						echo '<td>
+								<a class="editpass a1"><i class="fa fa-edit"></i>'.$this->translate->_(" Edit").'</a>&nbsp;&nbsp;
+								<a posturl="'.$inactUrl.'" statuscode="INA"  class="a1 ownerStatus"><i class="fa fa-times"></i> '.$this->translate->_("DeActivate").'</a>
+								<br/>
+								<a class="ownerinfo a1"><i class="fa fa-info-circle"></i> '.$this->translate->_("Info").'</a>&nbsp;&nbsp;
+							  </td>';
+					}else if($result->statuscode == 'INA'){
+						echo '<td>
+								<a class="editpass a1"><i class="fa fa-edit"></i>'.$this->translate->_(" Edit").'</a>&nbsp;&nbsp;
+								<a posturl="'.$actUrl.'"statuscode="ACT" class="a1 ownerStatus"><i class="fa fa-check"></i> '.$this->translate->_("Activate").'</a>
+								<br/>
+								<a class="ownerinfo a1"><i class="fa fa-info-circle"></i> '.$this->translate->_("Info").'</a>&nbsp;&nbsp;
+							  </td>';
+					}
+					echo '</tr>';
+				}
+				echo '<tr><td class="tl" colspan="9">';
+					echo $this->paginationControl($this->result,
+			    			'Sliding','my_pagination_control.phtml');
+					echo '</td></tr>';
+				echo '</table>';
+			
+			}else{
+				echo '<span class="red"><b>'.$this->translate->_("No records found.").'</b></span>';
+			}
+			?>
+			</div>
+		</div>
+	</section>	
+</div>
+<div id="descDia" title="<?php echo $this->translate->_("Description"); ?>" >
+	<table class="table2">
+		<tr>
+			<!--<td style="color: #F26823 " valign="top">Description</td>-->
+			<!--td valign="top">:</td>-->
+			<td style="color: #653614"><span id="descid"></span></td>
+		</tr>
+	</table>
+</div>
+<div id="restsourceDia" title="<?php echo $this->translate->_("Restaurant Owner Details"); ?>"  >
+	<form method="post" action="<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'updatesrcoffirm'),null,true); ?>" id="restsourceForm">
+		<table class="table2" id="restowner"  width="100%">
+		
+		</table>
+	</form>
+</div>
+
+<div id="restownerinfoDia" title="<?php echo $this->translate->_("Restaurant Owner Details"); ?>" >
+	<form method="post" action="<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'updatesrcoffirm'),null,true); ?>" id="restinfoForm">
+		<table class="table2" id="restownerinfo">
+		
+		</table>
+	</form>
+</div>

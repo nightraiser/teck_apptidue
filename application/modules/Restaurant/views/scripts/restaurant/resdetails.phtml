@@ -1,0 +1,2938 @@
+<?php  $itemform = $this->itemform;
+foreach ($itemform->getElements() as  $ele) { 
+  $ele->removeDecorator('DtDdWrapper')
+        ->removeDecorator('HtmlTag')
+        ->removeDecorator('Label');
+}
+$similarRestaurants = $this->similarRestaurants;
+ ?>
+ <?php $data = $this->resdata; 
+$resname = $data->getResname(); 
+$location_name = $data->getReslocation_name(); 
+$reslocation = $data->getReslocation();
+$locationArr = explode(",", str_replace(array( '(', ')' ), '', $reslocation));
+$resLat = floatval($locationArr[0]);
+$resLon = floatval($locationArr[1]);
+$resaddress = $data->getResaddress();
+?>
+<?php $form = $this->form;
+foreach ($form->getElements() as  $ele) { 
+  $ele->removeDecorator('DtDdWrapper')
+        ->removeDecorator('HtmlTag')
+        ->removeDecorator('Label');
+}
+ 
+$restaurant_name = $data->getResname();
+$restaurant_location = $data->getReslocation_name();
+ ?>
+  <style> 
+  #myCarousel h2{margin-bottom:10px;}
+  .carousel-control {
+    width: 8%;
+    top: -4%;
+    background-color: #E30A17;
+    height: 25px;
+    opacity:1;
+    background-image:none !important;
+  }
+  .list{
+    margin-top:12px;
+    padding-left:0px;
+    }
+
+  .list li{
+    list-style: none;
+    line-height:24px;
+    }
+    .img-container
+  {
+    float: left;
+    border:1px solid #bdc3c7;
+    width:80px;
+    height:80px;
+    cursor: pointer;
+    text-align: center;
+    color: black;
+    margin-right: 2px;
+    position:relative;
+    
+  }
+  .img-container:hover
+  {
+    background: #ecf0f1;
+    border-color: black;
+  }
+  .img-container:hover > button
+  {
+    color: black;
+  }
+  .img-container img
+  {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  .img-container button
+  {
+    float: right;
+    background: transparent;
+    color: transparent;
+    font-weight: bold;
+    border:none;
+  }
+  form.main-search{width:780px;}
+  .show-tick .dropdown-toggle{
+    padding:8px;
+    border-radius:3px 0 0 3px !important;
+    background:#fff url(/images/location.png) no-repeat 8px 8px !important;
+    padding-left: 30px !important;
+    }
+    .form-group1{
+    margin-left:20px;
+    width:120px !important
+    }
+  .form-group1 .show-tick .dropdown-toggle {
+    padding: 8px;
+    border-radius: 3px !important;
+    background: none !important;
+    padding-left: 0px !important;
+    color: #fff;
+  }
+  .form-group1 .bootstrap-select .selectpicker .caret:after{
+    color:#fff;
+    }
+  #location{
+    padding:8px;
+    background:#fff url(/images/search1.png) no-repeat 4px 8px;
+    padding-left: 30px !important;
+    }
+  .search1{ 
+    border-radius:0 3px 3px 0;
+    padding:8px;
+  }
+  form.main-search{
+    padding: 2px 0 0 0;
+    }
+  .search-bar.horizontal .main-search .input-row{
+    margin-bottom: 0px !important;
+    }
+  #counter{
+  background:url(/images/features_bg1.jpg) no-repeat top center;
+  }
+  .restaurant-details{
+  background:#2c2c2c; 
+  }
+  .page-item-detail #main-content #detail-sidebar section{
+    margin-bottom:0;
+    }
+  .item{margin-bottom:0px;}
+  section header h2{margin-bottom:0;}
+.facilities-list li{
+  height: 45px;
+    background: #f5f5f5;
+    line-height: 34px;
+    font-size: 14px;
+  border-bottom: 1px solid #fff;
+  }
+.facilities-list li i{
+    color: #cb202d;
+  padding: 10px;
+  width: 32px;
+  height: 34px;
+  line-height: 12px;
+}
+.facilities-list li i.disabled{
+  color:#AFAFAF;
+  }
+  .nav-tabs.nav-justified > .active > a, .nav-tabs.nav-justified > .active > a:hover, .nav-tabs.nav-justified > .active > a:focus{background:#2C2C2C; color:#fff}
+  .dnone{
+  display:none;
+ }
+ .model-popUp .selectpicker, .model-popUp .form-control{
+   border:1px solid #ccc;
+   color:#333
+   }
+  .tc{text-align:center;}
+  .model-popUp .button {
+      border-style: solid;
+      border-width: 0;
+      cursor: pointer;
+      font-weight: 400;
+      line-height: normal;
+      margin: 0 0 1rem;
+      position: relative;
+      text-decoration: none;
+      text-align: center;
+      outline: 0;
+      border-radius: 3px;
+      display: block;
+      background-color: #ED1C24;
+      border-color: #b8222d;
+   box-shadow: 0 0 0 1px #ED1C24;
+   cursor:pointer;
+   width:100%;
+      color: #fff;
+      -webkit-transition: background-color 300ms ease-out;
+      -moz-transition: background-color 300ms ease-out;
+      transition: background-color 300ms ease-out;
+      padding: .875rem 1.75rem .9375rem;
+      font-size: 1rem;
+  }
+  .list-left{
+   padding:0;
+  }
+  .list-left>li {
+      float: left;
+      margin-right: 1rem;
+   list-style:none;
+  }
+  .dtp-button {
+      border-radius: 2px;
+    position: relative;
+    padding: 10px;
+    color: #fff;
+    background: #131313;
+    display: inline-block;
+    line-height: 1;
+    margin-bottom: 12px;
+    font-size: 12px;
+    cursor:pointer;
+  }
+  .booking_dtl li {
+      display: inline-block;
+      margin-right: 20px;
+  }.booking_dtl {
+      margin-top: 20px;
+  }
+  .list-unstyled {
+      padding-left: 0;
+      list-style: none;
+  }
+  .dblock {
+      display: block;
+  }
+  .mrgn_btm10 {
+      margin-bottom: 10px !important;
+  }
+  .bold {
+      font-weight: bold;
+   color:#444;
+  }
+  .reservSel{
+    background: red;
+  }
+  .likeButton
+  {
+      margin-right: 5px !important;
+      color: red;
+  }
+  .likeButton:hover
+    {
+      border:1px solid white;
+      color: black;
+    }
+  .fade_in
+  {
+  /*-webkit-transition-delay: 3s;
+  -moz-transition-delay: 3s;
+  -khtml-transition-delay: 3s;  
+    transition-delay: 3s;*/
+  }
+  .restimes
+  {
+    display: block;
+  }
+  .red
+  {
+    color: black!important;
+    z-index: 10001;
+  }
+  .modal-body{
+overflow-y:auto;
+overflow-x:hidden;
+min-height:300px;
+}
+.imgremove{
+  position: absolute;
+    top: -2px;
+    right: 0px;
+    background-color:#FF0000;
+    color:#fff;
+    padding: 6px;
+    height: 24px;
+    line-height: 16px;
+  }
+     .file_input{
+  display: inline-block;
+  padding: 12px;
+  outline: none;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  white-space: nowrap;
+  font-family: sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  border-radius: 3px;
+  color: #BC212D;
+  border: 1px solid #cbcbcb;
+  vertical-align: middle;
+  background-color: #fff;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0px 1px 5px rgba(0,0,0,0.05);
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  transition: all 0.2s;
+ }
+ .file_input:hover,
+ .file_input:active {
+  background: #BC212D;
+  color: #fff;
+ }
+
+  #map-simple
+  {
+    height:360px;
+    width:100%;
+    cursor: crosshair;
+    border-radius: 10px;
+  } 
+  ul.ui-autocomplete {
+    z-index: 1100;
+}
+  #right-panel
+  {
+    height:360px;
+    overflow-y:scroll;
+    display: none; 
+  }
+  #floating-panel {
+  position: absolute;
+  top: 10px;
+  left: 25%;
+  z-index: 5;
+  background-color: #fff;
+  padding: 5px;
+  border: 1px solid #999;
+  text-align: center;
+  font-family: 'Roboto','sans-serif';
+  line-height: 30px;
+  padding-left: 10px;
+}
+
+#right-panel {
+  font-family: 'Roboto','sans-serif';
+  line-height: 30px;
+  padding-left: 10px;
+}
+
+#right-panel select, #right-panel input {
+  font-size: 15px;
+}
+
+#right-panel select {
+  width: 100%;
+}
+
+#right-panel i {
+  font-size: 12px;
+}
+#map {
+  margin-right: 400px;
+}
+
+#floating-panel {
+  background: #fff;
+  padding: 5px;
+  font-size: 14px;
+  font-family: Arial;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 2px rgba(33, 33, 33, 0.4);
+  display: none;
+}
+.login-content2
+{
+  padding: 0 0 20px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+.modal-window .modal-wrapper .modal-body .gallery{
+  width:820px;
+}
+.owl-carousel .owl-item img{
+  height:500px;
+}
+.modal-window .modal-wrapper{
+  top:50px;
+}
+.item-top-short{
+  position: absolute;
+    right: 10px;
+    top: 90px;
+  }
+  .item-top-short a {
+    border: 1px solid #D0D0D0;
+    font-size: 12px;
+    line-height: 14px;
+    padding: 4px;
+    border-radius: 2px;
+    color: #7a7a79 !important;
+    background: #fff;
+  }
+  .moreElement
+  {
+    text-align:left;
+  }
+
+  </style>
+<!--rating script-->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script type="text/javascript" src="/js/jquery.barrating.js"></script>
+    <script type="text/javascript">
+        $(function() {
+          
+            function ratingEnable() {
+                $('.example-a').barrating();
+            }
+            function ratingDisable() {
+                $('select').barrating('destroy');
+            }
+            ratingEnable();
+        });
+    </script>
+    
+
+<!--rating script close-->
+
+  <script type="text/javascript">
+  var formValues;
+  var ItemFormValues;
+  var isLoggedIn = "<?php echo $this->isLoggedIn; ?>";
+  var filesData =new Array();
+  var itemFilesData =new Array();
+$(function()
+{
+  var hash = window.location.hash.replace("#","");
+  if(hash.length>0)
+  {
+    if(hash.substring(0,9)=="menuModel")
+    {
+      $("#"+hash).modal('show');
+    }
+    else
+    {
+      $(window).scrollTop($('#Res'+hash).offset().top);
+    }
+  }
+  showShortlist();
+  $("#file_button").change(function(event){
+    var filesList= event.target.files;
+    populate(filesList,$("#selected_images"));
+  });
+  $(".ir_file_button").change(function(event){
+   
+    var filesList= event.target.files;
+    var currformid = $(this).parents("form").attr("id");
+    populate(filesList,$(".ir_selected_images"+currformid));
+  });
+  $('.resReserv').live('click',function(){
+   
+        reslisted = $(this).attr('reslisted');
+        var resid = $(this).attr('data-id');
+        var divRef = $('.item[data-id = "'+ $(this).attr('attr') +'"]');
+        var htmlContent = '';
+        var apiUrl = "http://www.dinedesk.com/Associate/Associate/partnersapi/key/53832ab7a845c/apiname/GMT/restaurantid/"+reslisted;
+        if(reslisted && reslisted != 'null'){
+          $.post(apiUrl,function(gmtdata){
+            if(gmtdata['status'] == 'Y'){
+              htmlContent +='<div class="modal-window fade_in">';
+              htmlContent +='<div class="modal-wrapper" style="top:50;">';
+              htmlContent +='<div class="modal-body" style="width:800px;">';
+              htmlContent += '<div class="modal-content"> ';
+              htmlContent += '<div class="row"> ';
+              htmlContent += '<div class="col-md-6">';
+              htmlContent += '<img class="tc" src="/images/loyalty-points.png" />';
+              htmlContent += '<img src="/images/discounts.png" /> ';
+              htmlContent += '</div> ';
+              htmlContent += '<div class="col-md-6 reservModal"> ';
+              htmlContent +='<div class="reservSearch">';
+              htmlContent += '<h1 class="title tc">RESERVE YOUR TABLE NOW</h1><hr/>';
+              htmlContent += '<form class="reservForm">';
+              htmlContent += '<div class="row">';
+              htmlContent +='<div class="col-md-12">';
+              htmlContent += '<div class="form-group"><label>Party Size:</label>';
+              htmlContent += '<select id="reservPax" name="reservPax" class="form-control" style="border:0px solid #fff !important">'
+              for(var i = 1; i <= 20; i++){
+                htmlContent += '<option>'+i+'</option>';
+              }
+              htmlContent += '</select></div></div>';
+              htmlContent += '<div class="col-md-12">';
+              htmlContent += '<div class="form-group"><label>Date:</label>';
+              htmlContent += '<div class="input-group date"><input type="text" data-provide="datepicker" id="reservDate" class="form-control"><span class="input-group-addon"><i class="fa fa-calendar"></i></span></div></div></div>';
+                  htmlContent += '<div class="col-md-12">';
+                  htmlContent += '<div class="form-group"><label>Type:</label>';
+              htmlContent += '<select id="reservDiningType" class="form-control" style="text-transform:capitalize">';
+              var diningType = gmtdata['mealtypes'];
+              for(var item in diningType){
+                if(diningType[item]){
+                  htmlContent += '<option value="' +item+ '" >'+diningType[item]+'</item>';
+                }else{
+                  htmlContent += '<option disabled="disabled" value="' +item+ '" >'+diningType[item]+'</item>';
+                }           
+              }
+              htmlContent += '</select></div></div>';
+              htmlContent += '<div class="dnone"><input type="hidden" id="reservResid" name="reservResid" value="'+resid+'"/><input type="hiddden" id="reservAction" name="reservAction" value="search"/></div>'
+              htmlContent += '</div>';
+              htmlContent += '<div class="gap"></div>';
+              htmlContent += '<div class="row"><div class="gap"></div><div class="col-md-12"><a class="btn btn-default" id="reservSubmit" style="width:100%; " attr="source">Reserve Now</a></div><div class="col-md-4"></div></div></form>';
+              htmlContent +='</div>';
+              htmlContent +='<div class="modal-close"><img src="/images/close.png"></div>';
+              htmlContent +='</div>';
+              htmlContent +='</div>';
+              htmlContent +='</div>';
+              htmlContent +='</div>';
+              htmlContent +='</div>';
+              $('body').append(htmlContent);
+
+              var _rtl = false;
+                drawOwlCarousel(_rtl);
+
+                // Render Rating stars
+
+                rating('.modal-window');
+
+                // Remove modal element form DOM
+
+                $('.modal-window .modal-background, .modal-close').live('click',  function(e){
+                    $('.modal-window').addClass('fade_out');
+                    setTimeout(function() {
+                        $('.modal-window').remove();
+                    }, 300);
+                });
+
+            }
+          });
+        }else{
+          reslisted = resid;
+          htmlContent +='<div class="modal-window fade_in">';
+              htmlContent +='<div class="modal-wrapper" style="top:50;">';
+              htmlContent +='<div class="modal-body" style="width:800px;">';
+              htmlContent += '<div class="modal-content"> ';
+              htmlContent += '<div class="row"> ';
+              htmlContent += '<div class="col-md-6">';
+              htmlContent += '<img class="tc" src="/images/loyalty-points.png" />';
+              htmlContent += '<img src="/images/discounts.png" /> ';
+              htmlContent += '</div> ';
+              htmlContent += '<div class="col-md-6 reservModal"> ';
+              htmlContent +='<div class="reservSearch">';
+              htmlContent += '<h1 class="title tc">RESERVE YOUR TABLE NOW</h1><hr />';
+              htmlContent += '<form class="reservForm">';
+              htmlContent += '<div class="row">';
+              htmlContent +='<div class="col-md-12">';
+              htmlContent += '<div class="form-group"><label>Party Size:</label>';
+              htmlContent += '<select id="reservPax" name="reservPax" class="form-control">'
+              for(var i = 1; i <= 20; i++){
+                htmlContent += '<option>'+i+'</option>';
+              }
+              htmlContent += '</select></div></div>';
+              htmlContent += '<div class="col-md-12">';
+              htmlContent += '<div class="form-group"><label>Date:</label>';
+              htmlContent += '<div class="input-group date"><input type="text" data-provide="datepicker" id="reservDate" class="form-control"><span class="input-group-addon"><i class="fa fa-calendar"></i></span></div></div></div>';
+              htmlContent += '<div class="dnone"><input type="hidden" id="reservResid" name="reservResid" value="'+resid+'"/><input type="hiddden" id="reservAction" name="reservAction" value="search"/></div>'
+              htmlContent += '</div>';
+              htmlContent += '<div class="gap"></div>';
+              htmlContent += '<div class="row"><div class="gap"></div><div class="col-md-12"><a class="btn btn-default" id="reservSubmit" attr="nosource" style="width:100%; ">Reserve Now</a></div></div></form>';
+
+              //htmlContent += '<div class="form-group"><label>Date:</label>';
+              //htmlContent += '<input type="text" placeholder="Date" maxlength="40" class="inp1 date" value="" id="reservDate" name="reservDate"></div>';
+              
+              
+              /*for(var it in mainListData.data){
+                if(mainListData.data[it].id == resid){
+                  htmlContent += '<div class="form-group"><label>Type:</label>';
+                  var diningType = mainListData.data[it].item_specific.dining_type;
+                  htmlContent += '<select id="reservDiningType" class="form-control" style="text-transform:capitalize">';
+                  for(var item in diningType){
+                    if(diningType[item]){
+                      htmlContent += '<option attr="' +item+ '" >'+item+'</item>';
+                    }else{
+                      htmlContent += '<option disabled="disabled" attr="' +item+ '" >'+item+'</item>';
+                    }           
+                  }
+                  htmlContent += '</select>';
+                }
+              }
+              
+              htmlContent += '</div></div>';*/
+              
+              
+              htmlContent +='</div>';
+              htmlContent +='<div class="modal-close"><img src="/images/close.png"></div>';
+              htmlContent +='</div>';
+              htmlContent +='</div>';
+              htmlContent +='</div>';
+              htmlContent +='</div>';
+              htmlContent +='</div>';
+              $('body').append(htmlContent);
+
+              var _rtl = false;
+                drawOwlCarousel(_rtl);
+
+                // Render Rating stars
+
+                rating('.modal-window');
+
+                // Remove modal element form DOM
+
+                $('.modal-window .modal-background, .modal-close').live('click',  function(e){
+                    $('.modal-window').addClass('fade_out');
+                    setTimeout(function() {
+                        $('.modal-window').remove();
+                    }, 300);
+                });
+        }      
+    });
+
+  $('#reservDate').live('change', function(){
+      $('.datepicker').hide();
+  });
+  
+  $('#reservSubmit').live('click',function(){
+    var divRef = $('.reservModal');
+    $('.reservError,.resConfirm,.reservSlots').remove();
+    if($('#reservDate').val()){
+      if($(this).attr('attr') == 'source'){
+        var url = "http://www.dinedesk.com/Associate/Associate/partnersapi/key/53832ab7a845c/apiname/GA";
+        url += '/restaurantid/'+reslisted;
+        url += '/date/'+$('#reservDate').val();
+        url += '/mealtype/'+$('#reservDiningType').val();
+        url += '/partysize/'+$('#reservPax').val();
+        var resDiv = $('.item[data-id = "'+ $('#reservResid').val() +'"]');
+        $.post(url,function(response){
+          if(response['status'] == 'Y'){
+            var slotResult = response['slots'];
+            $('.reservSearch').hide();
+            var htmlRes = '';
+            htmlRes += '<div id="timeSlot" class="resTimes reservSlots">';
+              htmlRes += '<h1 class="title tc">COMPLETE YOUR RESERVATION</h2><hr />';
+            htmlRes += '<h2 style="margin-bottom:0;"><i><img src="/images/icons/restaurants-bars/restaurants/restaurant.png" alt=""></i>'+$('.resListResName').text()+'</h2>';
+            htmlRes += '<figure class="">Reservation times available for '+$('#reservPax').val()+' people on '+$('#reservDate').val()+' at '+$('#reservDiningType option:selected').text()+'</figure>';
+            htmlRes += '<div class="clear"></div>';
+             
+            htmlRes +='<div class="reservSlotsDiv"><hr><h3>Choose a time & click next</h3><ul class="dtp-results-times list-left reservTimeSlots">';
+            for(var item in slotResult){
+              htmlRes += '<li><a class="dtp-button ">'+slotResult[item]+'</a></li>'
+            }
+            htmlRes += '</ul>';
+            htmlRes +='<div class="row clear">';
+            htmlRes += '<b>Not the time you are looking for?</b> - <a id="reservChange">Click here to Change</a></figure>';
+                htmlRes +='<div class="gap"></div>';
+                htmlRes +='<div class="gap"></div>';
+                htmlRes +='<div class="gap"></div>';
+                htmlRes +='<div class="col-md-4"></div>';
+                htmlRes +='<div class="col-md-4">';
+                htmlRes +='<a id="reservConfirm" class="btn btn-default" >Confirm Reservation</a>';
+                htmlRes +='</div>';
+                htmlRes +='<div class="col-md-4"></div>';
+              htmlRes +='</div></div>';
+              htmlRes +='</div>';
+            divRef.append(htmlRes);
+          }else{
+            $('.reservError').remove();
+            divRef.append('<div class="reservError">'+response['message']+'</div>')
+          }
+        });
+      }else{
+        var htmlRes = '';
+        htmlRes +='<div class="resConfirm">';
+        htmlRes +='<div class="row">';
+          htmlRes +='<div class="col-lg-12 col-md-12 col-sm-12">';
+            htmlRes +='<h2 style="margin-bottom: 6px;">User Details</h2>';
+            htmlRes +='<div class="col-md-6" style="padding:0;">';
+            htmlRes +='<div class="form-group">';
+            htmlRes +='<label for="usr">First Name</label>';
+            htmlRes +='<input type="text" class="form-control" id="reservFname" name="reservFname">';
+            htmlRes +='</div>';
+            htmlRes +='<div class="form-group">';
+            htmlRes +='<label for="Email">Email</label>';
+            htmlRes +='<input type="email" class="form-control" id="reservEmail" name="reservEmail">';
+            htmlRes +='</div>';
+            htmlRes += '</div>';
+            htmlRes +='<div class="col-md-6" style="padding-right:0;">';
+            htmlRes +='<div class="form-group">';
+            htmlRes +='<label for="usr">Last Name</label>';
+            htmlRes +='<input type="text" class="form-control" id="reservLname" name="reservLname">';
+            htmlRes +='</div>';         
+            htmlRes +='<div class="form-group">';
+            htmlRes +='<label for="phone">Phone Number</label>';
+            htmlRes +='<input type="email" class="form-control" id="reservPhone" name="reservPhone">';
+            htmlRes +='</div>';
+            htmlRes += '</div>';
+            htmlRes +='<div class="clearfix mrgn_top20">';
+            htmlRes +='<button type="submit" class="btn btn-default dflt_btn_big" id="reservInitiate" attr="nosource">Reserve Now</button>';
+            htmlRes +='</div>';
+          htmlRes +='</div>';
+          htmlRes +='</div>';
+          htmlRes +='</div>';
+          divRef.append(htmlRes);
+      }
+    }else{
+      $('.reservError').remove();
+      divRef.append('<div class="reservError">Please select date</div>')
+    }  
+
+  });
+
+  $('#reservChange').live('click',function(){
+    $('.reservError,.resConfirm,.reservSlots').remove();
+    $('.reservSearch').show();
+  });
+
+  $('.reservTimeSlots li a').live('click',function(){
+    $('.reservTimeSlots li a').removeClass('reservSel');
+    $(this).addClass('reservSel');
+    var loggedin = "<?php echo $this->isLoggedIn ?>" ;
+        if(loggedin)
+        {
+
+        }else{
+          var htmlRes = '';
+          htmlRes += '<div class="row reservLogin">';
+          htmlRes += '<div class="">';
+          htmlRes += '</div>';
+        }
+  });
+
+  $('#reservConfirm').live('click',function(){
+    var divRef = $('.reservModal');
+    if($('.reservTimeSlots li a').hasClass('reservSel')){
+      
+      $('.reservSlotsDiv').hide();
+      $('.reservError,.resConfirm').remove();
+      var htmlRes = '';
+      htmlRes +='<div class="row">';
+      htmlRes +='<div class="resConfirm">';
+        htmlRes +='<div class="col-lg-12 col-md-12 col-sm-12">';
+          htmlRes +='<h2 style="margin-bottom: 6px;">User Details</h2>';
+          htmlRes +='<div class="col-md-6" style="padding:0;">';
+          htmlRes +='<div class="form-group">';
+          htmlRes +='<label for="usr">First Name</label>';
+          htmlRes +='<input type="text" class="form-control" id="reservFname" name="reservFname">';
+          htmlRes +='</div>';
+          htmlRes +='<div class="form-group">';
+          htmlRes +='<label for="Email">Email</label>';
+          htmlRes +='<input type="email" class="form-control" id="reservEmail" name="reservEmail">';
+          htmlRes +='</div>';
+          htmlRes += '</div>';
+          htmlRes +='<div class="col-md-6" style="padding-right:0;">';
+          htmlRes +='<div class="form-group">';
+          htmlRes +='<label for="usr">Last Name</label>';
+          htmlRes +='<input type="text" class="form-control" id="reservLname" name="reservLname">';
+          htmlRes +='</div>';         
+          htmlRes +='<div class="form-group">';
+          htmlRes +='<label for="phone">Phone Number</label>';
+          htmlRes +='<input type="email" class="form-control" id="reservPhone" name="reservPhone">';
+          htmlRes +='</div>';
+          htmlRes += '</div>';
+          htmlRes +='<div class="clearfix mrgn_top20">';
+          htmlRes +='<button type="submit" class="btn btn-default dflt_btn_big" id="reservInitiate" attr="source">Reserve Now</button>';
+          htmlRes +='</div>';
+        htmlRes +='</div>';
+        htmlRes +='</div>';
+        htmlRes +='</div>';
+        divRef.append(htmlRes);
+    }else{
+      $('.reservError').remove();
+      divRef.append('<div class="reservError">Please select a time slot to continue.</div>')
+    }
+  });
+
+  $('#reservInitiate').live('click',function(){
+    var divRef = $('.reservModal');
+    if(!$('#reservFname').val() && !$('#reservFname').val()){
+      $('.reservError').remove();
+      divRef.append('<div class="reservError">Please add the details to confirm reservation.</div>')
+      return false;
+    }
+    if($(this).attr('attr') == 'source'){
+      var url = "http://www.dinedesk.com/Associate/Associate/partnersapi/key/53832ab7a845c/apiname/MR";
+      url += '/restaurantid/'+reslisted;
+      var selDate = $('#reservDate').val().split('-');
+      var monArr = {'Jan':1,'Feb':2,'Mar':3,'Apr':4,'May':5,'Jun':6,'Jul':7,'Aug':8,'Sep':9,'Oct':10,'Nov':11,'Dec':12};
+      url += '/date/'+monArr[selDate[1]]+'-'+selDate[0]+'-'+selDate[2];
+      url += '/time/'+$('.reservSel').text();
+      url += '/partysize/'+$('#reservPax').val();
+      url += '/fname/'+$('#reservFname').val();
+      url += '/lname/'+$('#reservLname').val()
+      url += '/splrequest/';
+      url += '/email/'+$('#reservEmail').val();
+      url += '/phone/'+$('#reservPhone').val();
+      url += '/mealtype/'+$('#reservDiningType').val();
+      $.post(url,function(response){
+        if(response['status'] == 'Y'){
+          var bokid = response['message'];
+          url = "<?= $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'saveapireservation'),'default',true);?>";
+          url += '/restaurantid/'+reslisted;
+          url += '/date/'+$('#reservDate').val();
+          url += '/time/'+$('.reservSel').text();
+          url += '/partysize/'+$('#reservPax').val();
+          url += '/fname/'+$('#reservFname').val();
+          url += '/lname/'+$('#reservLname').val()
+          url += '/splrequest/';
+          url += '/email/'+$('#reservEmail').val();
+          url += '/phone/'+$('#reservPhone').val();
+          url += '/mealtype/'+$('#reservDiningType').val();
+          url += '/bokid/'+bokid;
+          $.post(url,function(resp){
+            alert('Reservation Confirmed')
+            $('.modal-window').remove();
+          });
+        }
+      });
+    }else{
+      url = "<?= $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'saveapireservation'),'default',true);?>";
+      url += '/restaurantid/'+reslisted;
+      url += '/date/'+$('#reservDate').val();
+      url += '/partysize/'+$('#reservPax').val();
+      url += '/fname/'+$('#reservFname').val();
+      url += '/lname/'+$('#reservLname').val()
+      url += '/splrequest/';
+      url += '/email/'+$('#reservEmail').val();
+      url += '/phone/'+$('#reservPhone').val();
+      $.post(url,function(resp){
+        alert('Reservation Confirmed')
+        $('.modal-window').remove();
+      });
+    }
+  });
+
+  $(".itemliked").click(function(event)
+  {  
+   if(isLoggedIn)
+    {
+
+        var itemid = $(this).attr('data-id'); 
+       var nowClicked = $(this);
+        var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'itemlikes'),'default',true);?>";
+        var userid = "<?php echo $this->userid;?>";
+        var resid = "<?php echo $this->resid;?>";
+        $.post(url,{perform:"like",userid:userid,itemid:itemid},
+            function(data){
+              if(data.length>0)
+              {
+                data = JSON.parse(data);
+                $(".itemliked[data-id='"+itemid+"']").html('<i class="fa fa-thumbs-up"></i>'+data['mi_likes']);
+             //   var ilikebtn = $(nowClicked).parent().find(".itemdisliked")[0];
+                $(".itemdisliked[data-id='"+itemid+"']").html('<i class="fa fa-thumbs-down"></i>'+data['mi_dislikes']);
+              }
+            });
+        return false;
+     }   
+    else
+    {
+      Login();
+    }
+  });
+  $(".customized").click(function()
+  {
+     var toShow =  $(this).siblings(".expandable-content");
+     $(toShow).toggleClass("collapsed");
+     $(toShow).attr("style","height: 190px; overflow: show;");
+  });
+  $(".itemdisliked").click(function(event)
+  {  
+    if(isLoggedIn)
+    {
+       var itemid = $(this).attr('data-id');
+       var nowClicked = $(this);
+      var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'itemlikes'),'default',true);?>";
+        var userid = "<?php echo $this->userid;?>";
+        var resid = "<?php echo $this->resid;?>";
+          $.post(url,{perform:"dislike",userid:userid,itemid:itemid},
+            function(data){
+               data = JSON.parse(data);
+               var ilikebtn = $(nowClicked).parent().find(".itemliked")[0];
+               $(".itemliked[data-id='"+itemid+"']").html('<i class="fa fa-thumbs-up"></i>'+data['mi_likes'])
+                $(".itemdisliked[data-id='"+itemid+"']").html('<i class="fa fa-thumbs-down"></i>'+data['mi_dislikes']);
+            });    
+        return false;
+      }
+      else
+      {
+        Login();
+      }  
+ });
+
+  $(".resliked").live('click',function(event)
+  { 
+    if(isLoggedIn)
+    {
+      var resid = $(this).attr('resid');
+      var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'reslikes'),'default',true);?>";
+      var userid = "<?php echo $this->userid;?>";
+        $.post(url,{perform:"like",userid:userid,resid:resid},
+          function(data){
+            if(data.length>0)
+            {
+              data = JSON.parse(data);
+              $("a[data-id='resliked"+resid+"']").html('<i class="fa fa-thumbs-up white"></i>'+data['res_likes']);
+              $("a[data-id='resdisliked"+resid+"']").html('<i class="fa fa-thumbs-down white"></i>'+data['res_dislikes']);
+            }
+          });
+    return false;
+    }
+    else
+    {
+    Login();
+    }
+ });
+
+  $(".resdisliked").live('click',function(event)
+  {   
+    if(isLoggedIn)
+    {
+       var resid = $(this).attr('resid');
+      var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'reslikes'),'default',true);?>";
+        var userid = "<?php echo $this->userid;?>";
+        
+          $.post(url,{perform:"dislike",userid:userid,resid:resid},
+            function(data){
+              if(data.length>0)
+              {
+                data = JSON.parse(data);
+                $("a[data-id='resliked"+resid+"']").html('<i class="fa fa-thumbs-up white"></i>'+data['res_likes']);
+                $("a[data-id='resdisliked"+resid+"']").html('<i class="fa fa-thumbs-down white"></i>'+data['res_dislikes']);
+              }
+            });
+      return false;          
+      }
+      else{
+        Login();
+      }  
+ });
+  
+    $(".resviewall").click(function()
+    {
+      $(this).addClass("dnone");
+      $(".showresallreviews").removeClass("dnone");
+    });
+
+   $(".writeReview").click(function() 
+   {
+       if(isLoggedIn)
+      {
+        $(this).addClass("dnone");
+        $("#reviewBlock").removeClass("dnone");
+            }
+      else
+      {
+        Login();
+      }
+  });
+   $(".writeItemReview").click(function() {
+    var Da = $(this).attr("data-attribute");
+        if(isLoggedIn)
+      {
+        $(this).addClass("dnone");
+        $("#itemReviewBlock"+Da).removeClass("dnone");
+            }
+      else
+      {
+         window.location.hash = $(this).parents(".modal").attr('id');
+        Login();
+      }
+    });
+    
+ $(".reviewsclick").click(function(event)
+ {
+  var itemid =$(this).attr('data-id');
+  var resid = "<?php echo $this->resid;?>";         
+    }); 
+
+  $('.myModal').on('hidden.bs.modal', function () {
+    var itemid = $(this).attr('data-id');
+    if($( "div[data-id='writeitem"+itemid+"']" ).hasClass("dnone"))
+    {
+    $("div[data-id='togle"+itemid+"']").addClass("dnone");
+    $( "div[data-id='writeitem"+itemid+"']" ).removeClass("dnone");
+    }
+    window.location.hash ="#";
+  }) 
+   
+ });
+ $('.fbsignup').live('click',function(){
+		var url = "<?php echo $this->url(array('module'=>'User','controller'=>'Client','action'=>'signinfromwidget'),'default',true); ?>";
+		var widgetlink = "<?php echo $this->url(); ?>";
+		$.post(url,{widgetlink:widgetlink},function(data){
+			if(data == 'auth'){
+				window.location = widgetlink;
+			}else{
+				window.open(data,'fblog', "height=300,width=500");
+			}
+		});
+	});
+  function populate(filesList,target){
+  for(var i in filesList){
+    var obj = {index:i,file:filesList[i]};
+    filesData.push(obj);
+    
+    $(target).append("<div class='img-container' id='img"+i+"'> <button onclick='rm(this)' class='imgremove'  target="+i+">X</button><img class='imgEle' style='height: 78px;' src="+URL.createObjectURL(filesList[i])+"></div>");
+  }
+  $(".img-container").slideDown(500);
+}
+function rm(btn){
+  for(var i =0;i<filesData.length;i++){
+    if(filesData[i]['index']==$(btn).attr("target"))
+    {
+      filesData.splice(i,1);  
+    }
+  }
+  $("#img"+$(btn).attr("target")).remove();
+}
+
+
+  function Login()
+  {
+     var htmlDia = '<div class="modal-window fade_in" style="z-index:1052;"><div class="modal-wrapper">';
+        htmlDia += '<div class="modal-body" style="width:600px;"><div class="modal-content">';
+        htmlDia +='<div class="login-container">';
+        htmlDia +='<div class="col-md-11 login-content1">';
+        htmlDia +='<header class="login-header">';
+        htmlDia +='<h1 class="page-title" style="background:black;">Log In To ReserveDine</h1>';
+        htmlDia +='</header>';
+        htmlDia +='<div class="wrap">';
+        htmlDia +='<div class="login-split-left">';
+        htmlDia +='<form role="form" id="form-sign-in-account" >';
+        //htmlDia +='<div class="">';
+        htmlDia +='<div class="form-group">';
+        htmlDia +='<label for="form-sign-in-email">Email:</label>';
+        htmlDia +='<input type="email" class="form-control" id="form-sign-in-email"  name="emailAddress" required>';
+        htmlDia +='</div>';
+        htmlDia +='<div class="form-group" style="margin-top:10px;">';
+        htmlDia +='<label for="form-sign-in-password">Password:</label>';
+        htmlDia +='<input type="password" class="form-control" id="form-sign-in-password" name="password" required>';
+        htmlDia +='</div>';
+         htmlDia +='<div class="form-group loginerror" style="color:red;">';
+        htmlDia +='</div>';
+        htmlDia +='<div class="form-group clearfix" style="margin-top:10px;">';
+        htmlDia +='<button type="submit" class="btn btn-default" id="account-submit">Log In</button>';
+        htmlDia +='</div>';
+        htmlDia +='<div class="form-group clearfix " style="margin-top:10px;">';
+        htmlDia +='<a href="#" class="signUp">New User? Please Signup</a>';
+        htmlDia +='</div>';
+        htmlDia +='</form>';
+        htmlDia +='</div>';
+        htmlDia +='<ul class="login-split-right social-options">';
+        htmlDia +='<h2>Connect with</h2>';
+        htmlDia +='<li class="facebook">';
+        htmlDia +='<button class="btn btn-default ng-isolate-scope ng-scope" login="" service="facebook"><i class="fa fa-facebook"></i></span> <span class="text" aria-hidden="Facebook">Facebook</span></button>';
+        htmlDia +='</li>';
+        htmlDia +='<li class="google">';
+        htmlDia +='<div  login="" id="popup-Signin" service="google"><i class="fa fa-google-plus"></i> <span class="text" aria-hidden="Google">Google</span></div>';
+        htmlDia +='</li>';
+        htmlDia +='</ul>';
+        htmlDia +='</div>';
+        htmlDia +='</div>';
+         htmlDia +='<div class="col-md-11 login-content2 dnone">';
+        htmlDia +='<header class="login-header">';
+        htmlDia +='<h1 class="page-title" style="background:black;">Signup To Rdine</h1>';
+        htmlDia +='</header><br>';
+      htmlDia += '<form  role="form"  action="" class="signUpForm" method="post">';
+      htmlDia += '<div class="col-md-6 col-sm-6">';
+      htmlDia += '<div class="form-group">';
+      htmlDia += '<label for="name">Name</label>           ';
+      htmlDia += '<input type="text" name="firstName" id="firstName" value="" class="inp1" maxlength="30" title="First Name" placeholder="First Name*"></div>';
+      htmlDia += '</div>';
+      htmlDia += '<div class="col-md-6 col-sm-6">';
+      htmlDia += '<div class="form-group">';
+      htmlDia += '<label for="Last Name">Last Name</label>       ';
+      htmlDia += '<input type="text" name="lastName" id="lastName" value="" maxlength="30" title="Last Name" placeholder="Last Name" class="inp1">';   
+      htmlDia += '</div>';
+      htmlDia += '</div>';
+      htmlDia += '<div class="col-md-6 col-sm-6">';
+      htmlDia += '<div class="form-group">';
+      htmlDia += '<label for="email">Email Address</label>';
+      htmlDia += '<input type="text" name="emailAddress" id="emailAddress" value="" class="inp1" maxlength="40" title="Email Address" placeholder="Email Address*"><span class="ajaxReturn"></span></div>';
+      htmlDia += '</div>';
+      htmlDia += '<div class="col-md-6 col-sm-6">';
+      htmlDia += '<div class="form-group">';
+      htmlDia += '<label for="password">Password</label>';
+      htmlDia += '<input type="password" name="password" id="password" value="" class="inp1" maxlength="20" title="Password" placeholder="Password*"><img htmlDia += class="psdImg dNone">';
+      htmlDia += '</div>';
+      htmlDia += '</div>';
+      htmlDia += '<div class="col-md-6 col-sm-6">';
+      htmlDia += '<div class="form-group">';
+      htmlDia += '<label for="password">Confirm Password</label>             ';
+      htmlDia += '<input type="password" name="password_confirm" id="password_confirm" value="" class="inp1" maxlength="20" title="Confirm Password" placeholder="Confirm Password*"><img class="psdCnfImg dNOne">';
+      htmlDia += '</div>';
+       htmlDia += '<div class="form-group passwordError" style="color:red;">';
+      htmlDia += '</div>';
+      htmlDia += '</div>';
+      htmlDia += '<div class="clear"></div><section>';
+      htmlDia += '<div class="form-group">';
+      htmlDia += '<button id="submit" class="btn btn-default pull-right" type="submit">Submit</button>';
+      htmlDia += '</div>';
+      htmlDia += '</form>';
+       htmlDia +='<a href="#" class="signIn">Already User? Please Login</a>';
+      htmlDia +='</div>';
+        htmlDia +='<div class="modal-close"><img src="/images/close.png"></div>';
+        htmlDia +='</div>';       
+        htmlDia += '</div></div></div><div class="modal-background fade_in"></div></div>';
+        $('body').append(htmlDia);
+        renderLoginButton();
+    $("#form-sign-in-account").on('submit',function()
+      {      
+       var  SigninFormValues =new FormData($('#form-sign-in-account')[0]);              
+        var url = "<?php echo $this->url(array('module'=>'User','controller'=>'Login','action'=>'signinajax'),'default',true);?>";
+          $.ajax({
+            url: url,   
+            type: "POST", 
+            data:SigninFormValues, 
+            contentType: false,  
+            cache: false,          
+            processData:false,     
+            success: function(data)
+            {
+              if(data==true)
+              {
+                
+                $(".modal-close").click();
+               location.reload();
+              } 
+              else
+              {
+                $(".loginerror").html("Invalid Login Please Try Again");
+              }                       
+            }
+          });  
+      return false; 
+    });
+    var emailValid = "";
+    $('#submit').live('click',function(e){
+      e.preventDefault();
+         if($("#password").val()!=$("#password_confirm").val())
+        {
+          $(".passwordError").html("Password Didnt Match");
+          return false;
+        }
+    emailObj.trigger('blur');
+    var formData = $(".signUpForm").serializeArray();
+    if(emailValid)
+    {
+      var url = "<?php echo $this->url(array('module'=>'User','controller'=>'Client','action'=>'guestwidgetsignup'),'default',true); ?>"
+      $.post(url,formData,function(data)
+      {
+        if(data==true)
+        {
+             $(".modal-close").click();
+               location.reload();
+        }
+      });
+    }
+    $(".signUpForm").submit();
+    return emailValid;  
+    });
+    var emailObj = $("#emailAddress");
+    emailObj.live('blur',function(){
+  ajaxEmailCall();
+   });
+     $(".signUp").live('click',function()
+    {
+      $(this).parents('.login-content1').addClass("dnone");
+      $(".login-content2").removeClass("dnone");
+      return false;
+    });
+     $(".signIn").live('click',function()
+     {
+        $(this).parents('.login-content2').addClass("dnone");
+      $(".login-content1").removeClass("dnone");
+      return false;
+     });
+     function ajaxEmailCall(){
+      var emailObj = $("#emailAddress");
+    errorObj = $(".ajaxReturn");
+   var url = "<?php echo $this->url(array('module'=>'User','controller'=>'Client','action'=>'searchforemailexist'),'default',true); ?>"
+     errorObj.text(" ");
+     var bValid = true;
+     bValid = bValid && checkRegexp(emailObj,/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,"<?php echo $this->translate->_('Invalid Email'); ?>");  
+    function checkRegexp(o,regexp) {
+      var emailObj = $("#emailAddress");
+      if ( !( regexp.test( o.val() ) ) ) {  
+        errorObj.text("<?php echo $this->translate->_('Invalid Email'); ?>");
+        errorObj.css({'color':'#ED0E19'});
+          emailValid = false;
+          return false
+      } else{
+        return true;
+      }
+    }
+    if(!bValid){
+      return false;
+    }
+   $.post(url, { email: $.trim(emailObj.val()) },
+         function(data){
+          data = data.replace(/\s/g,"");
+          if(data=="t"){
+            errorObj.text("<?php echo $this->translate->_('Email Address is not available'); ?>");
+            errorObj.css({'color':'#ED0E19'});
+            emailValid = false;
+          }else if(data == "f"){
+            errorObj.text("<?php echo $this->translate->_('Email Address is available continue  registering'); ?>");
+            errorObj.css({'color':'#0EED12'});
+            emailValid = true;
+          }
+        });
+  }
+
+  }
+
+  
+  $(function(){
+    $(".jumper").on("click", function( e ) {
+      
+        e.preventDefault();
+        $("body, html").animate({ 
+            scrollTop: $( $(this).attr('href') ).offset().top 
+        }, 600);
+
+    });
+    $(".itemjumper").on("click", function(  ) {
+        $val = $(this).attr('href')        
+        $.scrollTo( '$val', 800, {easing:'swing'} );
+        return false;
+    });  
+        
+    $("#Resreview").submit(function(){
+      if($("textarea",this).val().length==0)
+      {
+        alert("Please fill out Review");
+        return false;
+      }
+      var formValues = new FormData($("#Resreview")[0]);
+      for (var i = 0, len = filesData.length; i < len; i++){
+        formValues.append((i), filesData[i]['file']);
+      }
+      var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'resdetails'),'default',true);?>";
+      $.ajax({
+          url: url, 
+          type: "POST", 
+          data:formValues, 
+          contentType: false,  
+          cache: false,          
+          processData:false,     
+          success: function(data){
+           location.reload();                    
+          }
+       });
+      return false; 
+    });
+
+   $(".itemformbtn").on('click',function()   
+      { 
+        var currentForm = $(this).parents("form");
+          if($("textarea",currentForm).val().length==0)
+        {
+          alert("Please fill out Review");
+          return false;
+        }
+        var currformclass = currentForm.attr("class");
+        ItemFormValues =new FormData($('.'+currformclass)[0]);
+               
+        for (var i = 0, len = filesData.length; i < len; i++){
+        ItemFormValues.append((i), filesData[i]['file']);
+        }      
+        var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'itemform'),'default',true);?>";        
+        $.ajax({
+          url: url,   
+          type: "POST", 
+          data:ItemFormValues, 
+          contentType: false,  
+          cache: false,          
+          processData:false,     
+          success: function(data){
+            
+            $(".reviewsclick").html('<i class="fa fa-heart"></i>'+data+'reviews'); 
+            window.location = window.location.href.split('#')[0];                      
+          }
+          });  
+      return false; 
+    });
+$(".inMaps").click(function()
+{
+    var htmlDia ='<div class="modal-window fade_in">';
+        htmlDia +='<div class="modal-wrapper" style="top:0%;">';
+        htmlDia +='<div class="modal-body" style="width:800px;">';
+        htmlDia +='<div class="modal-content"> ';
+        htmlDia +='<h1 class="title tc">FIND DIRECTIONS</h1><hr/>';
+        htmlDia +='<div class="row">';
+        htmlDia +='<div class="col-md-3">';
+        htmlDia +='<input type="text" class="fromLocation" value="My Location" id="fromLocation"/>';
+        htmlDia +='</div>';
+        htmlDia +='<div class="col-md-3">';
+        htmlDia +='<input type="text" class="toLocation" readonly/>';
+        htmlDia +='</div>';
+         htmlDia +='<div class="col-md-3">';
+        htmlDia +='<select class="travelMode"><option value="DRIVING">Driving</option><option value="BICYCLING">Bicycling</option><option value="TRANSIT">Transit</option><option value="WALKING">Walking</option></select>';
+        htmlDia +='</div>';
+        htmlDia +='<div class="col-md-3">';
+        htmlDia +='<button class="btn btn-default findDirections">Go</button>';
+        htmlDia +='</div>';
+        htmlDia +='</div>';
+        htmlDia +='<br/>';
+        htmlDia +='<div class="row">';
+         htmlDia +='<div class="col-md-12">';
+        htmlDia +='<div id="map-simple">';
+        htmlDia +='</div>';
+        htmlDia +='</div>';
+        htmlDia +='<div class="col-md-4">';
+          htmlDia +='<div id="right-panel"><h3>Directions</h3></div>';
+        htmlDia +='</div>';
+        htmlDia +='</div>';
+      
+        htmlDia +='<div class="modal-close"><img src="/images/close.png"></div>';
+        htmlDia +='</div>';
+        htmlDia +='</div>  ';
+        htmlDia +='</div>';
+htmlDia +='</div>';
+        $('body').append(htmlDia);
+        $('.toLocation').val("<?php echo $resaddress ?>");
+        $('.findDirections').live('click',function()
+        {
+          calcRoute();
+        });
+         $('#fromLocation').live('keyup.autocomplete', function(){
+        $(this).autocomplete({
+        source:function(request,response)
+            {
+              geocode.geocode({"address":request.term},function(result)
+              {
+                response($.map(result,function(item)
+                {
+                  return {
+                    label:item.formatted_address, 
+                    value:item.formatted_address,
+                    lattitude:item.geometry.location.lat(),
+                    longitude:item.geometry.location.lng(),
+                    placeId:item.place_id,
+                    addressComponents:item.address_components
+                  }
+                }))
+              });
+            },
+          select:function(event,ui)
+              {
+              
+                $("#fromLocation").val(""+ui.item.label);
+               
+
+              }
+
+     });
+
+});
+          inMapInitialize();
+       
+});
+$(".viewAllTimings").click(function()
+{ 
+  if($(this).attr("data-value")=="false")
+  {
+    $(this).addClass("red");
+     $("#myCarousel .item").slideDown();
+     $(this).attr("data-value","true");
+     $(this).html('View Today');
+  }
+  else
+  {
+    $(this).removeClass("red"); 
+    $(this).html('View all');
+     $("#myCarousel .item").not(".today").slideUp();
+       $(this).attr("data-value","false");
+  }
+  return false;
+});
+$(".galleryPopup").click(function(){
+  var firstImage = $(this).find("img");
+  var images = $(this).parent().find("a").not(this).find("img");
+  var htmlContent ='<div class="modal-window fade_in" style="z-index:5000">';
+  htmlContent +='<div class="modal-wrapper">';
+  htmlContent +='<div class="modal-body">';
+  htmlContent +='<div class="gallery">';
+  htmlContent +='<div class="image">             ';
+  htmlContent +='<div class="owl-carousel gallery">';
+  htmlContent +='<img src="'+firstImage.attr("src")+'">';
+  for(var i=0; i<images.length;i++)
+  {
+      htmlContent +='<img src="'+images[i].src+'">';
+  }
+  htmlContent +='</div>';
+  htmlContent +='</div></div></div><div class="modal-close"><img src="/images/close.png"></div></div></div>';
+  $("body").append(htmlContent);
+  var _rtl = false;
+    drawOwlCarousel(_rtl);
+
+return false;
+});
+  });
+function showShortlist()
+{
+ var htmlLike = "";
+var loggedin =  "<?php echo $this->isLoggedIn ?>" ;         
+   if(loggedin)
+   {
+    var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'shortlistfetch'),'default',true);?>"
+          $.post(url,function(data)
+        {
+          data = JSON.parse(data);
+          var htmlLike ="";     
+          if(data.length==0)
+          {
+             htmlLike+='<section class="shortlistedItems"><div class="btn" style="width:100%;border: 1px solid #cdcdcd; background:#fff; margin-bottom:10px;"><span class="shortlist-summary"><i class="fa fa-heart"></i> <span class="summary"> <span class="shortlist-number">0</span> </span>Shortlisted Restaurants</span></div><b>Shortlist your favorite restaurants to find them quickly!!</b></section>';
+                  $(".shortlist").html(htmlLike);
+          }
+          else
+          {
+             htmlLike+='<section class="shortlistedItems"><div class="btn" style="width:100%;border: 1px solid #cdcdcd; background:#fff; margin-bottom:10px;"><span class="shortlist-summary"><i class="fa fa-heart"></i> <span class="summary">'+data.length+' </span>Shortlisted Restaurants</span></div></section>';
+                   $(".shortlist").html(htmlLike);
+            drawList(data);
+          }
+        });
+   }
+  else
+  {
+  if((localStorage.getItem("shortlistDetails")==null)||(localStorage.getItem("shortlistDetails")=="[]"))
+      {
+         htmlLike+='<section class="shortlistedItems"><div class="btn" style="width:100%;border: 1px solid #cdcdcd; background:#fff; margin-bottom:10px;"><span class="shortlist-summary"><i class="fa fa-heart"></i> <span class="summary"> 0 </span>Shortlisted Restaurants</span></div><b>Shortlist your favorite restaurants to find them quickly!!</b></section>';
+         $(".shortlist").html(htmlLike);
+    }
+      else
+      {
+         drawList(JSON.parse(localStorage['shortlistDetails']));
+      }
+  }
+   
+}
+function drawList(data)
+{
+   var likesData = Array();
+   likesData = data;
+    var htmlLike='<div class="btn" style="width:100%;border: 1px solid #cdcdcd; background:#fff; margin-bottom:10px;"><span class="shortlist-summary"><i class="fa fa-heart"></i> <span class="shortlist-number">'+likesData.length+'</span> Shortlisted Restaurants</span></div>';
+            $(".shortlist").html(htmlLike);
+   for(var i in likesData)
+   {
+        if(likesData[i].hasOwnProperty('data'))
+      {
+        addLikeItem(likesData[i].data,"onload");
+      }
+      else
+      {
+        addLikeItem(likesData[i],"onload");
+      }
+  }
+   
+}
+function addLikeItem (likesData,called) 
+{
+  var currentlikes = parseInt($(".shortlist-number").html());
+  if(called=="onload")
+  { 
+    $(".shortlist-number").html(currentlikes);
+  }
+  else
+  {
+    $(".shortlist-number").html(currentlikes+1);
+  }
+  var goTO = "<?php  echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'resdetails'),'default',true);?>/resid/"+likesData.id;
+  var likeCount ;
+  if(likesData.likes!==undefined)
+  {
+    likeCount = likesData.likes;
+    if(likeCount==null)
+    {
+      likeCount=0;
+    }
+  }
+  else
+  {
+    
+    likeCount = likesData.item_specific.likes;
+    if(likeCount==null)
+    {
+      likeCount=0;
+    }
+  }
+  var dislikeCount ;
+  if(likesData.dislikes!==undefined)
+  {
+    dislikeCount = likesData.dislikes;
+    if(dislikeCount==null)
+    {
+      dislikeCount=0;
+    }
+  }
+  else
+  {
+    dislikeCount = likesData.item_specific.dislikes;
+    if(dislikeCount==null)
+    {
+      dislikeCount=0;
+    }
+  }
+  var reviewCount ;
+  if(likesData.reviews!==undefined)
+  {
+    reviewCount = likesData.reviews;
+    if(reviewCount==null)
+    {
+      reviewCount=0;
+    }
+  }
+  else
+  {
+    reviewCount = likesData.item_specific.reviews;
+    if(reviewCount==null)
+    {
+      reviewCount=0;
+    }
+  }
+
+  var htmlLike = '<span data-id="'+likesData.id+'" class="item-horizontal small"><div style="position: absolute;right: 4px;top: 4px;"><i class="fa fa-heart likeButton red" data-score="1" onclick="likeAction(this);return false;" data-id="'+likesData.id+'" style="font-size:24px;"></i></div><div class="item-top-short"><a href="#"  class="pull-right" style="margin-right:4px;" data-id="'+likesData.id+'"><i class="fa fa-heart"></i> '+reviewCount+' reviews</a><a href="#" style="margin-right:4px;" class="pull-right resdisliked" resid="'+likesData.id+'" data-id="resdisliked'+likesData.id+'"><i class="fa fa-thumbs-down"></i> '+dislikeCount+'</a><a href="#" class="pull-right last resliked" style="margin-right:4px;" resid="'+likesData.id+'" data-id="resliked'+likesData.id+'"><i class="fa fa-thumbs-up"></i> '+likeCount+'</a></div><div class="wrapper"><img src="'+likesData.gallery[0]+'" alt=""><div class="info1"><div class="row"><div class="col-md-12"><h3><a href="'+goTO+'">'+likesData.title+'</a></h3><figure>'+likesData.location+'</figure></div></div><div class="row" style="border-top:1px solid #D0D6DD; padding-top:10px; margin-right:-11px;"><div class="col-md-6" ><span class="sml-btn2 resReserv" reslisted="'+likesData['restaurant_id']+'" data-id="'+likesData.id+'">Reserve</span></div><div class="col-md-6"><div class="rating-small pull-right margin-0">'+likesData.rating+'</div></div></div></div></div></span>';
+ 
+  $(".shortlist").append(htmlLike);
+  
+}
+function removeLikeItem(index)
+{
+  var currentlikes = parseInt($(".shortlist-number").html());
+  $(".shortlist-number").html(currentlikes-1);
+  $(".shortlist > span[data-id='"+index+"']").remove(); 
+  $("i[data-id='"+index+"']").removeClass("red");
+  if((currentlikes-1)==0)
+  {
+   var txt ='<section class="shortlistedItems"><div class="btn" style="width:100%;border: 1px solid #cdcdcd; background:#fff; margin-bottom:10px;"><span class="shortlist-summary"><i class="fa fa-heart"></i> <span class="summary"> <span class="shortlist-number">0</span> </span>Shortlisted Restaurants</span></div><b>Shortlist your favorite restaurants to find them quickly!!</b></section>';
+         $(".shortlist").html(txt);
+  }
+}
+function likeAction(btn)
+{
+
+      if($(btn).hasClass("red"))
+          {
+            $(btn).removeClass("red");
+          }
+          else
+          {
+            $(btn).addClass("red");
+          }
+         var loggedin = "<?php echo $this->isLoggedIn ?>" ; 
+      var userid =    "<?php echo $this->userid ?>" ;     
+      if(loggedin)
+      {
+        var resid = parseInt($(btn).attr("data-id"));
+        var parentArray = Array();
+        var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'shortlistinsert'),'default',true);?>";
+        $.post(url,{perform:"insert",resid:resid,userid:userid},function(dataid)
+      { 
+          removeLikeItem(resid);
+      });
+      return false;
+      }
+      else
+      { 
+          //localStorage.removeItem("shortlistDetails");
+        var resid = parseInt($(btn).attr("data-id"));
+       
+        if((localStorage.getItem("shortlistDetails")==null)||(localStorage.getItem("shortlistDetails")=="[]"))
+        {
+              var txt ='<section class="shortlistedItems"><div class="btn" style="width:100%;border: 1px solid #cdcdcd; background:#fff; margin-bottom:10px;"><span class="shortlist-summary"><i class="fa fa-heart"></i> <span class="summary"> <span class="shortlist-number">0</span> </span>Shortlisted Restaurants</span></div><b>Shortlist your favorite restaurants to find them quickly!!</b></section>';
+              $(".shortlist").html(txt);
+        }
+        else
+        {
+           var strLikes = localStorage.getItem("shortlistDetails");
+           var currentId = $(btn).attr("data-id");
+           var likesData = Array();
+           likesData = JSON.parse(strLikes);
+           var listed = false;
+           var removedIndex ;
+           for(var i in likesData)
+           {
+              if(likesData[i]['id']==currentId)
+              {
+               removedIndex = i;
+               listed = true;
+              }
+           }
+             if(!listed)
+             {
+             }
+             else
+             {
+              likesData.splice(removedIndex,1);
+              localStorage["shortlistDetails"]=JSON.stringify(likesData);
+              $("i[data-id ='"+resid+"']").removeClass("red");
+              removeLikeItem(resid);
+             }
+        }
+          
+         return false;
+      }
+}
+var map;
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();
+var geocode;
+var marker;
+function inMapInitialize(){
+  var lat = "<?php echo $resLat; ?>";
+  var lng = "<?php echo $resLon; ?>";
+  directionsDisplay = new google.maps.DirectionsRenderer();
+     geocode = new google.maps.Geocoder();
+   mapOptions =  {
+       zoom: 15,
+      center: new google.maps.LatLng(lat,lng),
+      mapTypeId: google.maps.MapTypeId.TERRAIN
+   };
+    map = new google.maps.Map(document.getElementById('map-simple'),
+      mapOptions);
+  var bounds = new google.maps.LatLngBounds();
+  bounds.extend(map.getCenter());
+   marker = new google.maps.Marker({
+        position: new google.maps.LatLng(lat, lng),
+        map: map,
+    });
+  bounds.extend(marker);
+ 
+}
+var fromLat,fromLng;
+function getPosition(position)
+{
+  fromLat = position.coords.latitude;
+  fromLng = position.coords.longitude;
+}
+function calcRoute() {
+   var lat = "<?php echo $resLat; ?>";
+  var lng = "<?php echo $resLon; ?>";
+  var start = $(".fromLocation").val();
+  if(start=="My Location")
+  {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(getPosition);
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+  }
+  var travelMode = $(".travelMode").val();
+var mode ;
+
+switch(travelMode)  
+{
+  case "DRIVING":
+  mode =  google.maps.TravelMode.DRIVING;
+  break;
+  case "BICYCLING":
+  mode =  google.maps.TravelMode.BICYCLING;
+  case "TRANSIT" :
+  break;
+  mode =  google.maps.TravelMode.TRANSIT;
+  break;
+  case "WALKING" :
+  mode =  google.maps.TravelMode.WALKING;
+  break;
+}
+  var end = new google.maps.LatLng(lat,lng);
+  if(start=="My Location")
+  {
+    start = new google.maps.LatLng(fromLat,fromLng);
+  }
+  var request = {
+    origin:start,
+    destination:end,
+    travelMode: mode
+  };
+  directionsService.route(request, function(result, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      directionsDisplay.setDirections(result);
+        $("#map-simple").parent().attr("class","col-md-8");
+        marker.setMap(null);
+        directionsDisplay.setMap(map);
+        $("#right-panel").fadeIn();
+        directionsDisplay.setPanel(document.getElementById('right-panel'));
+    }
+  });
+}
+  </script>
+</head>
+
+<body onunload="" class="page-subpage page-item-detail navigation-off-canvas" id="page-top">
+ <?php $resreviews = $this->resreviewdata;?>
+
+
+        <section class="restaurant-details">
+          <div class="overly">
+            <div class="container">
+              <header class="page-title page-title-1">              
+                <div class="row">
+                  <div class="col-md-12">
+                    <h1 class="resListResName"><?php  echo $data->getResname();  ?></h1>
+					<div class="row">
+						<div class="col-md-4">
+							<p class="margin-0"><a href="#"><?php echo $data->getResdining_style(); ?></a> › <?php echo implode(",",$data->getRescusine_data());?> <a href="#"><?php echo $data->getRestypedescription(); ?><a href="#"><?php echo $data->getRestypedescription(); ?></a></p>
+							<span><figure class="resListResLoc" style="color:white;"><i class="fa fa-map-marker"></i> <?php echo $data->getResaddress(); ?></figure></span>
+							<div class="phone-info">
+							  <i><img src="/images/rdine-phone.png" /></i> 
+							  <span><?php echo $data->getResphone(); ?></span> 
+							</div>						
+							<div class="clear"></div>
+						</div>
+						<div class="col-md-4">
+							<h2 class="normal white">Reserve Now</h2><div class="gap"></div>
+							<p>Earn Loyality points and also get fabulous discounts on your bill.</p>					
+						</div>
+						<div class="col-md-4">                    
+							<div class="row">
+							  <div class="col-md-3">
+								<div class="type">
+								<?php $rating = $data->getResrating();?>
+								<?php $yourrating =  $this->yourrating;
+								if(sizeof($yourrating)==0)
+								{
+								  $yourrating = 0;
+								}
+								?>
+								  <a href="#" class="rating-big"><?php echo $rating; ?></a>
+								</div>                        
+							  </div>  
+							  <div class="col-md-9">
+								<p>Your Rating</p>
+								<a href="#resscrolltarget" class="jumper"><div class="row left-0">
+								<?php 
+								for($i=0;$i<=4;$i+=1)
+								{
+								  if($i<$yourrating)
+								  {
+								   echo '<div class="col-md-1 rating-block-active"></div>'; 
+								  }
+								  else
+								  {
+									echo '<div class="col-md-1 rating-block"></div>';
+								  }
+								}
+								?>
+								</div></a>
+							  </div>                      
+							</div>							
+						</div>
+					</div>   
+					<div class="row">
+						<div class="col-md-4">
+							<div class="gap"></div><div class="gap"></div>
+							<a href="#" class="sml-btn3 inMaps">In Maps</a> <a href="#" class="sml-btn3">SMS</a>	
+						</div>
+						<div class="col-md-4">
+							<div class="gap"></div><div class="gap"></div>
+							<a href="#" class="sml-btn3 resReserv" reslisted="<?= $data->getReslisted_restaurant_id()?>" data-id="<?php echo $data->getResid();?>">Reserve Now</a>
+						</div>
+						<div class="col-md-4">
+							<div class="row item-review">
+							  <div class="col-md-12">
+								<a href="#" class="pull-left white" id="resliked" data-id="<?php echo $data->getResid();?>"><i class="fa fa-thumbs-up white"></i> 
+								<?php 
+								if($data->getRes_likes() != null)
+								{
+								echo $data->getRes_likes();
+								}
+								else
+								{
+								  echo 0;
+								}
+								?></a>
+								<a href="#" class="pull-left white" id="resdisliked"><i class="fa fa-thumbs-down white"  data-id="<?php echo $data->getResid();?>"></i>
+								<?php 
+								if($data->getRes_dislikes() != null)
+								{
+								echo $data->getRes_dislikes(); 
+								}
+								else
+								{
+								  echo 0;
+								}
+								?></a>
+								<a href="#resscrolltarget" id="resReview" class="pull-left white last jumper"  ><i class="fa fa-heart white"></i>  <?php 
+								if($data->getRes_reviews()!=null)
+								{
+								echo $data->getRes_reviews();  
+								}
+								else
+								{
+								echo 0;
+								}
+								?> reviews
+								</a> 
+							  </div>
+							</div>
+						</div>
+					</div>
+                  </div>   
+                </div>
+              </header>
+            </div>
+          </div>
+        </section>
+                <section class="container">
+                    <div class="row">
+                        <!--Item Detail Content-->
+                        <div class="col-md-9">
+                            <section class="block" id="main-content">                                
+                                <div class="row">
+                                    <!--Detail Sidebar-->
+                                    <aside class="col-md-4 col-sm-4" id="detail-sidebar">
+                                        <!--Contact-->
+                                        <section>
+                                            <header><h3>Opening Hours</h3></header>
+                                            <figure>
+                                                      <div id="myCarousel" class="carousel slide">                
+                                                        <!-- Carousel items -->
+                                                        <div class="carousel-inner">
+                                                        <?php 
+                                                        $dayIndex = 0;
+                                                        $day = date('l');
+                                                        if(is_array($this->timedata)&&(sizeof($this->timedata)))
+                                                        {
+                                                          foreach($this->timedata as $j => $temp)
+                                                              {
+                                                                if($j==$day)
+                                                                {
+                                                                  echo '<div class="item active today">';
+                                                                }
+                                                                else
+                                                                {
+                                                                  echo '<div class="item">';
+                                                                }
+                                                                  echo '<div class="row">
+                                                              <div class="col-md-12">';
+                                                                  echo'<h2>'.$j.'</h2>'; 
+                                                                  echo '<dl class="lines">';
+                                                                  foreach($temp as $temptype)
+                                                                  {
+                                                                    echo '<dt>'.$temptype['rwt_sch_type'].'</dt>
+                                                                  <dd>'.$temptype['rwt_start_time'].' - '.$temptype['rwt_end_time'].'</dd>';
+                                                                  }
+                                                                  echo '</dl></div></div></div>';
+                                                                $dayIndex++;
+                                                              }
+                                                        }
+                                                        else
+                                                        {
+                                                          echo '<div class="item active">';
+                                                          echo '<div class="row">
+                                                              <div class="col-md-12">';
+                                                          echo '<dl class="lines">';
+                                                          echo '<dt>No timings found</dt>';
+                                                          echo '<dd>No timings found</dd>';
+                                                          echo '</dl></div></div></div>';
+                                                        }
+                                                                    ?>
+                                                        </div>
+                                                        <!--/carousel-inner--> <!--<a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+
+                                                        <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>-->
+                                                      </div>
+                                                      <!--/myCarousel-->
+                                                   <a href="#" class="viewAllTimings" data-value="false">View All</a>
+                                            </figure>
+                                        </section>                                        
+                                        <!--end Contact-->
+                                        <section>
+                                            <header><h3>COST</h3></header>
+                                            <address>
+                                                <div>Rs.<?php echo $data->getResprice();?> for two people (approx.) </div>
+                        <p>AT & service charges extra</p>
+                                            </address>
+                                        </section>
+                                        <!--end Contact-->
+                                        <!--Rating-->
+                                        
+                    <section class="clearfix">
+                                                <header><h3>Seating Type</h3></header>
+                                                <ul class="list facilities-list">
+                                                    <li><div class="icon-box style1"><i class="soap-icon-flexible"></i>Out Door Seating</div>
+                                                    <?php
+                                                   if($data->getResoutdoor_seating()==true)
+                                                    {
+                                                        echo ' <i class="fa fa-check pull-right"></i>' ;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<i class="fa fa fa-remove disabled pull-right"></i>';
+                                                    }
+                                                     ?>
+                                                      </li>
+                          <li><div class="icon-box style1"><i class="soap-icon-aircon"></i> Air Condition</div> <?php
+                                                   if($data->getResair_conditioned()==true)
+                                                    {
+                                                        echo ' <i class="fa fa-check pull-right"></i>' ;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<i class="fa fa fa-remove disabled pull-right"></i>';
+                                                    }
+                                                     ?></li>                         
+                                                    <li><div class="icon-box style1"><i class="soap-icon-breakfast"></i> Dine-In Available</div>  <?php
+                                                   if($data->getResdine_in()==true)
+                                                    {
+                                                        echo ' <i class="fa fa-check pull-right"></i>' ;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<i class="fa fa fa-remove disabled pull-right"></i>';
+                                                    }
+                                                     ?></li>
+                           <li><div class="icon-box style1"><i class="soap-icon-winebar"></i>  Bar Available </div><?php
+                                                   if($data->getResalcohol()==true)
+                                                    {
+                                                        echo ' <i class="fa fa-check pull-right"></i>' ;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<i class="fa fa fa-remove disabled pull-right"></i>';
+                                                    }
+                                                     ?></li>
+                                                     
+                                                      <li><div class="icon-box style1"><i class="soap-icon-departure"></i>Delivery</div><?php
+                                                   if($data->getResdelivery()==true)
+                                                    {
+                                                        echo ' <i class="fa fa-check pull-right"></i>' ;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<i class="fa fa fa-remove disabled pull-right"></i>';
+                                                    }
+                                                     ?></li>
+                                                </ul>
+                                                <header><h3>Accepts</h3></header>
+                                                <ul class="list facilities-list">
+                                                    <li><div class="icon-box style1"><i class="soap-icon-savings"></i>Cash</div><?php
+                                                   if($data->getRes_cash()==true)
+                                                    {
+                                                        echo ' <i class="fa fa-check pull-right"></i>' ;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<i class="fa fa fa-remove disabled pull-right"></i>';
+                                                    }
+                                                     ?>
+                                                     </li>
+                           <li><div class="icon-box style1"><i class="soap-icon-card"></i>Credit Card</div> <?php
+                                                   if($data->getRes_credit_card()==true)
+                                                    {
+                                                        echo ' <i class="fa fa-check pull-right"></i>' ;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<i class="fa fa fa-remove disabled pull-right"></i>';
+                                                    }
+                                                     ?></li>
+                           <li><div class="icon-box style1"><i class="soap-icon-card"></i>Gift Certificates </div><?php
+                                                    if($data->getRes_gift_vouchers()==true)
+                                                    {
+                                                        echo ' <i class="fa fa-check pull-right"></i>' ;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<i class="fa fa fa-remove disabled pull-right"></i>';
+                                                    }
+                                                     ?></li>
+                           <li><div class="icon-box style1"><i class="soap-icon-card"></i>Master card</div> <?php
+                                                   if($data->getRes_master_card()==true)
+                                                    {
+                                                        echo ' <i class="fa fa-check pull-right"></i>' ;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<i class="fa fa fa-remove disabled pull-right"></i>';
+                                                    }
+                                                     ?></li>
+                           <li><div class="icon-box style1"><i class="soap-icon-card"></i> Visa Card</div> <?php
+                                                    if($data->getRes_visa_card()==true)
+                                                    {
+                                                        echo ' <i class="fa fa-check pull-right"></i>' ;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<i class="fa fa fa-remove disabled pull-right"></i>';
+                                                    }
+                                                     ?></li>
+                                                </ul>
+                                                <header><h3>Dining Type</h3></header>
+                                                <ul class="list facilities-list">
+                          <?php 
+                            $dining_type = $this->dining_type;
+                          ?>
+                          <li><div class="icon-box style1"><i class="soap-icon-food"></i>Breakfast</div> 
+                          
+                          <?php
+                          if($dining_type['breakfast'])
+                          {
+
+                            echo '<i class="fa fa-check pull-right"></i></li>';
+                          }
+                          else
+                          {
+                              echo '<i class="fa fa-remove disabled pull-right"></i></li>';
+                          }
+                          ?>
+                          <li><div class="icon-box style1"><i class="soap-icon-breakfast"></i>Lunch</div> 
+                           <?php
+                          if($dining_type['lunch'])
+                          {
+
+                            echo '<i class="fa fa-check pull-right"></i></li>';
+                          }
+                          else
+                          {
+                              echo '<i class="fa fa-remove disabled pull-right"></i></li>';
+                          }
+                          ?></li>
+                          <li><div class="icon-box style1"><i class="soap-icon-fireplace"></i>Dinner</div>  <?php
+                          if($dining_type['dinner'])
+                          {
+
+                            echo '<i class="fa fa-check pull-right"></i></li>';
+                          }
+                          else
+                          {
+                              echo '<i class="fa fa-remove disabled pull-right"></i></li>';
+                          }
+                          ?></li>
+                          <li><div class="icon-box style1"><i class="soap-icon-coffee"></i>Brunch</div> <?php
+                          if($dining_type['brunch'])
+                          {
+
+                            echo '<i class="fa fa-check pull-right"></i></li>';
+                          }
+                          else
+                          {
+                              echo '<i class="fa fa-remove disabled pull-right"></i></li>';
+                          }
+                          ?></li>
+                                                </ul>
+                           <header><h3>Buffet</h3></header>
+                                                <ul class="list facilities-list">
+                                                    
+                                                     <li><div class="icon-box style1"><i class="soap-icon-food"></i>Breakfast</div> <?php
+                                                    if($data->getResbreakfast()==true)
+                                                    {
+                                                        echo ' <i class="fa fa-check pull-right"></i>' ;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<i class="fa fa fa-remove disabled pull-right"></i>';
+                                                    }
+                                                     ?></li>
+                                                    <li><div class="icon-box style1"><i class="soap-icon-breakfast"></i>Lunch</div> <?php
+                                                    if($data->getReslunch_buffet()==true)
+                                                    {
+                                                        echo ' <i class="fa fa-check pull-right"></i>' ;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<i class="fa fa fa-remove disabled pull-right"></i>';
+                                                    }
+                                                     ?></li>
+                                                     <li><div class="icon-box style1"><i class="soap-icon-fireplace"></i>Dinner</div><?php
+                                                    if($data->getResdinner_buffet()==true)
+                                                    {
+                                                        echo ' <i class="fa fa-check pull-right"></i>' ;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<i class="fa fa fa-remove disabled pull-right"></i>';
+                                                    }
+                                                     ?></li>
+                                                </ul>
+                            <header><h3>Convenience</h3></header>
+                                                <ul class="list facilities-list">
+                                                    <li><div class="icon-box style1"><i class="soap-icon-food"></i>Children Friendly</div> <?php
+                                                    if($data->getReskids_section()==true)
+                                                    {
+                                                        echo ' <i class="fa fa-check pull-right"></i>' ;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<i class="fa fa fa-remove disabled pull-right"></i>';
+                                                    }
+                                                     ?></li>
+                          <li><div class="icon-box style1"><i class="soap-icon-breakfast"></i>Wheel chair accessible </div> <?php
+                                                    if($data->getReswheel_chair()==true)
+                                                    {
+                                                        echo ' <i class="fa fa-check pull-right"></i>' ;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<i class="fa fa fa-remove disabled pull-right"></i>';
+                                                    }
+                                                     ?></li>                         
+                                                    
+                                                </ul>
+                           <header><h3>Parking</h3></header>
+                                                <ul class="list facilities-list">
+                                                    <li><div class="icon-box style1"><i class="soap-icon-parking"></i>Valet</div> <?php
+                                                    if($data->getResparking_valet()==true)
+                                                    {
+                                                        echo ' <i class="fa fa-check pull-right"></i>' ;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<i class="fa fa fa-remove disabled pull-right"></i>';
+                                                    }
+                                                     ?></li>
+                          <li><div class="icon-box style1"><i class="soap-icon-card"></i> Prepaid</div> <?php
+                                                    if($data->getResparking_prepaid()==true)
+                                                    {
+                                                        echo ' <i class="fa fa-check pull-right"></i>' ;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<i class="fa fa fa-remove disabled pull-right"></i>';
+                                                    }
+                                                     ?></li>                         
+                                                    <li><div class="icon-box style1"><i class="soap-icon-globe"></i> Public</div><?php
+                                                    if($data->getResparking_public()==true)
+                                                    {
+                                                        echo ' <i class="fa fa-check pull-right"></i>' ;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<i class="fa fa fa-remove disabled pull-right"></i>';
+                                                    }
+                                                     ?></li>
+                                                </ul>
+                           <header><h3>Special</h3></header>
+                                                <ul class="list facilities-list">
+                                                    <li><div class="icon-box style1"><i class="soap-icon-fridge"></i>Romantic setup</div><?php
+                                                    if($data->getResromantic_setup()==true)
+                                                    {
+                                                        echo '<i class="fa fa-check pull-right"></i>' ;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<i class="fa fa fa-remove disabled pull-right"></i>';
+                                                    }
+                                                     ?></li>
+                          <li><div class="icon-box style1"><i class="soap-icon-fireplace"></i>Special occassion Dining</div><?php
+                                                    if($data->getRes_special_ocassion_dining()==true)
+                                                    {
+                                                        echo ' <i class="fa fa-check pull-right"></i>' ;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<i class="fa fa fa-remove disabled pull-right"></i>';
+                                                    }
+                                                     ?></li>                         
+                                                    
+                                                </ul>
+                            <header><h3>Entertainment</h3></header>
+                                                <ul class="list facilities-list">
+                                                    <li><div class="icon-box style1"><i class="soap-icon-wifi"></i>Free wifi</div><?php
+                                                    if($data->getReswifi()==true)
+                                                    {
+                                                        echo ' <i class="fa fa-check pull-right"></i>' ;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<i class="fa fa fa-remove disabled pull-right"></i>';
+                                                    }
+                                                     ?> </li>
+                          <li><div class="icon-box style1"><i class="soap-icon-television"></i>Television</div><?php
+                                                    if($data->getRestelevision()==true)
+                                                    {
+                                                        echo ' <i class="fa fa-check pull-right"></i>' ;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<i class="fa fa fa-remove disabled pull-right"></i>';
+                                                    }
+                                                     ?></li>                         
+                                                    <li><div class="icon-box style1"><i class="soap-icon-binoculars"></i> Sports telecast</div> <?php
+                                                    if($data->getRes_sports_telecast()==true)
+                                                    {
+                                                        echo ' <i class="fa fa-check pull-right"></i>' ;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<i class="fa fa fa-remove disabled pull-right"></i>';
+                                                    }
+                                                     ?></li>
+                           <li><div class="icon-box style1"><i class="soap-icon-triangle-right"></i> Live Music </div> <?php
+                                                    if($data->getReslive_music()==true)
+                                                    {
+                                                        echo ' <i class="fa fa-check pull-right"></i>' ;
+                                                    }
+                                                    else
+                                                    {
+                                                        echo '<i class="fa fa fa-remove disabled pull-right"></i>';
+                                                    }
+                                                     ?></li>
+                                                </ul>                                                                                                       
+                    </section>
+ 
+ 
+ 
+                                        <!--end Rating-->
+                                        <!--Events-->
+                                        <!--end Events-->
+                                    </aside>
+                                    <!--end Detail Sidebar-->
+                                    <!--Content-->
+                                    <div class="col-md-8 col-sm-8">
+                                        <section>
+                                            <article class="block" style="padding:20px 0 0 0;">
+                                                <p>
+                                                    <?php echo $data->getResdescription();?>
+                                                </p>
+                                            </article>
+                      <article class="block" id="Resmenu">
+                         <ul class="nav nav-tabs nav-justified" style="background:#F4F4F2;">
+                          <li class="active"><a href="#popularitems" data-toggle="pill"><i class="fa fa-star"></i> Popular Items</a></li>
+                          <li><a href="#fullmenu" data-toggle="pill" ><i class="fa fa-list"></i> View Full Menu </a></li>
+                        </ul>                                              
+                        <div class="clear"></div>
+                        <div class="content tab-content">
+                          <div id="popularitems" class="tab-pane fade in active">
+                          <article class="block">
+                            <?php if(sizeof($this->popularmenudata)!=0){
+                              $index=0; 
+                            foreach ($this->popularmenudata as $id => $itemarr){
+                            foreach ($itemarr as $item){ 
+                              $index++;
+                              if($index<6){ 
+                              ?>
+                                     
+                            <div class="clear"></div>
+                            <div class="item">
+                              <div class="row item-top">
+                                <div class="col-md-7">
+                                  <h2 data-toggle="modal" data-target="#menuModel<?php echo $item['item_id'];?>" data-id="<?php echo $item['item_id'];?>" style="cursor: pointer;" ><?php echo $item['item_name']; ?></h2>
+                                </div>
+                                <div class="col-md-5">
+                                  <div class="row">
+                                    <div class="col-md-12">
+									  <a href="#"  class="reviewsclick pull-right" data-toggle="modal" data-target="#menuModel<?php echo $item['item_id'];?>" data-id="<?php echo $item['item_id'];?>"><i class="fa fa-heart"></i> <?php 
+									  if($item['item_reviews']!=null)
+									  {
+									   echo $item['item_reviews'];   
+									  }
+									  else
+									  {
+										echo 0;
+									  }
+									 ?>  Reviews</a> 
+									  <a href="#" class="pull-right itemdisliked" data-id="<?php echo $item['item_id'];?>" ><i class="fa fa-thumbs-down"></i> <?php 
+									  if($item['item_dislikes']!=null)
+									  {
+										echo $item['item_dislikes'];
+									  }
+									  else
+									  {
+
+										echo 0;
+									  }
+									  ?></a>
+									  <a href="#" class="pull-right last itemliked" data-id="<?php echo $item['item_id'];?>"><i class="fa fa-thumbs-up"></i> <?php 
+									  if($item['item_likes']!=null)
+									  {
+									  echo $item['item_likes'];
+									  }
+									  else
+									  {
+									  echo 0;
+									  }
+									  ?></a>
+										<span class="pull-right price-text"><strong> <?php echo $item['item_price']; ?></strong></span>                                
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                                <div class="clear"></div>
+                              </div>  
+                              
+                              <section class="reviews">
+                              
+                                <?php $itemreviews = $item['item_review'];
+                                if(sizeof($itemreviews)!=0)
+                                {
+                                 ?>     
+                                 <?php  $i=0; foreach ($itemreviews as $itemreview){ $i++; if($i<3){ ?>
+                                  
+                                  <article class="review">
+                                  <!-- /.author-->
+                                  <div class="wrapper row">
+                                   <figure class="author">
+                                    <img src="/images/default-avatar.png" alt="">                                  
+                                  </figure>
+                                  <div class="pull-left tl"><h5 ><?php echo $itemreview['cusname']?></h5>
+                                     <div><?php echo date("d-M-Y", strtotime($itemreview['ir_reviewdate']));?></div>
+                                  </div>
+                                  <div class="rating-small pull-right"><?php echo $itemreview['rating'];?></div>
+								  <div class="clear"></div>
+                                     <p class="moreElement"><?php echo $itemreview['review'];?></p>    
+                                  </div>
+                                    <?php 
+                                                    $itemreviewGallery = $itemreview['gallery'];
+                                                    if(is_array($itemreviewGallery)&&(sizeof($itemreviewGallery)>0))
+                                                    {
+                                                      echo '<article class="item-gallery">
+                                                              
+                                                                            <div class="thumbnails">';
+                                                                            if(sizeof($itemreviewGallery)>5)
+                                                                            {
+                                                                             echo '<span class="expand-content btn framed icon" data-expand="#gallery-thumbnails'.$itemreview['irid'].'">'.(sizeof($itemreviewGallery)-4).' More <i class="fa fa-plus"></i></span>';
+                                                                             }
+                                                                               echo  '<div class="expandable-content height collapsed show-80" id="gallery-thumbnails'.$itemreview['irid'].'">
+                                                                                    <div class="content">';
+                                                                                  foreach ($itemreviewGallery as $img) 
+                                                                                  {
+                                                                                    echo ' <a href="#" id="thumbnail-1" class="active galleryPopup"><img src="'.$img.'" alt=""></a>';
+                                                                                  }
+                                                      echo ' </div>
+                                                                                </div>
+                                                                            </div>
+                                                       </article>';
+                                                     }
+                                                                                    ?>
+                                </article>
+
+                                  <?php } } ?>             
+                              <?php } else {
+                                echo '<p>Be The First one  to make a review</p>';
+                                }?>
+                              </section>
+                            </div>
+                          <div class="clear"></div> 
+                                      <?php  }  } }  ?>
+                                      
+                            <?php }  else {
+                              echo '<center><h3>NO ITEMS FOUND</h3></center>';
+                              } ?>                        
+                          </article>
+                          </div>                   
+                                                    
+                                                    <div id="fullmenu" class="tab-pane fade in">                                                                
+                                                        <article class="fullmenu">
+                                                  <?php 
+
+                                                  if(is_array($this->menudata)){ ?>
+                                                  <ul class="nav nav-tabs nav-justified">                                              
+                                                       <?php $i=0; foreach ($this->menudata as $menukey => $catarr){?>                               
+                                                              <?php 
+                                                                if($i==0)
+                                                                {
+                                                                    $i++;
+
+                                                                    echo "<li class='active'><a  data-toggle='pill' href='#".preg_replace('/\s+/', '', $menukey)."'>".$menukey."</a></li>";
+                                                                }
+                                                                else
+                                                                {
+                                                                    echo "<li ><a data-toggle='pill' href='#".preg_replace('/\s+/', '', $menukey)."'>".$menukey."</a></li>";
+                                                                }
+                                                                ?>
+                                                        <?php } } ?>
+                          
+                                                    </ul>
+                                                  </article>                  
+                                                      
+                                                        <div class="content tab-content">
+                                                       <?php if(sizeof($this->menudata)!=0){ ?>
+                                                        <?php $i =0 ;foreach ($this->menudata as $menukey => $catarray){ ?>
+                                                        <?php if($i == 0){?>
+                                                          <div  id="<?php echo preg_replace('/\s+/', '', $menukey)?>" class="tab-pane  fade in  block active">
+                                                          <?php }else{?>
+                                                          <div  id="<?php echo preg_replace('/\s+/', '', $menukey)?>" class="tab-pane  fade in  block">
+                                                          <?php }$i++;
+                                                          ?>
+
+                                                            <?php foreach ($catarray as $catkey => $itemarray){ ?>                                            
+                                                                <header><h2 class="pull-left"><?php echo $catkey ?></h2></header>
+                                                                <div class="clear"></div>
+                                                                <div class="content">                                                                              
+                                                                     <?php foreach ($itemarray as $itemkey){ ?>
+                                                                    <div class="item">
+                                                                        <div class="row item-top">
+                                                                            <div class="col-md-7">
+                                                                                 <h2 data-toggle="modal" data-target="#menuModel<?php echo $itemkey['item_id'];?>" data-id="<?php echo $itemkey['item_id'];?>" style="cursor: pointer;">
+                                                                                <?php  
+                                                                                  echo $itemkey['item_name'];
+                                                                                ?> </h2>
+                                                                            </div>
+																			<div class="col-md-5 item-top">
+																				<a href="#"  class="reviewsclick pull-right" data-toggle="modal" data-target="#menuModel<?php echo $itemkey['item_id'];?>" data-id="<?php echo $itemkey['item_id'];?>"><i class="fa fa-heart"></i> <?php 
+																				if($itemkey['item_reviews']!=null)
+																				{
+																				echo $itemkey['item_reviews'];  
+																				}
+																				else
+																				{
+																				  echo 0;
+																				}
+																				?>  reviews</a>
+																				<a href="#" class="pull-right itemdisliked" data-id="<?php 
+																				echo $itemkey['item_id']; ?>"><i class="fa fa-thumbs-down"></i> <?php 
+																				if($itemkey['item_dislikes']!=null)
+																				{
+																				echo $itemkey['item_dislikes']; 
+																				}
+																				else
+																				{
+																				echo 0;
+																				}
+																				 ?></a>
+																				<a href="#" class="pull-right last itemliked" data-id="<?php echo $itemkey['item_id']; ?>"><i class="fa fa-thumbs-up"></i><?php 
+																				if($itemkey['item_likes']!=null)
+																				{
+																				echo $itemkey['item_likes']; 
+																				}
+																				else
+																				{
+																				echo 0;
+																				}
+																				?></a>
+																				<!--prive -->
+																				<span class="price-text pull-right"><strong> <?php echo $itemkey['item_price'] ?></strong></span>
+                                                                                
+                                                                            </div>
+                                                                            <div class="clear"></div>
+                                                                        </div>  
+                                                                        <section class="reviews">
+                                                                            <article class="review">         
+																				<p class=""><?php echo $itemkey['item_description'] ?></p>                                                                                    
+                                                                            </article>                                                      
+                                                                            <!-- /.review -->
+                                                                        </section>                                              
+                                                                            
+                                                                    </div>
+                                                                    <?php }  ?>
+                                                                
+                                                                
+                                                                    <div class="clear"></div>
+                                                                </div>
+                                                            <?php } ?>
+                                                            </div>
+                                                            <?php } ?>                                                       
+                                                       <?php } else{
+                                                       echo '<h3><center>NO MENU FOUND</center></h3>';
+                                                       }?>                                                           
+                                                    </div>
+                                                    </div>
+                                           
+                                            <!-- /.item-gallery -->
+                                             <article class="item-gallery" id="Resgallery">
+
+                                                  <header>
+                                                    <h3><i class="fa fa-image"></i> GALLERY</h3>
+                                                  </header> 
+                                                <div class="thumbnails">
+                                                <?php
+                                                   $restaurantGallery = $this->restaurantGallery;     
+                                                  if(sizeof($restaurantGallery)>5)
+                                                  {
+                                                    echo '<span class="expand-content btn framed icon" data-expand="#gallery-thumbnails" >'.(sizeof($restaurantGallery)-4).' More<i class="fa fa-plus"></i></span>';
+                                                  }
+                                                    ?>
+                                                    
+                                                    <div class="expandable-content height collapsed show-80" id="gallery-thumbnails">
+                                                        <div class="content">
+                                                        <?php 
+                                                        
+                                                        if(is_array($restaurantGallery)&&(sizeof($restaurantGallery)>0))
+                                                        {
+                                                          foreach ($restaurantGallery as $img) {
+                                                            echo ' <a href="#"  class="active galleryPopup"><img src="'.$img.'" alt=""></a>';
+                                                          }
+                                                        }
+                                                        ?>
+                                                          
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </section>
+                                        <!--Reviews-->
+                                        <section class="block" id="Resreviews">
+                                            <header class="clearfix">
+                                                <div id="resscrolltarget"><h2>Write a Review</h2></div>                                              
+                                            </header>
+                                            <article class="clearfix overall-rating">
+                                              <div id="reviewform">                        
+                                              <div class="" id="hotel-write-review">              
+                                                <!--<form class="review-form">-->
+                                                <form name="Reviewdetails" id="Resreview">
+                                                  <div class="form-group">
+                                                    <div class="update_review">
+                                                   <div class="writeReview">
+                                                        Write a review                            
+                                                      </div>                               
+                                                      <div id="reviewBlock" class="review_block dnone">
+                                                        
+                                                        <!--<textarea style="width:100%; min-height:120px;background:#fff;">Write a review. </textarea>-->
+                                                        <div class="input select rating-a">
+                                                          <label for="example-a">Your    Rating:</label>
+                                                          <select class="example-a" name="rr_review_ratings">
+                                                              <option value="1">1</option>                                        
+                                                              <option value="2">2</option>                                        
+                                                              <option value="3">3</option>                                        
+                                                              <option value="4">4</option>                                      
+                                                              <option value="5">5</option>
+                                                          </select>
+                                                      </div>
+
+                                                        <div style="width:100%";><?php echo $form->review_text; ?></div>
+                                                        <?php date_default_timezone_set("Asia/Calcutta"); ?>
+                                                        <?php $dateandtime = date('Y-m-d G:i:s'); ?>
+                                                        <input type="hidden" name="rr_fk_resid" value="<?php echo $this->resid; ?>">
+                                                        <input type="hidden" name="rrcreatedby" value="<?php echo $this->userid; ?>">
+                                                        <input type="hidden" name="rrcreateddate" value="<?php echo date("Y.m.d"); ?>">
+                                                        <input type="hidden" name="rrcreateddateandtime" value="<?php echo $dateandtime ?>">
+                                                        <div class="" style="padding-left: 0px;">
+                                                          <div class="full-width" style="line-height: 34px;">
+                                                            <?php echo $form->res_image_button; ?>
+                                                            <div id='selected_images'></div>
+                                                          </div>
+                                                        <div class="clear"></div>
+                                                        </div>
+                                                        <div class="clear"></div>
+                                                        <div class="">                                                          
+                                                          <?php echo $form->submit; ?>
+                                                        </div>
+                                                        <div class="clear"></div>                                
+                                                      </div>                              
+                                                    </div>
+                                                  </div>
+                                                </form>
+                                              </div>
+                                              </div>     
+                                            </article><!-- /.overall-rating-->
+                        
+                                            <section class="reviews">
+											<header class="clearfix">
+											<hr />
+											<div class="gap"></div>
+											<div class="gap"></div>
+                                                <div id="resscrolltarget"><h2>Reviews</h2></div>                                              
+                                            </header>
+                        <?php if(sizeof($resreviews)!=0 )
+                          { 
+                            $index = 0;  
+                           foreach ($resreviews as $resreview)
+                            {
+                          if($index<5){?>
+                             <article class="review">                       
+                                <div class="wrapper">
+                              <div class="row">
+                                  <div class="col-md-10">
+                                    <figure class="author">
+                                        <img src="/images/default-avatar.png" alt="">
+                                    </figure>
+                                    <h5><?php echo $resreview->getUsername(); ?></h5>
+                                    <div class="date"><?php 
+                                    $str = $resreview->getRrcreateddate();
+                                   echo date("d-M-Y", strtotime($str));           
+                                    ?></div>
+                                  </div>
+                                <div class="col-md-2">
+                                  <div class="rating-small pull-right"><?php echo $resreview->getRr_review_ratings(); ?></div>
+                                </div>
+                              </div>
+                                    <p>
+                                        <?php echo $resreview->getRr_review_text();?>
+                                    </p>                                                        
+                                </div>
+                                <!-- /.wrapper-->
+                                <?php 
+                                $reviewGallery = $resreview->getGallery();
+                                if(is_array($reviewGallery)&&(sizeof($reviewGallery)>0))
+                                {
+                                  echo '<article class="item-gallery">
+                                          
+                                                        <div class="thumbnails">';
+                                                            if(sizeof($reviewGallery)>5)
+                                                            {
+                                                            echo '<span class="expand-content btn framed icon" data-expand="#gallery-thumbnails'.$resreview->getRrid().'">'.(sizeof($reviewGallery)-4).' More<i class="fa fa-plus"></i></span>';
+                                                            }
+                                                            echo '<div class="expandable-content height collapsed show-80" id="gallery-thumbnails'.$resreview->getRrid().'">
+                                                                <div class="content">';
+                                                              foreach ($reviewGallery as $img) 
+                                                              {
+                                                                echo ' <a href="#1"  class="active galleryPopup"><img src="'.$img.'" alt=""></a>';
+                                                              }
+                                  echo ' </div>
+                                                            </div>
+                                                        </div>
+                                   </article>';
+                                 }
+                        ?>                          
+                            </article>
+                    <?php } else { ?>
+                    <div class="showresallreviews dnone">
+                    <article class="review">                       
+                          <div class="wrapper">
+                        <div class="row">
+                            <div class="col-md-10">
+                              <figure class="author">
+                                  <img src="/images/default-avatar.png" alt="">
+                              </figure>
+                              <h5><?php echo $resreview->getUsername(); ?></h5>
+                              <div class="date"><?php 
+                              $str = $resreview->getRrcreateddate();
+                              echo date('d-M-Y',strtotime($str));
+                              ?></div>
+                            </div>
+                          <div class="col-md-2">
+                            <div class="rating-small pull-right"><?php echo $resreview->getRr_review_ratings(); ?></div>
+                          </div>
+                        </div>
+                              <p>
+                                  <?php echo $resreview->getRr_review_text();?>
+                              </p>                                                        
+                          </div>
+                          <!-- /.wrapper-->
+                          <?php 
+                          $reviewGallery = $resreview->getGallery();
+                          if(is_array($reviewGallery)&&(sizeof($reviewGallery)>0))
+                          {
+                            echo '<article class="item-gallery">  
+                                  <div class="thumbnails">';
+                                      if(sizeof($reviewGallery)>5)
+                                      {
+                                      echo '<span class="expand-content btn framed icon" data-expand="#gallery-thumbnails'.$resreview->getRrid().'">'.(sizeof($reviewGallery)-5).' More<i class="fa fa-plus"></i></span>';
+                                      }
+                                      echo '<div class="expandable-content height collapsed show-80" id="gallery-thumbnails'.$resreview->getRrid().'">
+                                          <div class="content">';
+                                        foreach ($reviewGallery as $img) 
+                                        {
+                                          echo ' <a href="#1"  class="active galleryPopup"><img src="'.$img.'" alt=""></a>';
+                                        }
+                                  echo ' </div>
+                                       </div>
+                                   </div>
+                                  </article>';
+                           }
+                          ?>                                                                                    
+                      </article>
+                    </div>
+                    <?php }
+                     $index++;
+                    }
+                    if(sizeof($resreviews)>5)
+                    {
+                    echo '<div class="resviewall" style="cursor: pointer;"><h3>View All</h3></div>';  
+                    } 
+                       }
+                       else{
+                       echo  '<article class="review">                                                                                    
+                              <div class="wrapper">
+                                    <div class="row">
+                                      <div class="col-md-10">
+                                        <h5>Be the first one to review this restaurant!!</h5>
+                                      </div>
+                                      <div class="col-md-2">
+                                      </div>
+                                    </div>                                                                        
+                              </div>
+                            <!-- /.wrapper-->
+                            </article>';
+                        }?>                                                                    
+                                            </section>
+                                            <!-- /.reviews-->
+                                        </section>
+                                        <!-- /#reviews -->
+                                        <!--end Review Form-->
+                                    </div>
+                                    <!-- /.col-md-8-->
+                                </div>
+                                <!-- /.row -->
+                                   <div class="block">
+            <div class="wrapper">
+              <div class="col-l-16">
+                <div class="col-l-12">                
+                  <section role="group" class="pbot0 pt5 mtop0 section clearfix">
+                    <h2 tabindex="0" role="heading" class="mb0 s-title">Related to <?php echo $restaurant_name." - ".$restaurant_location; ?></h2>
+                    <?php
+                    $tagDetails = $this->tagDetails;
+                    foreach ($tagDetails as  $tag) {
+                        echo ' <a class="" href="'.$tag['vanityUrl'].'" title="'.$tag['phrase'].'">'.$tag['phrase'].'</a>';
+                    }
+                     ?>
+                    
+                  </section>
+                </div>
+              </div>
+            </div>
+          </div>
+                            </section>
+                            <!-- /#main-content-->
+                        </div>
+                        <!-- /.col-md-8-->
+                        <!--Sidebar-->
+                        <div class="col-md-3">
+                            <aside id="sidebar">
+                             <section class="shortlist">
+                                </section>
+                               <section>
+                                <header><h2>Suggested Restaurants</h2></header>
+                                <?php 
+                                    if(is_array($similarRestaurants))
+                                    {
+                                      foreach ($similarRestaurants as  $value) 
+                                      {
+                                        $likesCount =$value['res_likes'];
+                                        if($likesCount==null)
+                                        {
+                                         $likesCount=0; 
+                                        }
+                                        $dislikesCount = $value['res_dislikes'];
+                                        if($dislikesCount==null)
+                                        {
+                                         $dislikesCount=0; 
+                                        }
+                                        $reviewsCount = $value['res_reviews'];
+                                        if($reviewsCount==null)
+                                        {
+                                         $reviewsCount=0; 
+                                        }
+                                        $href = "/".strtolower($value['city_name'])."/$value[resvanity_url]";
+                                        echo '<span data-id="'.$value['resid'].'" class="item-horizontal small"><div class="item-top-short" style="top:37%;"><a href="#"  class="pull-right" data-id="'.$value['resid'].'"><i class="fa fa-heart"></i> '.$reviewsCount.' reviews</a><a href="#" class="pull-right resdisliked" style="padding: 4px 6px; margin-right: 4px;" resid="'.$value['resid'].'" data-id="resdisliked'.$value['resid'].'"><i class="fa fa-thumbs-down"></i> '.$dislikesCount.'</a><a href="#" class="pull-right last resliked" resid="'.$value['resid'].'" style="padding: 4px 6px; margin-right: 4px;" data-id="resliked'.$value['resid'].'"><i class="fa fa-thumbs-up"></i> '.$likesCount.'</a></div><div class="wrapper"><img src="'.$value['image_path'].'" alt="" style="height: 187px;"><div class="info1"><div class="row"><div class="col-md-12"><h3><a href="'.$href.'">'.$value['resname'].'</a></h3><figure>'.$value['resaddress'].'</figure></div></div><div class="row" style="border-top:1px solid #D0D6DD; padding-top:10px; margin-right:-11px;"><div class="col-md-6"><span class="sml-btn2 resReserv" reslisted="'.$value['reslisted_restaurant_id'].'" data-id="'.$value['resid'].'">Reserve</span></div><div class="col-md-6"><div class="rating-small pull-right margin-0"> '.$value['resrating'].'</div></div></div></div></div></span>';
+                                        /*echo ' <a href="'.$href.'"><img src='.$value['image_path'].' style="height:80px;width:100%; " /><h3 style="margin:4px 0px 4px 0px;">'.$value['resname'].'</h3></a><hr/>';  */
+                                      }
+                                     
+                                    }
+                                    ?>
+                              </section>                          
+                            </aside>
+                            <!-- /#sidebar-->
+                        </div>
+                        <!-- /.col-md-3-->
+            
+                        <!--end Sidebar-->
+                    </div><!-- /.row-->
+                </section>
+                <!-- /.container-->
+            </div>
+            
+
+
+<!-- Popup-->
+<?php foreach ($this->menudata as $menu){?>
+ <?php foreach ($menu as $category){ ?>
+  <?php foreach ($category as $item){ ?>
+<div class="modal fade myModal" id="menuModel<?php echo $item['item_id'];?>" data-id="<?php echo $item['item_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-id="<?php echo $item['item_id']; ?>" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <a href="#scrolltoitemtarget<?php echo $item['item_id'];?>" class="itemjumper"  style="text-align: right; position: absolute; right: 40px; "><h3 style="color:#ed1c24;text-decoration: underline"> Write Your Review</h3></a>
+        <h4 class="modal-title" id="myModalLabel"><?php echo $item['item_name']; ?></h4>
+      </div>
+      <div class="modal-body">
+        <div class="item">
+          <div class="row item-top">
+            <div class="col-md-7">
+              <h2><?php echo $item['item_name']; ?> - <span>Rs <?php echo $item['item_price']; ?></span></h2>
+              <p><?php echo $item['item_description'] ?></p>
+            </div>
+            <div class="col-md-5">
+              <a href="#" class="pull-right"><i class="fa fa-heart"></i> 
+               <?php if($item['item_reviews'] == null){    
+               echo 0; 
+               } else {
+               echo $item['item_reviews']; } ?>
+               reviews</a> 
+              <a href="#" class="pull-right itemdisliked" data-id="<?php echo $item['item_id'];?>"><i class="fa fa-thumbs-down"></i>
+              <?php 
+              if($item['item_dislikes'] == null)
+              {
+                echo 0;
+              }
+              else
+              {
+              echo $item['item_dislikes'];  
+              }
+              ?></a> 
+              <a href="#" class="pull-right last itemliked" data-id="<?php echo $item['item_id'];?>"><i class="fa fa-thumbs-up"></i><?php 
+              if($item['item_likes']==null)
+              {
+               echo 0;
+              }
+              else{
+              echo $item['item_likes'];
+              }
+              ?></a>
+            </div>
+            <div class="clear"></div>
+          </div>  
+          <section class="reviews">
+          <?php $itemreviews = $item['item_review'];
+           if(sizeof($itemreviews)!=0) {?> 
+           <?php   foreach ($itemreviews as $itemreview){ ?>
+            <article class="review">
+              <figure class="author">
+                <img src="/images/default-avatar.png" alt="">                                  
+              </figure>
+              <!-- /.author-->
+              <div class="wrapper row">
+                <h5 class="pull-left tl"><?php echo $itemreview['cusname']?> <span><?php echo date("d-M-Y", strtotime($itemreview['ir_reviewdate']));?></span><br /><span><?php echo $itemreview['review'];?></span></h5>  
+                <div class="rating-small pull-right"><?php echo $itemreview['rating'];?></div>
+              </div>
+              <?php 
+                  $itemreviewGallery = $itemreview['gallery'];
+                  if(is_array($itemreviewGallery)&&(sizeof($itemreviewGallery)>0))
+                  {
+                    echo '<article class="item-gallery">
+                            
+                                          <div class="thumbnails">';
+                                          if(sizeof($itemreviewGallery)>5){
+                                              echo '<span class="itemexpand-content btn framed  customized icon" data-expand="#gallery-thumbnails'.$itemreview['irid'].'">'.(sizeof($itemreviewGallery)-5).' More<i class="fa fa-plus"></i></span>';
+                                              }                                               
+                                              echo '<div class="expandable-content height show-80 collapsed" id="gallery-thumbnails'.$itemreview['irid'].'" style="height: 190px; overflow: hidden;">
+                                                  <div class="content">';
+                                                foreach ($itemreviewGallery as $img) 
+                                                {
+                                                  echo ' <a href="#1"  class="active galleryPopup"><img src="'.$img.'" alt=""></a>';
+                                                }
+                    echo ' </div>
+                                              </div>
+                                          </div>
+                     </article>';
+                   }
+            ?>
+            </article>
+          <?php   } ?>
+          <?php }else{
+              echo '<h3>Be The First one to make a review</h3>';
+              }?>
+            </section>
+            <div id="scrolltoitemtarget<?php echo $item['item_id'];?>"><p>Your Review</p></div>
+            <form name="Itemreviewdetails" class="itemform<?php echo $item['item_id']; ?>" id="<?php echo $item['item_id']; ?>" method="post" role="form">
+             <div class="form-group">
+              <div class = "update_review">
+                <div data-attribute= "<?php echo $item['item_id']; ?>" class="writeItemReview" data-id="writeitem<?php echo $item['item_id']; ?>" style="height:140px;" >
+                  Write a review.                            
+                </div>            
+                <div id="itemReviewBlock<?php echo $item['item_id']; ?>" data-id="togle<?php echo $item['item_id']; ?>" class="review_block dnone">
+                  <div class="input select rating-a">
+                  <label for="example-a">Your    Rating:</label>
+                    <select class="example-a" name="ir_review_ratings">
+                      <option value="1">1</option>                                        
+                      <option value="2">2</option>                                        
+                      <option value="3">3</option>                                        
+                      <option value="4">4</option>                                      
+                      <option value="5">5</option>
+                  </select>
+                  </div>
+                   <div class="form-group col-md-12 no-float no-padding" style="margin-bottom: 0px;">
+                  <textarea rows="10" style="width:100%"  name="ir_review_text"></textarea>
+                  <input type="hidden"  name="userid" value="<?php echo $this->userid;?>">
+                  <input type="hidden" value="<?php echo $item['item_id']; ?>" name="iritemid_fk_miid">
+                  <input type="hidden" value="<?php echo $this->resid;?>" name="irresid_fk_resid">
+                  <input type="hidden" name="ircreateddate" value="<?php echo date("Y.m.d"); ?>">
+                  <?php date_default_timezone_set("Asia/Calcutta"); ?>
+                  <?php $dateandtime = date('Y-m-d G:i:s'); ?>
+                  <input type="hidden" name="ircreateddateandtime" value="<?php echo $dateandtime; ?>">
+                  </div>
+                  <div class="form-group col-md-12 no-float no-padding" style="margin-bottom: 0px;">
+                    <div class="full-width" style="line-height: 34px;">
+                    <input type="file" class="ir_file_button" multiple />
+                    <div class="ir_selected_images<?php echo $item['item_id']; ?>"></div>            
+                    </div>
+                  </div>                 
+                  <div class="form-group col-md-12 no-float no-padding no-margin">
+                    <button class="btn pull-right btn-default itemformbtn">submit</button>
+                    <div style="clear:both"></div>
+                    </div>
+                    <div style="clear:both"></div>
+                </div>
+              </div>
+                
+             </div>
+            </form>
+        </div>
+      </div>
+    </div>     
+  </div>
+</div>   
+<?php } ?>
+<?php } ?>
+
+<?php }?>
+
+<!-- end popup-->
+
+
+<style>
+.update_review{
+  width:100%;
+  border-radius: 3px;
+  border: 1px solid #E9E9E9;
+  background-color: #F4F4F4;
+  padding: 5px;  
+  min-height: 120px!important;
+  cursor:text;
+  }
+.writeReview{
+  min-height: 120px!important;
+  }
+.update_review:hover{
+  border: 1px solid #cbcbcb;
+  }
+ 
+.btn4 {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-size: 1em;
+    font-weight: bold;
+    background: #BC212D;
+    height: 34px;
+    line-height: 34px;
+}
+.review-submit{
+    width: 100% !important;
+  text-align:center;
+  background: #BC212D;
+  color:#fff;
+  border-radius:4px;
+}
+.review-submit:hover{
+    width: 100% !important;
+  text-align:center;
+  background: #BC212D;
+  color:#fff;
+  border-radius:4px;
+}
+.page-item-detail #main-content h2{cursor:pointer;}
+</style>
+ 
+<script>
+    var itemID = 1;
+   
+    $(window).load(function(){
+        var rtl = false; // Use RTL
+        initializeOwl(rtl);
+    });
+</script>

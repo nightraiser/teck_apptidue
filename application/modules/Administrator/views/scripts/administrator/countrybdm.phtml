@@ -1,0 +1,256 @@
+<style type="text/css">
+	.error-check
+	{
+		border: 3px solid red;
+	}
+	.result
+	{
+		color:red;
+	}
+</style>
+<script type="text/javascript" src="/theme/ui/minified/jquery.ui.widget.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.position.min.js"></script>
+<script type="text/javascript" src="/theme/ui/minified/jquery.ui.dialog.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.resizable.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.draggable.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.droppable.min.js"></script>
+<script type="text/javascript">
+var perform ;
+var timezone_data="";
+$(function()
+{
+	var action = 'CountryTimezone';
+	var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'locationchangeajax'),null,true);?>"; 
+	$.post(url,{action:"CountryTimezone",id:0},
+			function(data){	
+				var data = JSON.parse(data);	
+				for(var i in data)
+		        	{
+		        		timezone_data += "<option value='"+data[i]['value']+"'>"+data[i]['key']+"</option>";
+		        	}
+			});
+	$(".addButton").click(function()
+	{
+		$(".menuDia").dialog('destroy');
+		var htmlDia = '<div class="modal-window fade_in "><div class="modal-wrapper">';
+        htmlDia += '<h2>Add Country</h2>';
+       	htmlDia += '<div class="modal-body"><div class="modal-content">';
+       	htmlDia +='<div class="result"></div>';
+        htmlDia += '<form role="form" id="modal-form">';
+        htmlDia +='<div class="form-group">';
+        htmlDia +='<lable for="code">Country code</label>'
+        htmlDia += '<input required type="text" placeholder="Country Title" class="form-control" name="code" />';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group">';
+         htmlDia +='<lable for="description">Country Description</label>'
+        htmlDia += '<input required type="text" placeholder="Country Description" class="form-control" name="description" />';
+        htmlDia +='</div>';
+          htmlDia += '<div class="form-group">';
+         htmlDia +='<lable for="currency_code">Country Currency code</label>'
+        htmlDia += '<input required type="text" placeholder="Country Curreny code" class="form-control" name="currency_code" />';
+        htmlDia +='</div>';
+         htmlDia += '<div class="form-group">';
+        htmlDia +='<lable for="country_dial_code">Country Dial code</label>'
+        htmlDia += '<input required type="text" placeholder="Country Dial code" class="form-control" name="country_dial_code" />';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group">';
+         htmlDia +='<lable for="country_id">Timezones</label>'
+        htmlDia += '<select multiple class="form-control" name="timezone">'+timezone_data+'</select>';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group"><button type="submit" class="btn pull-right btn-default" id="addCountrySubmit" >Submit</button></div></form>';
+		htmlDia += '</div></div><div class="modal-close"><img src="/images/close.png"></div></div><div class="modal-background fade_in"></div></div>';
+        $('body').append(htmlDia);
+        perform="append";
+	});
+
+	$(".editButton").click(function()
+	{
+		var parentTr = $(this).parents('tr');
+		var csid = $(this).attr("data-id");
+		var populateData = [];
+		
+		parentTr.find("td[name='countrycode'],td[name='countrydescription'],td[name='countrycurrency_code'],td[name='countrycountry_dial_code']").each(function()
+		{
+			populateData[$(this).attr("name")] = $(this).attr("data-value");
+		});
+		//console.log(populateData);return false;
+		$(".menuDia").dialog('destroy');
+		var htmlDia = '<div class="modal-window fade_in"><div class="modal-wrapper">';
+        htmlDia += '<h2>Edit Country</h2>';
+       	htmlDia += '<div class="modal-body"><div class="modal-content">';
+       	htmlDia +='<div class="result"></div>';
+        htmlDia += '<form role="form" id="modal-form">';
+        htmlDia +='<div class="form-group">';
+        htmlDia +='<lable for="code">Country code</label>'
+        htmlDia += '<input required type="text" placeholder="Country Title" class="form-control" value="'+populateData['countrycode']+'" name="code" />';
+        htmlDia +='<input name="id" type="hidden" value="'+csid+'" />';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group">';
+         htmlDia +='<lable for="description">Country Description</label>'
+        htmlDia += '<input required type="text" value="'+populateData['countrydescription']+'" placeholder="Country Description" class="form-control" name="description" />';
+        htmlDia +='</div>';
+         htmlDia += '<div class="form-group">';
+         htmlDia +='<lable for="currency_code">Country Currency code</label>'
+        htmlDia += '<input required type="text" value="'+populateData['countrycurrency_code']+'" placeholder="Country Currency code" class="form-control" name="currency_code" />';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group">';
+        htmlDia +='<lable for="country_dial_code">Country Dial code</label>'
+        htmlDia += '<input required type="text" value="'+populateData['countrycountry_dial_code']+'" placeholder="Country Dial code" class="form-control" name="country_dial_code" />';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group"><button type="submit" class="btn pull-right btn-default" id="addCountrySubmit" >Submit</button></div></form>';
+		htmlDia += '</div></div><div class="modal-close"><img src="/images/close.png"></div></div><div class="modal-background fade_in"></div></div>';
+        $('body').append(htmlDia);
+        perform="update";
+
+	});
+	$("#modal-form").live("submit",function()
+	{
+		var country = $("#modal-form").serializeArray();	
+		var validate=true;
+		if(validate)
+		{
+			var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'countrybdm'),null,true);?>";
+			$.post(url,{perform:perform,data:country},function(data){
+				console.log(data);
+				if(isNaN(data))
+				{
+					if(perform=="append")
+					{
+						if(data=='f')
+						{
+							$(".result").html("Country code already exits");
+							$("input[name='code']").css({"border-width":"3px","border-color":"red","border-style":"solid"});
+						}
+
+					}
+					if(perform=="update")
+					{
+						if(data=='f')
+						{
+							$(".result").html("Country code already exits");
+							$("input[name='code']").css({"border-width":"3px","border-color":"red","border-style":"solid"});
+
+						}
+
+					}
+				}
+				else
+				{
+					if(parseInt(data)>0)
+					{
+						$(".result").css("color","green");
+						if(perform == "update")
+						{
+								var tr = $("button[data-id='"+country[1]['value']+"']").parent().parent();
+								for(var i in country)
+								{
+									$(tr).find("td[name='country"+country[i]['name']+"']").each(function(){
+										$(this).attr("data-value",country[i]['value'])
+										$(this).html(country[i]['value']);
+									});
+								}
+								$(".result").html("Updated");
+								setTimeout(function() {
+								$(".modal-close").click();
+								},1000);
+
+						}
+						else
+						{
+								$(".result").html("Added");
+								setTimeout(function() {location.reload();},1000);
+						}
+					}
+				}
+			});
+		}
+		return false;
+	});
+	$(".statusChangeButton").click(function()
+	{
+		var csid = $(this).attr("data-id");
+		var statusvalue = $(this).attr("data-value");
+		var status;
+		if(statusvalue=="true")
+		{
+			status = false;
+		}
+		else
+		{
+			status = true;
+		}
+		var country = [{name:'id',value:csid},{name:'status',value:status}];
+		console.log(country);
+		var btn = $(this);
+		var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'countrybdm'),null,true);?>";
+		$.post(url,{perform:"update",data:country},function(data)
+		{
+			console.log(data);
+			if(!isNaN(data))
+			{
+				btn.attr("data-value",status);
+				if(status)
+				{
+					btn.attr("class","sml-btn1 green statusChangeButton");
+					btn.html("ACTIVE");
+				}
+				else
+				{
+					btn.attr("class","sml-btn1 statusChangeButton");
+					btn.html("INACTIVE");
+				}
+			}
+		});
+	});
+});
+
+</script>
+<div class="page-content">
+
+<div class="container">
+<header><h2>Country Management</h2></header>
+	<?php $countryData = $this->countryData; ?>
+	<br>
+	<button class="addButton btn btn-default pull-right">Add a country</button>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Code</th>
+				<th>Description</th>
+				<th>Currency</th>
+				<th>Dial code</th>
+				<th>Status</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<?php foreach ($countryData as $country): ?>
+			<tr>
+				<td name='countrycode' data-value="<?php echo $country->getCode(); ?>">
+					<?php echo $country->getCode(); ?>
+				</td>
+				<td name='countrydescription' data-value="<?php echo $country->getDescription();?>">
+					<?php echo $country->getDescription();?>
+				</td>
+				<td name='countrycurrency_code' data-value="<?php echo $country->getCurrency_code();?>">
+					<?php echo $country->getCurrency_code();?>
+				</td>
+					<td name='countrycountry_dial_code' data-value="<?php echo $country->getCountry_dial_code();?>">
+					<?php echo $country->getCountry_dial_code();?>
+				</td>
+				<td>
+				<?php 
+					     if($country->getStatus()){
+					      echo '<button class="sml-btn1 green statusChangeButton" data-id="'.$country->getId().'" data-value="true">ACTIVE</button>';
+					     }else{
+					      echo '<button class="sml-btn1 statusChangeButton" data-id= "'.$country->getId().'" data-value="false">INACTIVE</button>';
+					     } 
+			     ?>
+			     </td>
+				<td>
+				<button class="editButton btn btn-default" data-id="<?php echo $country->getId(); ?>">Edit</button>
+				</td>
+			</tr>
+		<?php endforeach ?>
+	</table>
+</div>
+</div>

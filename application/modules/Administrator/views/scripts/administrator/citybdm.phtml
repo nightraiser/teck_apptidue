@@ -1,0 +1,238 @@
+<style type="text/css">
+	.error-check
+	{
+		border: 3px solid red;
+	}
+	.result
+	{
+		color:red;
+	}
+</style>
+<script type="text/javascript" src="/theme/ui/minified/jquery.ui.widget.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.position.min.js"></script>
+<script type="text/javascript" src="/theme/ui/minified/jquery.ui.dialog.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.resizable.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.draggable.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.droppable.min.js"></script>
+<script type="text/javascript">
+var perform ;
+var country_data="";
+$(function()
+{
+	var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'locationchangeajax'),null,true);?>";
+			$.post(url,{action:"country_data"},function(data){
+					data = JSON.parse(data);
+					for(var i in data)
+		        	{
+		        		country_data += "<option value='"+data[i]['key']+"'>"+data[i]['value']+"</option>";
+		        	}
+			});
+
+	$(".addButton").click(function()
+	{
+		$(".menuDia").dialog('destroy');
+		var htmlDia = '<div class="modal-window fade_in"><div class="modal-wrapper">';
+        htmlDia += '<h2>Add city</h2>';
+       	htmlDia += '<div class="modal-body"><div class="modal-content">';
+       	htmlDia +='<div class="result"></div>';
+        htmlDia += '<form role="form" id="modal-form">';
+        htmlDia +='<div class="form-group">';
+        htmlDia +='<lable for="code">City code</label>'
+        htmlDia += '<input required type="text" placeholder="city Title" class="form-control" name="code" />';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group">';
+         htmlDia +='<lable for="description">City Description</label>'
+        htmlDia += '<input required type="text" placeholder="city Description" class="form-control" name="description" />';
+        htmlDia +='</div>';
+       htmlDia += '<div class="form-group">';
+         htmlDia +='<lable for="country_id">Country name</label>'
+        htmlDia += '<select class="form-control" name="country_id">'+country_data+'</select>';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group"><button type="submit" class="btn pull-right btn-default" id="addcitySubmit" >Submit</button></div></form>';
+		htmlDia += '</div></div><div class="modal-close"><img src="/images/close.png"></div></div><div class="modal-background fade_in"></div></div>';
+        $('body').append(htmlDia);
+        perform="append";
+	});
+	
+
+	$(".editButton").click(function()
+	{
+		var parentTr = $(this).parents('tr');
+		var csid = $(this).attr("data-id");
+		var populateData = [];
+		var country_id = $("td[name='citycountry_name']",parentTr).attr("data-value");
+		parentTr.find("td[name='citycode'],td[name='citydescription']").each(function()
+		{
+			populateData[$(this).attr("name")] = $(this).attr("data-value");
+		});
+		$(".menuDia").dialog('destroy');
+		var htmlDia = '<div class="modal-window fade_in"><div class="modal-wrapper">';
+        htmlDia += '<h2>Edit city</h2>';
+       	htmlDia += '<div class="modal-body"><div class="modal-content">';
+       	htmlDia +='<div class="result"></div>';
+        htmlDia += '<form role="form" id="modal-form">';
+        htmlDia +='<div class="form-group">';
+        htmlDia +='<lable for="code">city code</label>'
+        htmlDia += '<input required type="text" placeholder="City Title" class="form-control" value="'+populateData['citycode']+'" name="code" />';
+        htmlDia +='<input name="id" type="hidden" value="'+csid+'" />';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group">';
+         htmlDia +='<lable for="description">city Description</label>'
+        htmlDia += '<input required type="text" value="'+populateData['citydescription']+'" placeholder="city Description" class="form-control" name="description" />';
+        htmlDia +='</div>';
+          htmlDia += '<div class="form-group">';
+         htmlDia +='<lable for="country_id">Country name</label>'
+        htmlDia += '<select class="form-control" name="country_id">'+country_data+'</select>';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group"><button type="submit" class="btn pull-right btn-default" id="addcitySubmit" >Submit</button></div></form>';
+		htmlDia += '</div></div><div class="modal-close"><img src="/images/close.png"></div></div><div class="modal-background fade_in"></div></div>';
+        $('body').append(htmlDia);
+        if(country_id>0)
+        {
+        	$("select[name='country_id']").val(country_id);
+        }
+        perform="update";
+
+	});
+	$("#modal-form").live("submit",function()
+	{
+		var city = $("#modal-form").serializeArray();	
+		var validate=true;
+		if(validate)
+		{
+			var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'citybdm'),null,true);?>";
+			$.post(url,{perform:perform,data:city},function(data){
+				console.log(data);
+				if(isNaN(data))
+				{
+					if(perform=="append")
+					{
+						if(data=='f')
+						{
+							$(".result").html("city code already exits");
+							$("input[name='code']").css({"border-width":"3px","border-color":"red","border-style":"solid"});
+						}
+
+					}
+					if(perform=="update")
+					{
+						if(data=='f')
+						{
+							$(".result").html("city code already exits");
+							$("input[name='code']").css({"border-width":"3px","border-color":"red","border-style":"solid"});
+
+						}
+
+					}
+				}
+				else
+				{
+					if(parseInt(data)>0)
+					{
+						$(".result").css("color","green");
+						if(perform == "update")
+						{
+								var tr = $("button[data-id='"+city[1]['value']+"']").parent().parent();
+								for(var i in city)
+								{
+									$(tr).find("td[name='city"+city[i]['name']+"']").each(function(){
+										$(this).html(city[i]['value']);
+										$(this).attr("data-value",city[i]['value']);
+									});
+								}
+								$("td[name='citycountry_name']",tr).html($("select[name='country_id'] option:selected").text());
+								$("td[name='citycountry_name']",tr).attr("data-value",$("select[name='country_id']").val());
+								$(".result").html("Updated");
+								setTimeout(function() {
+								$(".modal-close").click();
+								},1000);
+
+						}
+						else
+						{
+								$(".result").html("Added");
+								setTimeout(function() {
+								location 	.reload();
+								},1000);
+						}
+					}
+				}
+			});
+		}
+		return false;
+	});
+	$(".statusChangeButton").click(function()
+	{
+		var csid = $(this).attr("data-id");
+		var statusvalue = $(this).attr("data-value");
+		var status;
+		if(statusvalue=="true")
+		{
+			status = false;
+		}
+		else
+		{
+			status = true;
+		}
+		var city = [{name:'id',value:csid},{name:'status',value:status}];
+		console.log(city);
+		var btn = $(this);
+		var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'citybdm'),null,true);?>";
+		$.post(url,{perform:"update",data:city},function(data)
+		{
+			console.log(data);
+			if(!isNaN(data))
+			{
+				btn.attr("data-value",status);
+				if(status)
+				{
+					btn.attr("class","sml-btn1 green statusChangeButton");
+					btn.html("ACTIVE");
+				}
+				else
+				{
+					btn.attr("class","sml-btn1 statusChangeButton");
+					btn.html("INACTIVE");
+				}
+			}
+		});
+	});
+});
+
+</script>
+<div class="page-content">
+
+<div class="row">
+<div class="col-md-12">
+<div class="container">
+ <header>
+    <h1 class="page-title">City Management</h1>
+</header>
+<button class="addButton btn btn-default pull-right">Add a city</button>
+</div>
+</div>
+<div class="container">
+	<?php $cityData = $this->cityData; ?>
+	<br>
+	<table class="table">
+		<?php foreach ($cityData as $city): ?>
+			<tr>
+				<td name='citycode' data-value="<?php echo $city->getCode(); ?>"><?php echo $city->getCode(); ?></td>
+				<td name='citydescription' data-value="<?php echo $city->getDescription();?>"><?php echo $city->getDescription();?></td>
+				<td name="citycountry_name" data-value="<?php echo $city->getCountry_id(); ?>"><?php echo $city->getCountry_name(); ?> </td>
+				<td>
+				<?php 
+					     if($city->getStatus()){
+					      echo '<button class="sml-btn1 green statusChangeButton" data-id="'.$city->getId().'" data-value="true">ACTIVE</button>';
+					     }else{
+					      echo '<button class="sml-btn1 statusChangeButton" data-id= "'.$city->getId().'" data-value="false">INACTIVE</button>';
+					     } 
+			     ?>
+			     </td>
+				<td><button class="editButton btn btn-default" data-id="<?php echo $city->getId(); ?>">Edit</button></td>
+			</tr>
+		<?php endforeach ?>
+	</table>
+</div>
+</div>
+</div>

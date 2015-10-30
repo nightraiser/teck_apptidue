@@ -1,0 +1,233 @@
+<style type="text/css">
+	.search-bar.horizontal .main-search .input-row {
+  margin-bottom: 10px !important;
+}
+.info{
+	padding:10px;
+	background: #ececec;
+	text-align: center;
+	text-transform: uppercase;
+	margin-bottom:20px;
+}
+.col-xs-offset-1{margin-left:6%;}
+.info h3{
+	margin-bottom: 6px;
+	font-size: 22px;
+}
+</style>
+<?php 
+$restaurantData = $this->restaurantData;
+$filterForm = $this->filterForm;
+?>
+<script>
+	$('select').selectpicker('render');
+</script>
+
+<div id="page-content">
+	
+			   <section class="sub-header">
+            <div class="search-bar horizontal collapse" id="redefine-search-form" style="height: 0px;">
+<div class="content">
+<div class="container">
+    <form class="main-search inputs-3" role="form" method="post" action="?">
+        <div class="input-row">
+            <div class="form-group">
+                	<?php echo $filterForm->resid; ?>
+            </div><!-- /.form-group -->
+            <div class="form-group">
+                <?php echo $filterForm->resname; ?>
+            </div>
+            <!-- /.form-group -->
+            <!-- /.form-group -->
+            <div class="form-group">
+                <?php echo $filterForm->resemail; ?>
+            </div>
+            <!-- /.form-group -->
+            </div>
+
+            <div class="input-row">
+            <div class="form-group">
+              	<?php echo $filterForm->rescountry_id; ?>
+            </div>
+            <!-- /.form-group -->
+            <!-- /.form-group -->
+            <div class="form-group">
+              	<?php echo $filterForm->rescity_id; ?>
+            </div>
+            <!-- /.form-group -->
+            <!-- /.form-group -->
+            <div class="form-group">
+              	<?php echo $filterForm->reslocation_id; ?>
+            </div>
+
+            <!-- /.form-group -->
+            <div class="form-group" style="width: initial;">
+                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+            </div>
+            <!-- /.form-group -->
+        </div>
+    </form>
+    <!-- /.main-search -->
+</div>
+<!-- /.container -->
+</div>
+
+
+
+</div>
+            <!-- /.search-bar -->
+            <div class="breadcrumb-wrapper">
+                <div class="container">
+                    <div class="redefine-search">
+                        <a href="#redefine-search-form" class="inner collapsed" data-toggle="collapse" aria-expanded="false" aria-controls="redefine-search-form">
+                            <span class="icon"></span>
+                            <span>Redefine Search</span>
+                        </a>
+                    </div>
+                    <ol class="breadcrumb">
+                        <li><a href="index-directory.html"><i class="fa fa-home"></i></a></li>
+                        <li><a href="#">Page</a></li>
+                        <li class="active">Detail</li>
+                    </ol>
+                    <!-- /.breadcrumb-->
+                </div>
+                <!-- /.container-->
+            </div>
+            <!-- /.breadcrumb-wrapper-->
+        </section>
+    <section class="container">
+        <div class="row">
+            <!--Company Detail Content-->
+            <div class="col-md-12">
+                <header>
+                    <h1 class="page-title">Manage Restaurant</h1>
+                </header>
+                <hr>
+				<header>
+                    <h1>Restaurants</h1>
+                </header>
+				<table class="table">
+					<tr>
+						<th>Res Id</th><th>Restaurant Name</th><th>Location</th><th>City</th><th>Country</th><th>Status</th><th>Actions</th><th>Reports</th>
+					</tr>
+					<?php foreach ($restaurantData as $restaurant):?>
+					<tr>
+						<td><?php  echo $restaurant['resid'] ?></td><td><?php echo $restaurant['resname'];?></td><td><?php echo $restaurant['location_name'];?></td><td><?php echo $restaurant['city_name'];?></td><td><?php echo $restaurant['country_name'];?></td><td name="statusTd">
+							<?php if($restaurant['res_status']==1)
+							  {
+							  	echo 'Active';
+							  }
+							  else
+							  {
+							  	echo 'In-Active';
+							  }
+							  ?>
+						</td>
+						<td>
+							  <a href="<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'firmedit','resid'=>$restaurant['resid']),null,true);?>"><i class="fa fa-edit"></i> Edit</a>&nbsp; | &nbsp;
+							
+							  <a href="<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'firmedit','resid'=>$restaurant['resid']),null,true);?>"><i class="fa fa-info-circle"></i> Info</a><br>
+							  <a href="<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'menucategoryanditems','restaurantid'=>$restaurant['resid']),null,true);?>"><i class="fa fa-edit"></i>Menu</a> &nbsp; | &nbsp;
+							    <?php 
+							  if($restaurant['res_status']==1)
+							  {
+							  	echo ' <a class="statusChangeButton" href="#" data-id="'.$restaurant['resid'].'" data-value="'.$restaurant['res_status'].'"><i class="fa fa-times"></i>De-Activate</a>';
+							  }
+							  else
+							  {
+							  	echo ' <a class="statusChangeButton" href="#" data-id="'.$restaurant['resid'].'" data-value="'.$restaurant['res_status'].'"><i class="fa fa-times"></i>Activate</a>';
+							  }
+							  ?>
+						</td>
+						<td>
+							<a href="#" data-toggle='modal' data-target="#report<?php echo $restaurant['resid']; ?>"><i class="fa fa-info-circle"></i> Reporting</a>
+						</td>
+					</tr>
+				<?php endforeach ?>		
+				</table>
+				
+            </div>
+            <!-- /.col-md-8-->
+        </div><!-- /.row-->
+    </section>
+    <!-- /.container-->
+</div>
+</div>
+<!--popup-->
+ <?php foreach ($restaurantData as $restaurant){?>
+     	<div id="report<?php echo $restaurant['resid']; ?>" class="modal fade" role="dialog">
+			<div class="modal-dialog" style="width:400px;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Restaurant Report</h4>
+					</div>
+					<div class="modal-body">
+						<section>
+							<div class="row">
+									<div class="col-md-5 col-xs-offset-1 info">
+										<h3><i class="fa fa-eye"></i> Views</h3>
+										<figure><?php echo $restaurant['resview'] ?></figure>
+									</div>
+									<div class="col-md-5 col-xs-offset-1 info">
+										<h3><i class="fa fa-heart"></i> Visits</h3>
+										<figure><?php echo $restaurant['resvisit'] ?></figure>
+									</div>
+ 										<div class="col-md-5 col-xs-offset-1 info">
+										<h3><i class="fa fa-thumbs-up"></i> Likes</h3>
+										<figure><?php echo $restaurant['res_likes'] ?></figure>
+									</div>
+									<div class="col-md-5 col-xs-offset-1 info">
+										<h3><i class="fa fa-thumbs-down"></i> Dislikes</h3>
+										<figure><?php echo $restaurant['res_dislikes'] ?></figure>
+									</div>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+	<?php } ?>
+<!--popup-->
+ <script type="text/javascript">
+$(function()
+{
+	$(".statusChangeButton").click(function()
+	{
+		var value = parseInt($(this).attr("data-value"));
+		var id = parseInt($(this).attr("data-id"));
+		var target = $(this);
+		var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'updaterestaurantajax'),null,true);?>";
+		$.post(url, {data:value,updateId:id}, function(data)
+		{
+
+			if(data!=false)
+			{
+				$(target).attr("data-value",data);
+				var parentTr = $(target).parents('tr');
+				if(data==2)
+				{
+					$(target).html('<i class="fa fa-times"></i>Activate');
+					parentTr.find("td[name='statusTd']").each(function()
+					{
+						$(this).html("In-Active");
+					});
+
+				}
+				else
+				{
+					$(target).html('<i class="fa fa-times"></i>De-Activate');
+					parentTr.find("td[name='statusTd']").each(function()
+					{
+						$(this).html("Active");
+					});
+	
+				}
+			}
+		});
+		return false;
+	});
+});
+
+
+ </script> 

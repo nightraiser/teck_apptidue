@@ -1,0 +1,212 @@
+<style type="text/css">
+	.error-check
+	{
+		border: 3px solid red;
+	}
+	.result
+	{
+		color:red;
+	}
+</style>
+<script type="text/javascript" src="/theme/ui/minified/jquery.ui.widget.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.position.min.js"></script>
+<script type="text/javascript" src="/theme/ui/minified/jquery.ui.dialog.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.resizable.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.draggable.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.droppable.min.js"></script>
+<script type="text/javascript">
+var perform ;
+$(function()
+{
+	$(".addButton").click(function()
+	{
+		$(".menuDia").dialog('destroy');
+		var htmlDia = '<div class="modal-window fade_in"><div class="modal-wrapper">';
+        htmlDia += '<h2>Add Cusine</h2>';
+       	htmlDia += '<div class="modal-body"><div class="modal-content">';
+       	htmlDia +='<div class="result"></div>';
+        htmlDia += '<form role="form" id="modal-form">';
+        htmlDia +='<div class="form-group">';
+        htmlDia +='<lable for="code">Cusine code</label>'
+        htmlDia += '<input required type="text" placeholder="Cusine Title" class="form-control" name="code" />';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group">';
+         htmlDia +='<lable for="description">Cusine Description</label>'
+        htmlDia += '<input required type="text" placeholder="Cusine Description" class="form-control" name="description" />';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group"><button type="submit" class="btn pull-right btn-default" id="addCusineSubmit" >Submit</button></div></form>';
+		htmlDia += '</div></div><div class="modal-close"><img src="/images/close.png"></div></div><div class="modal-background fade_in"></div></div>';
+        $('body').append(htmlDia);
+        perform="append";
+	});
+
+	$(".editButton").click(function()
+	{
+		var parentTr = $(this).parents('tr');
+		var csid = $(this).attr("data-id");
+		var populateData = [];
+		
+		parentTr.find("td[name='cuscode'],td[name='cusdescription']").each(function()
+		{
+			populateData[$(this).attr("name")] = $(this).attr("data-value");
+		});
+		//console.log(populateData);return false;
+		$(".menuDia").dialog('destroy');
+		var htmlDia = '<div class="modal-window fade_in"><div class="modal-wrapper">';
+        htmlDia += '<h2>Edit Cusine</h2>';
+       	htmlDia += '<div class="modal-body"><div class="modal-content">';
+       	htmlDia +='<div class="result"></div>';
+        htmlDia += '<form role="form" id="modal-form">';
+        htmlDia +='<div class="form-group">';
+        htmlDia +='<lable for="code">Cusine code</label>'
+        htmlDia += '<input type="text" placeholder="Cusine Title" class="form-control" value="'+populateData['cuscode']+'" name="code" />';
+        htmlDia +='<input name="id" type="hidden" value="'+csid+'" />';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group">';
+         htmlDia +='<lable for="description">Cusine Description</label>'
+        htmlDia += '<input type="text" value="'+populateData['cusdescription']+'" placeholder="Cusine Description" class="form-control" name="description" />';
+        htmlDia +='</div>';
+
+        htmlDia += '<div class="form-group"><button type="submit" class="btn pull-right btn-default" id="addCusineSubmit" >Submit</button></div></form>';
+		htmlDia += '</div></div><div class="modal-close"><img src="/images/close.png"></div></div><div class="modal-background fade_in"></div></div>';
+        $('body').append(htmlDia);
+        perform="update";
+
+	});
+	$("#modal-form").live("submit",function()
+	{
+		var cusine = $("#modal-form").serializeArray();	
+		var validate=true;
+		if(validate)
+		{
+			var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'cusinebdm'),null,true);?>";
+			$.post(url,{perform:perform,data:cusine},function(data){
+				console.log(data);
+				if(isNaN(data))
+				{
+					if(perform=="append")
+					{
+						if(data=='f')
+						{
+							$(".result").html("Cusine code already exits");
+							$("input[name='code']").css({"border-width":"3px","border-color":"red","border-style":"solid"});
+						}
+
+					}
+					if(perform=="update")
+					{
+						if(data=='f')
+						{
+							$(".result").html("Cusine code already exits");
+							$("input[name='code']").css({"border-width":"3px","border-color":"red","border-style":"solid"});
+
+						}
+
+					}
+				}
+				else
+				{
+					if(parseInt(data)>0)
+					{
+						$(".result").css("color","green");
+						if(perform == "update")
+						{
+								var tr = $("button[data-id='"+cusine[1]['value']+"']").parent().parent();
+								for(var i in cusine)
+								{
+									$(tr).find("td[name='cus"+cusine[i]['name']+"']").each(function(){
+										$(this).attr("data-value",cusine[i]['value'])
+										$(this).html(cusine[i]['value']);
+									});
+								}
+								$(".result").html("Updated");
+								setTimeout(function() {
+								$(".modal-close").click();
+								},1000);
+
+						}
+						else
+						{
+								$(".result").html("Added");
+								setTimeout(function() {
+								location 	.reload();
+								},1000);
+						}
+					}
+				}
+			});
+		}
+		return false;
+	});
+	$(".statusChangeButton").click(function()
+	{
+		var csid = $(this).attr("data-id");
+		var statusvalue = $(this).attr("data-value");
+		var status;
+		if(statusvalue=="true")
+		{
+			status = false;
+		}
+		else
+		{
+			status = true;
+		}
+		var cusine = [{name:'id',value:csid},{name:'status',value:status}];
+		console.log(cusine);
+		var btn = $(this);
+		var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'cusinebdm'),null,true);?>";
+		$.post(url,{perform:"update",data:cusine},function(data)
+		{
+			console.log(data);
+			if(!isNaN(data))
+			{
+				btn.attr("data-value",status);
+				if(status)
+				{
+					btn.attr("class","sml-btn1 green statusChangeButton");
+					btn.html("ACTIVE");
+				}
+				else
+				{
+					btn.attr("class","sml-btn1 statusChangeButton");
+					btn.html("INACTIVE");
+				}
+			}
+		});
+	});
+});
+
+</script>
+<div class="page-content">
+
+<div class="container">
+<header><h2>Cusine Management</h2></header>
+	<?php $cusineData = $this->cusineData; ?>
+	<br>
+	<button class="addButton btn btn-default pull-right">Add a cusine</button>
+	<table class="table">
+		<?php foreach ($cusineData as $cusine): ?>
+			<tr>
+				<td name='cuscode' data-value="<?php echo $cusine->getCode(); ?>">
+					<?php echo $cusine->getCode(); ?>
+				</td>
+				<td name='cusdescription' data-value="<?php echo $cusine->getDescription();?>">
+					<?php echo $cusine->getDescription();?>
+				</td>
+				<td>
+				<?php 
+					     if($cusine->getStatus()){
+					      echo '<button class="sml-btn1 green statusChangeButton" data-id="'.$cusine->getId().'" data-value="true">ACTIVE</button>';
+					     }else{
+					      echo '<button class="sml-btn1 statusChangeButton" data-id= "'.$cusine->getId().'" data-value="false">INACTIVE</button>';
+					     } 
+			     ?>
+			     </td>
+				<td>
+				<button class="editButton btn btn-default" data-id="<?php echo $cusine->getId(); ?>">Edit</button>
+				</td>
+			</tr>
+		<?php endforeach ?>
+	</table>
+</div>
+</div>

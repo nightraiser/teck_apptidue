@@ -1,0 +1,521 @@
+<style type="text/css">
+	#googleMap
+	{
+		height:500px;
+		cursor: crosshair;;
+		margin: 10px;
+	}
+	#datatool
+	{
+		display: none;
+	}
+</style>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script>
+
+var polygon;
+var coords = new Array();
+var map;
+ var mapOptions ;
+ var editAble,drawAble=true;
+ var startPoint;
+ var currentPoint;
+ var pen = false;
+ var geocode ;
+ var draggable = false;
+ var mainLatLng = new google.maps.LatLng(17.4027421, 78.45245909999994);
+ var country_data="";
+ var perform="" ;
+ var isLoop = true;
+ $(function()
+ {
+ 	var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'locationbdm'),null,true);?>";
+			$.post(url,{perform:"getData"},function(data){
+					data = JSON.parse(data);
+					locationsData = data;
+					var ldata = data.data;
+					for(var i in ldata)
+		        	{
+		        		str="<tr><td name='locationcode' data-value='"+ldata[i]['code']+"'>"+ldata[i]['code']+"</td><td name='locationdescription' data-value='"+ldata[i]['description']+"'>"+ldata[i]['description']+"</td>";
+
+		        		if(ldata[i]['status'])
+		        		{
+		        			str+='<td><button class="sml-btn1 green statusChangeButton statusChangeButton" data-id="'+i+'" data-value="'+ldata[i]['status']+'">';
+		        			str+='ACTIVE';
+		        		}
+		        		else
+		        		{
+		        			str+='<td><button class="sml-btn1 statusChangeButton statusChangeButton" data-id="'+i+'" data-value="'+ldata[i]['status']+'">';
+		        			str+='INACTIVE';
+		        		}
+		        		str+='<td><button class="editButton btn btn-default" data-id="'+i+'">Edit</button></td>';
+		        		$(".locations").append(str);
+
+		        	}
+		        	$(".editButton").on('click',function()
+			 		{
+			 			perform = "update";
+			 			$(".setLocation").fadeOut(100);
+			 			$(".table-contents").fadeOut(100);
+			 			$("#datatool").fadeIn(100);
+			 			var locationid = $(this).attr("data-id");
+			 			var currentdata = locationsData.data[locationid];
+			 			var currentcenter = new google.maps.LatLng(currentdata.lb_center[0]['lat'],currentdata.lb_center[0]['lng']);
+			 			$("input[name='code']").val(currentdata.code);
+			 			$("input[name='description']").val(currentdata.description);
+			 			$("input[name='lb_center']").val("("+currentdata.lb_center[0]['lat']+","+currentdata.lb_center[0]['lng']+")");
+			 			$("input[name='lb_google_placeid']").val(currentdata.lb_google_placeid);
+			 			$("#location_id").attr("name","id");
+			 			$("#location_id").val(currentdata.id);
+			 			var crds = currentdata.border;
+			 			var strlat="";
+						for(var i in crds)
+						{
+							strlat+="("+crds[i]['lat']+","+crds[i]['lng']+"),";
+							//strlon=strlon+","+;
+						}
+						$("#latlonlat").val(strlat);
+						$("#country_id").val(currentdata.country_id);
+						getPlaces("rescountry_id","#city_id",currentdata.country_id,currentdata.country_id);
+						document.getElementById("city_id").value = currentdata.city_id;
+			 			initialize(currentdata.border,currentcenter);
+		
+			 		});
+					$(".statusChangeButton").on('click',function()
+					{
+						var priid = $(this).attr("data-id");
+						var statusvalue = $(this).attr("data-value");
+						var status;
+						if(statusvalue=="true")
+						{
+							status = false;
+						}
+						else
+						{
+							status = true;
+						}
+						var pri = [{name:'id',value:priid},{name:'status',value:status}];
+						var btn = $(this);
+						var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'locationbdm'),null,true);?>";
+						$.post(url,{perform:"update",data:pri},function(data)
+						{
+							if(!isNaN(data))
+							{
+								btn.attr("data-value",status);
+								if(status)
+								{
+									btn.attr("class","sml-btn1 green statusChangeButton");
+									btn.html("ACTIVE");
+								}
+								else
+								{
+									btn.attr("class","sml-btn1 statusChangeButton");
+									btn.html("INACTIVE");
+								}
+							}
+						});
+					});
+		        	var cdata = data.country_data;
+		        	for(var i in cdata)
+		        	{
+		        		country_data += "<option value='"+cdata[i]['key']+"'>"+cdata[i]['value']+"</option>";
+		        	}
+		        	$("#country_id").html(country_data);
+			});
+				$(".gobutton").on('click',function()
+				{
+					initialize([],mainLatLng);
+				});
+
+		 		$("#country_id").change(function()
+		 		{
+		 			getPlaces("rescountry_id","#city_id",$(this).val());
+		 		});
+
+ 		$("#modal-form").submit(function()
+	{
+		var location = $(this).serializeArray();
+		var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'locationbdm'),null,true);?>";
+			$.post(url,{perform:perform,data:location},function(data){
+				if(data=='"f"')
+				{
+					$(".error").css("color","red");
+					$(".error").html("Code already exits");
+					$("input[name='code']").css({"border-width":"3px","border-color":"red","border-style":"solid"});
+				}
+				else
+				{
+					if(!isNaN(data))
+					{
+						$(".error").css("color","green");
+						if(perform=="append")
+						{
+							$(".error").html("Location Added");
+						}
+						if(perform=="update")
+						{
+							$(".error").html("Location Updated");
+						}
+						setTimeout(function()
+						{
+							window.location = window.location;
+						},1000);
+					}
+				}
+			});
+		return false;
+	});
+ 		$("#address").autocomplete({
+
+	source:function(request,response)
+			{
+				geocode.geocode({"address":request.term},function(result)
+				{
+					response($.map(result,function(item)
+					{
+						return {
+							label:item.formatted_address,	
+							value:item.formatted_address,
+							lattitude:item.geometry.location.lat(),
+							longitude:item.geometry.location.lng(),
+							placeId:item.place_id,
+							addressComponents:item.address_components
+						}
+					}))
+				});
+			},
+		select:function(event,ui)
+				{
+					mainLatLng = new google.maps.LatLng(ui.item.lattitude,ui.item.longitude);
+					$("#placeId").val(""+ui.item.placeId);
+					$("#lb_center").val("("+ui.item.lattitude+","+ui.item.longitude+")");
+
+				}
+
+	});
+ 		$(".addButton").click(function()
+ 		{
+ 			perform = "append";
+ 			$(".setLocation").fadeIn(100);
+ 			$(".table-contents").fadeOut(100);
+ 			$("input").val("");
+ 			$("#city_id").html('');
+ 			$("select").val("");
+ 			$("#datatool").fadeIn(100);
+ 			initialize([],mainLatLng);
+ 		});
+ 		$(".close").on('click',function()
+ 		{
+ 			$("#datatool").fadeOut(100);
+ 			$(".table-contents").fadeIn(100);
+ 			
+ 		});
+ 	
+
+ });
+
+function getPlaces(action,target,id,cityid)
+{
+	var url = "/Administrator/Administrator/locationchangeajax";
+			$.post(url,{action:action,id:id},function(data){
+					data = JSON.parse(data);
+					if(action=="country_data")
+					{
+						for(var i in data)
+			        	{
+			        		$(target).append("<option value='"+data[i]['key']+"'>"+data[i]['value']+"</option>");
+			        	}
+					}
+					else
+					{
+						for(var i in data)
+			        	{
+			        		$(target).append("<option value='"+data[i]['value']+"'>"+data[i]['key']+"</option>");
+			        	}
+					}
+					if(cityid!==null)
+					{
+						$("#city_id").val(cityid);
+					}
+					
+			});
+}
+function initialize(borderData,center)
+{
+	//Initialize the mapOption
+ mapOptions = {
+	 zoom: 14,
+	 center: center,
+	 mapTypeId: google.maps.MapTypeId.TERRAIN
+    };
+    //Initialize map
+    coords = borderData;
+    map = new google.maps.Map(document.getElementById('googleMap'),
+      mapOptions);
+     map.setOptions({draggableCursor:'crosshair'});
+    google.maps.event.addListener(map,'click',addCoords);
+   geocode = new google.maps.Geocoder();
+  if(borderData.length==0)
+  {
+  	 polygon =  new google.maps.Polyline({
+    geodesic: true,
+    strokeColor: '#a66bbe',
+    strokeOpacity: 1.0,
+    strokeWeight: 2,
+    draggable:true,
+    editable:false
+  });
+  }
+  else
+  {
+  	 polygon =  new google.maps.Polygon({
+    geodesic: true,
+    strokeColor: '#a66bbe',
+    strokeOpacity: 1.0,
+    strokeWeight: 2,
+    draggable:true,
+    editable:false
+  });
+  }
+ drawPolygon();
+ google.maps.event.addListener(polygon,'rightclick',removeVertex);
+var bounds = new google.maps.LatLngBounds();
+bounds.extend(map.getCenter());
+//map.fitBounds(bounds);
+var marker = new google.maps.Marker({
+      position: center,
+      map: map,
+  });
+bounds.extend(marker);  
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+
+function removeVertex(event)
+{
+	if(event.vertex==null)
+	{
+		return ;
+	}
+	else
+	{
+		var path = polygon.getPath();
+		path.removeAt(event.vertex);
+	}
+}
+
+function drawPolygon()
+{
+	polygon.setPath(coords);
+	polygon.setMap(map);
+	
+}
+
+function addCoords(event)
+{
+	if(pen==true)
+	{
+
+	if(drawAble==true)
+	{
+	var lat = event.latLng.lat();
+	var lng = event.latLng.lng();
+	var item = new google.maps.LatLng(lat,lng);
+
+	coords.push(item);
+	if(startPoint==null)
+	{
+		startPoint = item;
+		currentPoint=item;
+	}
+	else
+	{
+		currentPoint = item;
+	}
+
+	drawPolygon();
+	}
+	}
+}
+function editMode(btn)
+{
+
+	coords = polygon.getPath();
+	drawAble=polygon.getEditable();
+	polygon.setEditable(!polygon.getEditable());
+	if(polygon.getEditable()==true)
+	{
+		btn.setAttribute("class","btn btn-success");
+	}
+	else
+	{
+		btn.setAttribute("class","btn btn-danger");
+	}
+	
+}
+function catchKeys(event)
+{
+}
+function finish(btn)
+{
+	
+	coords = polygon.getPath()['j'];
+	polygon.setMap(null);
+	if(isLoop)
+	{
+		polygon = new  google.maps.Polygon({
+					    geodesic: true,
+					    strokeColor: '#a66bbe',
+					    strokeOpacity: 1.0,
+					    strokeWeight: 2,
+					    editable:false
+  					});	
+		btn.innerHTML = "Unloop it";
+	}
+	else
+	{
+		polygon = new  google.maps.Polyline({
+					    geodesic: true,
+					    strokeColor: '#a66bbe',
+					    strokeOpacity: 1.0,
+					    strokeWeight: 2,
+					    editable:false
+  					});	
+		btn.innerHTML = "Loop it";
+	 
+	}
+	isLoop=!isLoop;
+	google.maps.event.addListener(polygon,'rightclick',removeVertex);
+	drawPolygon();
+
+}
+function togglePen(btn)
+{
+	pen=!pen;
+	if(pen==true)
+	{
+		btn.innerHTML = "Toggle on";
+	}
+	else
+	{
+		btn.innerHTML = "Toggle off";
+	}
+}
+
+$(function()
+{
+	
+});
+function setDragabble(btn)
+{
+	polygon.setDraggable(!draggable);
+	draggable = !draggable;
+	if(draggable==true)
+	{
+		btn.innerHTML="Dragabble on";
+	}
+	else
+	{
+		btn.innerHTML="Dragabble off";
+	}
+}
+function poltLatlon()
+{
+	var strlat = "";
+	var crds = polygon.getPath()['j'];
+	for(var i in crds)
+	{
+		strlat=strlat+"("+crds[i].lat()+","+crds[i].lng()+"),";
+	}
+	$("#latlonlat").val(strlat);
+}
+function clearAll () {
+	coords = [];
+	drawPolygon();
+}
+</script>
+<div class="page-content">
+
+<div class="container">
+<header><h2>Location Management</h2></header>
+<div class="table-contents">
+<button class="addButton pull-right btn btn-default">Add Location</button>
+<table class="table locations">
+</table>
+</div>
+<Div class="container" id="datatool">
+<button class="btn pull-right btn-default close">Close</button>
+	<div class="row">
+		<div class="col-md-6">
+		<div class="panel panel-primary">
+		<div class="panel-heading">Tools</div>
+		<div style="padding:10px;">
+			<div class="setLocation">
+			<label>Set location</label><input class="form-control" id="address">
+			<button class="btn btn-success gobutton">Go!</button><hr>
+			</div>
+			<b>Enter Location details</b>
+			<span class="error"></span>
+			<form role="form" id="modal-form">
+				<div class="form-group">
+					<lable for="code">Location code
+						<input type="text" placeholder="Location Title" class="form-control" name="code">
+						<input type="hidden" class="form-control" id="location_id" >
+					</label>
+				</div>
+			<div class="form-group">
+				<lable for="description">Location Description
+					<input type="text" placeholder="Location Description" class="form-control" name="description">
+				</label>
+			</div>
+			<div class="form-group">
+				<lable for="country_id">Select Country
+					<select id="country_id" name="country_id"></select>
+				</label>
+			</div>
+			<div class="form-group">
+				<lable for="city_id">Select City
+					<select name="city_id"  id="city_id"></select>
+				</label>
+			</div>
+			<div class="form-group">
+				<lable for="lb_center">Location center
+					<input type="text" id="lb_center" placeholder="Location Center" class="form-control" name="lb_center">
+				</label>
+			</div>
+			<div class="form-group">
+				<lable for="lb_google_placeid">Google place id
+					<input id="placeId" type="text" placeholder="Place id" class="form-control" name="lb_google_placeid">
+				</label>
+			</div>
+			<div class="form-group">
+				<lable for="lb_google_placeid">Border
+					<input id="latlonlat" type="text" placeholder="Place Border" class="form-control" name="lb_boundaries">
+				</label>
+			</div>
+			<div class="form-group"><button type="submit" class="btn  btn-default" id="addCusineSubmit">Submit</button></div></form>
+		</div>
+		
+		</div>
+		</div>
+		<div class="col-md-6">
+			<div onload="initialize();" onkeyup="catchKeys(event)" class="panel panel-primary">
+			<div id="googleMap" ></div>
+			<hr>
+			<button class="btn btn-info" onclick="togglePen(this)">Toggle off</button>
+			<button class="btn btn-danger" onclick="editMode(this);">Edit mode</button>
+			<button class="btn btn-warning" onclick="setDragabble(this)">Draggabble off</button>
+			<button class="btn btn-warning" onclick="clearAll()">Clear All</button>
+			<button class="btn btn-primary" onclick="finish(this);">Loop it</button>
+			<button class="btn btn-default" onclick="poltLatlon()">Plot lat lon</button>
+			<br>
+			</div>
+		</div>
+
+	</div>
+</Div>
+</div>
+</div>

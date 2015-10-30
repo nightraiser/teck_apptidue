@@ -1,0 +1,563 @@
+	<style>	
+	form.main-search{width:780px;}
+	.show-tick .dropdown-toggle{
+		padding:8px;
+		border-radius:3px 0 0 3px !important;
+		background:#fff url(images/location.png) no-repeat 8px 8px !important;
+		padding-left: 30px !important;
+		}
+		.form-group1{
+		margin-left:20px;
+		width:120px !important
+		}
+	.form-group1 .show-tick .dropdown-toggle {
+		padding: 8px;
+		border-radius: 3px !important;
+		background: none !important;
+		padding-left: 0px !important;
+		color: #fff;
+	}
+	.form-group1 .bootstrap-select .selectpicker .caret:after{
+		color:#fff;
+		}
+	#location{
+		padding:8px;
+		background:#fff url(images/search1.png) no-repeat 4px 8px;
+		padding-left: 30px !important;
+		}
+	.search1{	
+		border-radius:0 3px 3px 0;
+		padding:8px;
+	}
+	form.main-search{
+		padding: 2px 0 0 0;
+		}
+	.search-bar.horizontal .main-search .input-row{
+		margin-bottom: 0px !important;
+		}
+	
+	.item{margin-bottom:0px;}
+	section header h2{margin-bottom:0;}
+.item-top .div{
+	margin:2px;
+    border: 1px solid #D0D0D0;
+    font-size: 12px;
+    line-height: 20px;
+    padding: 4px 4px;
+    border-radius: 2px;
+    color: #7a7a79;
+    display: inline;
+}
+.item-top .div i {
+    color: #7a7a79;
+    line-height: 20px;
+}
+.tc{text-align:center;}
+.review .author {
+    font-size: 14px;
+    float: left;
+    width: 40px;
+    margin-right: 10px;
+    text-align: center;
+    height: 40px;
+}
+.review .author img {
+    margin-bottom: 10px;
+    height: 100%;
+}
+.shortlist img
+{
+	max-width: 100% !important;
+	height:55px !important;
+}
+
+	</style>
+	<script type="text/javascript">
+    $(function()
+    {
+	    var isLoggedIn = "<?php echo $this->isLoggedin; ?>";
+	    if(!isLoggedIn)
+	    {
+	    	Login();
+	    }
+	    $('.rmshortlistBtn').live('click',function()
+	    {	
+	    	var userid = "<?php echo $this->userid;?>";
+	    	var resid = $(this).attr("data-id");
+	    	
+	    	var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'shortlistinsert'),null,true);?>"
+	    	$.post(url,{perform:"insert",resid:resid,userid:userid},function(data)
+				{	
+		
+				if(data!=1)
+				{
+				$(".shortlistdiv[data-value='shortlist"+resid+"']").remove();
+				$("i[data-id='"+resid+"']").removeClass('red rmshortlistBtn').addClass('shortlistBtn');
+				var shortcount = parseInt($(".shortlistcount > p").html());
+				if(shortcount==1)
+				{
+					$('.shortlisttext').text("NO SHORTLISTED RESTAURANTS");
+				}
+				else
+				{
+					$(".shortlisttext").html('');	
+				}
+				$(".shortlistcount > p").html(shortcount-1);
+				
+				}	
+	    	});
+		});
+
+		$('.shortlistBtn').live('click',function()
+	    {	
+	    	
+	    	var btn = $(this);
+	    	var userid = "<?php echo $this->userid;?>";
+	    	var resid = $(this).attr("data-id");
+	    	var id = $(this).attr("id");
+	    	var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'shortlistinsert'),null,true);?>"
+	    	$.post(url,{perform:"insert",resid:resid,userid:userid},function(data)
+				{	
+	    		if(data==1)	
+	    		{
+	    			var parentDiv = $(btn).parents(".small").html();
+	    			$(".shortlist").append("<div href='#' class='item-horizontal small shortlistdiv' data-value='shortlist"+resid+"'>"+parentDiv+"</div>");
+	    			
+	    			$("i[data-id='"+resid+"']").removeClass('shortlistBtn').addClass("red rmshortlistBtn");
+	    			var shortcount = parseInt($(".shortlistcount > p").html());
+				if(shortcount>=0)
+				{
+					$(".shortlisttext").text('');
+				}
+
+				$(".shortlistcount > p").html(shortcount+1);
+	    		}					
+	    	});
+		});
+
+		$('.resdisliked').live('click',function()
+	    {	    	
+	    	var userid = "<?php echo $this->userid;?>";
+	    	var resid = $(this).attr("data-id");
+	    	
+	    	var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'reslikes'),null,true);?>"
+	    	$.post(url,{perform:"dashboarddislike",resid:resid,userid:userid},function(data)
+				{	
+				
+				data = JSON.parse(data);
+				if(data!=null && data['res_dislikes'] != -1)
+	    		{
+				$("div[data-value ='liked"+resid+"']").html('<i class="fa fa-thumbs-up"></i>'+data['res_likes']);
+				$("div[data-value ='disliked"+resid+"']").html('<i class="fa fa-thumbs-down"></i>'+data['res_dislikes']);
+	    		
+	    			$(".likesdiv[data-value='like"+resid+"']").remove();
+	    		
+	    		var currentlikes = parseInt($(".currentlikes > p").html());
+	    		if(currentlikes==1)
+	    		{
+	    			$('.statustext').html('NO LIKED RESTAURANTS');	
+	    		}
+	    		else
+	    		{
+	    			$('.statustext').html('');
+	    		}
+				
+				$(".currentlikes > p").html(currentlikes-1);
+	    		}
+	    						
+	    	});
+	    	return false;
+		});
+
+		$('.resliked').live('click',function()
+	    {		    	
+	    	var btn = $(this);
+	    	var userid = "<?php echo $this->userid;?>";
+	    	var resid = $(this).attr("data-id");
+	    	
+	    	var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'reslikes'),null,true);?>"
+	    	$.post(url,{perform:"dashboardlike",resid:resid,userid:userid},function(data)
+				{	
+				data = JSON.parse(data);
+	    		if(data!=null && data['res_likes'] != -1)
+	    		{
+	    			$("div[data-value ='liked"+resid+"']").html('<i class="fa fa-thumbs-up"></i>'+data['res_likes']);
+				$("div[data-value ='disliked"+resid+"']").html('<i class="fa fa-thumbs-down"></i>'+data['res_dislikes']);
+				var parentDiv = $(btn).parents(".small").html();
+				
+				$(".likedlist").append("<div href='#' class='item-horizontal small likesdiv' data-value='like"+resid+"'>"+parentDiv+"</div>");
+	    		var currentlikes = parseInt($(".currentlikes > p").html());
+	    		if(currentlikes >= 0)
+	    		{
+	    			$('.statustext').html('');
+	    		}
+				
+				$(".currentlikes > p").html(currentlikes+1);
+	    		}
+	    	});
+	    	return false;				
+		});
+	});	
+	function Login()
+  {
+     var htmlDia = '<div class="modal-window fade_in"><div class="modal-wrapper">';
+        htmlDia += '<h2>Login</h2>';
+        htmlDia += '<div class="modal-body style="width:300px;"><div class="modal-content">';
+        htmlDia +='<div class="result"></div>';
+        htmlDia += '<form role="form" id="signin">';
+        htmlDia +='<div class="form-group">';
+        htmlDia +='<lable for="code">User Id</label>'
+        htmlDia += '<input required type="text" placeholder="userid" class="form-control" name="emailAddress" />';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group">';
+         htmlDia +='<lable for="description">Password</label>'
+        htmlDia += '<input required type="password" placeholder="password" class="form-control" name="password" />';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group"><button type="submit" class="btn pull-right btn-default" id="Submit" >Submit</button></div></form>';
+    	htmlDia += '</div></div><div class="modal-close"><img src="/images/close.png"></div></div><div class="modal-background fade_in"></div></div>';
+        $('body').append(htmlDia);
+        $("#signin").on('submit',function()
+      {      
+        SigninFormValues =new FormData($('#signin')[0]);              
+        var url = "<?php echo $this->url(array('module'=>'User','controller'=>'Login','action'=>'signinajax'),null,true);?>";
+          $.ajax({
+            url: url,   
+            type: "POST", 
+            data:SigninFormValues, 
+            contentType: false,  
+            cache: false,          
+            processData:false,     
+            success: function(data)
+            {
+              if(data)
+              {
+                $(".modal-close").click();
+                location.reload();
+              }                        
+            }
+          });  
+      return false; 
+    });
+  	}    
+    </script>
+</head>
+<body onunload="" class="page-subpage page-item-detail navigation-off-canvas" id="page-top">
+<?php $totreviews=0;
+	$itemreviews = $this->itemreviews;
+	$resreviews = $this->resreviews;
+	$resreviewcount = sizeof($resreviews);
+	$itemreviewcount = sizeof($itemreviews);
+	$totreviews = $resreviewcount + $itemreviewcount;
+	$shortlisted = $this->shortlist;
+	$shortcount = sizeof($shortlisted);
+	$likedlist = $this->likedreslist;
+	$likedcount = sizeof($likedlist);
+?>
+<!-- Outer Wrapper-->
+<div id="outer-wrapper">
+    <!-- Inner Wrapper -->
+    <div id="inner-wrapper">
+        <!-- Page Canvas-->
+        <div id="page-canvas">
+            <!--Page Content-->
+            <div id="page-content">
+                <section class="container">
+                    <div class="row">
+                        <!--Item Detail Content-->
+                        <div class="col-md-9">
+                            <section class="block" id="main-content">                                
+                                <div class="row">
+                                    <!--Detail Sidebar-->
+                                    <aside class="col-md-4 col-sm-4" id="detail-sidebar">
+                                        <!--Contact-->
+                                        <section>
+											<div>
+												<img src="/images/default-avatar.png" alt="">
+											</div>
+											<hr />
+											<?php $cusname = $this->cusname;?>
+                                            <h1 style="font-size:24px; margin:10px 0;"><?php echo $cusname;?></h1>
+                                            <p><i class="fa fa-map-marker"></i> Location</p>
+											<hr /> 
+											<h2>YOUR ACTIVITIES</h2><hr /> 
+											<div class="row tc">
+												<div class="col-md-4">
+													<strong>Reviews</strong>
+													<p><?php echo $totreviews; ?></p>
+												</div>
+												<div class="col-md-4 currentlikes">	
+													<strong>Likes</strong>
+													<p><?php echo $likedcount; ?></p>
+												</div>
+												<div class="col-md-4 shortlistcount">
+													<strong>Shortlisted</strong>
+													<p><?php echo $shortcount; ?></p>
+												</div>
+											</div>
+											  <hr /> 
+                                        </section>
+                                    </aside>
+                                    <!--end Detail Sidebar-->
+                                    <!--Content-->
+                                    <div class="col-md-8 col-sm-8">
+                                        <section id="reviews">
+                                            <header class="clearfix">
+                                                <h2>Restaurant Reviews</h2>                                              
+                                            </header>
+                                            <section class="reviews">
+                                            <?php  if(sizeof($resreviews)!=0){
+                                            	foreach ($resreviews as $resreview){?>
+                                                 <article class="review">                                                  
+                                                    <!-- /.author-->
+                                                    <div class="wrapper">
+														<div class="row">
+															<div class="col-md-10">
+															  <figure class="author">
+															  <?php 
+															  $resid = $resreview->getRr_fk_resid();
+															   $resGallery = $resreview->getResGallery();
+															  			echo '<img src="'.$resGallery.'" alt="">';  	
+															  ?>
+																</figure>
+																<h5><?php echo $resreview->getResname(); ?></h5>
+																<div class="date"><?php 
+                                                        $str = date('d-M-Y',strtotime($resreview->getRrcreateddate()));
+                                                        echo $str;
+                                                        ?></div>
+															</div>
+															<div class="col-md-2">
+																<div class="rating-small pull-right"><?php echo $resreview->getRr_review_ratings(); ?></div>
+															</div>
+														</div>
+                                                        <p>
+                                                            <?php echo $resreview->getRr_review_text();?>
+                                                        </p>                                                        
+                                                    </div>
+                                                    <?php 
+                                                    $reviewGallery = $resreview->getGallery();
+                                                    if(is_array($reviewGallery)&&(sizeof($reviewGallery)>0))
+                                                    {
+                                                      echo '<article class="item-gallery">
+                                                                            <div class="thumbnails">';
+                                                                            if(sizeof($reviewGallery)>5)
+                                                                            {
+                                                                                echo '<span class="expand-content btn framed icon" data-expand="#gallery-thumbnails'.$resid.'">More<i class="fa fa-plus"></i></span>';
+                                                                             }
+                                                                               echo  '<div class="expandable-content height collapsed show-70" id="gallery-thumbnails'.$resid.'">
+                                                                                    <div class="content">';
+                                                                                  foreach ($reviewGallery as $img) 
+                                                                                  {
+                                                                                    echo ' <a href="#1" id="thumbnail-1" class="active"><img src="'.$img.'" alt=""></a>';
+                                                                                  }
+                                                      echo ' </div>
+                                                                                </div>
+                                                                            </div>
+                                                       </article>';
+                                                     }
+                                                     ?>
+                                                </article>
+                                                <?php  } }
+                                                else {
+                                                	echo 'NO REVIEWS FOR RESTAURANTS';
+                                                	} ?>
+                                            </section>
+                                            <!-- /.reviews-->
+                                        </section>
+                                     
+                                        <section class="" id="reviews">
+                                            <header class="clearfix">
+                                                <h2>Item Reviews</h2>                                              
+                                            </header>
+                                            <section class="reviews">
+                                            <?php $itemreviews = $this->itemreviews;                                            	?>
+                                            <?php  if(sizeof($itemreviews)!=0){ 
+                                                     foreach ($itemreviews as $itemreview){?>
+                                                 <article class="review">                                                  
+                                                    <!-- /.author-->
+                                                    <div class="wrapper">
+														<div class="row">
+															<div class="col-md-10">
+																<h5><?php echo $itemreview['itemname'];?></h5>														
+																<div class="date"><?php 
+                                                        $str = $itemreview['ir_reviewdate'];
+                                                        echo date("d-M-Y", strtotime($str));
+                                                        ?></div>
+															</div>
+															<div class="col-md-2">
+																<div class="rating-small pull-right"><?php echo $itemreview['rating']; ?></div>
+															</div>
+														</div>
+                                                        <p>
+                                                            <?php echo $itemreview['review'];?>
+                                                        </p>                                                        
+                                                    </div>
+                                                    <?php 
+                                                    $itemReviewGallery = $itemreview['gallery'];
+                                                    if(is_array($itemReviewGallery)&&(sizeof($itemReviewGallery)>0))
+                                                    {
+                                                      echo '<article class="item-gallery">
+                                                              
+                                                                            <div class="thumbnails">';
+                                                                            if(sizeof($itemReviewGallery)>5)
+                                                                            {
+                                                                               echo '<span class="expand-content btn framed icon" data-expand="#gallery-thumbnails'.$itemreview['irid'].'" >More<i class="fa fa-plus"></i></span>';
+                                                                             }
+                                                                                echo '<div class="expandable-content height collapsed show-70" id="gallery-thumbnails'.$itemreview['irid'].'">
+                                                                                    <div class="content">';
+                                                                                  foreach ($itemReviewGallery as $img) 
+                                                                                  {
+                                                                                    echo ' <a href="#1" id="thumbnail-1" class="active"><img src="'.$img.'" alt=""></a>';
+                                                                                  }
+                                                      echo ' </div>
+                                                                                </div>
+                                                                            </div>
+                                                       </article>';
+                                                     }
+                                                                                    ?>
+                                                    <!-- /.wrapper-->
+                                                </article>
+                                            <?php  } }
+                                            else{
+                                            	echo 'NO REVIEWS FOR ITEMS';
+                                            	} ?>    
+                                            </section>
+                                            <!-- /.reviews-->
+                                        </section>
+                                        <!-- /#reviews -->
+                                        <!--end Review Form-->
+                                    </div>
+                                    <!-- /.col-md-8-->
+                                </div>
+                                <!-- /.row -->
+                            </section>
+                            <!-- /#main-content-->
+                        </div>
+                        <!-- /.col-md-8-->
+                        <!--Sidebar-->
+                        <div class="col-md-3">
+                            <aside id="sidebar">
+								<section>
+									<div class="btn" style="width:100%;border: 1px solid #cdcdcd; background:#fff; margin-bottom:10px;">
+										<span class="shortlist-summary">
+										<i class="fa fa-heart"></i> Your Shortlisted Restaurants
+										</span>
+									</div>
+							<div class="shortlist">		
+									<?php if((sizeof($shortlisted)!=0)) {?>
+									<?php foreach ($shortlisted as $key => $shortarr) { ?>
+									<?php foreach ($shortarr as $resdata) { ?>
+									<div  class="item-horizontal small shortlistdiv" data-value="shortlist<?php echo $resdata['id'];?>">                                       
+										<div class="wrapper">
+											<div class="image">
+											<div style="position: absolute;right: 4px;top: 4px; z-index:1000"><i class="fa fa-heart red rmshortlistBtn" data-score="1" style="font-size:24px;" data-id="<?php echo $resdata['id'];?>"></i></div>
+											<img src="<?php echo $resdata['gallery'][0];?>" alt=""></div>
+											<div class="info">
+												<div class="type">
+													 <a href="<?php echo '/'.strtolower($resdata['city_name']).'/'.$resdata['vanityUrl'];?>"><h3><?php echo $resdata['title'];?></h3></a>
+													<figure><?php echo $resdata['location'];?></figure>
+													<div class="item-top">		
+														<div class="div resdisliked" data-value="disliked<?php echo $resdata['id'];?>" data-id="<?php echo $resdata['id'];?>"><i class="fa fa-thumbs-down"></i><?php 
+														if($resdata['dislikes']==0)
+															{
+															echo 0;	
+															}
+															else
+															{
+															echo $resdata['dislikes']; 
+															}
+															?></div>
+														<div class="div resliked" data-value="liked<?php echo $resdata['id'];?>" data-id="<?php echo $resdata['id'];?>"><i class="fa fa-thumbs-up"></i><?php 
+														if($resdata['likes']==0)
+															{
+															echo 0;	
+															}
+															else
+															{
+															echo $resdata['likes'];	
+															}
+															?></div>
+													</div>
+												</div>											
+											</div>
+										</div>
+									</div>
+									<?php  } ?>
+									<?php  } ?>
+									<?php  }
+									else{ echo '<p class="shortlisttext">NO SHORTLISTED RESTAURANTS</p>';
+									} ?>
+							</div>		
+								</section>
+								<section>
+								<?php $likedlist = $this->likedreslist;
+								?>
+																	<div class="btn" style="width:100%;border: 1px solid #cdcdcd; background:#fff; margin-bottom:10px;">
+										<span class="shortlist-summary">
+										<i class="fa fa-filter"></i> Your Liked Restaurants	</span>
+									</div>
+								<div class="likedlist">	
+								<?php if((sizeof($likedlist))!=0) { ?>
+									<?php foreach ($likedlist as $key => $likearr) { ?>
+									<?php foreach ($likearr as $likedresdata) { ?>
+									<div  class="item-horizontal small likesdiv" data-value="like<?php echo $likedresdata['id'];?>">                                       
+										<div class="wrapper">
+											<div class="image">
+											<div style="position: absolute;right: 4px;top: 4px; z-index:1000"><i class="fa fa-heart  shortlistBtn" data-score="1" style="font-size:24px;" data-id="<?php echo $likedresdata['id'];?>" id="like<?php echo $likedresdata['id'];?>"></i></div>
+											<img src="<?php echo $likedresdata['gallery'][0];?>" alt="">    </div>
+											
+											<div class="info">
+												<div class="type">
+											<a href="<?php echo '/'.strtolower($likedresdata['city_name']).'/'.$likedresdata['vanityUrl'];?>"><?php echo "<h3>$likedresdata[title]</h3>";?></a>
+													<figure><?php echo $likedresdata['location'];?></figure>
+													<div class="item-top">		
+														<div class="div resdisliked" data-value="disliked<?php echo $likedresdata['id'];?>" data-id="<?php echo $likedresdata['id'];?>"><i class="fa fa-thumbs-down"></i><?php echo $likedresdata['dislikes'];?></div> 
+														<div class="div resliked" data-value="liked<?php echo $likedresdata['id'];?>" data-id="<?php echo $likedresdata['id'];?>"><i class="fa fa-thumbs-up"></i><?php echo $likedresdata['likes'];?></div>
+													</div>
+												</div>											
+											</div>
+										</div>
+									</div>
+									<?php  } ?>
+									<?php  }
+									}else{
+										echo '<p class="statustext">NO LIKED RESTAURANTS<p>';
+										} ?> 
+								</div>
+								<?php if(is_array($likedlist) && is_array($shortlisted)) { 
+									 foreach ($likedlist as $key => $likearr)
+									 { 
+							 			foreach ($likearr as $likedresdata) { 
+										foreach ($shortlisted as $key => $shortarr) { 
+										foreach ($shortarr as $resdata) { 
+										if($resdata['id'] == $likedresdata['id'])
+											{	
+												//$resid =  $resdata['id']; 
+												echo '<script type="text/javascript">	
+												var resid = '.$resdata['id'].';'; 
+												echo '$("#like"+resid).removeClass("fa fa-heart shortlistBtn").addClass("fa fa-heart red rmshortlistBtn")
+												</script>';
+											}
+										 } 
+										 } 
+										 } 
+									}
+										} ?>
+								</section>             
+                            </aside>
+                            <!-- /#sidebar-->
+                        </div>
+                        <!-- /.col-md-3-->
+                        <!--end Sidebar-->
+                    </div><!-- /.row-->
+                </section>
+                <!-- /.container-->
+            </div>
+            <!-- end Page Content-->
+        </div>
+        <!-- end Page Canvas-->
+    </div>
+    <!-- end Inner Wrapper -->
+</div>
+<!-- end Outer Wrapper-->
+
+

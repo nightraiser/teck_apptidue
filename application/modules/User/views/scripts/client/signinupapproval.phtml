@@ -1,0 +1,46 @@
+<style>
+.mtmainInner1 {
+    position: relative;
+  border: none;
+  text-align: left;
+  float: right;
+  padding: 20px;
+  margin-top: 12px;
+  background: #ECF0F1;
+  -webkit-box-shadow: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.list{padding:20px 20px 0 20px;}
+.list li{
+	font-size:14px;
+	line-height:18px;
+	margin-bottom:10px;
+	}
+	.a1 {
+  color: #7AA318 !important;
+  font-weight: 500;
+  text-decoration:none;
+}
+p{font-size:16px;}
+</style>
+
+<div class="content_wrap"><div class="gap"></div><div class="gap"></div>
+	<div class="wrapper clearfix">
+		<div class="cont_left" style="width:44%; text-align:left">
+			<img src="/ddstyles/images/wrap-tablet_2.png" width="440">	
+		</div>
+		<div class="cont_right mtmainInner1" style="width:50%">
+			<h2 style="font-weight:normal"><?php echo $this->translate->_("Instructions"); ?></h2>
+			<ul class="list">
+				<li>Thank you for signing up. You can proceed by clicking Continue.</li>
+			</ul>
+			<p><?php echo $this->translate->_("For more information contact us at "); ?><a href="mailto:support@rdine.com" class="a1"><?php echo $this->translate->_("support@rdine.com"); ?></a></p>
+			<p style="text-align:center; margin-bottom:0;"><input type="image" src="/images/header/MTloginbtn.png" value="Continue" onclick="window.location='<?php echo $this->url(array('module'=>'User','controller' => 'Login','action'=> 'signin'),null,true) ?>'" /></p>
+		</div>
+	</div>
+	<div class="gap"></div>
+	<div class="gap"></div>
+	<div class="gap"></div>
+</div>
+

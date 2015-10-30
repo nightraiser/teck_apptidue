@@ -1,0 +1,72 @@
+<style>
+	.show-tick .dropdown-toggle{
+		padding:16px;
+		border-radius:6px 0 0 6px !important;
+		background:#fff url(/images/location.png) no-repeat 10px 12px !important;
+		padding-left: 30px !important;
+		}
+	#location{
+		padding:16px;
+		background:#fff url(/images/search1.png) no-repeat 4px 14px;
+		padding-left: 30px !important;
+		}
+	.search1{	
+		border-radius:0 6px 6px 0;
+		padding:16px;
+	}
+	#counter{
+	background:url(/images/features_bg1.jpg) no-repeat top center;
+	}
+	.loading-div {
+	 background:rgba(0, 0, 0, 0.58);
+	    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+	    opacity: 0;
+	    height: 100%;
+	    position: fixed;
+	    z-index: 1005;
+	    width: 100%;
+	    top: 0;
+	    left: 0;
+	    text-align: center;
+	    overflow-y: auto;
+	}
+.loading-div span{ background:rgba(255, 255, 255, 0.9); display: inline-block; padding:30px; border-radius:4px; margin-top:15%;}
+	</style>
+ <div class="loading-div fade_in" id="loading">
+ 	<span>
+  		<img alt="loading.." src="/images/rdine-loading.gif" >
+  		<h2>Discovering best restaurants for you...</h2>
+ 	</span>
+</div>
+<div class="header">
+	<div class="wrapper">
+		<div class="brand">
+			<a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'index'),null,true);?>"><img src="/images/logo.png" alt="logo"></a>
+		</div>				
+		<nav class="navigation-items">
+			<div class="wrapper">
+				<ul class="main-navigation navigation-top-header"></ul>
+				<ul class="user-area">
+					<li>
+						<a href="http://dinedesk.com" target="_blank">For Restaurants</a>
+					</li>
+					<li>
+						<?php 
+						if($this->getUserName()){
+							echo '<a><span style="color:#ffdb00; font-weight:bold;">Hi '.$this->getUserName().'!</span></a>';
+						}else{
+							echo '<a><span style="color:#ffdb00; font-weight:bold;">Hi Guest!</span></a>';
+						} ?>
+					</li>
+				</ul>
+				<div class="toggle-navigation">
+					<div class="icon">
+						<div class="line"></div>
+						<div class="line"></div>
+						<div class="line"></div>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</div>
+</div>

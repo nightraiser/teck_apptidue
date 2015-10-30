@@ -1,0 +1,2063 @@
+<style type="text/css">
+.shortlist
+{
+	width:100%;
+}
+.dnone
+{
+	display: none!important;
+}
+	.other-filter-selected
+		{
+			color:white;
+			background-color:#ac181d; 
+		}
+		.filter-btn:hover
+		{
+			color:black;
+		}
+		.others-option-selected
+		{
+			border-color:#ac181d;
+		}
+	.model-popUp .selectpicker, .model-popUp .form-control{
+	 border:1px solid #ccc;
+	 color:#333
+	 }
+	.tc{text-align:center;}
+	.model-popUp .button {
+	    border-style: solid;
+	    border-width: 0;
+	    cursor: pointer;
+	    font-weight: 400;
+	    line-height: normal;
+	    margin: 0 0 1rem;
+	    position: relative;
+	    text-decoration: none;
+	    text-align: center;
+	    outline: 0;
+	    border-radius: 3px;
+	    display: block;
+	    background-color: #ED1C24;
+	    border-color: #b8222d;
+	 box-shadow: 0 0 0 1px #ED1C24;
+	 cursor:pointer;
+	 width:100%;
+	    color: #fff;
+	    -webkit-transition: background-color 300ms ease-out;
+	    -moz-transition: background-color 300ms ease-out;
+	    transition: background-color 300ms ease-out;
+	    padding: .875rem 1.75rem .9375rem;
+	    font-size: 1rem;
+	}
+	.list-left{
+	 padding:0;
+	}
+	.list-left>li {
+	    float: left;
+	    margin-right: 1rem;
+	 list-style:none;
+	}
+	.dtp-button {
+	    border-radius: 2px;
+		position: relative;
+		padding: 10px;
+		color: #fff;
+		background: #131313;
+		display: inline-block;
+		line-height: 1;
+		margin-bottom: 12px;
+		font-size: 12px;
+		cursor:pointer;
+	}
+	.booking_dtl li {
+	    display: inline-block;
+	    margin-right: 20px;
+	}.booking_dtl {
+	    margin-top:20px;
+	}
+	.list-unstyled {
+	    padding-left: 0;
+	    list-style: none;
+	}
+	.dblock {
+	    display: block;
+	}
+	.mrgn_btm10 {
+	    margin-bottom: 10px !important;
+	}
+	.bold {
+	    font-weight: bold;
+	 color:#444;
+	}
+	.reservSel{
+		background: red;
+	}
+	.likeButton
+	{
+			margin-right: 5px !important;
+			color: red;
+	}
+	.likeButton:hover
+		{
+			border:1px solid white;
+			color: black;
+		}
+	.fade_in
+	{
+	/*-webkit-transition-delay: 3s;
+	-moz-transition-delay: 3s;
+	-khtml-transition-delay: 3s;  
+    transition-delay: 3s;*/
+	}
+	.restimes
+	{
+		display: block;
+	}
+	.red
+	{
+		color: black!important;
+		z-index: 10001;
+	}
+		.item .image a > img, .item .image > .inner > img {
+		height: 185px;
+	}
+	.isSelected i,.isSelected a 
+	{
+		color:red;
+	}
+	.line-height-30
+	{
+		margin-right: 4px;
+		cursor: pointer;
+	}
+	.line-height-30 i
+	{
+		
+		line-height: 30px;
+	}
+	.item-top{
+	position: absolute;
+    right: 10px;
+    top: 90px;
+	}
+	.item-top a {
+    border: 1px solid #D0D0D0;
+    font-size: 12px;
+    line-height: 20px;
+    padding: 4px;
+    border-radius: 2px;
+    color: #7a7a79 !important;
+    background: #fff;
+	}
+</style>
+            <!--Page Content-->
+<div id="page-content">	
+	<div class="search-bar horizontal">
+         <figure class="filter clearfix" style="box-shadow:0 1px 10px -3px rgba(0,0,0,.5); padding:6px; background:#fff;">  
+            <div class="buttons pull-left">
+                <aside class="sorting">
+                    <div class="form-group" style="min-width:120px; margin-right:10px;">
+                        <select class="framed filter" name="diningStyle">
+                        </select>
+                    </div>
+                                        <!-- /.form-group -->
+                </aside>
+            </div>
+    <div class="buttons pull-left">
+        <aside class="sorting">
+            <div class="form-group" style="min-width:120px; margin-right:10px;">
+                <select class="framed filter"  name="cusine">
+                </select>
+            </div>
+            <!-- /.form-group -->
+        </aside>
+    </div>
+    <div class="pull-left">
+        <aside class="sorting">
+            <div class="form-group" style="min-width:120px; margin-right:10px;">
+             <select class="framed filter" name="costfor2">
+	                                            
+	        </select>
+            </div>
+            <!-- /.form-group -->
+        </aside>
+    </div>
+    <div class="pull-left">
+        <aside class="sorting">
+            <div class="form-group" style="min-width:120px; margin-right:10px;">
+                <select class="framed filter" name="popularity" id="popularity">
+                     <option value="">Popularity</option>
+                    <option value="low">Low</option>
+                    <option value="high">High</option>
+                    <option value="vhigh">Very High</option>
+                    <option value="excellent">Excellent</option>
+                </select>
+            </div>
+            <!-- /.form-group -->
+        </aside>
+    </div>
+     <div class="pull-left">
+        <aside class="sorting">
+            <div class="form-group" style="min-width:120px; margin-right:10px;">
+                <select name = "nonveg" class="framed filter" name="type">
+                    <option value="">Veg/Non-veg</option>
+                    <option  value="false">Veg</option>
+                    <option value="true">Non Veg</option>
+                </select>
+            </div>
+            <!-- /.form-group -->
+        </aside>
+    </div>
+    <div class="pull-left">
+        <aside class="sorting">
+            <div class="form-group" style="min-width:120px; margin-right:10px;">
+               <div class="btn-group bootstrap-select framed">
+					<button type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown" title="Others">
+						<span class="filter-option pull-left">Others</span>&nbsp;<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu main more-filters-dropdown-menu" style="padding-left: 10px !important;">
+						<div class="more-filters-dropdown-wrapper">
+							<form class="clearfix more-filters" style="padding-bottom:20px;">
+								
+															<div class="filter-container">
+																<span class="label">Seating Type</span>
+																<div class="filter-btn-wrap">
+																	<div class="filter-btn" data-filter="outdoor_seating" data-filter-category="seating_type">Out Door Seating</div>
+																	<div class="filter-btn" data-filter-category="seating_type" data-filter="ac"> Air Conditioned</div>
+																	<div data-filter-category="seating_type" class="filter-btn" data-filter="delivery">Deliveries</div>
+																	<div class="filter-btn" data-filter-category="seating_type" data-filter="dine_in">Dine In facility</div>
+																	<div class="filter-btn" data-filter="alcohol" data-filter-category="seating_type">Bar Available</div>
+																</div>
+															</div>
+															<div class="filter-container">
+																<span class="label">Accepts</span>
+																<div class="filter-btn-wrap">
+																	<div class="filter-btn" data-filter-category="payment_methods" data-filter="cash">Cash</div>
+																	<div class="filter-btn" data-filter-category="payment_methods" data-filter="credit_card">Credit Card</div>
+																	<div class="filter-btn" data-filter-category="payment_methods" data-filter="gift_vouchers">Gift Certificates</div>
+																	<div class="filter-btn" data-filter-category="payment_methods" data-filter="master_card">Master card</div>
+																	<div class="filter-btn" data-filter-category="payment_methods" data-filter="visa_card">Visa Card </div>
+																</div>
+															</div>
+															<div class="filter-container">
+																<span class="label">Dining Type</span>
+																<div class="filter-btn-wrap">
+																	<div class="filter-btn" data-filter-category="dining_type" data-filter="breakfast">Breakfast</div>
+																	<div class="filter-btn" data-filter-category="dining_type" data-filter="lunch">Lunch</div>
+																	<div class="filter-btn" data-filter-category="dining_type" data-filter="dinner">Dinner</div>
+																	<div class="filter-btn" data-filter-category="dining_type" data-filter="brunch">Brunch</div>
+																</div>                      
+															</div>
+															<div class="filter-container">
+																<span class="label">Convenience</span>
+																<div class="filter-btn-wrap">
+																	<div class="filter-btn" data-filter-category="convinience" data-filter="kids_section">Children Friendly</div>
+																	<div class="filter-btn" data-filter-category="convinience" data-filter="wheelchair">Wheel chair accessible</div>
+																</div>
+															</div>
+															<div class="filter-container">
+																<span class="label">Parking</span>
+																<div class="filter-btn-wrap">
+																	<div class="filter-btn" data-filter-category="parking" data-filter="parking_valet">Valet Parking</div>
+																	<div class="filter-btn" data-filter-category="parking" data-filter="parking_prepaidprepaid">Prepaid</div>
+																	<div class="filter-btn" data-filter-category="parking" data-filter="parking_public">Public</div>
+																</div>
+															</div>
+															<div class="filter-container">
+																<span class="label">Entertainment</span>
+																<div class="filter-btn-wrap">
+																	<div class="filter-btn" data-filter-category="entertainment" data-filter="wifi">Free wifi</div>
+																	<div class="filter-btn" data-filter-category="entertainment" data-filter="television">Television</div>
+																	<div class="filter-btn" data-filter-category="entertainment" data-filter="sports_telecast">Sports telecast</div>
+																	<div class="filter-btn" data-filter-category="entertainment" data-filter="live_music">Live Music</div>
+																</div>
+															</div>
+
+														
+							</form>
+							<div class="clearfix footer-filter">
+								<div class="footer-filter-lfloat pull-left"></div>
+									<div class="footer-filter-rfloat pull-right">
+										<div class="btn btn-default other-filter-submit">
+											Done
+										</div>
+									</div>
+								</div>
+							</div>
+						</ul>
+				</div>
+            </div>
+            <!-- /.form-group -->
+        </aside>
+    </div>
+     <div class="pull-left">
+        <aside class="sorting">
+           <!-- <div class="form-group" style="min-width:120px; margin-right:10px;">
+                <select name = "isOpen" class="framed filter" name="type">
+                    <option value="false">Open/Closed</option>
+                    <option value="true">Open now</option>
+                </select>
+            </div>-->
+              <div class="form-group openNow" style="min-width:120px; margin-right:10px; padding-top:10px;" data-value="false">
+                                           <a href="#"><i class="fa fa-eye"></i> Open Now</a>
+            <!-- /.form-group -->
+        </aside>
+    </div>
+								<div class="btn-group grid-controls pull-right">
+								<?php
+										$listview = "/$this->searchCity";
+										$mapview = "/$this->searchCity";
+										if($this->searchOrder)
+										{
+											$listview .="/$this->searchOrder-$this->searchLocationName-restaurant";
+											$mapview .="/$this->searchOrder-$this->searchLocationName-restaurant-map";
+										}
+										else
+										{
+											$listview .="/$this->searchLocationName-restaurant";
+											$mapview .="/$this->searchLocationName-restaurant-map";
+										}
+										if($this->searchCriteria!=="")
+										{
+											$listview .="/$this->searchCriteria";
+											$mapview .="/$this->searchCriteria";
+										}
+										if($this->searchLocationName=="")
+										{
+											$mapview = "#";
+										}
+										echo '<a href="'.$mapview.'" class="btn1">Map View</a><a href="'.$listview.'" class="btn1 highlight">List View</a>';
+								?>
+								</div>
+                            </figure>
+                        <!-- /.main-search -->
+			</div>
+                <section class="container">					
+                    <div class="row">
+                        <div class="col-md-9">   
+                            <!--Listing List-->
+                            <section class="block list-heading" style="padding:0px;">
+                            </section>
+                            <section class="block listing" style="padding:0;" >
+								
+                        <!--Content--> 
+						<!--<div class="col-md-12" style="padding:0;">   
+							<p style="padding:12px 0 0 0; margin:0;">Home / Hyderabad / <b>Hitech City Restaurants</b></p>
+							<h1 style="padding:6px 0 0 0; margin:0; font-size:24px; font-weight:normal; text-transform:normal !important;">Restaurants in Hyderabad - Hitech City</h1>
+							<p style="padding:6px 0 12px 0;">58 restaurants found (Included near by restaurants)</p>
+						</div>-->
+                            
+                            </section>
+                           
+                            <!--end Listing List-->
+                         <!--Page Navigation -->
+                         <nav>
+                                <ul class="pagination pull-right">
+                                  
+                                </ul>
+                            </nav>
+                         <!--Page Navigation -->
+                        </div>
+                        <!--Sidebar-->
+                        <div class="col-md-3" style="border-left:1px solid #e6e6e6;">
+                            <aside id="sidebar">
+                                <section class="shortlist"></section>
+								<!-- <section>
+                                    <header><h2>Suggested Restaurants</h2></header>
+									<a href="#"><img src="/images/1.png" style="width:100%; margin-bottom:10px;" /></a>
+									<a href="#"><img src="/images/2.jpg" style="width:100%; margin-bottom:10px;" /></a>
+									<a href="#"><img src="/images/3.png" style="width:100%; margin-bottom:10px;" /> </a>
+								</section>-->                          
+                            </aside>
+                            <!-- /#sidebar-->
+                        </div>
+                        <!-- /.col-md-3-->
+                        <!--end Sidebar-->
+                    </div>
+                </section>
+				<div class="block">
+    <div class="section">
+     <div class="container"> 
+      <div class="row">
+       <div class="col-md-12">         
+       <!--Here comes the sugested tags -->
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+	     
+            </div>
+            <!-- end Page Content-->
+        </div>
+        <!-- end Page Canvas-->
+
+	<div class="modal-details">
+	</div>
+<script>
+var offset;
+var pageCount;
+var itemsPerPage;
+var filterData;
+var filterIsSet = false;
+    $(window).load(function(){
+    	$(".search-option").val("<?= $this->searchOrder?>").selectpicker('refresh');
+		$(".display-view-all").click(function(){
+			$(".view-all").toggleClass('dNone');			
+		});
+		
+		$('.resReserv').live('click',function(){
+			var loggedin = "<?php echo $this->isLoggedIn ?>" ;
+		    if(loggedin)
+		    {
+		     	var resid = $(this).attr('data-id');
+				reslisted_restaurant_id = $(this).attr('reslisted_restaurant_id');
+				var htmlContent = '';
+				var apiUrl = "http://www.dinedesk.com/Associate/Associate/partnersapi/key/53832ab7a845c/apiname/GMT/restaurantid/"+reslisted_restaurant_id;
+				if(reslisted_restaurant_id != 'null'){
+
+					$.post(apiUrl,function(gmtdata){
+						if(gmtdata['status'] == 'Y'){
+							htmlContent +='<div class="modal-window fade_in">';
+							htmlContent +='<div class="modal-wrapper" style="top:50;">';
+							htmlContent +='<div class="modal-body" style="width:800px;">';
+							htmlContent += '<div class="modal-content"> ';
+							htmlContent += '<div class="row"> ';
+							htmlContent += '<div class="col-md-6">';
+							htmlContent += '<img class="tc" src="/images/loyalty-points.png" />';
+							htmlContent += '<img src="/images/discounts.png" /> ';
+							htmlContent += '</div> ';
+							htmlContent += '<div class="col-md-6 reservModal"> ';
+							htmlContent +='<div class="reservSearch">';
+							htmlContent += '<h1 class="title">RESERVE YOUR TABLE NOW</h1><hr />';
+							htmlContent += '<form class="reservForm">';
+							htmlContent += '<div class="row">';
+							htmlContent +='<div class="col-md-12">';
+							htmlContent += '<div class="form-group"><label>Party Size:</label>';
+							htmlContent += '<select id="reservPax" name="reservPax" class="form-control">'
+							for(var i = 1; i <= 20; i++){
+								htmlContent += '<option>'+i+'</option>';
+							}
+							htmlContent += '</select></div></div>';
+							htmlContent += '<div class="col-md-12">';
+							htmlContent += '<div class="form-group"><label>Date:</label>';
+							htmlContent += '<div class="input-group date"><input type="text" data-provide="datepicker" id="reservDate" class="form-control"><span class="input-group-addon"><i class="fa fa-calendar"></i></span></div></div></div>';
+					        htmlContent += '<div class="col-md-12">';
+					        htmlContent += '<div class="form-group"><label>Type:</label>';
+							htmlContent += '<select id="reservDiningType" class="form-control" style="text-transform:capitalize">';
+							var diningType = gmtdata['mealtypes'];
+							for(var item in diningType){
+								if(diningType[item]){
+									htmlContent += '<option value="' +item+ '" >'+diningType[item]+'</item>';
+								}else{
+									htmlContent += '<option disabled="disabled" value="' +item+ '" >'+diningType[item]+'</item>';
+								}						
+							}
+							htmlContent += '</select></div></div>';
+							htmlContent += '<div class="dnone"><input type="hidden" id="reservResid" name="reservResid" value="'+resid+'"/><input type="hiddden" id="reservAction" name="reservAction" value="search"/></div>'
+							htmlContent += '</div>';
+							htmlContent += '<div class="gap"></div>';
+							htmlContent += '<div class="row"><div class="gap"></div><div class="col-md-12"><a class="btn btn-default" id="reservSubmit" attr="source" style="width:100%; ">Reserve Now</a></div></div></form>';
+
+							//htmlContent += '<div class="form-group"><label>Date:</label>';
+							//htmlContent += '<input type="text" placeholder="Date" maxlength="40" class="inp1 date" value="" id="reservDate" name="reservDate"></div>';
+							
+							
+							/*for(var it in mainListData.data){
+								if(mainListData.data[it].id == resid){
+									htmlContent += '<div class="form-group"><label>Type:</label>';
+									var diningType = mainListData.data[it].item_specific.dining_type;
+									htmlContent += '<select id="reservDiningType" class="form-control" style="text-transform:capitalize">';
+									for(var item in diningType){
+										if(diningType[item]){
+											htmlContent += '<option attr="' +item+ '" >'+item+'</item>';
+										}else{
+											htmlContent += '<option disabled="disabled" attr="' +item+ '" >'+item+'</item>';
+										}						
+									}
+									htmlContent += '</select>';
+								}
+							}
+							
+						htmlContent += '</div></div></div></div>';*/
+							
+							
+							htmlContent +='</div>';
+							htmlContent +='<div class="modal-close"><img src="/images/close.png"></div>';
+							htmlContent +='</div>';
+							htmlContent +='</div>';
+							htmlContent +='</div>';
+							$('body').append(htmlContent);
+
+							var _rtl = false;
+						    drawOwlCarousel(_rtl);
+
+						    // Render Rating stars
+
+						    rating('.modal-window');
+
+						    // Remove modal element form DOM
+
+						    $('.modal-window .modal-background, .modal-close').live('click',  function(e){
+						        $('.modal-window').addClass('fade_out');
+						        setTimeout(function() {
+						            $('.modal-window').remove();
+						        }, 300);
+						    });
+
+						}
+					});
+				}else{
+					reslisted_restaurant_id = resid;
+					htmlContent +='<div class="modal-window fade_in">';
+					htmlContent +='<div class="modal-wrapper" style="top:50;">';
+					htmlContent +='<div class="modal-body" style="width:800px;">';
+					htmlContent += '<div class="modal-content"> ';
+					htmlContent += '<div class="row"> ';
+					htmlContent += '<div class="col-md-6">';
+					htmlContent += '<img class="tc" src="/images/loyalty-points.png" />';
+					htmlContent += '<img src="/images/discounts.png" /> ';
+					htmlContent += '</div> ';
+					htmlContent += '<div class="col-md-6 reservModal"> ';
+					htmlContent +='<div class="reservSearch">';
+					htmlContent += '<h1 class="title tc">RESERVE YOUR TABLE NOW</h1><hr />';
+					htmlContent += '<form class="reservForm">';
+					htmlContent += '<div class="row">';
+					htmlContent +='<div class="col-md-12">';
+					htmlContent += '<div class="form-group"><label>Party Size:</label>';
+					htmlContent += '<select id="reservPax" name="reservPax" class="form-control">'
+					for(var i = 1; i <= 20; i++){
+						htmlContent += '<option>'+i+'</option>';
+					}
+					htmlContent += '</select></div></div>';
+					htmlContent += '<div class="col-md-12">';
+					htmlContent += '<div class="form-group"><label>Date:</label>';
+					htmlContent += '<div class="input-group date"><input type="text" data-provide="datepicker" id="reservDate" class="form-control"><span class="input-group-addon"><i class="fa fa-calendar"></i></span></div></div></div>';
+					htmlContent += '<div class="dnone"><input type="hidden" id="reservResid" name="reservResid" value="'+resid+'"/><input type="hiddden" id="reservAction" name="reservAction" value="search"/></div>'
+					htmlContent += '</div>';
+					htmlContent += '<div class="gap"></div>';
+					htmlContent += '<div class="row"><div class="gap"></div><div class="col-md-12"><a class="btn btn-default" id="reservSubmit" attr="nosource" style="width:100%; ">Reserve Now</a></div></div></form>';
+
+					//htmlContent += '<div class="form-group"><label>Date:</label>';
+					//htmlContent += '<input type="text" placeholder="Date" maxlength="40" class="inp1 date" value="" id="reservDate" name="reservDate"></div>';
+					
+					
+					/*for(var it in mainListData.data){
+						if(mainListData.data[it].id == resid){
+							htmlContent += '<div class="form-group"><label>Type:</label>';
+							var diningType = mainListData.data[it].item_specific.dining_type;
+							htmlContent += '<select id="reservDiningType" class="form-control" style="text-transform:capitalize">';
+							for(var item in diningType){
+								if(diningType[item]){
+									htmlContent += '<option attr="' +item+ '" >'+item+'</item>';
+								}else{
+									htmlContent += '<option disabled="disabled" attr="' +item+ '" >'+item+'</item>';
+								}						
+							}
+							htmlContent += '</select>';
+						}
+					}
+					
+					htmlContent += '</div></div>';*/
+					
+					
+					htmlContent +='</div>';
+					htmlContent +='<div class="modal-close"><img src="/images/close.png"></div>';
+					htmlContent +='</div>';
+					htmlContent +='</div>';
+					htmlContent +='</div>';
+					htmlContent +='</div>';
+					htmlContent +='</div>';
+					$('body').append(htmlContent);
+
+					var _rtl = false;
+				    drawOwlCarousel(_rtl);
+
+				    // Render Rating stars
+
+				    rating('.modal-window');
+
+				    // Remove modal element form DOM
+
+				    $('.modal-window .modal-background, .modal-close').live('click',  function(e){
+				        $('.modal-window').addClass('fade_out');
+				        setTimeout(function() {
+				            $('.modal-window').remove();
+				        }, 300);
+				    });
+				}
+		    }else{
+		    	Login();
+		    }			
+		});
+    });
+	$('#reservDate').live('change', function(){
+        $('.datepicker').hide();
+    });
+	$('#reservSubmit').live('click',function(){
+		var divRef = $('.reservModal');
+		$('.reservError,.resConfirm,.reservSlots').remove();
+		if($('#reservDate').val()){
+			if($(this).attr('attr') == 'source'){
+				var url = "http://www.dinedesk.com/Associate/Associate/partnersapi/key/53832ab7a845c/apiname/GA";
+				url += '/restaurantid/'+reslisted_restaurant_id;
+				url += '/date/'+$('#reservDate').val();
+				url += '/mealtype/'+$('#reservDiningType').val();
+				url += '/partysize/'+$('#reservPax').val();
+				var resDiv = $('.item[data-id = "'+ $('#reservResid').val() +'"]');
+				$.post(url,function(response){
+					if(response['status'] == 'Y'){
+						var slotResult = response['slots'];
+						$('.reservSearch').hide();
+						var htmlRes = '';
+						htmlRes += '<div id="timeSlot" class="resTimes reservSlots">';
+		     			htmlRes += '<h1 class="title tc">COMPLETE YOUR RESERVATION</h2><hr />';
+			 			htmlRes += '<h2 style="margin-bottom:0;"><i><img src="/images/icons/restaurants-bars/restaurants/restaurant.png" alt=""></i>'+$('.resListResName',resDiv).text()+'</h2>';
+			 			htmlRes += '<figure class="resListResLoc">'+$('.resListResLoc',resDiv).text()+'</figure>';
+			 			htmlRes += '<div class="clear"></div>';
+		     			htmlRes += '<ul class="clearfix list-unstyled booking_dtl">';
+		     			htmlRes += '<li>';
+		     			htmlRes += '<span class="dblock bold mrgn_btm10">GUESTS</span>';
+		     			htmlRes += '<span class="dblock">'+$('#reservPax').val()+' People </span>';
+		     			htmlRes += '</li>';
+		     			htmlRes += '<li>';
+		     			htmlRes += '<span class="dblock bold  mrgn_btm10">DATE</span>';
+		     			htmlRes += '<span class="dblock">'+$('#reservDate').val()+'</span>';
+		     			htmlRes += '</li>';
+		     			htmlRes += '<li>';
+		     			htmlRes += '<span class="dblock bold mrgn_btm10">Type</span>';
+		     			htmlRes += '<span class="dblock">'+$('#reservDiningType').val()+'</span>';
+		     			htmlRes += '</li>';
+		     			htmlRes += '<li><a id="reservChange"><button type="button" class="btn btn-default dflt_btn_big pull-right" aria-expanded="false">Change</button></a></li>';
+		     			htmlRes += '</ul>';
+						htmlRes +='<div class="reservSlotsDiv"><ul class="dtp-results-times list-left reservTimeSlots">';
+						for(var item in slotResult){
+							htmlRes += '<li><a class="dtp-button ">'+slotResult[item]+'</a></li>'
+						}
+						htmlRes += '</ul>';
+						htmlRes +='<div class="row clear">';
+		      			htmlRes +='<div class="gap"></div>';
+		      			htmlRes +='<div class="gap"></div>';
+		      			htmlRes +='<div class="gap"></div>';
+		      			htmlRes +='<div class="col-md-4"></div>';
+		      			htmlRes +='<div class="col-md-4">';
+		       			htmlRes +='<a id="reservConfirm" class="btn btn-default" >Confirm Reservation</a>';
+		      			htmlRes +='</div>';
+		      			htmlRes +='<div class="col-md-4"></div>';
+		     			htmlRes +='</div></div>';
+		    			htmlRes +='</div>';
+						divRef.append(htmlRes);
+					}else{
+						$('.reservError').remove();
+						divRef.append('<div class="reservError">'+response['message']+'</div>')
+					}
+				});
+			}else{
+				var htmlRes = '';
+				htmlRes +='<div class="resConfirm">';
+				htmlRes +='<div class="row">';
+		     	htmlRes +='<div class="col-lg-12 col-md-12 col-sm-12">';
+		      	htmlRes +='<h2 style="margin-bottom: 6px;">User Details</h2>';
+		      	htmlRes +='<div class="col-md-6" style="padding:0;">';
+		      	htmlRes +='<div class="form-group">';
+		        htmlRes +='<label for="usr">First Name</label>';
+		        htmlRes +='<input type="text" class="form-control" id="reservFname" name="reservFname">';
+		      	htmlRes +='</div>';
+		      	htmlRes +='<div class="form-group">';
+		        htmlRes +='<label for="Email">Email</label>';
+		        htmlRes +='<input type="email" class="form-control" id="reservEmail" name="reservEmail">';
+		      	htmlRes +='</div>';
+		      	htmlRes += '</div>';
+		      	htmlRes +='<div class="col-md-6" style="padding-right:0;">';
+		      	htmlRes +='<div class="form-group">';
+		        htmlRes +='<label for="usr">Last Name</label>';
+		        htmlRes +='<input type="text" class="form-control" id="reservLname" name="reservLname">';
+		      	htmlRes +='</div>';	      	
+		      	htmlRes +='<div class="form-group">';
+		        htmlRes +='<label for="phone">Phone Number</label>';
+		        htmlRes +='<input type="email" class="form-control" id="reservPhone" name="reservPhone">';
+		      	htmlRes +='</div>';
+		      	htmlRes += '</div>';
+		      	htmlRes +='<div class="clearfix mrgn_top20">';
+		       	htmlRes +='<button type="submit" class="btn btn-default dflt_btn_big" id="reservInitiate" attr="nosource">Reserve Now</button>';
+		      	htmlRes +='</div>';
+		     	htmlRes +='</div>';
+		    	htmlRes +='</div>';
+		    	htmlRes +='</div>';
+		    	divRef.append(htmlRes);
+			}
+		}else{
+			$('.reservError').remove();
+			divRef.append('<div class="reservError">Please select date</div>')
+		}
+
+	});
+
+	$('#reservChange').live('click',function(){
+		$('.reservError,.resConfirm,.reservSlots').remove();
+		$('.reservSearch').show();
+	});
+
+	$('.reservTimeSlots li a').live('click',function(){
+		$('.reservTimeSlots li a').removeClass('reservSel');
+		$(this).addClass('reservSel');
+	});
+
+	$('#reservConfirm').live('click',function(){
+		var divRef = $('.reservModal');
+		if($('.reservTimeSlots li a').hasClass('reservSel')){
+			
+			$('.reservSlotsDiv').hide();
+			$('.reservError,.resConfirm').remove();
+			var htmlRes = '';
+			htmlRes +='<div class="resConfirm">';
+			htmlRes +='<div class="row">';
+	     	htmlRes +='<div class="col-lg-12 col-md-12 col-sm-12">';
+	      	htmlRes +='<h2 style="margin-bottom: 6px;">User Details</h2>';
+	      	htmlRes +='<div class="col-md-6" style="padding:0;">';
+	      	htmlRes +='<div class="form-group">';
+	        htmlRes +='<label for="usr">First Name</label>';
+	        htmlRes +='<input type="text" class="form-control" id="reservFname" name="reservFname">';
+	      	htmlRes +='</div>';
+	      	htmlRes +='<div class="form-group">';
+	        htmlRes +='<label for="Email">Email</label>';
+	        htmlRes +='<input type="email" class="form-control" id="reservEmail" name="reservEmail">';
+	      	htmlRes +='</div>';
+	      	htmlRes += '</div>';
+	      	htmlRes +='<div class="col-md-6" style="padding-right:0;">';
+	      	htmlRes +='<div class="form-group">';
+	        htmlRes +='<label for="usr">Last Name</label>';
+	        htmlRes +='<input type="text" class="form-control" id="reservLname" name="reservLname">';
+	      	htmlRes +='</div>';	      	
+	      	htmlRes +='<div class="form-group">';
+	        htmlRes +='<label for="phone">Phone Number</label>';
+	        htmlRes +='<input type="email" class="form-control" id="reservPhone" name="reservPhone">';
+	      	htmlRes +='</div>';
+	      	htmlRes += '</div>';
+	      	htmlRes +='<div class="clearfix mrgn_top20">';
+	       	htmlRes +='<button type="submit" class="btn btn-default dflt_btn_big" id="reservInitiate" attr="source">Reserve Now</button>';
+	      	htmlRes +='</div>';
+	     	htmlRes +='</div>';
+	    	htmlRes +='</div>';
+	    	htmlRes +='</div>';
+	    	divRef.append(htmlRes);
+		}else{
+			$('.reservError').remove();
+			divRef.append('<div class="reservError">Please select a time slot to continue.</div>')
+		}
+	});
+
+	$('#reservInitiate').live('click',function(){
+		var divRef = $('.reservModal');
+		if(!$('#reservFname').val() && !$('#reservFname').val()){
+			$('.reservError').remove();
+			divRef.append('<div class="reservError">Please add the details to confirm reservation.</div>')
+			return false;
+		}
+		if($(this).attr('attr') == 'source'){
+			var url = "http://www.dinedesk.com/Associate/Associate/partnersapi/key/53832ab7a845c/apiname/MR";
+			url += '/restaurantid/'+reslisted_restaurant_id;
+			var selDate = $('#reservDate').val().split('-');
+	      var monArr = {'Jan':1,'Feb':2,'Mar':3,'Apr':4,'May':5,'Jun':6,'Jul':7,'Aug':8,'Sep':9,'Oct':10,'Nov':11,'Dec':12};
+	      url += '/date/'+monArr[selDate[1]]+'-'+selDate[0]+'-'+selDate[2];
+			url += '/time/'+$('.reservSel').text();
+			url += '/partysize/'+$('#reservPax').val();
+			url += '/fname/'+$('#reservFname').val();
+			url += '/lname/'+$('#reservLname').val()
+			url += '/splrequest/';
+			url += '/email/'+$('#reservEmail').val();
+			url += '/phone/'+$('#reservPhone').val();
+			url += '/mealtype/'+$('#reservDiningType').val();
+			$.post(url,function(response){
+				if(response['status'] == 'Y'){
+					var bokid = response['message'];
+					url = "<?= $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'saveapireservation'),'default',true);?>";
+					url += '/restaurantid/'+reslisted_restaurant_id;
+					url += '/date/'+$('#reservDate').val();
+					url += '/time/'+$('.reservSel').text();
+					url += '/partysize/'+$('#reservPax').val();
+					url += '/fname/'+$('#reservFname').val();
+					url += '/lname/'+$('#reservLname').val()
+					url += '/splrequest/';
+					url += '/email/'+$('#reservEmail').val();
+					url += '/phone/'+$('#reservPhone').val();
+					url += '/mealtype/'+$('#reservDiningType').val();
+					url += '/bokid/'+bokid;
+					$.post(url,function(resp){
+						alert('Reservation Confirmed')
+						$('.modal-window').remove();
+					});
+				}
+			});
+		}else{
+
+			url = "<?= $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'saveapireservation'),'default',true);?>";
+			url += '/restaurantid/'+reslisted_restaurant_id;
+			url += '/date/'+$('#reservDate').val();
+			url += '/partysize/'+$('#reservPax').val();
+			url += '/fname/'+$('#reservFname').val();
+			url += '/lname/'+$('#reservLname').val()
+			url += '/splrequest/';
+			url += '/email/'+$('#reservEmail').val();
+			url += '/phone/'+$('#reservPhone').val();
+			$.post(url,function(resp){
+				alert('Reservation Confirmed')
+				$('.modal-window').remove();
+			});
+		}
+	});
+
+    autoComplete();
+    var onloadjsondata;
+$(function(){
+	getFiltersJson();
+	var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'listjson'),'default',true); ?>";
+		 url += '/searchLocation/'+"<?= $this->searchLocation?>";
+		 url +='/isMap/'+false;
+	url += '/searchCriteria/'+"<?= $this->searchCriteria?>";
+	url +='/searchOrder/'+"<?= $this->searchOrder?>";
+	url +='/searchCityId/'+"<?= $this->searchCityId?>";
+    $.post(url,function(data){
+	    if(data != 'f'){
+	    	onloadjsondata = data;
+	    	var location_name = "<?php  if(isset($this->searchLocationName)){
+	    		echo ucfirst(str_replace('_',' ',$this->searchLocationName));
+	    	} ?>";
+	    	var city_name = "<?= ucfirst(str_replace('_',' ',$this->searchCity)) ?>";
+	    	var heading ='<div class="col-md-12" style="padding:0;">' ;
+				heading +='<p style="padding:12px 0 0 0; margin:0;"><a href="/">Home</a> / <a href="/'+city_name.toLowerCase()+'">'+city_name+'</a> / <b>'+location_name+' Restaurants</b></p>';
+				heading += '<h1 style="padding:6px 0 0 0; margin:0; font-size:24px; font-weight:normal; text-transform:normal !important;">Restaurants in '+city_name+'';
+				if(location_name.length>0)
+				{
+					heading+= '-'+location_name+'</h1>';
+				}
+				 heading += '<p style="padding:6px 0 12px 0;">'+data.data.length+' restaurants found (Included near by restaurants)</p></div>';
+				heading += '</div>';
+				$(".list-heading").html(heading);
+	    	createHomepageList(data,$('section.listing'),null,function(){showShortlist();});	
+		}
+	},'json');
+	$('select.filter').change(function(){
+		var filterValues = getFilterValues();
+		setFilterData(filterValues);	
+	});
+	$('.openNow').click(function()
+			{
+				if($(this).attr("data-value")=="false")
+				{
+					$(this).addClass('isSelected');
+					$(this).attr('data-value',"true");
+				}
+				else
+				{
+					$(this).removeClass('isSelected');
+					$(this).attr('data-value',"false");
+				}
+				$('select.filter').change();
+				return false;
+			});
+	$(".filter-btn").click(function(){
+		var className = 'other-filter-selected';
+		if($(this).hasClass(className)){
+			$(this).removeClass(className);
+		}
+		else{
+			$(this).addClass(className);
+		}
+		return false;
+	});
+	$(".other-filter-submit").click(function(){
+			if($(".other-filter-selected").length >0){
+				$(".btn-group bootstrap-select framed").addClass("others-option-selected");
+			}
+			setFilterData(getFilterValues());
+			
+	});
+	/*$(window).scroll(function()
+	{
+		$(".scrollLimit").html("<center><b>Loading....</b></center>");
+		var footerPosition = $(".scrollLimit").position().top;
+		var windowPosition = $(this).scrollTop();
+		if(windowPosition>=footerPosition)
+		{
+			
+		}
+		$(".scrollLimit").html("");
+
+	});*/
+});
+$(".resliked").live('click',function()
+  {   
+  	var loggedin = "<?php echo $this->isLoggedIn ?>" ;
+  	var userid ="<?php echo $this->userid ?>" ;
+    var resid = $(this).attr('data-id');
+    if(loggedin)
+    {
+      var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'reslikes'),'default',true);?>";
+        $.post(url,{perform:"like",userid:userid,resid:resid},
+          function(data){
+            if(data.length>0)
+            {
+              data = JSON.parse(data);
+              $(".resliked[data-id='"+resid+"']").html('<i class="fa fa-thumbs-up white"></i>'+data['res_likes']);
+              $(".resdisliked[data-id='"+resid+"']").html('<i class="fa fa-thumbs-down white"></i>'+data['res_dislikes']);
+              $(".resliked[data-id='"+resid+"']").removeClass("op8");
+            }
+          });
+    }
+    else
+    {
+    Login();
+    }
+    return false;
+ });
+
+$(".resdisliked").live('click',function()
+  {   
+  	var loggedin = "<?php echo $this->isLoggedIn ?>" ;
+  	var userid ="<?php echo $this->userid ?>" ;
+    var resid = $(this).attr('data-id');
+    if(loggedin)
+    {
+      var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'reslikes'),'default',true);?>";
+        $.post(url,{perform:"dislike",userid:userid,resid:resid},
+          function(data){
+            if(data.length>0)
+            {
+              data = JSON.parse(data);
+              $(".resliked[data-id='"+resid+"']").html('<i class="fa fa-thumbs-up white"></i>'+data['res_likes']);
+              $(".resdisliked[data-id='"+resid+"']").html('<i class="fa fa-thumbs-down white"></i>'+data['res_dislikes']);
+              $(".resdisliked[data-id='"+resid+"']").removeClass("op8");
+            }
+          });
+    }
+    else
+    {
+    Login();
+    }
+    return false;
+ });
+function initializePagination () {
+	offset = 0;
+	pageCount = 1;
+	itemsPerPage = 10;
+	generatePagination();
+}
+function generatePagination()
+{
+	$(".pagination").html('');
+	var numberOfPages;
+	if(filterIsSet)
+	{
+	 numberOfPages = Math.ceil(filterData.data.length/itemsPerPage);
+	}
+	else
+	{
+		numberOfPages = Math.ceil(onloadjsondata.data.length/itemsPerPage);
+	}
+	for(var i=1;i<=numberOfPages;i++)
+	{
+		if(i==1)
+		{
+			$('.pagination').append(' <li class="active"><a data-value="'+i+'" href="#">1</a></li>');	
+		}
+		else
+		{
+			$('.pagination').append(' <li><a data-value="'+i+'" href="#">'+i+'</a></li>');
+		}
+	}
+	if(numberOfPages>1)
+	{
+		$('.pagination').append('  <li><a href="#" class="previous" data-value="prev"><i class="fa fa-angle-left"></i></a></li><li><a href="#" class="next" data-value="next"><i class="fa fa-angle-right"></i></a></li>');
+	$(".pagination > li > a").on('click',function()
+	{
+		$('.pagination > .active').removeClass("active");
+		$(this).parent().addClass('active');
+		if(!isNaN($(this).attr("data-value")))
+		{
+			pageCount = $(this).attr("data-value");
+		}
+		else
+		{
+			if($(this).attr("data-value")=="prev")
+			{
+				pageCount = 1;
+			}
+			else
+			{
+				pageCount = $('.pagination > li').length-2;
+			}
+		}
+		offset = (itemsPerPage*(pageCount)-itemsPerPage);
+			if(filterIsSet==true)
+			{
+				createHomepageList(filterData,$("section.listing"),"paginate");	
+			}
+			else
+			{
+				createHomepageList(onloadjsondata,$("section.listing"),"paginate");
+			}
+			$('html, body').animate({scrollTop: '0px'}, 100);
+			return false;
+	});
+	}
+}
+function Login()
+	{
+    
+     var htmlDia = '<div class="modal-window fade_in" style="z-index:1052;"><div class="modal-wrapper">';
+        htmlDia += '<div class="modal-body" style="width:600px;"><div class="modal-content">';
+        htmlDia +='<div class="login-container">';
+        htmlDia +='<div class="col-md-11 login-content1">';
+        htmlDia +='<header class="login-header">';
+        htmlDia +='<h1 class="page-title" style="background:black;">Log In To ReserveDine</h1>';
+        htmlDia +='</header>';
+        htmlDia +='<div class="wrap">';
+        htmlDia +='<div class="login-split-left">';
+        htmlDia +='<form role="form" id="form-sign-in-account" >';
+        //htmlDia +='<div class="">';
+        htmlDia +='<div class="form-group">';
+        htmlDia +='<label for="form-sign-in-email">Email:</label>';
+        htmlDia +='<input type="email" class="form-control" id="form-sign-in-email"  name="emailAddress" required>';
+        htmlDia +='</div>';
+        htmlDia +='<div class="form-group" style="margin-top:10px;">';
+        htmlDia +='<label for="form-sign-in-password">Password:</label>';
+        htmlDia +='<input type="password" class="form-control" id="form-sign-in-password" name="password" required>';
+        htmlDia +='</div>';
+         htmlDia +='<div class="form-group loginerror" style="color:red;">';
+        htmlDia +='</div>';
+        htmlDia +='<div class="form-group clearfix" style="margin-top:10px;">';
+        htmlDia +='<button type="submit" class="btn btn-default" id="account-submit">Log In</button>';
+        htmlDia +='</div>';
+        htmlDia +='<div class="form-group clearfix " style="margin-top:10px;">';
+        htmlDia +='<a href="#" class="signUp">New User? Please Signup</a>';
+        htmlDia +='</div>';
+        htmlDia +='</form>';
+        htmlDia +='</div>';
+        htmlDia +='<ul class="login-split-right social-options">';
+        htmlDia +='<h2>Connect with</h2>';
+        htmlDia +='<li class="facebook">';
+        htmlDia +='<button class="btn btn-default ng-isolate-scope ng-scope" login="" service="facebook"><i class="fa fa-facebook"></i></span> <span class="text" aria-hidden="Facebook">Facebook</span></button>';
+        htmlDia +='</li>';
+        htmlDia +='<li class="google">';
+        htmlDia +='<div  login="" id="popup-Signin" service="google"><i class="fa fa-google-plus"></i> <span class="text" aria-hidden="Google">Google</span></div>';
+        htmlDia +='</li>';
+        htmlDia +='</ul>';
+        htmlDia +='</div>';
+        htmlDia +='</div>';
+         htmlDia +='<div class="col-md-11 login-content2 dnone">';
+        htmlDia +='<header class="login-header">';
+        htmlDia +='<h1 class="page-title" style="background:black;">Signup To Rdine</h1>';
+        htmlDia +='</header><br>';
+      htmlDia += '<form  role="form"  action="" class="signUpForm" method="post">';
+      htmlDia += '<div class="col-md-6 col-sm-6">';
+      htmlDia += '<div class="form-group">';
+      htmlDia += '<label for="name">Name</label>           ';
+      htmlDia += '<input type="text" name="firstName" id="firstName" value="" class="inp1" maxlength="30" title="First Name" placeholder="First Name*"></div>';
+      htmlDia += '</div>';
+      htmlDia += '<div class="col-md-6 col-sm-6">';
+      htmlDia += '<div class="form-group">';
+      htmlDia += '<label for="Last Name">Last Name</label>       ';
+      htmlDia += '<input type="text" name="lastName" id="lastName" value="" maxlength="30" title="Last Name" placeholder="Last Name" class="inp1">';   
+      htmlDia += '</div>';
+      htmlDia += '</div>';
+      htmlDia += '<div class="col-md-6 col-sm-6">';
+      htmlDia += '<div class="form-group">';
+      htmlDia += '<label for="email">Email Address</label>';
+      htmlDia += '<input type="text" name="emailAddress" id="emailAddress" value="" class="inp1" maxlength="40" title="Email Address" placeholder="Email Address*"><span class="ajaxReturn"></span></div>';
+      htmlDia += '</div>';
+      htmlDia += '<div class="col-md-6 col-sm-6">';
+      htmlDia += '<div class="form-group">';
+      htmlDia += '<label for="password">Password</label>';
+      htmlDia += '<input type="password" name="password" id="password" value="" class="inp1" maxlength="20" title="Password" placeholder="Password*"><img htmlDia += class="psdImg dNone">';
+      htmlDia += '</div>';
+      htmlDia += '</div>';
+      htmlDia += '<div class="col-md-6 col-sm-6">';
+      htmlDia += '<div class="form-group">';
+      htmlDia += '<label for="password">Confirm Password</label>             ';
+      htmlDia += '<input type="password" name="password_confirm" id="password_confirm" value="" class="inp1" maxlength="20" title="Confirm Password" placeholder="Confirm Password*"><img class="psdCnfImg dNOne">';
+      htmlDia += '</div>';
+       htmlDia += '<div class="form-group passwordError" style="color:red;">';
+      htmlDia += '</div>';
+      htmlDia += '</div>';
+      htmlDia += '<div class="clear"></div><section>';
+      htmlDia += '<div class="form-group">';
+      htmlDia += '<button id="submit" class="btn btn-default pull-right" type="submit">Submit</button>';
+      htmlDia += '</div>';
+      htmlDia += '</form>';
+       htmlDia +='<a href="#" class="signIn">Already User? Please Login</a>';
+      htmlDia +='</div>';
+        htmlDia +='<div class="modal-close"><img src="/images/close.png"></div>';
+        htmlDia +='</div>';       
+        htmlDia += '</div></div></div><div class="modal-background fade_in"></div></div>';
+        $('body').append(htmlDia);
+        renderLoginButton();
+    $("#form-sign-in-account").on('submit',function()
+      {      
+       var  SigninFormValues =new FormData($('#form-sign-in-account')[0]);              
+        var url = "<?php echo $this->url(array('module'=>'User','controller'=>'Login','action'=>'signinajax'),'default',true);?>";
+          $.ajax({
+            url: url,   
+            type: "POST", 
+            data:SigninFormValues, 
+            contentType: false,  
+            cache: false,          
+            processData:false,     
+            success: function(data)
+            {
+              if(data==true)
+              {
+                
+                $(".modal-close").click();
+               location.reload();
+              } 
+              else
+              {
+                $(".loginerror").html("Invalid Login Please Try Again");
+              }                       
+            }
+          });  
+      return false; 
+    });
+    var emailValid = "";
+    $('#submit').live('click',function(e){
+      e.preventDefault();
+         if($("#password").val()!=$("#password_confirm").val())
+        {
+          $(".passwordError").html("Password Didnt Match");
+          return false;
+        }
+    emailObj.trigger('blur');
+    var formData = $(".signUpForm").serializeArray();
+    if(emailValid)
+    {
+      var url = "<?php echo $this->url(array('module'=>'User','controller'=>'Client','action'=>'guestwidgetsignup'),'default',true); ?>"
+      $.post(url,formData,function(data)
+      {
+        if(data==true)
+        {
+             $(".modal-close").click();
+               location.reload();
+        }
+      });
+    }
+    $(".signUpForm").submit();
+    return emailValid;  
+    });
+    var emailObj = $("#emailAddress");
+    emailObj.live('blur',function(){
+  ajaxEmailCall();
+   });
+     $(".signUp").live('click',function()
+    {
+      $(this).parents('.login-content1').addClass("dnone");
+      $(".login-content2").removeClass("dnone");
+      return false;
+    });
+     $(".signIn").live('click',function()
+     {
+        $(this).parents('.login-content2').addClass("dnone");
+      $(".login-content1").removeClass("dnone");
+      return false;
+     });
+     function ajaxEmailCall(){
+      var emailObj = $("#emailAddress");
+    errorObj = $(".ajaxReturn");
+   var url = "<?php echo $this->url(array('module'=>'User','controller'=>'Client','action'=>'searchforemailexist'),'default',true); ?>"
+     errorObj.text(" ");
+     var bValid = true;
+     bValid = bValid && checkRegexp(emailObj,/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,"<?php echo $this->translate->_('Invalid Email'); ?>");  
+    function checkRegexp(o,regexp) {
+      var emailObj = $("#emailAddress");
+      if ( !( regexp.test( o.val() ) ) ) {  
+        errorObj.text("<?php echo $this->translate->_('Invalid Email'); ?>");
+        errorObj.css({'color':'#ED0E19'});
+          emailValid = false;
+          return false
+      } else{
+        return true;
+      }
+    }
+    if(!bValid){
+      return false;
+    }
+   $.post(url, { email: $.trim(emailObj.val()) },
+         function(data){
+          data = data.replace(/\s/g,"");
+          if(data=="t"){
+            errorObj.text("<?php echo $this->translate->_('Email Address is not available'); ?>");
+            errorObj.css({'color':'#ED0E19'});
+            emailValid = false;
+          }else if(data == "f"){
+            errorObj.text("<?php echo $this->translate->_('Email Address is available continue  registering'); ?>");
+            errorObj.css({'color':'#0EED12'});
+            emailValid = true;
+          }
+        });
+  }
+
+  
+	}
+
+function createHomepageList(data,target,paginate,callback){
+	data = data.data;
+	
+		if(paginate==null)
+		{
+			initializePagination();
+			$(target).html('');
+		}
+		var dlgHtml = "";
+	    var str="";
+	    if(data.length==0)
+		{
+			$(target).html("<h1>0 Search Results found in the criteria</h1>Please try with a different search");
+		}
+    	for(var i in data)
+    	{
+    		
+    		if((i>=offset)&&(i<(offset+itemsPerPage)))
+    		{
+    			//var str="";
+    			var avg2 = data[i]['item_specific']['pricefor2'];
+    		    		var smoking = "";
+    		    		if(data[i]['item_specific']['smoking'])
+    		    		{
+    		    			smoking  = "<h4 class='f-normal'><i class='fa fa-check green1'></i> Smoking Area</h4>";
+    		    		}
+    		    		else
+    		    		{
+    		    			smoking  = "<h4 class='f-normal'><i class='fa fa-remove red'></i> Smoking Area</h4>";
+    		    		}
+    		    		var alcohol = "";
+    		    		if(data[i]['item_specific']['alcohol'])
+    		    		{
+    		    			alcohol  = "<h4 class='f-normal'><i class='fa fa-check green1'></i> Serves Alcohol</h4>";
+    		    		}
+    		    		else
+    		    		{
+    		    			alcohol  = "<h4 class='f-normal'><i class='fa fa-remove red'></i> Serves Alcohol</h4>";
+    		    		}
+    		    		var nonveg = "";
+    		    		if(data[i]['item_specific']['nonveg'])
+    		    		{
+    		    			nonveg  = "<h4 class='f-normal'><i class='fa fa-check green1'></i> Non veg</h4>";
+    		    		}
+    		    		else
+    		    		{
+    		    			nonveg  = "<h4 class='f-normal'><i class='fa fa-remove red'></i> Non veg</h4>";
+    		    		}
+    		    		var htmlContent ="";
+    			 htmlContent +='<div class="view-all dnone">';
+    			htmlContent +='<div class="row">';
+				htmlContent +='<div class="col-md-4">';
+    			htmlContent +='<div class="filter-container">';
+    			htmlContent +='<span class="label title4">Seating Type</span>';
+    			htmlContent +='<div class="filter-btn-wrap">';
+    			htmlContent +='<ul class="list facilities-list">';
+    			 if(data[i].item_specific.seating_type.outdoor_seating == true)
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-flexible"></i>Out Door Seating</div> <i class="fa fa-check pull-right"></i></li>';
+    			}
+    			else
+    			{
+    			  htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-flexible"></i>Out Door Seating</div> <i class="fa fa fa-remove disabled pull-right"></i></li>';
+    			}
+    			if(data[i].item_specific.seating_type.ac == true)
+    			{
+    			   htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-aircon"></i> Air Condition</div> <i class="fa fa-check pull-right"></i></li>';	
+    			}
+    			else
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-aircon"></i> Air Condition</div> <i class="fa fa fa-remove disabled pull-right"></i></li>';
+    			}
+    			
+    			if(data[i].item_specific.seating_type.dine_in == true)
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-breakfast"></i> Dine-In Available</div> <i class="fa fa-check pull-right"></i></li>';
+    			}
+    			else
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-breakfast"></i> Dine-In Available</div> <i class="fa fa fa-remove disabled pull-right"></i></li>';
+    			}
+    			
+    			if(data[i].item_specific.seating_type.alcohol == true)
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-winebar"></i>  Bar Available </div> <i class="fa fa-check pull-right"></i></li>';
+    			}
+    			else
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-winebar"></i>  Bar Available </div> <i class="fa fa fa-remove disabled pull-right"></i></li>';
+    			}
+    			htmlContent +='</ul>';
+    			htmlContent +='</div>';
+    			htmlContent +='</div>';
+    			htmlContent +='</div>';
+    			htmlContent +='<div class="col-md-4">';
+    			htmlContent +='<div class="filter-container">';
+    			htmlContent +='<span class="label title4">Dining Type</span>';
+    			htmlContent +='<div class="filter-btn-wrap">';
+    			htmlContent +='<ul class="list facilities-list">'
+    			if(data[i].item_specific.dining_type.breakfast == true)
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-food"></i>Breakfast</div> <i class="fa fa-check pull-right"></i></li>';
+    			}
+    			else
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-food"></i>Breakfast</div> <i class="fa fa fa-remove disabled pull-right"></i></li>';
+    			}
+    			
+    			if(data[i].item_specific.dining_type.brunch == true)
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-coffee"></i>Brunch</div> <i class="fa fa-check pull-right"></i></li>';
+    			}
+    			else
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-coffee"></i>Brunch</div> <i class="fa fa fa-remove disabled pull-right"></i></li>';
+    			}
+    			
+    			if(data[i].item_specific.dining_type.lunch == true)
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-breakfast"></i>Lunch</div> <i class="fa fa-check pull-right"></i></li>';
+    			}
+    			else
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-breakfast"></i>Lunch</div> <i class="fa fa fa-remove disabled pull-right"></i></li>';
+    			}
+    			
+    			if(data[i].item_specific.dining_type.dinner == true)
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-fireplace"></i>Dinner</div> <i class="fa fa-check pull-right"></i></li>';
+    			}
+    			else
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-fireplace"></i>Dinner</div> <i class="fa fa fa-remove disabled pull-right"></i></li>';
+    			}
+    			htmlContent +='</ul>';
+    			htmlContent +='</div>';
+    			htmlContent +='</div>';
+    			htmlContent +='</div>';
+    			htmlContent +='<div class="col-md-4">';    			
+    			htmlContent +='<div class="filter-container">';
+    			htmlContent +='<span class="label title4">Parking</span>';
+    			htmlContent +='<div class="filter-btn-wrap">';
+    			htmlContent +='<ul class="list facilities-list">'
+    			if(data[i].item_specific.parking.parking_valet == true)
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-parking"></i>Valet Parking</div> <i class="fa fa-check pull-right"></i></li>';
+    			}
+    			else
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-parking"></i>Valet Parking</div> <i class="fa fa fa-remove disabled pull-right"></i></li>';
+    			}
+    			if(data[i].item_specific.parking.parking_prepaid == true)
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-card"></i>Prepaid</div> <i class="fa fa-check pull-right"></i></li>';
+    			}
+    			else
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-card"></i>Prepaid</div> <i class="fa fa fa-remove disabled pull-right"></i></li>';
+    			}
+    			
+    			if(data[i].item_specific.parking.parking_public == true)
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-globe"></i>Public</div> <i class="fa fa-check pull-right"></i></li>';
+    			}
+    			else
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-globe"></i>Public</div> <i class="fa fa fa-remove disabled pull-right"></i></li>';
+    			}    			
+    			htmlContent +='</ul>';
+    			htmlContent +='</div>';
+    			htmlContent +='</div>';
+    			htmlContent +='</div>';
+    			htmlContent +='</div>';
+    			htmlContent +='<div class="row">';
+           		htmlContent +='<div class="col-md-4">';
+    			htmlContent +='<div class="filter-container">';
+				htmlContent +='<span class="label title4">Accepts</span>';
+				htmlContent +='<div class="filter-btn-wrap">';
+				htmlContent +='<ul class="list facilities-list">';
+				if(data[i].item_specific.payment_methods.cash == true)
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-savings"></i>Cash</div> <i class="fa fa-check pull-right"></i></li>';
+    			}
+    			else
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-savings"></i>Cash</div> <i class="fa fa fa-remove disabled pull-right"></i></li>';
+    			}
+    			if(data[i].item_specific.payment_methods.credit_card == true)
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-card"></i>Credit Card</div> <i class="fa fa-check pull-right"></i></li>';
+    			}
+    			else
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-card"></i>Credit Card</div> <i class="fa fa fa-remove disabled pull-right"></i></li>';
+    			}
+    			if(data[i].item_specific.payment_methods.gift_vouchers == true)
+    			{
+    			    htmlContent +=' <li><div class="icon-box style1"><i class="soap-icon-card"></i>Gift Certificates </div> <i class="fa fa-check pull-right"></i></li>';
+    			}
+    			else
+    			{
+    			    htmlContent +=' <li><div class="icon-box style1"><i class="soap-icon-card"></i>Gift Certificates </div> <i class="fa fa fa-remove disabled pull-right"></i></li>';
+    			}
+    			if(data[i].item_specific.payment_methods.visa_card == true)
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-card"></i>Visa card</div> <i class="fa fa-check pull-right"></i></li>';
+    			}
+    			else
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-card"></i>Visa card</div> <i class="fa fa fa-remove disabled pull-right"></i></li>';
+    			}
+    			if(data[i].item_specific.payment_methods.master_card == true)
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-card"></i>Master card</div> <i class="fa fa-check pull-right"></i></li>';
+    			}
+    			else
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-card"></i>Master card</div> <i class="fa fa fa-remove disabled pull-right"></i></li>';
+    			}
+				htmlContent +='</ul>';
+				htmlContent +='</div>';
+				htmlContent +='</div>';
+    			htmlContent +='</div>';
+    			htmlContent +='<div class="col-md-4">';
+    			htmlContent +='<div class="filter-container">';
+    			htmlContent +='<span class="label title4">Buffet</span>';
+    			htmlContent +='<div class="filter-btn-wrap">';
+    			htmlContent +='<ul class="list facilities-list">';
+    			if(data[i].item_specific.dining_type.breakfast == true)
+    			{
+				htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-food"></i>Breakfast</div> <i class="fa fa-check pull-right"></i></li>';
+				}
+				else
+				{
+				htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-food"></i>Breakfast</div> <i class="fa fa fa-remove disabled pull-right"></i></li>';	
+				}
+				if(data[i].item_specific.buffet.lunch_buffet == true)
+    			{
+				htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-breakfast"></i>Lunch</div> <i class="fa fa-check pull-right"></i></li>';
+				}
+				else
+				{
+				htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-breakfast"></i>Lunch</div> <i class="fa fa fa-remove disabled pull-right"></i></li>';	
+				}
+				if(data[i].item_specific.buffet.dinner_buffet == true)
+    			{
+				htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-fireplace"></i>Dinner</div> <i class="fa fa-check pull-right"></i></li>';
+				}
+				else
+				{
+				htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-fireplace"></i>Dinner</div> <i class="fa fa fa-remove disabled pull-right"></i></li>';	
+				}    			
+    			htmlContent +='</ul>';
+    			htmlContent +='</div>';
+    			htmlContent +='</div>';
+    			htmlContent +='</div>';
+    			htmlContent +='<div class="col-md-4">';
+    			htmlContent +='<div class="filter-container">';
+    			htmlContent +='<span class="label title4">Entertainment</span>';
+    			htmlContent +='<div class="filter-btn-wrap">';
+    			htmlContent +='<ul class="list facilities-list">'
+    			if(data[i].item_specific.entertainment.wifi == true)
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-wifi"></i>Free wifi</div> <i class="fa fa-check pull-right"></i></li>';
+    			}
+    			else
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-wifi"></i>Free wifi</div> <i class="fa fa fa-remove disabled pull-right"></i></li>';
+    			}
+    			
+    			if(data[i].item_specific.entertainment.television == true)
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-television"></i>Television</div> <i class="fa fa-check pull-right"></i></li>';
+    			}
+    			else
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-television"></i>Television</div> <i class="fa fa fa-remove disabled pull-right"></i></li>';
+    			}
+    			
+    			if(data[i].item_specific.entertainment.sports_telecast == true)
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-binoculars"></i>Sports telecast</div> <i class="fa fa-check pull-right"></i></li>';
+    			}
+    			else
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-binoculars"></i>Sports telecast</div> <i class="fa fa fa-remove disabled pull-right"></i></li>';
+    			}
+    			
+    			if(data[i].item_specific.entertainment.live_music == true)
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-triangle-right"></i>Live Music</div> <i class="fa fa-check pull-right"></i></li>';
+    			}
+    			else
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-triangle-right"></i>Live Music</div> <i class="fa fa fa-remove disabled pull-right"></i></li>';
+    			}
+    			htmlContent +='</ul>';
+    			htmlContent +='</div>';
+    			htmlContent +='</div></div>';
+    			htmlContent +='</div>';
+    			htmlContent +='<div class="row">';
+    			htmlContent +='<div class="col-md-4">';
+    			htmlContent +='<div class="filter-container">';
+    			htmlContent +='<span class="label title4">Special</span>';
+    			htmlContent +='<div class="filter-btn-wrap">';
+    			htmlContent +='<ul class="list facilities-list">';
+    			if(data[i].item_specific.special.romantic_setup == true)
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-fridge"></i>Romantic setup</div> <i class="fa fa-check pull-right"></i></li>';
+    			}
+    			else
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-fridge"></i>Romantic setup</div> <i class="fa fa fa-remove disabled pull-right"></i></li>';
+    			}
+    			
+    			if(data[i].item_specific.special.special_ocassion_dining == true)
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-fireplace"></i>Special occasion Dining</div> <i class="fa fa-check pull-right"></i></li>';
+    			}
+    			else
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-fireplace"></i>Special occasion Dining</div> <i class="fa fa fa-remove disabled pull-right"></i></li>';
+    			}
+    			htmlContent +='</ul>';
+    			htmlContent +='</div>';
+    			htmlContent +='</div></div>';
+    			htmlContent +='<div class="col-md-4">';
+    			htmlContent +='<div class="filter-container">';
+    			htmlContent +='<span class="label title4">Convenience</span>';
+    			htmlContent +='<div class="filter-btn-wrap">';
+    			htmlContent +='<ul class="list facilities-list">';
+    			if(data[i].item_specific.convinience.kids_section == true)
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-food"></i>Children Friendly</div> <i class="fa fa-check pull-right"></i></li>';
+    			}
+    			else
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-food"></i>Children Friendly</div> <i class="fa fa fa-remove disabled pull-right"></i></li>';
+    			}
+    			
+    			if(data[i].item_specific.convinience.wheelchair == true)
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-breakfast"></i>Wheel chair accessible</div> <i class="fa fa-check pull-right"></i></li>';
+    			}
+    			else
+    			{
+    			    htmlContent +='<li><div class="icon-box style1"><i class="soap-icon-breakfast"></i>Wheel chair accessible</div> <i class="fa fa fa-remove disabled pull-right"></i></li>';
+    			}
+    			htmlContent +='</ul>';
+    			htmlContent +='</div>';
+    			htmlContent +='</div>';
+    			htmlContent +='</div>';
+    			htmlContent +='</div>';
+    			htmlContent +='</div>';
+    			    		var d = new Date();
+    			    		var weekdays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    			    		var today = weekdays[d.getDay()];
+    			    		var todayTimes = "";
+    			    		
+    			    		for(var t in data[i]['timings'][today])
+    			    		{
+    		
+    			    				todayTimes+="<span class='restimes'>"+data[i]['timings'][today][t]['rwt_start_time']+" - "+data[i]['timings'][today][t]['rwt_end_time']+"</span>";
+    			    		}
+    			    		var locationurl = "/"+data[i]['city_name'].toLowerCase()+"/"+data[i]['vanityUrl'];
+    						//locationurl += '/resid/'+data[i]['id'];
+    			    	 	str += " <div class='fade_in item list fade in' data-id="+data[i]['id']+"><div class='image'><a href='#'><div style='position: absolute;right: 4px;top: 4px;'><i class='fa fa-heart likeButton' data-score='1' data-id='"+data[i]['id']+"' style='font-size:24px;'></i></div><img src='"+data[i]['gallery'][0]+"' alt=''></a><div class='row timing-div'><div class='col-md-7'>"+todayTimes+"</div><div class='col-md-5' style='padding-top:6px;'>";
+    			    	 		if(data[i]['item_specific']['isOpen'])
+    			    	 		{
+    			    	 			str+="<span class='sml-btn1 green pull-right'>Open Now</span>";
+    			    	 		}
+    			    	 		else
+    			    	 		{
+    			    	 			str+="<span class='sml-btn1 pull-right'>Closed Now</span>";
+    			    	 		}
+
+			    	 		str+="</div></div></div><div class='wrapper'><div class='row'><div class='col-md-8'><a href='"+locationurl+"' class='pull-left'><h3 class='resListResName' reslisted_restaurant_id='"+data[i]['restaurant_id']+"'>"+data[i]['title']+"</h3> </a>";
+			    	 		if(data[i]['other_restaurants'].length > 0)
+			    	 		{
+			    	 			//str+="<a href='#' data-toggle='modal' data-target='#other-locations"+data[i]['id']+"' class='pull-right other-locations'><i class='fa fa-map-marker'></i> Other Locations</a>";
+			    	 		}
+			    	 		var goToMenu =  locationurl+"#menu";
+			    	 		var goToPhoto =  locationurl+"#gallery";
+			    	 		var goToReviews = locationurl+"#reviews";
+			    	 		var likescount =data[i]['item_specific']['likes'];
+			    	 		var dislikescount=data[i]['item_specific']['dislikes'];
+			    	 		var reviewcount=data[i]['item_specific']['reviews'];
+			    	 		if(likescount==null)
+			    	 		{
+			    	 			likescount =0;
+			    	 		}
+			    	 		if(dislikescount==null)
+			    	 		{
+			    	 			dislikescount =0;
+			    	 		}
+			    	 		if(reviewcount==null)
+			    	 		{
+			    	 			reviewcount =0;
+			    	 		}
+			    	 		if(likescount>999)
+			    	 		{
+			    	 			likescount = (likescount/1000).toFixed(1) + 'K';
+			    	 		}
+			    	 		if(dislikescount>999)
+			    	 		{
+			    	 			dislikescount = (dislikescount/1000).toFixed(1) + 'K';
+			    	 		}
+			    	 		var address = data[i]['location'];
+			    	 		if(address.length>50)
+			    	 		{
+			    	 			address = address.substr(0,50)+'..';
+			    	 		}
+			    	 		var specialities = data[i]['item_specific']['specialities'];
+			    	 		if(specialities==null)
+			    	 		{
+			    	 			specialities = "";
+			    	 		}
+			    	 		if(specialities.length>20)
+			    	 		{
+			    	 			specialities = specialities.substr(0,20)+'..';
+			    	 		}
+			    	 		var cusine = data[i]['item_specific']['cusine'];
+			    	 		if(cusine.length>20)
+			    	 		{
+			    	 			cusine = cusine.substr(0,20)+'..';
+			    	 		}
+			    	 		str+="<div style='clear:both'></div><figure class='resListResLoc'>"+address+"</figure><p style='margin-bottom:10px;'>"+cusine+"</p><div class='row' style='height:72px'><div class='col-md-6'><h3 class='title4'>Type</h3><p>"+data[i]['diningStyle']+"</p></div><div class='col-md-6'><h3 class='title4'>Cost for 2</h3><p>Rs."+avg2+"</p></div><div class='col-md-12'><p style='margin-top:10px;'><span class='title4'>Known For</span> - "+specialities+"</p></div></div><div class='info'><div class='type'><a href='"+goToMenu+"' class='sml-btn'><i class='fa fa-list green1'></i> Menu</a> </div><div class='type'><a href='"+goToPhoto+"' class='sml-btn'><i class='fa fa-image green1'></i> Photo</a> </div><div class='type'><a href='"+goToReviews+"' class='sml-btn'><i class='fa fa-star green1'></i> Reviews</a> </div></div></div><div class='col-md-4'><div class='type pull-right'><div class='item-top' style='position:relative;top:0px;'><a style='width:auto;font-size:12px;' class='pull-left res-rating op8 line-height-30 resliked' title='"+likescount+"' data-toggle='tooltip' data-id='"+data[i]['id']+"'><i class='fa fa-thumbs-up'></i>"+likescount+"</a><a  class='pull-left res-rating op8 line-height-30 resdisliked' data-id='"+data[i]['id']+"' style='width:auto;font-size:12px;' title='"+dislikescount+"' data-toggle='tooltip'><i class='fa fa-thumbs-down'></i>"+dislikescount+"</a><a  style='background:#3f7e00;color:white!important;font-size:12px;' class='res-rating pull-right'  data-id='"+data[i]['id']+"'>"+data[i]['rating']+"</a> </div><div style='clear:both'></div><a data-id='"+data[i]['id']+"' href='#' class='sml-btn1 pull-right resReserv' reslisted_restaurant_id='"+data[i]['restaurant_id']+"'>Reserve</a> <div style='clear:both; height:10px; width:100%; display:block;'></div>"+alcohol+""+smoking+""+nonveg+"<p style='padding:0; padding-top:10px;'><a href='#' class='pull-right showAll' style='font-weight:bold;'>View All <i class='fa fa-arrow-down'></i></a></p></div></div></div></div>"+htmlContent+"</div>";
+		}
+
+    	if(data[i]['other_restaurants'].length>0)
+    	{
+
+    			dlgHtml += '<div id="other-locations'+data[i]['id']+'" class="modal fade" role="dialog">';
+				dlgHtml += '<div class="modal-dialog" style="width:400px;">';
+				dlgHtml += '<div class="modal-content">';
+				dlgHtml += '<div class="modal-header">';
+				dlgHtml += '<button type="button" class="close" data-dismiss="modal">&times;</button>';
+				dlgHtml += '<h4 class="modal-title">Other Locations</h4>';
+				dlgHtml += '</div>';
+				dlgHtml += '<div class="modal-body">';
+				dlgHtml += '<section>';
+    		var otherRestaurantData = data[i]['other_restaurants'];
+    		for(var ord in otherRestaurantData)
+    		{
+    			var url = "/"+data[i]['city_name'].toLowerCase()+"/"+otherRestaurantData[ord]['vanityUrl'];
+				dlgHtml += '<a href ="'+url+'" class="item-horizontal small">';
+				dlgHtml += '<div class="wrapper">';
+				dlgHtml += '<div class="image"><img src="'+otherRestaurantData[ord]['display_pic']+'" alt=""></div>';
+				dlgHtml += '<div class="info">';
+				dlgHtml += '<h3>'+otherRestaurantData[ord]['restaurant_name']+'</h3>';
+				dlgHtml += '<figure class="resListResLoc">'+otherRestaurantData[ord]['location']+'</figure>';
+				dlgHtml += '<span class="price"><i class="fa fa-rupee" data-score="4"></i> '+otherRestaurantData[ord]['pricefor2']+' per 2 presons</span>';
+				dlgHtml += '</div>';
+				dlgHtml += '</div>';
+				dlgHtml += '</a>';
+    		}
+    			dlgHtml += '</section>';
+				dlgHtml += '</div>';
+				dlgHtml += '</div>';
+				dlgHtml += '</div>';
+				dlgHtml += '</div>';
+			
+    	}
+    	$(target).html(str);
+    	}
+    	$(".modal-details").html(dlgHtml);
+	    $(".showAll").on('click',function()
+	    {	
+	    		//$(".view-all").addClass('dnone');
+	    	var item = $(this).parents(".item");
+	    	if($(".view-all",item).hasClass("dnone"))
+	    	{
+	    		$(".view-all").addClass('dnone');
+	    		$(".view-all",item).toggleClass('dnone');
+	    	}
+	    	else
+	    	{
+	    		$(".view-all",item).toggleClass('dnone');
+	    	}
+	    	
+	    	return false;
+	    });
+	     $(".likeButton").on('click',function(e)
+	    {
+	    	
+	    likeAction($(this));
+	    	e.preventDefault();
+     });
+	if(callback!=null)
+	{
+		callback();
+	}
+}
+function getFiltersJson () {
+	var url ="<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'getfiltersjson'),'default',true);?>";
+	var placeId = "<?php if(isset($this->searchLocation)){echo $this->searchLocation;} else{echo $this->searchCityId;} ?>";
+		$.post(url,{placeId:placeId},function(data)
+		{
+		data = JSON.parse(data);
+		data = data['data'];
+		for(var i in data){
+			for(var j in data[i]){
+					var option = "<option value='"+data[i][j]['key']+"'>"+data[i][j]['value']+"</option>";
+					$("select[name='"+i+"']").append(option);
+					$("select[name='"+i+"']").selectpicker('refresh');
+			}		
+		}
+	});
+}
+function likeAction(btn)
+{
+			if($(btn).hasClass("red"))
+	      	{
+	      		$(btn).removeClass("red");
+	      	}
+	      	else
+	      	{
+	      		$(btn).addClass("red");
+	      	}
+	       var loggedin = "<?php echo $this->isLoggedIn ?>" ; 
+    	var userid ="<?php echo $this->userid ?>" ;     
+    	if(loggedin)
+    	{
+	    	var resid = parseInt($(btn).attr("data-id"));
+	    	var parentArray = Array();
+	    	var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'shortlistinsert'),'default',true);?>";
+	    	$.post(url,{perform:"insert",resid:resid,userid:userid},function(dataid)
+			{	
+				if(dataid==true)
+				{
+					$(onloadjsondata.data).each(function()
+					{
+						if($(this)[0].id==resid)
+						{
+
+								addLikeItem($(this)[0]);
+						}
+					});
+				}
+				else
+				{
+					removeLikeItem(resid);
+				}
+			});
+			return false;
+    	}
+    	else
+    	{	
+        	//localStorage.removeItem("shortlistDetails");
+	      var resid = parseInt($(btn).attr("data-id"));
+	      var jsonData = onloadjsondata['data'];
+	      var currentLike = Array();
+	      for(var i in jsonData)
+	      {
+	       if(jsonData[i]['id']==resid)
+	       {
+	        	currentLike = jsonData[i];
+	       }
+     	 }
+	      if((localStorage.getItem("shortlistDetails")==null)||(localStorage.getItem("shortlistDetails")==""))
+	      {
+		       var parentArray = Array();
+		       var likesData = {id:$(btn).attr("data-id")};
+		       parentArray.push(currentLike);
+		       localStorage["shortlistDetails"]=JSON.stringify(parentArray);
+		       addLikeItem(currentLike);
+	      }
+	      else
+	      {
+		       var strLikes = localStorage.getItem("shortlistDetails");
+		       var currentId = $(btn).attr("data-id");
+		       var likesData = Array();
+		       likesData = JSON.parse(strLikes);
+		       var listed = false;
+		       var removedIndex ;
+		       for(var i in likesData)
+		       {
+			        if(likesData[i]['id']==currentId)
+			        {
+			         removedIndex = i;
+			         listed = true;
+			        }
+		       }
+			       if(!listed)
+			       {
+			        likesData.push(currentLike);
+			        localStorage["shortlistDetails"]=JSON.stringify(likesData);
+			         addLikeItem(currentLike);
+			       }
+			       else
+			       {
+			        likesData.splice(removedIndex,1);
+			        localStorage["shortlistDetails"]=JSON.stringify(likesData);
+			        $("i[data-id ='"+resid+"']").removeClass("red");
+			        removeLikeItem(resid);
+			       }
+	      }
+	      	
+     		 return false;
+	    }
+}
+function showShortlist()
+{
+	
+ var htmlLike = "";
+	
+var loggedin =  "<?php echo $this->isLoggedIn ?>" ;         
+	 if(loggedin)
+	 {
+	 	var url = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'shortlistfetch'),'default'	,true);?>";
+		    	$.post(url,function(data)
+				{
+					data = JSON.parse(data);
+					var htmlLike ="";			
+					if(data.length==0)
+					{
+						 htmlLike+='<section class="shortlistedItems"><div class="btn" style="width:100%;border: 1px solid #cdcdcd; background:#fff; margin-bottom:10px;"><span class="shortlist-summary"><i class="fa fa-heart"></i> <span class="summary"> <span class="shortlist-number">0</span>Shortlisted Restaurants</span></div><b>Shortlist your favorite restaurants to find them quickly!!</b></section>';
+	     					  $(".shortlist").html(htmlLike);
+					}
+					else
+					{
+						 htmlLike+='<section class="shortlistedItems"><div class="btn" style="width:100%;border: 1px solid #cdcdcd; background:#fff; margin-bottom:10px;"><span class="shortlist-summary"><i class="fa fa-heart"></i> <span class="summary">'+data.length+' </span>Shortlisted Restaurants</span></div><b>Shortlist your favorite restaurants to find them quickly!!</b></section>';
+	    					   $(".shortlist").html(htmlLike);
+						drawList(data);
+					}
+				});
+	 }
+  else
+  {
+  if((localStorage.getItem("shortlistDetails")==null)||(localStorage.getItem("shortlistDetails")==""))
+      {
+	       htmlLike+='<section class="shortlistedItems"><div class="btn" style="width:100%;border: 1px solid #cdcdcd; background:#fff; margin-bottom:10px;"><span class="shortlist-summary"><i class="fa fa-heart"></i> <span class="summary"> <span class="shortlist-number">0</span>Shortlisted Restaurants</span></div><b>Shortlist your favorite restaurants to find them quickly!!</b></section>';
+	       $(".shortlist").html(htmlLike);
+	  }
+      else
+      {
+	       drawList(JSON.parse(localStorage['shortlistDetails']));
+      }
+      
+  }
+   
+}
+function drawList(data)
+{
+   var likesData = Array();
+   likesData = data;
+
+    var htmlLike='<div class="btn" style="width:100%;border: 1px solid #cdcdcd; background:#fff; margin-bottom:10px;"><span class="shortlist-summary"><i class="fa fa-heart"></i> <span class="shortlist-number">'+likesData.length+'</span> Shortlisted Restaurants</span></div>';
+ 					  $(".shortlist").html(htmlLike);
+   for(var i in likesData)
+   {
+        if(likesData[i].hasOwnProperty('data'))
+   		{
+   			addLikeItem(likesData[i].data,"onload");
+   		}
+   		else
+   		{
+   			addLikeItem(likesData[i],"onload");
+   		}
+   }
+}
+function addLikeItem (likesData,called) 
+{
+	var currentlikes = parseInt($(".shortlist-number").html());
+	if(called=="onload")
+	{	
+		$(".shortlist-number").html(currentlikes);
+	}
+	else
+	{
+		$(".shortlist-number").html(currentlikes+1);
+	}
+	var goTO = "/"+likesData.city_name+"/"+likesData.vanityUrl;  
+	var likescount,dislikescount,reviewcount;      
+		
+			likescount =likesData['item_specific']['likes'];
+			dislikescount=likesData['item_specific']['dislikes'];
+			reviewcount=likesData['item_specific']['reviews'];
+	if(likescount==null)
+	{
+		likescount =0;
+	}
+	if(dislikescount==null)
+	{
+		dislikescount =0;
+	}
+	if(reviewcount==null)
+	{
+		reviewcount =0;
+	}
+	var address = likesData.location;
+	if(address.length>20)
+	{
+		address = address.substr(0,20)+"..";
+	}
+	var htmlLike = '<span data-id="'+likesData.id+'" class="item-horizontal small"><div style="position: absolute;right: 4px;top: 4px;"><i class="fa fa-heart likeButton red" onclick="likeAction(this);return false;" data-score="1" data-id="'+likesData.id+'" style="font-size:24px;"></i></div><div class="item-top"><a href="#" class="resliked" data-id="'+likesData['id']+'" data-id="'+likesData['id']+'"><i class="fa fa-thumbs-up"></i>'+likescount+'</a><a href="#" class="resdisliked" data-id='+likesData['id']+'><i class="fa fa-thumbs-down"></i>'+dislikescount+'</a><a href="#" data-id="'+likesData['id']+'"><i class="fa fa-heart"></i>'+reviewcount+'  Reviews</a></div><div class="wrapper"><img src="'+likesData.gallery[0]+'" alt=""><div class="info1"><div class="row"><div class="col-md-12"><h3><a href="'+goTO+'">'+likesData.title+'</a></h3><figure>'+address+'</figure></div></div><div class="row" style="border-top:1px solid #D0D6DD; padding-top:10px; margin-right:-11px;"><div class="col-md-6" ><span class="sml-btn2 resReserv" reslisted_restaurant_id="'+likesData['restaurant_id']+'" data-id="'+likesData.id+'">Reserve</span></div><div class="col-md-6"><div class="rating-small pull-right margin-0">'+likesData.rating+'</div></div></div></div></div></span>';
+	$('i[data-id="'+likesData.id+'"]').addClass("red");
+	$(".shortlist").append(htmlLike);
+}
+function removeLikeItem(index)
+{
+	var currentlikes = parseInt($(".shortlist-number").html());
+	$(".shortlist-number").html(currentlikes-1);
+	$(".shortlist > span[data-id='"+index+"']").remove();	
+	$("i[data-id='"+index+"']").removeClass("red");
+	if((currentlikes-1)==0)
+	{
+		 var txt ='<section class="shortlistedItems"><div class="btn" style="width:100%;border: 1px solid #cdcdcd; background:#fff; margin-bottom:10px;"><span class="shortlist-summary"><i class="fa fa-heart"></i> <span class="summary"> <span class="shortlist-number">0</span> </span>Shortlisted Restaurants</span></div><b>Shortlist your favorite restaurants to find them quickly!!</b></section>';
+	       $(".shortlist").html(txt);
+	}
+}
+function setFilterData(filterValues){
+	filterIsSet = true;
+	 filterData = new Array('data');
+				filterData['data'] = new Array();
+				var jsonData = onloadjsondata['data'];
+	-			$(jsonData).each(function()
+				{ 	
+					var item_specific = $(this)[0]['item_specific'];
+					var matched = 0;
+					var total = 0;
+					for(var i in filterValues)
+					{
+						if((filterValues[i].length>0)||(i=="others"))
+						{
+							if(i!="others")
+							{
+								total++;	
+							}
+
+							switch(i)
+							{
+								case  "costfor2" :
+									var val = parseInt(item_specific["pricefor2"]);
+									var key = filterValues["costfor2"];
+									key = key.split("-");
+
+									for(var k in key)
+									{
+										key[k] = key[k].replace(/\s/g, "");
+										key[k] = parseInt(key[k]);
+									}
+									if((key[0]<=val)&&(key[1]>=val))
+									{
+										matched++;
+									}
+								break;
+								case "cusine" :
+								var val = item_specific[i];
+								var key = filterValues[i];
+								key = key.replace(/\s/g, "");
+								if(val.length>0)
+								{
+									for(var c in val)
+									{
+										val[c] = val[c].replace(/\s/g, "");
+										if(key==val[c])
+										{							
+											matched++;
+										}
+									}
+								}
+								break;
+								case 'others':
+								for(var o in filterValues[i])
+								{
+									for(var c in filterValues[i][o])
+									{
+										total++;
+										var val = item_specific[o][c];
+										val = val.toString(/\s/g, "");
+										val = val.replace()
+										var key = filterValues[i][o][c];
+										key = key.replace(/\s/g, "");		
+										if(key==val)
+										{			
+											matched++;
+										}
+									}
+								}
+								break;
+								default:
+									var val = item_specific[i].toString();
+									val = val.replace(/\s/g, "");
+									var key = filterValues[i];
+									key = key.replace(/\s/g, "");
+									if(key==val)
+									{						
+										matched++;
+									}
+								break;
+							}
+						}
+					}
+					if(matched==total)
+					{
+						filterData['data'].push($(this)[0]);
+					}
+				});
+				var popularityFilter = $("#popularity").val();
+				if(popularityFilter!=="")
+				{
+					switch(popularityFilter)
+					{
+						case 'low':sortByKeyAsc(filterData['data'],"views");
+						break;
+						case 'high':sortByKeyDesc(filterData['data'],"views");
+						break;
+						case 'vhigh':sortByKeyAsc(filterData['data'],"visits");
+						break;
+						case 'excellent':sortByKeyDesc(filterData['data'],"visits");
+						break;
+					}
+				}
+			$("section.listing").html('');
+			initializePagination();
+			createHomepageList(filterData,$("section.listing"),"paginate");		
+}
+function sortByKeyDesc(array, key) {
+    return array.sort(function(a, b) {
+        var x = a[key]; var y = b[key];
+        return ((x < y) ? 1 : ((x > y) ? -1 : 0));
+    });
+	}
+	function sortByKeyAsc(array, key) {
+    return array.sort(function(a, b) {
+        var x = a[key]; var y = b[key];
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+	}
+function getFilterValues(){
+	var filterValues =  Array();
+				$("select.filter").not("#popularity").each(function()
+				{
+					filterValues[$(this).attr("name")] = $(this).val();
+				});
+		filterValues['others'] = Array();
+				$(".other-filter-selected").each(function()
+				{
+					var filterCategory = $(this).attr('data-filter-category');
+					var typeVal = $(this).attr('data-filter');
+					if(!filterValues['others'].hasOwnProperty(filterCategory))
+					{
+						filterValues['others'][filterCategory] = Array();
+						filterValues['others'][filterCategory][typeVal] = "true";
+					}
+					else
+					{
+						filterValues['others'][filterCategory][typeVal] = "true";	
+					}
+				});
+				if($(".openNow").attr("data-value")=="true")
+				{
+					filterValues['isOpen'] = $(".openNow").attr("data-value");
+				}
+		return filterValues;
+}
+</script>
+<!--[if lte IE 9]>
+<script type="text/javascript" src="/js/ie-scripts.js"></script>
+<![endif]-->

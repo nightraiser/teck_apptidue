@@ -1,0 +1,514 @@
+<script	type="text/javascript" src="/theme/ui/jquery.ui.datepicker.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.multidatespicker.min.js"></script>
+<script	type="text/javascript" src="/js/jquery.validate.pack.js"></script>
+<script type="text/javascript">
+$(function() {
+	$("#addrestowner").dialog({
+		autoOpen: false,
+		height: 760,
+		width: 480,
+		modal: true
+	});
+
+	$("#existownerdet").dialog({
+		autoOpen: false,
+		height: 450,
+		width: 480,
+		modal: true
+	});
+	
+	emailValid = "";
+	websiteValid = "";
+	emailObj = $("#emailAddress");
+	if($.trim(emailObj.val()) != ""){
+		ajaxEmailCall();
+	}
+	
+	$(".chkAvaliable").click(function(){
+		ajaxEmailCall();
+	});
+	
+	emailObj.blur(function(){
+		ajaxEmailCall();
+	});
+	
+	$('.AddresBtn').live('click', function(){
+		$("#addrestowner").dialog('open');
+	});
+
+	$('.resownerselect').change(function(){
+		var ownerid =  $(this).val();
+		var ownerurl = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'retrievefirmproprietorinfo'),'default',true); ?>";
+		 $.post(ownerurl,{userid : ownerid},function(his)
+		 {
+	   		if(his)
+		   	{					   		
+				for(var item in his) 
+				{										
+				 if(item=='resowner')
+				 {
+					var dataObj = his['resowner'];										
+					var restDiv = $("#restdiv");
+				   	restDiv.html("");
+				   	trDet = "";
+					trDet = '<table class="table2" style="text-align:left; width:456px !important;">';				
+					trDet += '<tr class="owner" abbr='+ownerid+'>';					
+					trDet += '<td>';
+					trDet += '<section class="guest-card"><div class="guest-card_top"><div class="inner-section cf" style="position:relative;">';
+					trDet += '<div class="fl guest-card-photo">';     
+					trDet += '<img class="MakeResGuestCardLogo" src="/images/default-profile-photo.png">';      
+					trDet += '</div>';
+					trDet += '<div class="fl guest-info tl">';
+					trDet += '<h1 class="guest-name">'+dataObj['First Name']+' '+dataObj['Last Name']+'</h1>';
+					trDet += '<div class="guest-address">'+dataObj['City']+'</div>';
+					trDet += '<div class="guest-email">'+dataObj['Email Address']+'</div>';
+					trDet += '<div class="guest-phone">'+dataObj['Phone']+'</div>';
+					trDet += '</div>';
+					trDet += '<div style="position:absolute; top:10px; right:26px; text-align:left;">';
+					trDet += '<div class="ui-dialog-buttonset addrestaurant"><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">'+"<?php echo $this->translate->_("Add Restaurant");?>" +'</span></button></div>';
+					trDet += '</div>';			
+					trDet += '<div class="clear"></div>';
+					trDet += '</div></div></section>';
+					trDet += '</td>';					
+					trDet += '</tr>';
+					var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'retrievefirmdatabyproprietoridpost'),null,true);?>";
+					$.post(url,{ id:ownerid }, function(data)
+					{
+						if(data != ""){						 										
+							trDet += '<tr><td><table width="100%" class="list_tbl">';
+							for(var item in data) {
+								var rest = data[item];					
+								trDet += '<tr><td>';
+								trDet += '<div id=resBlkId_'+rest.resid+'>';
+								trDet += '<img src="'+rest.resimage+'" class="fl" style="margin-right:10px;width:100px;height:100px;"/>';
+								trDet += '<a class="a2" >'+rest.resname+'</a>';
+								trDet += '<div style="color:#444;">'+rest.resaddress+'</div>';
+								trDet += '</div>';
+								trDet += '</td></tr><tr style="border:0px solid #ffffff !important; height:10px;"></tr>';
+																		
+							}
+							trDet += '</table></td></tr>';														
+				 		  }else{
+				 			trDet += '<tr><td>';
+				 			trDet += '<p class="norestaurants">'+"<?php echo $this->translate->_("There are no restaurants for this restaurantowner.");?>"+'</p>';
+							trDet += '</td></tr>';
+				 		  }	
+						trDet += '</table>';					
+						restDiv.append(trDet);
+					    $("#existownerdet").dialog('open');			  	  
+					},'json');					
+				  }
+				} 
+			 }
+		},'json');
+	});
+
+	$(".addrestaurant").live('click', function(){
+		var uid =$('.owner').attr('abbr');		
+		var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'createsubscribedfirm'),null,true);?>";
+		url += '/userid/'+uid;
+	 	window.location = url;
+	});
+	
+	$('.countryflag').click(function(){
+		if($(this).parents().eq(1).hasClass('active')){
+			$(this).parents().eq(1).removeClass('active');
+		}
+		if($(this).attr('abbr') != ''){
+			$('#countryCode').val($(this).attr('abbr'));
+		}
+	});	
+
+	function ajaxEmailCall(){
+		errorObj = $(".ajaxReturn");
+	 url = "<?php echo $this->url(array('module'=>'User','controller'=>'Client','action'=>'searchforemailexist'),null,true); ?>"
+		 errorObj.text(" ");
+		 var bValid = true;
+		 bValid = bValid && checkRegexp(emailObj,/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,"<?php echo $this->translate->_("Invalid Email"); ?>");	
+		function checkRegexp(o,regexp) {
+			if ( !( regexp.test( o.val() ) ) ) {	
+				errorObj.text("<?php echo $this->translate->_("Invalid Email");?>");
+				errorObj.css({'color':'#ED0E19'});
+	   			emailValid = false;
+	   			return false
+			} else{
+				return true;
+			}
+		}
+		
+		if(!bValid){
+			return false;
+		}
+	 $.post(url, { email: $.trim(emailObj.val()) },
+			   function(data){
+		   		if(data == "t"){
+		   			errorObj.text("<?php echo $this->translate->_("Email Address is not available"); ?>");
+		   			errorObj.css({'color':'#ED0E19'});
+		   			emailValid = false;
+		   		}else if(data == "f"){
+		   			errorObj.text("<?php echo $this->translate->_("Email Address is available continue registering");?>");
+		   			errorObj.css({'color':'#0EED12'});
+		   			emailValid = true;
+		   		}
+		   	});
+		
+	}
+	
+	$('.captchatd').find("img").attr({'style':'position:relative;bottom:20px;border:2px solid #DBDBD5;'});
+
+	$("#register").live('click', function(){
+		emailObj.trigger('blur');
+		if(emailValid == false){
+			return false;
+		}
+	});
+
+	<?php if($this->errors){?>
+		$("#addrestowner").dialog('open');
+	<?php }?>
+	$('.pop').click(function(){
+		if($(this).hasClass('active')){
+			$('.pop_menu').show();	
+		}else{
+			$('.pop_menu').hide();
+		}	
+	});
+});	
+</script>
+
+<style>
+.resownerselect {
+    -moz-box-sizing: border-box;
+    background: none repeat scroll 0 0 rgb(255, 255, 255);
+    border: 1px solid rgb(178, 182, 187);
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) inset;
+    color: rgb(21, 21, 21);
+    display: inline-block;
+    font-size: 16px;
+    height: 40px;
+    line-height: 16px;
+    padding: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 90%;
+}
+.or{
+	text-align:center;
+	color:rgb(0, 128, 0);
+}
+html, button, input, select, textarea {
+font-family: calibri, Helvetica, Arial, sans-serif;
+font-weight: 200;
+color: #545d64;
+}
+.nav1 {
+background: #fff !important;}	
+.inp1{
+	display: inline-block;
+	font-size: 16px;
+	padding: 10px;
+	height: 40px;
+	line-height: 16px;
+	border: 1px #b2b6bb solid;
+	background: #fff;
+	color: #151515;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	box-shadow: inset 0 2px 5px rgba(0, 0, 0, .1);
+	-moz-box-shadow: inset 0 2px 5px rgba(0, 0, 0, .1);
+	-khtml-box-shadow: inset 0 2px 5px rgba(0, 0, 0, .1);
+	-webkit-box-shadow: inset 0 2px 5px rgba(0, 0, 0, .1);
+	width:100%;
+	}
+.formshadow{
+	
+	padding:8px;
+	border-radius:18px;
+	-moz-border-radius:18px;
+	-webkit-border-radius:18px;
+	-khtml-border-radius:18px;
+	-webkit-box-shadow: inset 0 0 5px 0 #1F1F1D;
+	-moz-box-shadow: inset 0 0 5px 0 #1F1F1D;
+	box-shadow: inset 0 0 5px 0 #1F1F1D;
+	height:45px;
+	}
+.sel1{
+	display: inline-block;
+	font-size: 16px;
+	padding: 10px;
+	height: 40px;
+	line-height: 16px;
+	border: 1px #b2b6bb solid;
+	background: #fff;
+	color: #151515;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	box-shadow: inset 0 2px 5px rgba(0, 0, 0, .1);
+	-moz-box-shadow: inset 0 2px 5px rgba(0, 0, 0, .1);
+	-khtml-box-shadow: inset 0 2px 5px rgba(0, 0, 0, .1);
+	-webkit-box-shadow: inset 0 2px 5px rgba(0, 0, 0, .1);
+	width:100%;
+	}
+.submitBtn:hover{ 	
+	position:relative;
+	top:1px;
+	left:1px;
+	}
+.captchabg{
+	width: 230px;
+	float: left;
+	text-align: left;
+	padding: 0 3px 3px 3px;
+	margin-top: 3px;
+	background: rgb(247, 247, 247);
+	border: 1px solid rgba(147, 184, 189,0.8);
+	-webkit-box-shadow: 0pt 2px 5px rgba(105, 108, 109,  0.7),	0px 0px 8px 5px rgba(208, 223, 226, 0.4) inset;
+	   -moz-box-shadow: 0pt 2px 5px rgba(105, 108, 109,  0.7),	0px 0px 8px 5px rgba(208, 223, 226, 0.4) inset;
+	        box-shadow: 0pt 2px 5px rgba(105, 108, 109,  0.7),	0px 0px 8px 5px rgba(208, 223, 226, 0.4) inset;
+	-webkit-box-shadow: 5px;
+	-moz-border-radius: 5px;
+		 border-radius: 5px;
+	}
+.captchabg img{
+	width: 218px;
+	height: 60px;
+	border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	}
+#captcha-input{
+	background:#fff;
+	border:1px solid #e8e1db;
+	padding:10px;
+	width:360px;
+	margin-right: 6px;
+	color:#b29b89;
+	}
+.table2 td{
+	text-align:left;
+	}
+.static_lable{
+	text-align: left;
+	margin-top: 6px !important;
+	font-size: 16px;
+	line-height: 20px;
+	text-transform: uppercase;
+	font-size: 10px !important;
+	color: #a9a9a9;
+	margin-bottom: 2px;
+	font-family: calibri, Helvetica, Arial, sans-serif;
+	}
+.link {
+	color: #7aa318;
+	text-decoration: none;}
+textarea{
+	height:90px !important;
+	}
+h1 {
+	color: #7aa318;
+	font-size: 36px;
+	font-weight: bold;
+	text-align: left;
+}
+.pop {
+    margin-top: 6px;
+}
+.block_right{
+	background: #ecf0f1;
+	padding: 12px;
+	margin-bottom: 10px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	border-radius: 5px;
+	}
+.static_list {
+	list-style: none;;
+	margin-left: 10px;
+	}
+.static_list li{
+	background: url(/ddstyles/images/tick_icon_1.png) no-repeat 0 8px;
+	list-style: none;
+	padding-left: 28px;
+	line-height: 30px;
+	font-size: 18px;
+	}
+.title{
+	font-size:32px !important;
+	}
+.captchatd img{
+	border:2px solid rgb(219, 219, 213);
+	position:relative;
+    bottom:20px;
+	}
+.active .pop_menu {
+	left:0px;
+	}	
+.a2{
+	font-size:16px;
+	}
+.list_tbl tr{
+	border:1px #ccc solid;
+	}
+.list_tbl tr td img{
+	border:1px #ccc solid;
+	border-radius:6px;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	-khtml-border-radius:6px;
+	}
+.guest-address {
+    background: url("/images/icons/guest_icons.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    color: rgb(85, 85, 85);
+    font-size: 12px;
+    font-weight: 200;
+    margin-bottom: 5px;
+    margin-top: 4px;
+    padding-left: 20px;
+}
+.norestaurants{
+	color: #7aa318;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+}
+</style>
+
+<div class="mainInner1" style="background: #fff;">
+<div id="restowner">
+	<div  class="nav1">
+	<div data-corner="top 5px" class="navTop" style="border-top-left-radius: 5px; border-top-right-radius: 5px;"><?php echo $this->translate->_("Add Restaurant Owner");?></div>
+		<div class="navCont">
+			<table class="table2" width="500" style="width:500px; margin:0 auto;">
+				<tr>
+					<td><p class="static_lable"><?php echo $this->translate->_(" Existing Restaurant Owner");?> </p></td>
+					<td> 
+						<select class="resownerselect">
+							<?php
+							foreach($this->resowners as $owner){
+								echo '<option value='.$owner['key'].'>'.$owner['value'].'</option>';
+							}
+							?> 
+						</select>					
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2"><p class="or"><?php echo $this->translate->_("OR"); ?></p></td>
+				</tr>
+				<tr>
+					<td><p class="static_lable"><?php echo $this->translate->_("New Owner ? Create Owner"); ?></p></td>
+					<td>
+						<input class="AddresBtn" type="image" src="/images/addbtn.png">
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>	
+<div id="existownerdet" title="<?php echo $this->translate->_("Add Restaurant"); ?>" style="display:none;">
+	<div id="restdiv"></div>
+</div>
+<div class="loadingImg" style="display:none;align:center;"><img src="/images/loading.gif" style="width:80px;height:80px;position:absolute;left:140px;bottom:20px;" /></div>
+<div class="navCont right block_right" id="addrestowner" title="<?php echo $this->translate->_("Add Owner");?>" style="display:none;">
+<form action="<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'createsubscribedfirm'),null,true); ?>"
+				method="post" id="addrestownerform">
+	<table class="table2" width="100%" style="margin:0 auto;">
+		<tr>
+			<td colspan="2"><h1 class="title"><?php echo $this->translate->_("Add Restaurant Owner"); ?></h1></td>
+		</tr>
+		<tr>
+			<td width="50%"><p class="static_lable"><?php echo $this->translate->_("First Name");?> </p><?php echo $this->form->firstName ?></td>
+			<td width="50%"><p class="static_lable"><?php echo $this->translate->_("Last Name"); ?></p><?php echo $this->form->lastName ?></td>
+		</tr>
+		<tr>
+			<td colspan="2"><p class="static_lable"><?php echo $this->translate->_("Restaurant Name"); ?></p><?php echo $this->form->restaurantName?></td>
+		</tr>
+		<!--<tr>
+			<td><p class="static_lable"><?php echo $this->translate->_("City"); ?></p><?php // echo $this->form->resownercity?></td>
+			<td><p class="static_lable"><?php echo $this->translate->_("Zipcode"); ?></p><?php // echo $this->form->resownerzipcode?></td>
+		</tr>-->
+		<!--<tr>
+			<td colspan="2"><p class="static_lable">Country</p><?php // echo $this->form->resownercountry?></td>
+		</tr>
+		<tr>
+			<td colspan="2"><p class="static_lable">Website</p><?php // echo $this->form->website;
+	//	echo '<span class="websiteajaxReturn"></span>';?></td>
+		</tr>
+	-->
+		<!--<tr>				
+			<td colspan="2" style="position:relative">
+				<p class="static_lable"><?php //echo $this->translate->_("Phone"); ?></p>
+				<?php  //echo $this->form->countryCode; ?>
+				<div class="pop addcodepop">		
+				<?php  
+//					if(count($this->codelist)){
+//							foreach($this->codelist as $key=>$value){
+//							echo '<span class="countryflag" style="cursor:pointer;" abbr="'.$value['key'].'">'.$value['value'].'</span><br>';
+//						}			
+//					} 
+				?> 
+				</div>	
+				<?php //echo $this->form->phone->setAttrib('style', 'width:278px; margin-left:10px;')?></td>
+		</tr>
+						
+		--><!--<tr>
+		<td><p class="static_lable">Select Country</p><?php echo $this->form->state?></td>
+			<a id="noState" style="color: #B29B89;cursor: pointer;">Can't Find Your Country?</a></td>
+			<td class="cantFindState"><p class="static_lable">Cant find Country</p><?php echo $this->form->cantfindstate;
+								echo '<span class="newstateReturn"></span>'; ?></td>
+		</tr>
+		<tr>
+			<td><p class="static_lable">Select State</p><?php echo $this->form->region;?></td>
+			<a id="noRegion" style="color: #B29B89;cursor: pointer;">Can't Find Your State?</a></td>
+			<td class="cantFindRegion"><p class="static_lable">Cant find State</p><?php echo $this->form->cantfindregion;
+								echo '<span class="newregionReturn"></span>'; ?></td>
+		</tr>
+		<tr>
+			<td><p class="static_lable">Select City</p><?php echo $this->form->city?></td>
+			<a id="noCity" style="color: #B29B89;cursor: pointer;">Can't Find Your City?</a></td>
+			<td class="cantFindCity"><p class="static_lable">Cant find City</p><?php echo $this->form->cantfindcity;
+								echo '<span class="newcityReturn"></span>'; ?></td>
+		</tr>
+		<tr class="dNone" ><td><?php echo $this->form->cantfind;?></td></tr>--->
+		<tr>
+			<td colspan="2"><p class="static_lable"><?php echo $this->translate->_("Email Adress"); ?></p><?php echo $this->form->emailAddress;
+				echo '<span class="ajaxReturn"></span>';?>
+			</td>
+		</tr>
+		<tr>
+			<td><p class="static_lable"><?php echo $this->translate->_("Password"); ?></p><?php echo $this->form->password?></td>
+			<td><p class="static_lable"><?php echo $this->translate->_("Confirm Password"); ?></p><?php echo $this->form->password_confirm?></td>
+		</tr>
+		<tr>		
+			<td colspan="2"><p class="static_lable"><?php echo $this->translate->_("Enter Your Comments"); ?></p><?php echo $this->form->description	?></td>
+			<!---<td><p class="static_lable">more information</p><?php echo $this->form->sourcedescription	?></td>--->
+		</tr>		
+		<tr>
+	<!---	<td><p class="static_lable">Select Source</p><?php //echo $this->form->source?></td>--->
+			<td><p class="static_lable"><?php echo $this->translate->_("ENTER CHARACTERS AS SHOWN IN BOX*"); ?></p>
+				<div class="captchatd" style="float:left;"><?php echo $this->form->captcha;?></div>
+			</td>
+			<td><p class="static_lable"><?php echo $this->translate->_("By clicking SignUp, you agree to our");?> <a class="link" href="<?php echo $this->url(array('module' =>'default','controller'=>'index','action'=>'termsofservice','switchview'=>'browser'),'default',true); ?>"><br><?php echo $this->translate->_("Terms & Conditions");?></a>&nbsp; <?php echo $this->translate->_("and");?> &nbsp;<a class="link" href="<?php echo $this->url(array('module' =>'default','controller'=>'index','action'=>'privacypolicy','switchview'=>'browser'),'default',true); ?>"><?php echo $this->translate->_("Privacy Policy"); ?></a></p>	
+<!--			<td colspan="2" align="center">-->	
+				<input id="register" class="submitBtn" type="image" style="margin-bottom:-58px;" src="/images/dd_signupbtn.png">		
+			</td>			
+		</tr>		
+	</table>
+</form>					
+</div>	
+</div>

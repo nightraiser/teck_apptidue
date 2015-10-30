@@ -1,0 +1,231 @@
+<script type="text/javascript">
+$(function() {
+	var Loading = "<? echo $this->translate->_("Loading..."); ?>";
+	emailValid = "";
+	websiteValid = "";
+	emailObj = $("#emailAddress");
+	if($.trim(emailObj.val()) != ""){
+		ajaxEmailCall();
+	}
+	$(".chkAvaliable").click(function(){
+		ajaxEmailCall();
+	});
+	$(".pop").show();	
+	emailObj.blur(function(){
+		ajaxEmailCall();
+	});
+		
+        $("[id^='password']").keyup(function(){
+            $("[id^='password']").attr({'style':'width:90%'});
+            if($(this).val().length >= 6){
+                if($(this).attr('id') == 'password_confirm'){
+                    $('.psdCnfImg').attr('src','/images/icons/tick_green.png').removeClass('dNone');
+                }else{
+                    $('.psdImg').attr('src','/images/icons/tick_green.png').removeClass('dNone');
+                }
+            }else{
+                if($(this).attr('id') == 'password_confirm'){
+                    $('.psdCnfImg').attr('src','/images/icons/cancel.png').removeClass('dNone');
+                }else{
+                    $('.psdImg').attr('src','/images/icons/cancel.png').removeClass('dNone');
+                }
+            }
+            if($('#password').val() == $('#password_confirm').val()){
+                $('.psdCnfImg').attr('src','/images/icons/tick_green.png').removeClass('dNone');
+            }else{
+                $('.psdCnfImg').attr('src','/images/icons/cancel.png').removeClass('dNone');
+            }
+        });
+        
+	$("#register").click(function(){
+		emailObj.trigger('blur');
+//		websiteObj.trigger('blur');
+		if(emailValid == false){
+			return false;
+		}else{
+			
+		}
+		
+
+	});
+	$("#reset").click(function(){
+		var regionTag = $("#region");
+	   	$("option",regionTag).remove();
+	    var cityTag = $("#city");
+		 $("option",cityTag).remove();
+	   	var nghTag = $("#neighborhood");
+		$("option",nghTag).remove();
+			
+	});
+
+	function ajaxWebsiteCall(){
+		weberrorObj = $(".websiteajaxReturn");
+		weberrorObj.text(" ");
+		 var bValid1 = true;
+		 bValid1 = bValid1 && checkRegexp(websiteObj,/^(((ht|f){1}(tp:[/][/]){1})|((www.){1}))[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+$/,"Please enter valid URL");	
+		function checkRegexp(o,regexp) {
+			if ( !( regexp.test( o.val() ) ) ) {	
+				weberrorObj.text("<?php echo $this->translate->_("Please Enter Valid URL"); ?> ");
+				weberrorObj.css({'color':'#ED0E19'});
+				websiteValid = false;
+	   			return false;
+	   			
+			} else{
+				weberrorObj.text("<?php echo $this->translate->_("URL is valid"); ?>" );
+				weberrorObj.css({'color':'#0EED12'});
+				websiteValid = true;
+				return true;
+			}
+		}
+		
+		if(!bValid1){
+			return false;
+		}
+	}
+	
+	function ajaxEmailCall(){
+		errorObj = $(".ajaxReturn");
+	 url = "<?php echo $this->url(array('module'=>'User','controller'=>'Client','action'=>'searchforemailexist'),'default',true); ?>"
+		 errorObj.text(" ");
+		 var bValid = true;
+		 bValid = bValid && checkRegexp(emailObj,/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,"<?php echo $this->translate->_("Invalid Email"); ?>");	
+		function checkRegexp(o,regexp) {
+			if ( !( regexp.test( o.val() ) ) ) {	
+				errorObj.text("<?php echo $this->translate->_("Invalid Email"); ?>");
+				errorObj.css({'color':'#ED0E19'});
+	   			emailValid = false;
+	   			return false
+			} else{
+				return true;
+			}
+		}
+		
+		if(!bValid){
+			return false;
+		}
+	 $.post(url, { email: $.trim(emailObj.val()) },
+			   function(data){
+		   		if(data == "t"){
+		   			errorObj.text("<?php echo $this->translate->_("Email Address is not available"); ?>");
+		   			errorObj.css({'color':'#ED0E19'});
+		   			emailValid = false;
+		   		}else if(data == "f"){
+		   			errorObj.text("<?php echo $this->translate->_("Email Address is available continue registering"); ?>");
+		   			errorObj.css({'color':'#0EED12'});
+		   			emailValid = true;
+		   		}
+		   	});
+		
+	}
+	
+	$('.captchatd').find("img").attr({'style':'position:relative;bottom:20px;border:2px solid #DBDBD5;'});
+
+	$('.countryflag').click(function(){
+		if($(this).parents().eq(1).hasClass('active')){
+			$(this).parents().eq(1).removeClass('active');
+		}
+		if($(this).attr('abbr') != ''){
+			$('#countryCode').val($(this).attr('abbr'));
+		}
+	});	
+
+	$('.pop').click(function(){
+		if($(this).hasClass('active')){
+			$('.pop_menu').show();	
+		}else{
+			$('.pop_menu').hide();
+		}	
+	});
+
+});
+</script>
+	<style>
+</style>
+<div id="page-content">
+	<section class="container" style="width:700px;">
+		<header>
+			<h1 class="page-title"><i class="fa fa-user"></i>  Manage Registration</h1>
+		</header>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="row">
+				<form action="<?php echo $this->url(array('module' => 'User','controller'=>'Client','action'=>'managerregistration'),null,true); ?>" method="post">
+					<div class="col-md-6 col-sm-6">
+						<div class="form-group">
+							<label for="name">Name</label>
+							<?php echo $this->form->firstName->setAttrib('placeholder', $this->translate->_('First Name*')) ?>
+						</div>
+						<!--/.form-group-->
+					</div>
+					<!--/.col-md-3-->
+					<div class="col-md-6 col-sm-6">
+						<div class="form-group">
+							<label for="Last Name">Last Name</label>
+							<?php echo $this->form->lastName->setAttrib('placeholder', $this->translate->_('Last Name')) ?>
+						</div>
+						<!--/.form-group-->
+					</div>
+					<!--/.col-md-3-->
+					<div class="col-md-6 col-sm-6">
+						<div class="form-group">
+							<label for="Restaurant Name">Restaurant Name</label>
+							<?php echo $this->form->restaurantName->setAttrib('placeholder', $this->translate->_('Restaurant/Group*')) ?>
+						</div>
+						<!--/.form-group-->
+					</div>
+					<!--/.col-md-3-->
+					<div class="col-md-6 col-sm-6">
+						<div class="form-group">
+							<label for="email">Email Address</label>
+							<?php echo $this->form->emailAddress->setAttrib('placeholder', $this->translate->_('Email Address*'));
+						echo '<span class="ajaxReturn"></span>';?>
+						</div>
+						<!--/.form-group-->
+					</div>
+					<!--/.col-md-3-->
+					<div class="col-md-6 col-sm-6">
+						<div class="form-group">
+							<label for="password">Password</label>
+							<?php echo $this->form->password->setAttrib('placeholder', $this->translate->_('Password*'));?><img class="psdImg dNone"/>
+						</div>
+						<!--/.form-group-->
+					</div>
+					<!--/.col-md-3-->
+					<div class="col-md-6 col-sm-6">
+						<div class="form-group">
+							<label for="password">Confirm Password</label>
+							<?php echo $this->form->password_confirm->setAttrib('placeholder', $this->translate->_('Confirm Password*'));?><img class="psdCnfImg dNOne"/>
+						</div>
+						<!--/.form-group-->
+					</div>
+					<!--/.col-md-3-->
+					<!--/.col-md-3-->
+					<div class="col-md-6 col-sm-6">
+						<div class="form-group">
+							<label for="password">Enter Your Comments</label>
+							<?php echo $this->form->description->setAttrib('placeholder', $this->translate->_('Enter Your Comments'));	?>
+						</div>
+						<!--/.form-group-->
+					</div>
+					<!--/.col-md-3-->
+					
+					<!--/.col-md-3-->
+					<div class="col-md-6 col-sm-6">
+						<div class="form-group">
+							<label for="Captcha">ENTER CHARACTERS AS SHOWN IN BOX*</label>
+							<?php echo $this->form->captcha;?>
+						</div>
+						<!--/.form-group-->
+					</div>
+					<div class="clear"></div>
+					<section>
+						<div class="form-group">
+                        	<button id="submit" class="btn btn-default pull-right" id="register" type="submit">Submit</button>
+						</div>
+					</section>
+				</div>
+				</form>
+			</div>
+		</div>
+	</section>
+</div>

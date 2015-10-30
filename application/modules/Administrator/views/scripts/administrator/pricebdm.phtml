@@ -1,0 +1,236 @@
+<style type="text/css">
+	.error-check
+	{
+		border: 3px solid red;
+	}
+	.result
+	{
+		color:red;
+	}
+</style>
+<script type="text/javascript" src="/theme/ui/minified/jquery.ui.widget.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.position.min.js"></script>
+<script type="text/javascript" src="/theme/ui/minified/jquery.ui.dialog.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.resizable.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.draggable.min.js"></script>
+<script	type="text/javascript" src="/theme/ui/minified/jquery.ui.droppable.min.js"></script>
+<script type="text/javascript">
+var perform ;
+var country_data="";
+$(function()
+{
+	var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'locationchangeajax'),null,true);?>";
+			$.post(url,{action:"country_data"},function(data){
+					data = JSON.parse(data);
+					for(var i in data)
+		        	{
+		        		country_data += "<option value='"+data[i]['key']+"'>"+data[i]['value']+"</option>";
+		        	}
+			});
+
+	$(".addButton").click(function()
+	{
+		$(".menuDia").dialog('destroy');
+		var htmlDia = '<div class="modal-window fade_in"><div class="modal-wrapper">';
+        htmlDia += '<h2>Add price</h2>';
+       	htmlDia += '<div class="modal-body"><div class="modal-content">';
+       	htmlDia +='<div class="result"></div>';
+        htmlDia += '<form role="form" id="modal-form">';
+        htmlDia += '<div class="form-group">';
+         htmlDia +='<lable for="country_fk_id">Country name</label>'
+        htmlDia += '<select class="form-control" name="country_fk_id">'+country_data+'</select>';
+        htmlDia +='</div>';
+        htmlDia +='<div class="form-group">';
+        htmlDia +='<lable for="code">Price code</label>'
+        htmlDia += '<input required type="text" placeholder="price Title" class="form-control" name="code" />';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group">';
+         htmlDia +='<lable for="description">Price description</label>'
+        htmlDia += '<input required type="text" placeholder="Price Description" class="form-control" name="description" />';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group"><button type="submit" class="btn pull-right btn-default" id="addPriceSubmit" >Submit</button></div></form>';
+		htmlDia += '</div></div><div class="modal-close"><img src="/images/close.png"></div></div><div class="modal-background fade_in"></div></div>';
+        $('body').append(htmlDia);
+        perform="append";
+	});
+	$(".editButton").click(function()
+	{
+		var parentTr = $(this).parents('tr');
+		var priid = $(this).attr("data-id");
+		var country_fk_id = $("td[name='pricountry_name']",parentTr).attr("data-value");
+		var populateData = [];
+		parentTr.find("td[name='pricode'],td[name='pridescription']").each(function()
+		{
+			populateData[$(this).attr("name")] = $(this).attr("data-value");
+		});
+		$(".menuDia").dialog('destroy');
+		var htmlDia = '<div class="modal-window fade_in"><div class="modal-wrapper">';
+        htmlDia += '<h2>Edit Price</h2>';
+       	htmlDia += '<div class="modal-body"><div class="modal-content">';
+       	htmlDia +='<div class="result"></div>';
+        htmlDia += '<form role="form" id="modal-form">';
+        htmlDia += '<div class="form-group">';
+         htmlDia +='<lable for="country_fk_id">Country name</label>'
+        htmlDia += '<select class="form-control" name="country_fk_id">'+country_data+'</select>';
+        htmlDia +='</div>';
+        htmlDia +='<div class="form-group">';
+        htmlDia +='<lable for="code">Price code</label>'
+        htmlDia += '<input type="text" placeholder="Price Title" class="form-control" value="'+populateData['pricode']+'" name="code" />';
+        htmlDia +='<input name="id" type="hidden" value="'+priid+'" />';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group">';
+        htmlDia +='<lable for="description">pri Description</label>'
+        htmlDia += '<input type="text" value="'+populateData['pridescription']+'" placeholder="Price Description" class="form-control" name="description" />';
+        htmlDia +='</div>';
+        htmlDia += '<div class="form-group"><button type="submit" class="btn pull-right btn-default" id="addPriceSubmit" >Submit</button></div></form>';
+		htmlDia += '</div></div><div class="modal-close"><img src="/images/close.png"></div></div><div class="modal-background fade_in"></div></div>';
+        $('body').append(htmlDia);
+         if(country_fk_id>0)
+        {
+        	$("select[name='country_fk_id']").val(country_fk_id);
+        }
+        perform="update";
+	});
+	$("#modal-form").live("submit",function()
+	{
+		var pri = $("#modal-form").serializeArray();	
+		//console.log(pri);	
+		var validate=true;
+		if(validate)
+		{
+			var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'pricebdm'),null,true);?>";
+			$.post(url,{perform:perform,data:pri},function(data){
+				console.log(data);
+				if(isNaN(data))
+				{
+					if(perform=="append")
+					{
+						if(data=='f')
+						{
+							$(".result").html("price code already exists");
+							$("input[name='code']").css({"border-width":"3px","border-color":"red","border-style":"solid"});
+						}
+
+					}
+					if(perform=="update")
+					{
+						if(data=='f')
+						{
+							$(".result").html("price code already exists");
+							$("input[name='code']").css({"border-width":"3px","border-color":"red","border-style":"solid"});
+
+						}
+
+					}
+				}
+				else
+				{
+					if(parseInt(data)>0)
+					{
+						$(".result").css("color","green");
+						if(perform == "update")
+						{
+								var tr = $("button[data-id='"+pri[1]['value']+"']").parent().parent();
+								for(var i in pri)
+								{
+									$(tr).find("td[name='pri"+pri[i]['name']+"']").each(function(){
+										$(this).attr("data-value",pri[i]['value'])
+										$(this).html(pri[i]['value']);
+									});
+								}
+								$("td[name='citycountry_name']",tr).html($("select[name='country_fk_id'] option:selected").text());
+								$("td[name='citycountry_name']",tr).attr("data-value",$("select[name='country_fk_id']").val());
+								$(".result").html("Updated");
+								setTimeout(function() {
+								$(".modal-close").click();
+								},1000);
+								location.reload();
+						}
+						else
+						{
+								$(".result").html("Added");
+								setTimeout(function() {
+								location.reload();
+								},1000);
+						}
+					}
+				}
+			});
+		}
+		return false;
+	});
+	$(".statusChangeButton").click(function()
+	{
+		var priid = $(this).attr("data-id");
+		var statusvalue = $(this).attr("data-value");
+		var status;
+		if(statusvalue=="true")
+		{
+			status = false;
+		}
+		else
+		{
+			status = true;
+		}
+		var pri = [{name:'id',value:priid},{name:'status',value:status}];
+		console.log(pri);
+		var btn = $(this);
+		var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'pricebdm'),null,true);?>";
+		$.post(url,{perform:"update",data:pri},function(data)
+		{
+			if(!isNaN(data))
+			{
+				btn.attr("data-value",status);
+				if(status)
+				{
+					btn.attr("class","sml-btn1 green statusChangeButton");
+					btn.html("ACTIVE");
+				}
+				else
+				{
+					btn.attr("class","sml-btn1 statusChangeButton");
+					btn.html("INACTIVE");
+				}
+			}
+		});
+	});
+});
+</script>
+<div class="page-content">
+
+<div class="container">
+<header><h2>Price Management</h2></header>
+	<?php $priceData = $this->priceData; ?>
+	<br>
+	<button class="addButton btn btn-default pull-right">Add a price</button>
+	<table class="table">
+		<?php foreach ($priceData as $price): ?>
+			<tr>
+			<td name='pricountry_name' data-value="<?php echo $price->getcountry_fk_id(); ?>">
+					<?php echo $price->getCountryname(); ?>
+				</td>
+
+				<td name='pricode' data-value="<?php echo $price->getCode(); ?>">
+					<?php echo $price->getCode(); ?>
+				</td>
+				<td name='pridescription' data-value="<?php echo $price->getDescription();?>">
+					<?php echo $price->getDescription();?>
+				</td>
+				<td>
+					<?php 
+					     if($price->getStatus()){
+					      echo '<button class="sml-btn1 green statusChangeButton" data-id="'.$price->getId().'" data-value="true">ACTIVE</button>';
+					     }else{
+					      echo '<button class="sml-btn1 statusChangeButton" data-id= "'.$price->getId().'" data-value="false">INACTIVE</button>';
+					     } 
+			     ?>
+					</button>
+				</td>
+				<td>
+				<button class="editButton btn btn-default" data-id="<?php echo $price->getId(); ?>">Edit</button>
+				</td>
+			</tr>
+		<?php endforeach ?>
+	</table>
+</div>
+</div>
