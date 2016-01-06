@@ -1,0 +1,67 @@
+
+<style>
+.navbar-brand
+{
+  color:#3498db!important;
+}
+.navbar-default
+{
+
+}
+ </style>
+ <script>
+
+</script>
+<div class="header">
+	<!--
+  navbar
+  -->
+  <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><b>TecKnowledge</b></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+             <li class="dropdown">
+              <a href="<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'modulemanagement'),'default',true); ?>">Module Management</a>
+            </li>
+             <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Questions Management <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Add Questions</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Edit Questions</a></li>
+              </ul>
+            </li>
+             <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tests Management <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Add Test</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Edit Test</a></li>
+              </ul>
+            </li>
+            <li><a href="#">Users</a></li>
+            <li><a href="#about">Results</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Welcome, Admin</a></li>
+             <li><a href="#">Logout</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+</div>
+<script type="text/javascript">
+$(function()
+{
+});
+	
+</script>

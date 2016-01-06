@@ -129,7 +129,7 @@ class Application_Model_RestaurantDiningStylebdMapper
 						->where('status = ?',true);
 			$data = $db->fetchAll($select);
 			$cusinesNames = Array();
-	                $cusinesNames[0] =  array('value'=>'Dining Style','key'=>'');
+	                $cusinesNames[0] =  array('value'=>'Select Dining','key'=>'');
 			foreach ($data as $row ) {
 			$cusinesNames [] = array('key'=>$row['description'],'value'=>$row['description']);
 		}

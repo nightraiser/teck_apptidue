@@ -61,13 +61,49 @@
 	color:white;
 	border:1px solid white;
 }
+.city-active
+{
+  background: #ac181d!important;
+  
+}
+.citiesList
+  {
+    margin: 0px;
+    padding: 0px; 
+  }
+  .citiesList li
+  {
+    list-style:none;
+    float: left;
+    margin-right: 4px;
+  }
+  .city-select-button {
+  border-radius: 2px;
+  position: relative;
+  padding: 10px;
+  color: #fff;
+  background: #131313;
+  display: inline-block;
+  line-height: 1;
+  margin: 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.close-pop
+{
+  cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 3;
+}
  </style>
  <script src="/js/jquery.typeahead.js" type="text/javascript"></script>
  <script>
  var searchLocations = Array();
 function setLocations()
 {
-	if((localStorage['searchLocationsDB']!=null)&&(localStorage['searchLocationsDB']!=""))
+  /*	if((localStorage['searchLocationsDB']!=null)&&(localStorage['searchLocationsDB']!=""))
 	{
 		searchLocations  = JSON.parse(localStorage['searchLocationsDB']);
 		$.typeahead({
@@ -90,42 +126,95 @@ function setLocations()
                     data: searchLocations
                 }
             },
+              emptyTemplate: function (query) {
+		    if (query.length > 0) {
+		        return "Oops!! No search suggestions";
+		    }
+		},
+              callback: {
+        onResult: function (node, query, result, resultCount) {
+          if(resultCount==0)
+          {
+          	$(".primarySearch").attr("disabled",true);
+          }
+          else
+          {
+          	$(".primarySearch").removeAttr('disabled');
+          }
+        }
+    },
             debug: false
         });
-	}
-	 else
+	}*/
+	 //else
 	 {
-	 	var suggestionUrl  = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'searchsugesstions'),'default',true); ?>";
-        $.post(suggestionUrl,function(data)
-        {
-        	data = JSON.parse(data);
-        	searchLocations = data['locations'];
-     		localStorage['searchLocationsDB'] = JSON.stringify(data['locations']);
-        	$.typeahead({
-            input: "#searchLocation",
-            minLength: false,
-            maxItem: 5,
-            maxItemPerGroup: 12,
-            order: "asc",
-            hint: true,
-            //cache: true,
-            searchOnFocus: true,
-            group: ["division", "{{group}}"],
-            display: ["name", "city"],
-            correlativeTemplate: true,
-            template: '<span>' +
-            '<span class="name">{{name}}</span>'+
-            '</span>',
-            source: {
-             Results: {
-                    data: searchLocations
-                }
-            },
-            debug: false
-        });
-        });
-	 }
-}
+    var cityStr = localStorage['user-city-data'];
+    if((cityStr==undefined)||(cityStr==null)||(cityStr.length==0))
+    {
+      var cityArr = JSON.parse(cityStr);
+      if(cityArr.length==0)
+      {
+        setCity();  
+      }
+    }
+      else
+      {
+        var cityArr = JSON.parse(cityStr);
+        var cityId = cityArr['city-id'];
+        var cityFullName = cityArr['city-full-name'];
+        var suggestionUrl  = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'searchsugesstions'),'default',true); ?>";
+         $.post(suggestionUrl,{cityId:cityId},function(data)
+            {
+              data = JSON.parse(data);
+              searchLocations = data['locations'];
+              var cityData = [{value:"Search in "+cityFullName,name:"Search in "+cityFullName}];
+            localStorage['searchLocationsDB'] = JSON.stringify(data['locations']);
+              $.typeahead({
+                input: "#searchLocation",
+                minLength: false,
+                maxItem: 4,
+                maxItemPerGroup: 12,
+                order: "asc",
+                hint: true,
+                searchOnFocus: true,
+                group: ["division", "{{group}}"],
+                display: ["name", "city"],
+                correlativeTemplate: true,
+                template: '<span>' +
+                '<span class="name">{{name}}</span>'+
+                '</span>',
+                source: {
+                City:
+                 {
+                  data:cityData
+                 },
+                 Locations: {
+                        data: searchLocations
+                    }
+                },
+                 emptyTemplate: function (query) {
+            if (query.length > 0) {
+                return "Oops!! No search suggestions";
+            }
+        },
+                  callback: {
+            onResult: function (node, query, result, resultCount) {
+              if(resultCount==0)
+              {
+                $(".primarySearch").attr("disabled",true);
+              }
+              else
+              {
+                $(".primarySearch").removeAttr('disabled');
+              }
+            }
+        },
+                debug: false
+            });
+            });
+    }
+    }
+  }
 function storeSearch(key,gpid,criteria)
 {
 		var arr = {"key":key,"gpid":gpid,"criteria":criteria};
@@ -140,62 +229,285 @@ function setSearch()
 		$("#searchCriteria").val(data['criteria']);
 	}
 }
-	$(document).ready(function(){
-		setSearch();
-		$('.primarySearch').click(function(){
-			for(var i in searchLocations)
-			{
-				if(searchLocations[i]['name'] == $('#searchLocation').val())
-				{
-					location = searchLocations[i]['value'];
-				}
-			}
-			var url = "/hyderabad";
-			if($('#searchLocation').val()){
-				var type = $(".search-option").val();
-				if(type.length!==0)
-				{
-					url += '/'+type+"-"+$('#searchLocation').val().split(',')[0].toLowerCase().replace(" ","_")+"-restaurant";
-				}
-				else
-				{
-					url += '/'+$('#searchLocation').val().split(',')[0].toLowerCase().replace(" ","_")+"-restaurant";
-				}
+/**
+ * City selection functions
+ */
+function setCity()
+{
+  localStorage.setItem('user-city-data','{"city-name":"London","city-full-name":"London,United Kingdom","city-id":"121"}');
+    var cityStr = localStorage['user-city-data'];
+    if((cityStr==undefined)||(cityStr==null)||(cityStr.length==0))
+    {
+      try
+      {
+        if((cityStr!=undefined)||(cityStr!=null))
+        {
+            var cityArr = JSON.parse(cityStr);
+            if(cityArr.length==0)
+            {
+              var cityUrl  = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'getcitieslist'),'default',true); ?>";
+              $.post(cityUrl,function(data)
+              {
+                selectCity(JSON.parse(data));
+              });
+            }
+        }
+        else
+        {
+          var cityUrl  = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'getcitieslist'),'default',true); ?>";
+          $.post(cityUrl,function(data)
+          {
+            selectCity(JSON.parse(data));
+          }); 
+        } 
+      }
+      catch(err)
+      {
+        var cityUrl  = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'getcitieslist'),'default',true); ?>";
+        $.post(cityUrl,function(data)
+        {
+          selectCity(JSON.parse(data));
+        });
+      }
 
-			}else{
-				url += '';
-			}
-			if($('#searchCriteria').val()){
-				url += '/'+$('#searchCriteria').val().replace("/","_");
-			}else{
-				url += '';
-			}
-			storeSearch($('#searchLocation').val(),location,$('#searchCriteria').val());
-			window.location = url;
-			return false;
-		});
+    }
+    else
+    {
+      cityArr = JSON.parse(cityStr);
+      var cityName = cityArr['city-name'];
+      $(".selected-city").html("<b>@"+cityName+"</b>");
+      setLocations();
+    }
+}
+function selectCity(cityData)
+{ 
+  var data = cityData.cities_db;
+  var htmlContent ='<div class="modal-window fade_in">';
+        htmlContent +='<div class="modal-wrapper" style="top:50px;">';
+        htmlContent +='<div class="modal-body" style="width:600px;height:300px;overflow:auto;">';
+        htmlContent += '<div class="modal-content"> ';
+        htmlContent +='<h3>Please Select a City</h3>';
+        htmlContent +='<div class="error-div" style="color:red;"></div>';
+        htmlContent +='<hr>';
+        htmlContent +='<div class="row">';
+        htmlContent +='<div class="col-md-12">';
+        htmlContent +='<input class="form-control search-city-input" placeholder="Type here to select your city"/>';
+        htmlContent +='</div>';
+        htmlContent +='</div>';
+        htmlContent +='<div class="row">';
+        htmlContent +='<div class="col-md-12">';
+        var cityStr = localStorage['user-city-data'];
+        var currentCity = 0;
+        if((cityStr!=undefined)||(cityStr!=null))
+        {
+          try
+          {
+            var cityJSON = JSON.parse(cityStr);
+            currentCity = cityJSON['city-id'];
+          }
+          catch(err)
+          {
+          }
+        }
+        for(var i in data)
+        {
+          htmlContent +='<div class="row">';
+          var country = data[i];
+          htmlContent +='<div class="col-md-12">';
+          htmlContent +="<BR>";
+          htmlContent +='<h3>'+i+'</h3>';
+          htmlContent +='<ul class="citiesList">';
+          for(var j in country)
+          {
+           if(currentCity == country[j]['city_data_id'])
+            {
+              htmlContent +='<li><a class="city-select-button city-active" data-name="'+country[j]['city_name']+'" data-id="'+country[j]['city_data_id']+'" data-text-value="'+country[j]['city_full_name']+'">'+country[j]['city_full_name']+'</a></li>';
+            }
+            else
+            {
+              htmlContent +='<li><a class="city-select-button" data-name="'+country[j]['city_name']+'" data-id="'+country[j]['city_data_id']+'" data-text-value="'+country[j]['city_full_name']+'">'+country[j]['city_full_name']+'</a></li>';
+            }
+          }
+          htmlContent +="</ul>";
+          htmlContent +='</div>';
+          htmlContent +='</div>';
+        }
+        htmlContent +='</div>';
+        htmlContent +='</div>';
+        htmlContent +='<div class="close-pop"><img src="/images/close.png"></div>';
+            htmlContent +='</div>';
+            htmlContent +='</div>';
+            htmlContent +='</div>';
+            htmlContent +='</div>';
+        $('body').append(htmlContent);
+        $(".close-pop").live('click',function()
+        {
+          var currentCity = $(".city-active");
+          if(currentCity.length==0)
+          {
+            $('.error-div').html('Please Select a city, by which you help us to improve your searches');
+            return false;
+          }
+          else
+          {
+            $(this).parents('.modal-window').remove();
+          }
+        });
+        $('.search-city-input').live('keyup',function()
+          {
+            var searchString = $(this).val();
+            if(searchString.length>0)
+            {
+              $('.city-select-button').addClass('dnone');
+              $('.city-select-button').each(function()
+              {
+                var attr = $(this).attr('data-text-value');
+                var regexString = new RegExp(searchString,"gi");
+                var arr = attr.match(regexString);
+                if(arr!=null)
+                {
+                  $(this).removeClass('dnone');
+                }
+              });
+            }
+            else
+            {
+              $('.city-select-button').removeClass('dnone');
+            }
+          });
+       $('.city-select-button').live('click',function()
+       {
+        $(this).addClass('city-active');
+          var cityName = $(this).attr('data-name');
+          var cityFullName = $(this).attr('data-text-value');
+          var cityId = $(this).attr('data-id');
+          var temp = new Array();
+          temp = {"city-name":cityName,"city-full-name":cityFullName,"city-id":cityId};
+          $("#searchLocation").attr('placeholder',"Search in "+cityFullName);
+           $("#searchLocation").val("");
+          localStorage['user-city-data'] = JSON.stringify(temp);
+          $('.selected-city').html("<b>@"+cityName+"</b>");
+          $(".close-pop").click();
+          $(".first-search").click();
+          setLocations();
+          location.reload();
+       });
+}
+/**
+ * /City selection functions
+ */
+	$(document).ready(function(){
+    setCity();
+		setSearch();
+		$('.primarySearch').click(function()
+    {
+      
+      if($('#searchLocation').val().length>0)
+      {
+
+      for(var i in searchLocations)
+      {
+        if(searchLocations[i]['name'] == $('#searchLocation').val())
+        {
+          location = searchLocations[i]['value'];
+        }
+      }
+      var arr = $('#searchLocation').val().split(" ");
+      var url ="";
+      if(arr.length>0)
+      { 
+        if(arr[0].toLowerCase()=="search")
+        {
+          var str = localStorage['user-city-data'];
+          var str = JSON.parse(str);
+          var cityName = str['city-name'].toLowerCase().replace(/ /g,"_")
+         var type = $('.search-option').val();
+          if(type!="")
+          {
+            url += "/"+cityName.split(',')[0].toLowerCase().replace(/ /g,"_")+"/"+type+"-restaurant";
+          }
+          else
+          {
+            url += '/'+cityName.split(',')[0].toLowerCase().replace(/ /g,"_")+"/restaurant";
+          }
+        }
+        else
+        {
+          var type = $('.search-option').val();
+          url += '/'+$('#searchLocation').val().split(',')[1].toLowerCase().replace(/ /g,"_");
+          if(type!="")
+          {
+            url += '/'+type+"-"+$('#searchLocation').val().split(',')[0].toLowerCase().replace(/ /g,"_")+"-restaurant";
+          }
+          else
+          {
+            url += '/'+$('#searchLocation').val().split(',')[0].toLowerCase().replace(/ /g,"_")+"-restaurant";
+          }
+            //url = "/"+$('#searchLocation').val().split(',')[1].toLowerCase().replace(" ","_");  
+        }
+      }
+      else
+      {
+        url = "/"+$('#searchLocation').val().split(',')[1].toLowerCase().replace(/ /g,"_");    
+      }
+      if($('#searchCriteria').val()){
+        url += '/'+$('#searchCriteria').val().replace("/","_");
+      }else{
+        url += '';
+      }
+      storeSearch($('#searchLocation').val(),location,$('#searchCriteria').val());
+      window.location = url;
+      }
+      else
+      {
+        $("#searchLocation").focus();
+      }
+      return false;
+    });
 	});
 </script>
  <script type="text/javascript">
  	$(window).load(function() {
   		// Animate loader off screen
-  		$("#loading").fadeOut("slow");
+  		$("#loading").fadeOut("slow"); 
  	});
  	$(document).ajaxStart(function(){
- 		$("#loading").show();
+ 		if ( !$("#loading").is(':visible') ){
+		$("#loading").show();
+	}
  	});
  	$(document).ajaxComplete(function(){
- 		$("#loading").hide();
+ 		if ($("#loading").is(':visible') ){
+		$("#loading").hide();
+	}
  	});
- 	$(window).on('beforeunload',function()
+ 	/*$(window).on('beforeunload',function()
  	{
- 		$("#loading").show();
- 	});
+ 		if (!$("#loading").is(':visible') ){
+		$("#loading").show();
+	}
+ 	});*/
+$('a').live('click',function()
+  {
+    var target = $(this).attr('href');
+    if(target!=undefined)
+    {
+      if(target.length>1)
+      {
+      	if(target.charAt(0)!="#")
+      {
+        if ( !$("#loading").is(':visible') ){
+         $("#loading").show();
+        }
+      }
+      }
+    }
+  });
 </script>
 <div class="loading-div fade_in" id="loading">
  	<span>
   		<img alt="loading.." src="/images/rdine-loading.gif" >
-  		<h2>Discovering best restaurants for you...</h2>
+  		<h2><?php echo $this->translate->_("Discovering best restaurants for you..."); ?></h2>
  	</span>
 </div>
 
@@ -211,11 +523,11 @@ function setSearch()
 						<div class="input-row">
 							<div class="form-group form-group1" style="width:140px; margin-left:30px;">
 								 <select name="model" class="framed black-bg search-option"  title="Eat Out" data-live-search="true">
-									<option value="">Eat Out</option>
-									<option value="Buffet">Buffet</option>
-									<option value="LuxuryDinner">Luxury Dinner</option>
-									<option value="HomeDelivery">Home Delivery</option>
-									<option value="Deals">Deals</option>
+									<option value=""><?php echo $this->translate->_("Eat Out"); ?></option>
+									<option value="Buffet"><?php echo $this->translate->_("Buffet"); ?></option>
+									<option value="LuxuryDinner"><?php echo $this->translate->_("Luxury Dinner"); ?></option>
+									<option value="HomeDelivery"><?php echo $this->translate->_("Home Delivery"); ?></option>
+									<option value="Deals"><?php echo $this->translate->_("Deals"); ?></option>
 								</select>
 							</div>
 							 <div class="form-group" style="margin-right:0; width:280px;">
@@ -239,7 +551,7 @@ function setSearch()
 								</div>
 								<!-- /.form-group -->
 								<div class="form-group" style="margin-right:0;">
-									<a class="btn btn-default search1 primarySearch"><i class="fa fa-search"></i> SEARCH</a>
+									<a class="btn btn-default search1 primarySearch"><i class="fa fa-search"></i> <?php echo $this->translate->_("SEARCH"); ?></a>
 								</div>
 							<!-- /.form-group -->
 						</div>
@@ -251,7 +563,10 @@ function setSearch()
 				<div class="wrapper">
 					<ul class="main-navigation navigation-top-header"></ul>
 					
-					<ul class="user-area">					
+					<ul class="user-area">	
+          <li>
+            <a class="selected-city" href="#"></a>
+          </li>				
 						<li>
 							<?php 
 							if($this->getUserName()){
@@ -276,7 +591,6 @@ function setSearch()
 <script type="text/javascript">
 $(function()
 {
-	setLocations();
 	var searchCriteria = Array();
 	 searchCriteria['cusines'] = [
 	  {"value":"American ",name:"American "},{"value":"Asian ",name:"Asian "},{"value":"Bar/Club/Lounge",name:"Bar/Club/Lounge"},{"value":"BBQ ",name:"BBQ "},{"value":"Brazilian ",name:"Brazilian "},{"value":"Breakfast ",name:"Breakfast "},{"value":"Cajun/Creole ",name:"Cajun/Creole "},{"value":"Canadian ",name:"Canadian "},{"value":"Caribbean ",name:"Caribbean "},{"value":"Chinese ",name:"Chinese "},{"value":"Coffee/Desserts",name:"Coffee/Desserts"},{"value":"Continental ",name:"Continental "},{"value":"Deli ",name:"Deli "},{"value":"Eclectic ",name:"Eclectic "},{"value":"Ethiopian ",name:"Ethiopian "},{"value":"European ",name:"European "},{"value":"Fondue ",name:"Fondue "},{"value":"French ",name:"French "},{"value":"German ",name:"German "},{"value":"Greek ",name:"Greek "},{"value":"Indian ",name:"Indian "},{"value":"International ",name:"International "},{"value":"Italian ",name:"Italian "},{"value":"Japanese ",name:"Japanese "},{"value":"Kosher ",name:"Kosher "},{"value":"Latin ",name:"Latin "},{"value":"Mediterranean ",name:"Mediterranean "},{"value":"Mexican ",name:"Mexican "},{"value":"Middle Eastern ",name:"Middle Eastern "},{"value":"Pizza ",name:"Pizza "},{"value":"Polish ",name:"Polish "},{"value":"Pub Fare ",name:"Pub Fare "},{"value":"Seafood ",name:"Seafood "},{"value":"Southwestern ",name:"Southwestern "},{"value":"Spanish ",name:"Spanish "},{"value":"Steak ",name:"Steak "},{"value":"Sushi ",name:"Sushi "},{"value":"Tapas ",name:"Tapas "},{"value":"Test Cusine",name:"Test Cusine"},{"value":"Test Cusine",name:"Test Cusine"},{"value":"Thai ",name:"Thai "},{"value":"Vegetarian ",name:"Vegetarian "},{"value":"Vietnamese",name:"Vietnamese"}];
@@ -307,10 +621,33 @@ $(function()
                     data: searchCriteria['cusines']
                 }
             },
+            dynamic:false,
+           /* source:function(query,process)
+            {
+            	console.log(query);
+            	var suggestionUrl  = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'searchsugesstions'),'default',true); ?>";
+		        $.post(suggestionUrl,function(data)
+		        {
+		        	console.log(data);
+		        	data = JSON.parse(data);
+		        	return process(data.locations);
+		        }  ); 	
+	        },*/
             debug: true
         });
-     
+      $("#searchLocation").click(function()
+      {
+        $(this).val('');
+      });
+      $("#searchCriteria").click(function()
+      {
+        $(this).val('');
+      });
 
 });
+
+	$('.loginWeb').live('click',function(){
+        Login();
+    });
 	
 </script>

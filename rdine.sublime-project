@@ -7,7 +7,7 @@
 	],
 	"settings": {
         "xdebug": {
-             "url": "http://localhost/",
+             "url": "http://localhost:88/",
         }
     }
 }

@@ -9,7 +9,7 @@ defined('APPLICATION_PATH')
 
 // Define application environment
 defined('APPLICATION_ENV')
-    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
+    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'development'));
 
     
 define('ROOT_DIR', dirname(dirname(__FILE__)));

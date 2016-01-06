@@ -105,7 +105,7 @@ class Application_Model_CitybdMapper
 	/**
 	*Function for fetching all cities called in city bdm
 	**/
-	public function getAllCities()
+	public function getAllCities($status=null)
 	{
 	
 		try{
@@ -116,6 +116,11 @@ class Application_Model_CitybdMapper
 							->joinLeft(array('country'=>'rd.country_bd'),'city.country_id = country.id',array('country_name'=>'country.description'))
 							->setIntegrityCheck(false)
 							->order('description ASC');
+				if($status!=null)
+				{
+					$select->where('city.country_id > 0');
+					$select->where('city.status = ?',$status);
+				}
 				$records = $this->getDbTable()->fetchAll($select);			
 				foreach($records as $record){
 					$citydata[] = new Application_Model_Citybd(						
@@ -156,6 +161,7 @@ class Application_Model_CitybdMapper
                 {
                     $select->order($orderBy);
                 }
+                $select->where('status = ?',true);
                 $data = $select->query()->fetchAll();
                 return $data;
         }

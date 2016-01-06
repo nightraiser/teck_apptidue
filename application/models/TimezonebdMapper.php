@@ -119,33 +119,6 @@ class Application_Model_TimezonebdMapper
 
 	}
 
-	public function updateTimezone($data,$code)
-	{
-		try
-		{
-			$sum = 0;
-			foreach ($data as $value) 
-			{
-				$where['id = ?'] = $value;
-				$update = array('country_id' => $code );
-		 		$sum += $this->getDbTable()->update($update,$where);	
-			}
-
-			if($sum==sizeof($data))
-			{
-				return 't';
-			}
-			else
-			{
-				return 'f';
-			}
-			
-		}
-		catch(Exception $e)
-		{
-			throw new Exception($e->getMessage());
-		}
-	}
 
 	public function fetchById($id)
 	{

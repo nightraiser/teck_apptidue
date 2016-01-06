@@ -1,10 +1,13 @@
+<?php 
+$appNameSpace = new Zend_Session_Namespace('AppData');
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>ReserveDine</title>
-	<meta name="description" content="Hyderabad Restaurants - Menus, Photos, Ratings and Reviews Restaurants in Hyderabad. Find the Best Restaurants in Hyderabad on ReserveDine - Hyderabad Restaurants">
+	<title><?php echo $this->translate->_($appNameSpace->appName); ?></title>
+	<meta name="description" content="Hyderabad Restaurants - Menus, Photos, Ratings and Reviews Restaurants in Hyderabad. Find the Best Restaurants in Hyderabad on <?php echo $appNameSpace->appName;?> - Hyderabad Restaurants">
 	<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl(); ?>/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl(); ?>/css/style.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl(); ?>/css/jquery.typeahead.css">
@@ -23,7 +26,7 @@
 	<script type="text/javascript" src="/js/jquery-2.1.0.min.js"></script>
 	<script type="text/javascript" src="/js/kiwi-slider.js"></script>
 	<script type="text/javascript" src="/js/before.load.js"></script>
-	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=geometry,places"></script>
 	<script type="text/javascript" src="/js/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/js/smoothscroll.js"></script>
@@ -38,8 +41,14 @@
 	<script type="text/javascript" src="/js/maps.js"></script>
 	<script src="/js/jquery.filer.min.js" type="text/javascript"></script>
 		<script src="/js/jquery.typeahead.js" type="text/javascript"></script>
+    <script src="http://connect.facebook.net/en_US/all.js"></script>
 		
 <script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript">
+    $('.loginWeb').live('click',function(){
+          Login();
+      });
+  </script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -62,7 +71,6 @@
     rating('.modal-window');
 
     // Remove modal element form DOM
-
     $('.modal-window .modal-background, .modal-close').live('click',  function(e){
         $('.modal-window').addClass('fade_out');
         setTimeout(function() {
@@ -76,6 +84,194 @@
     		}
     	}
     });
+    $(function()
+    {	
+      $(".selected-city").click(function()
+      {
+        var cityUrl  = "<?php echo $this->url(array('module'=>'Restaurant','controller'=>'Restaurant','action'=>'getcitieslist'),'default',true); ?>";
+        $.post(cityUrl,function(data)
+        {
+          selectCity(JSON.parse(data));
+        });
+        return false;
+      });
+    	$(".home-login").live('click',function()
+		{
+			Login();
+			return false;
+		});
+		$(".home-logout").live('click',function()
+		{
+			var url = "<?php echo $this->url(array('module'=>'User','controller'=>'Login','action'=>'signout'),'default',true);?>";
+			$.post(url,function()
+			{
+				location.reload();
+			});
+			return false;
+		});	 
+	    $(".refresh-along").live('click',function()
+		{	
+			location.reload();
+		});
+    	 $(".loginbtn").live('click',function(){
+        $("#login-social").addClass('dnone');
+        $("#user-login").removeClass('dnone');
+        $("#user-signup").addClass('dnone');
+        $("#form-sign-in-account").live('submit',function()
+      {  
+       var  SigninFormValues =new FormData($('#form-sign-in-account')[0]);              
+        var url = "<?php echo $this->url(array('module'=>'User','controller'=>'Login','action'=>'signinajax'),'default',true);?>";
+          $.ajax({
+            url: url,   
+            type: "POST", 
+            data:SigninFormValues, 
+            contentType: false,  
+            cache: false,          
+            processData:false,     
+            success: function(data)
+            {
+                data = JSON.parse(data);
+               if(data.status==true)
+                {
+               if(data['Usertype']=="ADM")
+                  {
+                     var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'managerestaurant'),'default',true); ?>"; 
+                     window.location = url;
+                  }
+                 else
+                 {
+                     $(".modal-close").click();
+                    location.reload();
+                 }
+              } 
+              else
+              {
+                $(".loginerror").html("Invalid Login Please Try Again");
+              }                       
+            }
+          });  
+      return false; 
+    });
+     });
+	$(".signupbtn").live('click',function(){
+	$("#login-social").addClass('dnone');
+	$("#user-login").addClass('dnone');
+	$("#user-signup").removeClass('dnone');
+	$('#logintord').html("SIGNUP <?php echo $appNameSpace->appName;?>");
+	});
+	$(".backbtn").live('click',function(){
+	$("#login-social").removeClass('dnone');
+	$("#user-login").addClass('dnone');
+	$("#user-signup").addClass('dnone');
+	$('#logintord').html("LOGIN <?php echo $appNameSpace->appName; ?>");
+	});
+	
+  FB.init({
+      appId  : '714573358648288',
+      status : true, // check login status
+      cookie : true, // enable cookies to allow the server to access the session
+      xfbml  : true  // parse XFBML
+    });
+    $(".facebook-login").live('click',function(){
+      //alert("btn clcked");
+      var reload = $(this).attr('reloadaction');
+    FB.getLoginStatus(function(response) {
+            console.log(response);
+              if (response.status == 'connected') {
+                getCurrentUserInfo(response,reload)
+              } else {
+                FB.login(function(response) {
+                  if (response.authResponse){
+                    getCurrentUserInfo(response,reload)
+                  } else {
+                    console.log('Auth cancelled.')
+                  }
+                }, { scope: 'email' });
+              }
+            });
+    });  
+  });
+	$(".loginClose").live('click',function()
+	{
+	$("#loginModel").removeClass("modal-window");
+	$("#loginModel").removeClass("fade_in");
+	$("#loginModel").addClass("fade");
+	$("#loginModel").addClass("modal");
+	
+	});
+
+	function Login()
+	{
+		
+		$("#loginModel").removeClass("fade");
+		$("#loginModel").removeClass("modal");
+		$("#loginModel").addClass("modal-window");
+		$("#loginModel").addClass("fade_in");
+      //  renderLoginButton();
+      startApp();
+    var emailValid = "";
+    $('#submit').live('click',function(e){
+      e.preventDefault();
+    emailObj.trigger('blur');
+    var formData = $(".signUpForm").serializeArray();
+    if(emailValid)
+    {
+      var url = "<?php echo $this->url(array('module'=>'User','controller'=>'Client','action'=>'guestwidgetsignup'),'default',true); ?>"
+      $.post(url,formData,function(data)
+      {
+        if(data==true)
+        {
+             $(".modal-close").click();
+               location.reload();
+        }
+      });
+      return false;
+    }
+    $(".signUpForm").submit();
+    return emailValid;  
+    });
+    var emailObj = $("#emailAddress");
+    emailObj.live('blur',function(){
+  ajaxEmailCall();
+   });
+     function ajaxEmailCall(){
+      var emailObj = $("#emailAddress");
+    errorObj = $(".ajaxReturn");
+   var url = "<?php echo $this->url(array('module'=>'User','controller'=>'Client','action'=>'searchforemailexist'),'default',true); ?>"
+     errorObj.text(" ");
+     var bValid = true;
+     bValid = bValid && checkRegexp(emailObj,/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,"<?php echo $this->translate->_('Invalid Email'); ?>");  
+    function checkRegexp(o,regexp) {
+      var emailObj = $("#emailAddress");
+      if ( !( regexp.test( o.val() ) ) ) {  
+        errorObj.text("<?php echo $this->translate->_('Invalid Email'); ?>");
+        errorObj.css({'color':'#ED0E19'});
+          emailValid = false;
+          return false
+      } else{
+        return true;
+      }
+    }
+    if(!bValid){
+      return false;
+    }
+   $.post(url, { email: $.trim(emailObj.val()) },
+         function(data){
+          data = data.replace(/\s/g,"");
+          if(data=="t"){
+            errorObj.text("<?php echo $this->translate->_('Email Address is not available'); ?>");
+            errorObj.css({'color':'#ED0E19'});
+            emailValid = false;
+          }else if(data == "f"){
+            errorObj.text("<?php echo $this->translate->_('Email Address is available continue  registering'); ?>");
+            errorObj.css({'color':'#0EED12'});
+            emailValid = true;
+          }
+        });
+  }
+
+  
+	}
    
 </script>
 <style>	
@@ -131,6 +327,76 @@
 		box-shadow: none !important;
 	}
 
+	#popup-Signin {
+      display: inline-block;
+      background: #ec4e34;
+      color: white;
+      width: 100%;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+    #popup-Signin:hover {
+      cursor: pointer;
+    }
+    #resv-popup-Signin {
+      display: inline-block;
+      background: #ec4e34;
+      color: white;
+      width: 100%;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+    #resv-popup-Signin:hover {
+      cursor: pointer;
+    }
+    span.label {
+      font-weight: bold;
+    }
+    i.icon {
+    	text-align: center;
+      background: #df4a32;
+      display: inline-block;
+      vertical-align: middle;
+      width: 52px;
+      height: 52px;
+      float: left;
+      line-height:52px;
+      font-size: 24px;
+    }
+    span.buttonText {
+      display: inline-block;
+      vertical-align: middle;
+      padding-left: 52px;
+      padding-right: 52px;
+      font-size: 14px;
+      line-height:52px;
+      font-weight: bold;
+      /* Use the Roboto font that is loaded in the <head> */
+      font-family: 'Roboto', sans-serif;
+    }
+     .citiesList
+    {
+      margin: 0px;
+      padding: 0px; 
+    }
+    .citiesList li
+    {
+      list-style:none;
+      float: left;
+      margin-right: 4px;
+    }
+    .city-select-button {
+    border-radius: 2px;
+    position: relative;
+    padding: 10px;
+    color: #fff;
+    background: #131313;
+    display: inline-block;
+    line-height: 1;
+    margin: 12px;
+    font-size: 12px;
+    cursor: pointer;
+}
 	</style>
 </style>
 <body onunload="" class="map-fullscreen page-homepage navigation-off-canvas" id="page-top">
@@ -141,10 +407,10 @@
 			<div id="page-canvas">
 				<!--Off Canvas Navigation-->
 				<nav class="off-canvas-navigation">
-					<header>Navigation</header>
+					<header><?php echo $this->translate->_("Navigation"); ?></header>
 					<div class="main-navigation navigation-off-canvas">
 						<ul>
-							<li><a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'index'),'default',true);?>">Home</a></li>
+							<li><a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'index'),'default',true);?>"><?php echo $this->translate->_("Home"); ?></a></li>
 							 <?php 
 								$storage = new Zend_Auth_Storage_Session();
 								$data = $storage->read();
@@ -160,7 +426,7 @@
 									echo '<li><a href="'.$inactUrl.'">Dashboard</a></li>';
 								}
 							?>							
-							<li><a href="#">About Us</a></li>
+							<li><a href="#"><?php echo $this->translate->_("About Us"); ?></a></li>
 							<!---<li><a href="#sub-level-1" class="has-child" data-toggle="collapse" aria-expanded="false" aria-controls="sub-level-1">Pages</a>
 								<div class="collapse" id="sub-level-1">
 									<ul>
@@ -187,7 +453,7 @@
 									</ul>
 								</div>
 							</li>-->
-							<li><a href="#">Contact</a></li>
+							<li><a href="#"><?php echo $this->translate->_("Contact"); ?></a></li>
 							<?php echo $this->loggedInAs();?>	
 						</ul>
 
@@ -207,8 +473,117 @@
 			<?php include('footer.phtml'); ?>
 		</div>
 	</div>
+	<!--popup-->
+<div class="modal fade" id="loginModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="z-index:1052;">
+  <div class="modal-dialog" role="document" style="width:340px">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close loginClose" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="logintord"><?php echo $this->translate->_("LOGIN TO  ".$appNameSpace->appName); ?></h4>
+      </div>
+      <div class="modal-body">
+        <div id="main-login">
+      <div id="login-social" class="tc">        
+        <div title="Log in with Facebook">
+          <a href="#" id="facebook-login" reloadaction="true" class="facebook-login"><i class="fa fa-facebook"></i> <?php echo $this->translate->_("Log in with Facebook"); ?></a>
+          <div class="fb-disclaimer">
+            <?php echo $this->translate->_("Recommended. And we will never post anything without your permission."); ?>                
+          </div>
+        </div>
+        <div class="gap"></div>
+      <!--  <div id="customBtn" title="Log in with Google">
+          <a href="#" class="google-plus-login"><i class="fa fa-google-plus"></i> Log in with Google</a>
+        </div>-->
+        <div id="popup-Signin" class="customGPlusSignIn">
+      <i class="icon fa fa-google-plus"></i>
+      <span class="buttonText"><?php echo $this->translate->_("LOGIN WITH GOOGLE"); ?></span>
+    </div>
+        <div class="gap clear"></div>
+        <div class="gap clear"></div>
+        <div id="login-nonsocial" class="ta-center">
+          <p><?php echo $this->translate->_("Or use your email address"); ?></p>
+          <div class="row">
+            <div class="col-md-6">        
+              <a  class="btn btn-signup pull-left loginbtn"><?php echo $this->translate->_("Log in"); ?></a>    
+            </div>
+            <div class="col-md-6">  
+              <a class="btn btn-signup pull-right signupbtn" href="#"><?php echo $this->translate->_("Sign up"); ?></a> 
+            </div>
+          </div>
+          <div class="clear"></div>
+        </div>
+      </div>  
+      <div id="user-login" class="dnone">
+        <form role="form" id="form-sign-in-account">
+          <div class="form-group">
+            <label for="form-sign-in-email"><?php echo $this->translate->_("Email:"); ?></label>
+            <input type="email" class="form-control time-control" id="form-sign-in-email" name="emailAddress" required="">
+          </div>
+          <div class="form-group">
+            <label for="form-sign-in-password"><?php echo $this->translate->_("Password:"); ?></label>
+            <input type="password" class="form-control time-control" id="form-sign-in-password" name="password" required="">
+          </div>
+          <div class="form-group loginerror" style="color:red;"></div>
+          <div class="gap"></div>
+          <div class="gap"></div>
+          <div class="row">
+            <div class="col-md-6">
+              <a class="btn btn-signup backbtn pull-left" href="#">‹ <?php echo $this->translate->_("Back"); ?></a>         
+            </div>
+            <div class="col-md-6">
+              <input type="submit" class="btn btn-default pull-right" value="Log in">
+            </div>
+          </div><div class="gap"></div>
+          <div class="gap"></div>
+          <div class="form-group clearfix "><?php echo $this->translate->_("New to ". $appNameSpace->appName."?"); ?>  <a href="#" class="signupbtn"  style="color:red"><?php echo $this->translate->_("Create an account"); ?></a></div>
+        </form>
+      </div>
+      <div id="user-signup" class="dnone">
+        <form role="form" id="" class="signUpForm" action="" method="post">
+          <div class="form-group">
+            <label for="form-sign-up-first-name"><?php echo $this->translate->_("First Name:"); ?></label>
+           <input type="text" name="firstName" id="firstName" value="" class="form-control" maxlength="30" title="First Name" placeholder="First Name*">
+          </div>
+          <div class="form-group">
+            <label for="form-sign-up-last-name"><?php echo $this->translate->_("Last Name:"); ?></label>
+           <input type="text" name="lastName" id="lastName" value="" maxlength="30" title="Last Name" placeholder="Last Name" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="form-sign-up-email"><?php echo $this->translate->_("Email:"); ?></label>
+           <input type="text" name="emailAddress" id="emailAddress" value="" class="form-control" maxlength="40" title="Email Address" placeholder="Email Address*">
+           <p class="ajaxReturn"></p>
+          </div>
+          <div class="form-group">
+            <label for="form-sign-up-password"><?php echo $this->translate->_("Password:"); ?></label>
+            <input type="password" name="password" id="password" value="" class="form-control" maxlength="20" title="Password" placeholder="Password*">
+          </div>
+          <div class="form-group loginerror" style="color:red;"></div>
+          <div class="gap"></div>
+          <div class="gap"></div>
+          <div class="row">
+            <div class="col-md-6">
+              <a class="btn btn-signup backbtn pull-left" href="#">‹ <?php echo $this->translate->_("Back"); ?></a>         
+            </div>
+            <div class="col-md-6">
+              <a class="btn btn-default pull-right" id="submit" href="#"><?php echo $this->translate->_("Register"); ?></a> 
+            </div>
+          </div><div class="gap"></div>
+          <div class="gap"></div>
+          <div class="form-group clearfix "><?php echo $this->translate->_("Already User? Please"); ?>  <a href="#" class="loginbtn" style="color:red"><?php echo $this->translate->_("Login"); ?></a></div>
+        </form>
+      </div>
+      <div class="clear"></div>
+      <hr />
+      <div><?php echo $this->translate->_("By logging in, you agree to ".$appNameSpace->appName."'s"); ?> <a href="http://www.<?php echo $appNameSpace->appUrl; ?>/termsofservice" style="color:red;"><?php echo $this->translate->_("Terms of Service"); ?></a> & <a href="http://www.<?php echo $appNameSpace->appUrl; ?>/privacy" style="color:red;"><?php echo $this->translate->_("Privacy Policy");?></a> </div>
+    </div>  
+      </div>
+    </div>
+  </div>
+</div>
+<!--End Popup -->
+
 	<script type="text/javascript">
-		function onSuccess(googleUser) 
+	/*	function onSuccess(googleUser) 
 		{
 		  var userprofile = googleUser.getBasicProfile();
 		  var url = "<?php echo $this->url(array('module'=>'User','controller'=>'Login','action'=>'signingmail'),'default',true); ?>";
@@ -230,14 +605,198 @@
         'width': 200,
         'height': 40,
         'longtitle': false,
-        'theme': 'dark',
+        'theme': '',
         'onsuccess': onSuccess,
         'onfailure': onFailure
       });
-  }
+  }*/
+  var googleUser = {};
+  var startApp = function() {
+    gapi.load('auth2', function(){
+      // Retrieve the singleton for the GoogleAuth library and set up the client.
+      auth2 = gapi.auth2.init({
+        client_id: '583121634845-3fjub951diijrpf5fbdkidebdfeqa1t4.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+        // Request scopes in addition to 'profile' and 'email'
+        //scope: 'additional_scope'
+      });
+      attachSignin(document.getElementById('popup-Signin'),true);
+    });
+  };
+   var resvLoginApp = function() {
+    gapi.load('auth2', function(){
+      // Retrieve the singleton for the GoogleAuth library and set up the client.
+      auth2 = gapi.auth2.init({
+        client_id: '583121634845-3fjub951diijrpf5fbdkidebdfeqa1t4.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+        // Request scopes in addition to 'profile' and 'email'
+        //scope: 'additional_scope'
+      });
+      attachSignin(document.getElementById('resv-popup-Signin'),false);
+    });
+  };
 
+  function attachSignin(element,reload) {
+    auth2.attachClickHandler(element, {},
+        function(googleUser) {
+        var userprofile = googleUser.getBasicProfile();
+          var profile = '{ "email" :"'+userprofile.getEmail()+'","full_name":"'+userprofile.getName()+'"}';
+          localStorage['tmp_data'] = JSON.stringifiy(profile);
+		  var url = "<?php echo $this->url(array('module'=>'User','controller'=>'Login','action'=>'signingmail'),'default',true); ?>";
+		 $.post(url,{profile:JSON.parse(profile)},function(data)
+		 {
+		 	if(data==true)
+		 	{
+		 		if(reload==true)
+		 		{
+		 			location.reload();
+		 		}
+		 		else
+		 		{
+						_isUserLoggedIn = true;
+						var divRef = $('.reservModal');
+						$(divRef).children('.modal-close').addClass('refresh-along');
+						$(".reservLogin-pop").addClass("dnone");
+						$(divRef).removeClass("dnone");
+						if($('.reservTimeSlots li a').hasClass('reservSel')){
+						var tmp_data = JSON.parse(localStorage['tmp_data']);
+                   var formData = Array();
+                   for(var i in tmp_data)
+                   {
+                      formData[tmp_data[i]['name']] = tmp_data[i]['value'];
+                   }
+                   var fname = formData["firstName"];
+                  var lname = formData["lastName"];
+                 var useremail = formData["emailAddress"];
+                 localStorage.removeItem('tmp_data');
+						$('.reservSlotsDiv').hide();
+						$('.reservError,.resConfirm').remove();
+						var htmlRes = '';
+						htmlRes +='<div class="resConfirm">';
+						htmlRes +='<div class="row">';
+						htmlRes +='<div class="col-lg-12 col-md-12 col-sm-12">';
+						htmlRes +='<h2 style="margin-bottom: 6px;">User Details</h2>';
+						htmlRes +='<div class="col-md-6" style="padding:0;">';
+						htmlRes +='<div class="form-group">';
+						htmlRes +='<label for="usr">First Name</label>';
+						htmlRes +='<input type="text" class="form-control" value="'+fname+'" id="reservFname" name="reservFname">';
+						htmlRes +='</div>';
+						htmlRes +='<div class="form-group">';
+						htmlRes +='<label for="Email">Email</label>';
+						htmlRes +='<input type="email" class="form-control" value="'+useremail+'" id="reservEmail" name="reservEmail">';
+						htmlRes +='</div>';
+						htmlRes += '</div>';
+						htmlRes +='<div class="col-md-6" style="padding-right:0;">';
+						htmlRes +='<div class="form-group">';
+						htmlRes +='<label for="usr">Last Name</label>';
+						htmlRes +='<input type="text" class="form-control" value="'+lname+'" id="reservLname" name="reservLname">';
+						htmlRes +='</div>';	      	
+						htmlRes +='<div class="form-group">';
+						htmlRes +='<label for="phone">Phone Number</label>';
+						htmlRes +='<input type="email" class="form-control" id="reservPhone" name="reservPhone">';
+						htmlRes +='</div>';
+						htmlRes += '</div>';
+						htmlRes +='<div class="clearfix mrgn_top20">';
+						htmlRes +='<button type="submit" class="btn btn-default dflt_btn_big" id="reservInitiate" attr="source">Reserve Now</button>';
+						htmlRes +='</div>';
+						htmlRes +='</div>';
+						htmlRes +='</div>';
+						htmlRes +='</div>';
+						divRef.append(htmlRes);
+						}else{
+						$('.reservError').remove();
+						divRef.append('<div class="reservError">Please select a time slot to continue.</div>')
+						}		
+						
+					
+		 		}
+		 	}
+		 });
+		 
+        }, function(error) {
+          
+        });
+  }
+  
+  function getCurrentUserInfo(res,reload) {  
+      FB.api('/me', { locale: 'en_US', fields: 'name, email' },
+  function(response) {
+    if(response.email == undefined)
+    {
+       FB.api("/me/permissions","DELETE",function(response){ 
+                });
+      alert("email required");
+    location.reload();
+    }
+    else
+    {
+          var profile = '{ "email" :"'+response.email+'","full_name":"'+response.name+'"}';
+      var url = "<?php echo $this->url(array('module'=>'User','controller'=>'Login','action'=>'signingmail'),'default',true); ?>";
+     $.post(url,{profile:JSON.parse(profile)},function(data)
+     {
+      if(data==true)
+      { 
+        if(reload=="true")
+        {
+          location.reload();
+        }
+        else
+        {
+            _isUserLoggedIn = true;
+            var divRef = $('.reservModal');
+            $(divRef).children('.modal-close').addClass('refresh-along');
+            $(".reservLogin-pop").addClass("dnone");
+            $(divRef).removeClass("dnone");
+            if($('.reservTimeSlots li a').hasClass('reservSel')){
+            
+            $('.reservSlotsDiv').hide();
+            $('.reservError,.resConfirm').remove();
+            var htmlRes = '';
+            htmlRes +='<div class="resConfirm">';
+            htmlRes +='<div class="row">';
+            htmlRes +='<div class="col-lg-12 col-md-12 col-sm-12">';
+            htmlRes +='<h2 style="margin-bottom: 6px;">User Details</h2>';
+            htmlRes +='<div class="col-md-6" style="padding:0;">';
+            htmlRes +='<div class="form-group">';
+            htmlRes +='<label for="usr">First Name</label>';
+            htmlRes +='<input type="text" class="form-control" id="reservFname" value="'+response.name+'" name="reservFname">';
+            htmlRes +='</div>';
+            htmlRes +='<div class="form-group">';
+            htmlRes +='<label for="Email">Email</label>';
+            htmlRes +='<input type="email" class="form-control" id="reservEmail" value="'+response.email+'" name="reservEmail">';
+            htmlRes +='</div>';
+            htmlRes += '</div>';
+            htmlRes +='<div class="col-md-6" style="padding-right:0;">';
+            htmlRes +='<div class="form-group">';
+            htmlRes +='<label for="usr">Last Name</label>';
+            htmlRes +='<input type="text" class="form-control" id="reservLname" name="reservLname">';
+            htmlRes +='</div>';         
+            htmlRes +='<div class="form-group">';
+            htmlRes +='<label for="phone">Phone Number</label>';
+            htmlRes +='<input type="email" class="form-control" id="reservPhone" name="reservPhone">';
+            htmlRes +='</div>';
+            htmlRes += '</div>';
+            htmlRes +='<div class="clearfix mrgn_top20">';
+            htmlRes +='<button type="submit" class="btn btn-default dflt_btn_big" id="reservInitiate">Reserve Now</button>';
+            htmlRes +='</div>';
+            htmlRes +='</div>';
+            htmlRes +='</div>';
+            htmlRes +='</div>';
+            divRef.append(htmlRes);
+            }else{
+            $('.reservError').remove();
+            divRef.append('<div class="reservError">Please select a time slot to continue.</div>')
+            }   
+            
+          
+        }
+      }
+     });
+  }
+  });
+  }
 	</script>
-	<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-	<meta name="google-signin-client_id" content="655248623186-n8vltpa27ac9i4mvu9kdlbbsol22ql5q.apps.googleusercontent.com">
+	<script src="https://apis.google.com/js/platform.js?onload=" async defer></script>
+	<meta name="google-signin-client_id" content="583121634845-3fjub951diijrpf5fbdkidebdfeqa1t4.apps.googleusercontent.com">
 </body>
 </html>

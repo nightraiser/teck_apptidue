@@ -306,7 +306,7 @@ class Application_Model_LocationboundariesMapper
             }
     }
 
-    public function fetchSugesstionData()
+    public function fetchSugesstionData($cityId = null)
     {
         try
         {
@@ -315,8 +315,13 @@ class Application_Model_LocationboundariesMapper
 										->from(array('location'=>'rd.location_boundaries'),array('location_id'=>"location.id",'location_name'=>'location.description'))
 										->joinLeft(array('country'=>'rd.country_bd'),'location.country_id = country.id',array('country_name'=>'country.description'))
 										->joinLeft(array('city'=>'rd.city_bd'),'location.city_id = city.id',array('city_name'=>'city.description'))
+										->where('location.status = ?',true)
 										->setIntegrityCheck(false)
 										->order('location.description ASC');
+			if($cityId != null)
+			{
+				$select->where('city_id = ?',$cityId);
+			}
              $data = $select->query()->fetchAll();
             return $data;
         }

@@ -10,8 +10,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
 		);
 		$autoloader = Zend_Loader_Autoloader::getInstance();
-		$autoloader->registerNamespace('Rdine_');
-		$autoloader->registerNamespace('LeaderSend_');
+		//$autoloader->registerNamespace('LeaderSend_');
+		//$autoloader->registerNamespace('Rdine_');
 		return $moduleLoader;
 	}
 
@@ -27,7 +27,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$this->_resourceLoader->addResourceType( 'service', 'services', 'Service' );
 
 	}
-	
+	protected function _initApploader()
+	 {
+
+	 }
 	protected function _initSetTranslations()
 	{
 		$translate = new Zend_Translate(

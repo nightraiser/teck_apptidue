@@ -104,6 +104,7 @@ class Application_Model_CountrybdMapper
 				$db = $this->getDbTable();
 				$select = $db->select()
 							->from(array('country'=>'rd.country_bd'))
+							->where('status = ?',true)
 							->order('description ASC');
 				$records = $this->getDbTable()->fetchAll($select);			
 				foreach($records as $record){

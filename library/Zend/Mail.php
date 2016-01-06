@@ -1190,7 +1190,7 @@ class Zend_Mail extends Zend_Mime_Message
         if(null === $this->_replyTo && null !== self::getDefaultReplyTo()) {
             $this->setReplyToFromDefault();
         }
-
+        print_r($transport);
         $transport->send($this);
 
         return $this;

@@ -51,8 +51,7 @@ class Zend_View_Helper_LoggedInAs extends Zend_View_Helper_Abstract
 				$dashBoardUrl = $this->view->url(array('module'=>$mod,'controller'=>$con,'action'=>$act),$router,true);				 
 			}
 			if(!$userType){
-				$loginUrl = $this->view->url(array('module'=>'User','controller'=>'Login', 'action'=>'signin'),'login',true);
-				return '<li><a href="'.$loginUrl.'">Log In</a></li>';
+				return '<li><a class="loginPopUpOpen" href="#">Log In</a></li>';
 			}else if($module == 'User' && $controller == 'Client' && $action == 'guestacctandbookinghistory'){
 				return '<li><a href="'.$logoutUrl.'">Logout</a></li>';
 			}elseif($module == 'Reservation' && $controller == 'Reservation' && $action == 'floorplan'){
@@ -60,9 +59,9 @@ class Zend_View_Helper_LoggedInAs extends Zend_View_Helper_Abstract
 			}else if($module == 'User' && $controller == 'Client' && $action == 'firmpatrondetails'){
 					return '<li><a href="'.$logoutUrl.'">Logout</a></li>';									
 			}else if($controller == 'Administrator' && $action == 'adminconsole'){
-				return '<li><a href="'.$logoutUrl.'">Logout</a></li>';
+				return '<li><a href="#" class="home-logout">Logout</a></li>';
 			}else{
-				return '<li><a href="'.$logoutUrl.'">Logout</a></li>';	
+				return '<li><a href="#" class="home-logout">Logout</a></li>';	
 			}
 			
 		}
@@ -70,9 +69,9 @@ class Zend_View_Helper_LoggedInAs extends Zend_View_Helper_Abstract
 			return '';
 		}
 		 
-		$loginUrl = $this->view->url(array('module'=>'User','controller'=>'Login', 'action'=>'signin'),'default',true);
-		$registerUrl = $this->view->url(array('module'=>'User','controller'=>'Client', 'action'=>'managerregistration'),'default',true);
-		return '<li><a href="'.$loginUrl.'">Log In</a></li><li><a href="'.$registerUrl.'">Register</a></li>';
+		//$loginUrl = $this->view->url(array('module'=>'User','controller'=>'Login', 'action'=>'signin'),'default',true);
+		//$registerUrl = $this->view->url(array('module'=>'User','controller'=>'Client', 'action'=>'managerregistration'),'default',true);
+		return '<li><a href="#" class="home-login" >Log In</a></li>';
 	}
 	
 	

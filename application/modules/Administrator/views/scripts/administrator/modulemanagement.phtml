@@ -1,0 +1,222 @@
+<?php
+$data = $this->moduleData;
+$modStr = '';
+$modalStr = '';
+if((is_array($data))&&(count($data)>0))
+{
+	foreach ($data as $key => $mod) {
+		$modStr .=  '<tr>';
+		$modStr .=  '<td>'.($key+1).'</td>';
+		$modStr .=  '<td>'.$mod['mod_name'].'</td>';
+		$modStr .=  '<td>'.$mod['mod_description'].'</td>';
+		if($mod['mod_status']==true)
+		{
+			$modStr .=	'<td class="statusTd">Enabled</td>';
+		}
+		else
+		{
+			$modStr .=	'<td class="statusTd">Disabled</td>';	
+		}
+		$modStr .=  '<td> <button class="editBtn btn btn-info" data-toggle="modal" data-target="#editModule'.$mod['mod_id'].'" data-id="'.$mod['mod_id'].'">Edit</button>&nbsp;|&nbsp;';
+		if($mod['mod_status']==true)
+		{
+			$modStr .= '<button class="disableBtn btn btn-warning" data-status="false" data-id="'.$mod['mod_id'].'">Disable</button>&nbsp;|&nbsp;';
+		}
+		else
+		{
+			$modStr .= '<button class="disableBtn btn btn-success" data-status="true" data-id="'.$mod['mod_id'].'">Enable</button>&nbsp;|&nbsp;';
+		}
+		$modStr .=  '<button class="deleteBtn btn btn-danger" data-id="'.$mod['mod_id'].'">Delete</button></td>';
+		$modStr .=  '</tr>';
+
+		$modalStr .= '<div id="editModule'.$mod['mod_id'].'" class="modal fade" role="dialog">';
+		$modalStr .= '<div class="modal-dialog">';
+		$modalStr .= '<div class="modal-content">';
+		$modalStr .= '<div class="modal-header">';
+		$modalStr .= '<button type="button" class="close" data-dismiss="modal">&times;</button>';
+		$modalStr .= '<h4 class="modal-title">Edit Module #'.$mod['mod_id'].'</h4>';
+		$modalStr .= '</div>';
+		$modalStr .= '<div class="modal-body">';
+		$modalStr .= '<div class="row">';
+		$modalStr .= '<div class="col-md-12">';
+		$modalStr .= '<form id="editForm" data-id="'.$mod['mod_id'].'">';
+		$modalStr .= '<div class="form-group">';
+		$modalStr .= '<label>Module Title *</label>';
+		$modalStr .= '<input type="text" class="form-control editmodName" data-id="'.$mod['mod_id'].'" value="'.$mod['mod_name'].'"required name="mod_name"placeholder="Module Title">';
+		$modalStr .= '</div>';
+		$modalStr .= '<div class="form-group">';
+		$modalStr .= '<label>Module Description</label>';
+		$modalStr .= '<textarea name="mod_description" class="form-control editmodDec" placeholder="Module Description" data-id="'.$mod['mod_id'].'">'.$mod['mod_description'].'</textarea>';
+		$modalStr .= '</div>';
+		$modalStr .= '<div class="form-group">';
+		$modalStr .= '<input type="submit" class="btn btn-success pull-right">';
+		$modalStr .= '</div>';
+		$modalStr .= '</form>';
+		$modalStr .= '</div>';
+		$modalStr .= '</div>';
+		$modalStr .= '</div>';
+		$modalStr .= '</div>';
+
+		$modalStr .= '</div>';
+		$modalStr .= '</div>';
+
+	}
+}
+else
+{
+	$modStr .=  '<tr><td>No Modules are added yet!</td></tr>';
+}
+						?>
+<div class="container">
+	<div class="page-header">
+		<span class="page-title">Module Management</span>
+		<button class="pull-right btn btn-primary" data-toggle="modal" data-target="#addNewModule"><b>+</b> Add New Module</button>
+	</div>
+	<div class="page-content">
+		<div class="row">
+			<div class="cold-md-12">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>SNO</th>
+							<th>Title</th>
+							<th>Desrciption</th>
+							<th>Status</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+							echo $modStr;
+						?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<!--Modals -->
+<div id="addNewModule" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add New Module</h4>
+      </div>
+      <div class="modal-body">
+      	<div class="row">
+       			<div class="col-md-12">
+       				<form id="addForm">
+	       				<div class="form-group">
+	       					<label>Module Title *</label>
+	       					<input type="text" class="form-control newmodName" required name="mod_name" placeholder="Module Title">
+	       				</div>
+	       				<div class="form-group">
+	       					<label>Module Description</label>
+	       					<textarea name="mod_description" class="form-control newmodDec" placeholder="Module Description"></textarea>
+	       				</div>
+	       				<div class="form-group">
+	       					<input type="submit" class="btn btn-success pull-right">
+	       				</div>
+       				</form>
+       			</div>
+       	</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<?php 
+echo $modalStr;
+?>
+<script type="text/javascript">
+$(function()
+{
+	$('#addForm').live('submit',function()
+	{
+		var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'addmoduleajax'),'default',true); ?>";
+		var data = {};
+		data['mod_name'] = $('.newmodName').val();
+		data['mod_description'] = $('.newmodDec').val();
+		$.post(url,{data:data},function(data)
+		{
+			location.reload();
+		});
+		return false;
+	});
+
+	$('#editForm').live('submit',function()
+	{
+		var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'editmoduleajax'),'default',true); ?>";
+		var data = {};
+		var id = $(this).attr('data-id');
+		data['mod_id'] = id;
+		data['mod_name'] = $('.editmodName[data-id="'+id+'"]').val();
+		data['mod_description'] = $('.editmodDec[data-id="'+id+'"').val();
+		$.post(url,{data:data},function(data)
+		{
+			location.reload();
+		});
+		return false;
+	});
+	$('.disableBtn').live('click',function()
+	{
+		var status = $(this).attr('data-status');
+		var id = $(this).attr('data-id');
+		var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'editmoduleajax'),'default',true); ?>";
+		var data = {};
+		var btn = $(this);
+		var parentRow = $(this).parents('tr');
+		data['mod_id'] = id;
+		if(status=="true")
+		{
+			data['mod_status'] = 1;
+		}
+		else
+		{
+			data['mod_status'] = 0;
+		}
+		$.post(url,{data:data},function(data)
+		{
+			if(!isNaN(data))
+			{
+				if(status=="false")
+				{
+					$(btn).removeClass('btn-warning');
+					$(btn).addClass('btn-success');
+					$(btn).text('Enable');
+					$(btn).attr('data-status',"true");
+					$('.statusTd',parentRow).text('Disabled');
+				}
+				else
+				{
+					$(btn).addClass('btn-warning');
+					$(btn).removeClass('btn-success');
+					$(btn).text('Disable');
+					$(btn).attr('data-status',"false");
+					$('.statusTd',parentRow).text('Enabled');
+				}
+			}
+		});
+	});
+	$('.deleteBtn').live('click',function()
+	{
+		var status = $(this).attr('data-status');
+		var id = $(this).attr('data-id');
+		var url = "<?php echo $this->url(array('module'=>'Administrator','controller'=>'Administrator','action'=>'deletemoduleajax'),'default',true); ?>";
+		var data = {};
+		var btn = $(this);
+		var parentRow = $(this).parents('tr');
+		data['mod_id'] = id;
+		$.post(url,{data:data},function(data)
+		{
+			if(!isNaN(data))
+			{
+				$(parentRow).remove();
+			}
+		});
+	});
+});
+</script>

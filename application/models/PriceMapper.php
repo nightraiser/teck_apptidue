@@ -162,7 +162,7 @@ class Application_Model_PriceMapper
 							->where('status = ?',true);
 			$records = $this->getDbTable()->fetchAll($select);
 			$cuisinedata= array();
-			$cuisinedata [0] =  array('value'=>'Price Range','key'=>'');		
+			$cuisinedata [0] =  array('value'=>'Select Price','key'=>'');		
 			foreach($records as $record)
 			{
 				$cuisinedata[] = array('key'=>$record['description'],'value'=>$record['description']);	
